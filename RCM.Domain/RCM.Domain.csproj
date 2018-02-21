@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Commands\FornecedorCommands\" />
+    <Folder Include="Commands\ClienteCommands\" />
+    <Folder Include="Commands\NotaFiscalCommands\" />
+    <Folder Include="DomainNotifications\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RCM.Domain.Core\RCM.Domain.Core.csproj" />
+  </ItemGroup>
+
+</Project>
