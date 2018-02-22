@@ -7,7 +7,6 @@
   <ItemGroup>
     <Folder Include="Commands\FornecedorCommands\" />
     <Folder Include="Commands\ClienteCommands\" />
-    <Folder Include="Commands\NotaFiscalCommands\" />
     <Folder Include="DomainNotifications\" />
   </ItemGroup>
 

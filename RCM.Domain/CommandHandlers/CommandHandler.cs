@@ -23,16 +23,9 @@ namespace RCM.Domain.CommandHandlers
             _domainNotificationHandler = domainNotificationHandler;
         }
 
-        protected CommandHandler(IMediatorHandler mediator, IDuplicataRepository duplicataRepository, IUnitOfWork unitOfWork)
-        {
-            this.mediator = mediator;
-            this.duplicataRepository = duplicataRepository;
-            this.unitOfWork = unitOfWork;
-        }
-
         protected bool Commit()
         {
-            if (_unitOfWork.Commit())
+            if (_unitOfWork.Commit() && _domainNotificationHandler.IsEmpty())
                 return true;
 
             return false;

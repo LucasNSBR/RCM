@@ -15,22 +15,14 @@ namespace RCM.Application.ApplicationServices
     {
         protected IBaseRepository<TModel> _baseRepository;
         protected IMapper _mapper;
-        protected TModel _model;
         protected IMediatorHandler _mediator;
-        private IChequeRepository chequeRepository;
-        private IMapper mapper;
+
 
         public BaseApplicationService(IBaseRepository<TModel> baseRepository, IMapper mapper, IMediatorHandler mediator)
         {
             _baseRepository = baseRepository;
             _mapper = mapper;
             _mediator = mediator;
-        }
-
-        public BaseApplicationService(IChequeRepository chequeRepository, IMapper mapper)
-        {
-            this.chequeRepository = chequeRepository;
-            this.mapper = mapper;
         }
 
         public IEnumerable<TViewModel> Get()
@@ -45,7 +37,7 @@ namespace RCM.Application.ApplicationServices
 
         public TViewModel GetById(int id)
         {
-            var model = _mapper.Map<TViewModel>(_baseRepository.GetById(id));
+            var model = ProjectToViewModel(_baseRepository.GetById(id));
             return model;
         }
 
@@ -59,6 +51,16 @@ namespace RCM.Application.ApplicationServices
 
         public virtual void Update(TViewModel viewModel)
         {
+        }
+
+        protected TModel ProjectToModel(TViewModel viewModel)
+        {
+            return _mapper.Map<TModel>(viewModel);
+        }
+
+        protected TViewModel ProjectToViewModel(TModel model)
+        {
+            return _mapper.Map<TViewModel>(model);
         }
     }
 }

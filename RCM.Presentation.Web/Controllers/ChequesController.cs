@@ -1,26 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using RCM.Application.ApplicationInterfaces;
 using RCM.Application.ViewModels;
+using RCM.Domain.DomainNotificationHandlers;
 
 namespace RCM.Presentation.Web.Controllers
 {
     [Produces("application/json")]
     [Route("api/Cheques")]
-    public class ChequesController : Controller
+    public class ChequesController : ApiController
     {
         private readonly IChequeApplicationService _chequeApplicationService;
 
-        public ChequesController(IChequeApplicationService chequeApplicationService)
+        public ChequesController(IChequeApplicationService chequeApplicationService, IDomainNotificationHandler domainNotificationHandler) : base(domainNotificationHandler)
         {
             _chequeApplicationService = chequeApplicationService;
         }
 
         [HttpGet]
-        public IEnumerable<ChequeViewModel> Get()
+        public IActionResult Get()
         {
-            return _chequeApplicationService.Get();
+            return Response(_chequeApplicationService.Get());
         }
 
         [HttpGet("{id}")]

@@ -25,7 +25,7 @@ namespace RCM.Domain.DomainNotificationHandlers
 
         public bool IsEmpty()
         {
-            return _notifications.Count > 0;
+            return _notifications.Count == 0;
         }
 
         public void Dispose()

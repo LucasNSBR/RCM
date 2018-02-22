@@ -16,8 +16,17 @@ namespace RCM.Application.ApplicationServices
 
         public override void Add(ChequeViewModel viewModel)
         {
-            var model = _mapper.Map<Cheque>(viewModel);
-            _mediator.SendCommand(new AddChequeCommand(model));
+            _mediator.SendCommand(new AddChequeCommand(ProjectToModel(viewModel)));
+        }
+
+        public override void Update(ChequeViewModel viewModel)
+        {
+            _mediator.SendCommand(new UpdateChequeCommand(ProjectToModel(viewModel)));
+        }
+
+        public override void Remove(ChequeViewModel viewModel)
+        {
+            _mediator.SendCommand(new RemoveChequeCommand(ProjectToModel(viewModel)));
         }
     }
 }

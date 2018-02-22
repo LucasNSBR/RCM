@@ -16,8 +16,8 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
                                         INotificationHandler<UpdateChequeCommand>,
                                         INotificationHandler<RemoveChequeCommand>
     {
-        public ChequeCommandHandler(IMediatorHandler mediator, IChequeRepository baseRepository, IUnitOfWork unitOfWork, IDomainNotificationHandler domainNotificationHandler) : 
-                                                                                                            base(mediator, baseRepository, unitOfWork, domainNotificationHandler)
+        public ChequeCommandHandler(IMediatorHandler mediator, IChequeRepository chequeRepository, IUnitOfWork unitOfWork, IDomainNotificationHandler domainNotificationHandler) : 
+                                                                                                            base(mediator, chequeRepository, unitOfWork, domainNotificationHandler)
         {
         }
 
