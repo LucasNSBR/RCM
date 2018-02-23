@@ -8,6 +8,7 @@
         public string Bairro { get; set; }
         public string Complemento { get; set; }
         public string CEP { get; set;  }
+        public int CidadeId { get; set; }
         public CidadeViewModel Cidade { get; set; }
 
         public override string ToString()

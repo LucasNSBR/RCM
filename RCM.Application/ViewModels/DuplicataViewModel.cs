@@ -10,6 +10,7 @@ namespace RCM.Application.ViewModels
         public DateTime DataEmissao { get; set; }
         public DateTime DataVencimento { get; set; }
         public DateTime? DataPagamento { get; set; }
+        public int FornecedorId { get; set; }
         public FornecedorViewModel Fornecedor { get; set; }
         public decimal Valor { get; set; }
 

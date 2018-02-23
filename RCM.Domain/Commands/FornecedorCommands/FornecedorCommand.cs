@@ -1,4 +1,4 @@
-﻿using RCM.Domain.Core.Command;
+﻿using RCM.Domain.Core.Commands;
 using RCM.Domain.Models;
 
 namespace RCM.Domain.Commands.FornecedorCommands
@@ -7,7 +7,7 @@ namespace RCM.Domain.Commands.FornecedorCommands
     {
         public Fornecedor Fornecedor { get; private set; }
 
-        public FornecedorCommand(Fornecedor fornecedor)
+        public FornecedorCommand(Fornecedor fornecedor) 
         {
             Fornecedor = fornecedor;
         }

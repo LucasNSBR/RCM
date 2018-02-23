@@ -1,4 +1,5 @@
 ﻿using RCM.Domain.Models;
+using RCM.Domain.Validations.ChequeCommandValidators;
 
 namespace RCM.Domain.Commands.ChequeCommands
 {
@@ -6,6 +7,12 @@ namespace RCM.Domain.Commands.ChequeCommands
     {
         public RemoveChequeCommand(Cheque cheque) : base(cheque)
         {
+        }
+
+        public override bool IsValid()
+        {
+            ValidationResult = new RemoveChequeCommandValidator().Validate(this);
+            return ValidationResult.IsValid;
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using RCM.Domain.Core.Models;
 using System;
 
-namespace RCM.Domain.Core.Notification
+namespace RCM.Domain.Core.Notifications
 {
     public abstract class DomainNotification : Message
     {

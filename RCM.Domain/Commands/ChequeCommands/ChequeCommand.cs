@@ -1,4 +1,4 @@
-﻿using RCM.Domain.Core.Command;
+﻿using RCM.Domain.Core.Commands;
 using RCM.Domain.Models;
 
 namespace RCM.Domain.Commands.ChequeCommands
@@ -7,7 +7,7 @@ namespace RCM.Domain.Commands.ChequeCommands
     {
         public Cheque Cheque { get; private set; }
 
-        public ChequeCommand(Cheque cheque)
+        public ChequeCommand(Cheque cheque) 
         {
             Cheque = cheque;
         }

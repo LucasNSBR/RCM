@@ -25,8 +25,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RCM.CrossCutting.Mediator",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RCM.Application", "RCM.Application\RCM.Application.csproj", "{58EEF1D3-FA6B-4F25-A6D0-A3C9FABAC3CB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RCM.Mobile", "RCM.Mobile", "{36FB1E6C-8587-4EA9-8967-5F856E6E3EC6}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RCM.Presentation", "RCM.Presentation", "{0B7B5EE8-289F-4454-8C99-83D4B488F2B2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RCM.Presentation.Web", "RCM.Presentation.Web\RCM.Presentation.Web.csproj", "{3B87B7AE-1A9A-40B7-B16D-9C1121480541}"
@@ -34,6 +32,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RCM.Domain.Core", "RCM.Domain.Core\RCM.Domain.Core.csproj", "{143F1DEA-2EF5-4537-ABB5-4DD9959F6449}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RCM.Presentation.UI", "RCM.Presentation.UI", "{F056EBD2-6ED3-41DB-AE41-F19319C16639}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RCM.Mobile", "RCM.Mobile", "{F6C5A482-7904-4EBB-8925-F12CEA1AB294}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

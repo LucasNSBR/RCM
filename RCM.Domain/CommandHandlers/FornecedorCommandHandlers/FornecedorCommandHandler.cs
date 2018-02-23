@@ -23,6 +23,9 @@ namespace RCM.Domain.CommandHandlers.FornecedorCommandHandlers
 
         public Task Handle(AddFornecedorCommand notification, CancellationToken cancellationToken)
         {
+            if (!Valid(notification))
+                return Task.CompletedTask;
+
             _baseRepository.Add(notification.Fornecedor);
       
             if (Commit())
@@ -33,6 +36,9 @@ namespace RCM.Domain.CommandHandlers.FornecedorCommandHandlers
 
         public Task Handle(UpdateFornecedorCommand notification, CancellationToken cancellationToken)
         {
+            if (!Valid(notification))
+                return Task.CompletedTask;
+
             _baseRepository.Add(notification.Fornecedor);
 
             if (Commit())
@@ -43,6 +49,9 @@ namespace RCM.Domain.CommandHandlers.FornecedorCommandHandlers
 
         public Task Handle(RemoveFornecedorCommand notification, CancellationToken cancellationToken)
         {
+            if (!Valid(notification))
+                return Task.CompletedTask;
+
             _baseRepository.Add(notification.Fornecedor);
 
             if (Commit())

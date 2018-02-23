@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using RCM.Domain.Core.Notification;
+using RCM.Domain.Core.Notifications;
 
 namespace RCM.Domain.DomainNotificationHandlers
 {

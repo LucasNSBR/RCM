@@ -1,5 +1,7 @@
-﻿using RCM.Domain.UnitOfWork;
+﻿using RCM.Domain.Core.Commands;
+using RCM.Domain.UnitOfWork;
 using RCM.Infra.Models;
+using System;
 
 namespace RCM.Infra.UnitOfWork
 {
@@ -12,12 +14,21 @@ namespace RCM.Infra.UnitOfWork
             _RCMDbContext = dbContext;
         }
 
-        public bool Commit()
+        public CommandResult Commit()
         {
-            if (_RCMDbContext.SaveChanges() > 0)
-                return true;
+            CommandResult result = new CommandResult();
 
-            return false;
+            try
+            {
+                if (_RCMDbContext.SaveChanges() > 0)
+                    return new CommandResult(true);
+            }
+            catch (Exception e)
+            {
+                result.Errors.Add(e);
+            }
+
+            return result;
         }
     }
 }

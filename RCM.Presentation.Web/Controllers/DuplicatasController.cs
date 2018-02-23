@@ -23,27 +23,30 @@ namespace RCM.Presentation.Web.Controllers
         }
 
         [HttpGet("{id}")]
-        public DuplicataViewModel Get(int id)
+        public IActionResult Get(int id)
         {
-            return _duplicataApplicationService.GetById(id);
+            return Response(_duplicataApplicationService.GetById(id));
         }
         
         [HttpPost]
-        public void Post(DuplicataViewModel viewModel)
+        public IActionResult Post([FromBody]DuplicataViewModel viewModel)
         {
             _duplicataApplicationService.Add(viewModel);
+            return Response(viewModel);
         }
         
         [HttpPut("{id}")]
-        public void Put(int id, DuplicataViewModel viewModel)
+        public IActionResult Put(int id, [FromBody]DuplicataViewModel viewModel)
         {
             _duplicataApplicationService.Update(viewModel);
+            return Response(viewModel);
         }
         
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
             _duplicataApplicationService.Remove(new DuplicataViewModel { Id = id });
+            return Response();
         }
     }
 }

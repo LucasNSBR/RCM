@@ -7,5 +7,10 @@ namespace RCM.Domain.Commands.BancoCommands
         public AddBancoCommand(Banco banco) : base(banco)
         {
         }
+
+        public override bool IsValid()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

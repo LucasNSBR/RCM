@@ -24,20 +24,22 @@ namespace RCM.Presentation.Web.Controllers
         }
 
         [HttpGet("{id}")]
-        public ChequeViewModel Get(int id)
+        public IActionResult Get(int id)
         {
             ChequeViewModel model = new ChequeViewModel()
             {
-                Agencia = "422",
-                Conta = "256-9", 
-                DataEmissao = DateTime.Now,
-                DataVencimento = DateTime.Now,
+                BancoId = 1,
+                Agencia = "4202",
+                Conta = "256-9",
+                ClienteId = 1,
+                DataEmissao = DateTime.Now.AddDays(-1),
+                DataVencimento = DateTime.Now.AddDays(1),
                 NumeroCheque = "4515153",
                 Valor = 122.51m,
             };
             _chequeApplicationService.Add(model);
 
-            return _chequeApplicationService.GetById(id);
+            return Response(_chequeApplicationService.GetById(id));
         }
         
         [HttpPost]

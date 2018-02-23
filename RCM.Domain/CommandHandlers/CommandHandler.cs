@@ -1,5 +1,7 @@
-﻿using RCM.Domain.Core.MediatorServices;
+﻿using RCM.Domain.Core.Commands;
+using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.DomainNotificationHandlers;
+using RCM.Domain.DomainNotifications;
 using RCM.Domain.Repositories;
 using RCM.Domain.UnitOfWork;
 
@@ -11,9 +13,6 @@ namespace RCM.Domain.CommandHandlers
         protected readonly IBaseRepository<TModel> _baseRepository;
         protected readonly IUnitOfWork _unitOfWork;
         protected readonly IDomainNotificationHandler _domainNotificationHandler;
-        private IMediatorHandler mediator;
-        private IDuplicataRepository duplicataRepository;
-        private IUnitOfWork unitOfWork;
 
         public CommandHandler(IMediatorHandler mediator, IBaseRepository<TModel> baseRepository, IUnitOfWork unitOfWork, IDomainNotificationHandler domainNotificationHandler)
         {
@@ -25,14 +24,40 @@ namespace RCM.Domain.CommandHandlers
 
         protected bool Commit()
         {
-            if (_unitOfWork.Commit() && _domainNotificationHandler.IsEmpty())
+            var commandResult = _unitOfWork.Commit();
+
+            if (commandResult.Success)
                 return true;
+            else
+                foreach (var error in commandResult.Errors)
+                {
+                    _domainNotificationHandler.AddNotification(new CommitErrorDomainNotification(error.Message));
+                }
 
             return false;
         }
 
-        protected void NotifyPropertyErrors()
+        protected void NotifyPropertyErrors(Command notification)
         {
+            foreach (var error in notification.ValidationResult.Errors)
+            {
+                _domainNotificationHandler.AddNotification(new PropertyErrorDomainNotification("Property Error", error.ErrorMessage));
+            }
+        }
+
+        protected bool Valid(Command command)
+        {
+            if (!command.IsValid())
+            {
+                foreach (var error in command.ValidationResult.Errors)
+                {
+                    _domainNotificationHandler.AddNotification(new PropertyErrorDomainNotification("Property Error", error.ErrorMessage));
+                }
+
+                return true;
+            }
+
+            return false;
         }
     }
 }

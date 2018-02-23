@@ -1,4 +1,6 @@
-﻿using RCM.Domain.Models;
+﻿using FluentValidation.Results;
+using RCM.Domain.Models;
+using RCM.Domain.Validations.BancoCommandValidators;
 
 namespace RCM.Domain.Commands.BancoCommands
 {
@@ -6,6 +8,12 @@ namespace RCM.Domain.Commands.BancoCommands
     {
         public UpdateBancoCommand(Banco banco) : base(banco)
         {
+        }
+
+        public override bool IsValid()
+        {
+            ValidationResult = new UpdateBancoCommandValidator().Validate(this);
+            return ValidationResult.IsValid;
         }
     }
 }

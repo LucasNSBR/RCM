@@ -10,6 +10,7 @@ namespace RCM.Domain.Models
         public DateTime DataEmissao { get; set; }
         public DateTime DataVencimento { get; set; }
         public DateTime? DataPagamento { get; set; }
+        public int FornecedorId { get; set; }
         public virtual Fornecedor Fornecedor { get; set; }
         public decimal Valor { get; set; }
 

@@ -1,4 +1,5 @@
 ﻿using RCM.Domain.Models;
+using RCM.Domain.Validations.ClienteCommandValidators;
 
 namespace RCM.Domain.Commands.ClienteCommands
 {
@@ -6,6 +7,12 @@ namespace RCM.Domain.Commands.ClienteCommands
     {
         public RemoveClienteCommand(Cliente cliente) : base(cliente)
         {
+        }
+
+        public override bool IsValid()
+        {
+            ValidationResult = new RemoveClienteCommandValidator().Validate(this);
+            return ValidationResult.IsValid;
         }
     }
 }

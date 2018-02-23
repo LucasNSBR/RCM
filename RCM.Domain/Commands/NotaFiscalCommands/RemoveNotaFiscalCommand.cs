@@ -1,4 +1,5 @@
 ﻿using RCM.Domain.Models;
+using RCM.Domain.Validations.NotaFiscalCommandValidators;
 
 namespace RCM.Domain.Commands.NotaFiscalCommands
 {
@@ -6,6 +7,12 @@ namespace RCM.Domain.Commands.NotaFiscalCommands
     {
         public RemoveNotaFiscalCommand(NotaFiscal notaFiscal) : base(notaFiscal)
         {
+        }
+
+        public override bool IsValid()
+        {
+            ValidationResult = new RemoveNotaFiscalCommandValidator().Validate(this);
+            return ValidationResult.IsValid;
         }
     }
 }

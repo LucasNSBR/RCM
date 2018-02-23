@@ -1,4 +1,4 @@
-﻿using RCM.Domain.Core.Command;
+﻿using RCM.Domain.Core.Commands;
 using RCM.Domain.Models;
 
 namespace RCM.Domain.Commands.ClienteCommands
@@ -7,7 +7,7 @@ namespace RCM.Domain.Commands.ClienteCommands
     {
         public Cliente Cliente { get; private set; }
 
-        public ClienteCommand(Cliente cliente)
+        public ClienteCommand(Cliente cliente) 
         {
             Cliente = cliente;
         }

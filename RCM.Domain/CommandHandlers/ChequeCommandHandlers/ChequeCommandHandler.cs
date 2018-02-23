@@ -23,7 +23,11 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
 
         public Task Handle(AddChequeCommand notification, CancellationToken cancellationToken)
         {
+            if (!Valid(notification))
+                return Task.CompletedTask;
+
             _baseRepository.Add(notification.Cheque);
+
             if (Commit())
                 _mediator.Publish(new AddedChequeEvent());
 
@@ -32,7 +36,11 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
 
         public Task Handle(UpdateChequeCommand notification, CancellationToken cancellationToken)
         {
+            if (!Valid(notification))
+                return Task.CompletedTask;
+
             _baseRepository.Add(notification.Cheque);
+
             if (Commit())
                 _mediator.Publish(new UpdatedChequeEvent());
 
@@ -41,6 +49,9 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
 
         public Task Handle(RemoveChequeCommand notification, CancellationToken cancellationToken)
         {
+            if (!Valid(notification))
+                return Task.CompletedTask;
+
             _baseRepository.Add(notification.Cheque);
             if (Commit())
                 _mediator.Publish(new RemovedChequeEvent());

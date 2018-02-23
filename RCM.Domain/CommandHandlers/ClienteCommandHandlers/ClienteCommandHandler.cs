@@ -23,6 +23,9 @@ namespace RCM.Domain.CommandHandlers.ClienteCommandHandlers
 
         public Task Handle(AddClienteCommand notification, CancellationToken cancellationToken)
         {
+            if (!Valid(notification))
+                return Task.CompletedTask;
+
             _baseRepository.Add(notification.Cliente);
 
             if (Commit())
@@ -33,6 +36,9 @@ namespace RCM.Domain.CommandHandlers.ClienteCommandHandlers
 
         public Task Handle(UpdateClienteCommand notification, CancellationToken cancellationToken)
         {
+            if (!Valid(notification))
+                return Task.CompletedTask;
+
             _baseRepository.Update(notification.Cliente);
 
             if (Commit())
@@ -43,6 +49,9 @@ namespace RCM.Domain.CommandHandlers.ClienteCommandHandlers
 
         public Task Handle(RemoveClienteCommand notification, CancellationToken cancellationToken)
         {
+            if (!Valid(notification))
+                return Task.CompletedTask;
+
             _baseRepository.Remove(notification.Cliente);
 
             if (Commit())

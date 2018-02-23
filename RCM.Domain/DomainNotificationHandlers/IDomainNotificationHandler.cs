@@ -1,4 +1,4 @@
-﻿using RCM.Domain.Core.Notification;
+﻿using RCM.Domain.Core.Notifications;
 using System.Collections.Generic;
 
 namespace RCM.Domain.DomainNotificationHandlers

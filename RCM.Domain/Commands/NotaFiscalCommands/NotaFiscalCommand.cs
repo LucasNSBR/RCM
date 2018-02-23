@@ -1,13 +1,13 @@
-﻿using RCM.Domain.Core.Command;
+﻿using RCM.Domain.Core.Commands;
 using RCM.Domain.Models;
 
 namespace RCM.Domain.Commands.NotaFiscalCommands
 {
-    public class NotaFiscalCommand : Command
+    public abstract class NotaFiscalCommand : Command
     {
         public NotaFiscal NotaFiscal { get; private set; }
 
-        public NotaFiscalCommand(NotaFiscal notaFiscal)
+        public NotaFiscalCommand(NotaFiscal notaFiscal) 
         {
             NotaFiscal = notaFiscal;
         }

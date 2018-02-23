@@ -1,7 +1,9 @@
-﻿namespace RCM.Domain.UnitOfWork
+﻿using RCM.Domain.Core.Commands;
+
+namespace RCM.Domain.UnitOfWork
 {
     public interface IUnitOfWork
     {
-        bool Commit();
+        CommandResult Commit();
     }
 }

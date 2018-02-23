@@ -1,4 +1,4 @@
-﻿using RCM.Domain.Core.Event;
+﻿using RCM.Domain.Core.Events;
 
 namespace RCM.Domain.Events.BancoEvents
 {
