@@ -1,46 +1,66 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using RCM.Application.ApplicationInterfaces;
+using RCM.Application.ViewModels;
+using RCM.Domain.DomainNotificationHandlers;
 
 namespace RCM.Presentation.Web.Controllers
 {
     [Produces("application/json")]
     [Route("api/NotasFiscais")]
-    public class NotasFiscaisController : Controller
+    public class NotasFiscaisController : ApiController
     {
-        // GET: api/NotasFiscais
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly INotaFiscalApplicationService _notaFiscalApplicationService;
+
+        public NotasFiscaisController(INotaFiscalApplicationService notaFiscalApplicationService, IDomainNotificationHandler domainNotificationHandler) : base(domainNotificationHandler)
         {
-            return new string[] { "value1", "value2" };
+            _notaFiscalApplicationService = notaFiscalApplicationService;
         }
 
-        // GET: api/NotasFiscais/5
+        [HttpGet]
+        public IActionResult Get()
+        {
+            return Response(_notaFiscalApplicationService.Get());
+        }
+
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+            var model = _notaFiscalApplicationService.GetById(id);
+            if (model == null)
+                return NotFound();
+
+            return Response(model);
         }
         
-        // POST: api/NotasFiscais
         [HttpPost]
-        public void Post([FromBody]string value)
+        public IActionResult Post([FromBody]NotaFiscalViewModel viewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return Response();
+            }
+
+            _notaFiscalApplicationService.Add(viewModel);
+            return Response(viewModel);
         }
         
-        // PUT: api/NotasFiscais/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public IActionResult Put(int id, [FromBody]NotaFiscalViewModel viewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return Response();
+            }
+
+            _notaFiscalApplicationService.Update(viewModel);
+            return Response(viewModel);
         }
         
-        // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            _notaFiscalApplicationService.Remove(new NotaFiscalViewModel { Id = id });
+            return Response();
         }
     }
 }

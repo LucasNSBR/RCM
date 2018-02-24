@@ -1,5 +1,5 @@
 ﻿using RCM.Domain.Models;
-using RCM.Domain.Validations.NotaFiscalCommandValidators;
+using RCM.Domain.Validators.NotaFiscalCommandValidators;
 
 namespace RCM.Domain.Commands.NotaFiscalCommands
 {

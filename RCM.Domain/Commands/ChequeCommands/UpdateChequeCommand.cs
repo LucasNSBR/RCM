@@ -1,6 +1,6 @@
 ﻿using FluentValidation.Results;
 using RCM.Domain.Models;
-using RCM.Domain.Validations.ChequeCommandValidators;
+using RCM.Domain.Validators.ChequeCommandValidators;
 
 namespace RCM.Domain.Commands.ChequeCommands
 {

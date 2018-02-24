@@ -1,4 +1,5 @@
 ﻿using RCM.Domain.Models;
+using RCM.Domain.Validators.BancoCommandValidators;
 
 namespace RCM.Domain.Commands.BancoCommands
 {
@@ -10,7 +11,8 @@ namespace RCM.Domain.Commands.BancoCommands
 
         public override bool IsValid()
         {
-            throw new System.NotImplementedException();
+            ValidationResult = new RemoveBancoCommandValidator().Validate(this);
+            return ValidationResult.IsValid;
         }
     }
 }

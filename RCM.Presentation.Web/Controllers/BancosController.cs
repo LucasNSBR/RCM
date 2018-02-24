@@ -1,38 +1,66 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using RCM.Application.ApplicationInterfaces;
 using RCM.Application.ViewModels;
+using RCM.Domain.DomainNotificationHandlers;
 
 namespace RCM.Presentation.Web.Controllers
 {
     [Produces("application/json")]
     [Route("api/Bancos")]
-    public class BancosController : Controller
+    public class BancosController : ApiController
     {
+        private readonly IBancoApplicationService _bancoApplicationService;
+
+        public BancosController(IBancoApplicationService bancoApplicationService, IDomainNotificationHandler domainNotificationHandler) : base(domainNotificationHandler)
+        {
+            _bancoApplicationService = bancoApplicationService;
+        }
+
         [HttpGet]
-        public IEnumerable<BancoViewModel> Get()
+        public IActionResult Get()
         {
-            return null;
+            return Response(_bancoApplicationService.Get());
         }
         
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
         {
-            return "value";
+            var model = _bancoApplicationService.GetById(id);
+            if (model == null)
+                return NotFound();
+
+            return Response(model);
         }
-        
+
         [HttpPost]
-        public void Post([FromBody]string value)
+        public IActionResult Post([FromBody]BancoViewModel banco)
         {
+            if (!ModelState.IsValid)
+            {
+                return Response();
+            }
+
+            _bancoApplicationService.Add(banco);
+            return Response(banco);
         }
         
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public IActionResult Put(int id, [FromBody]BancoViewModel banco)
         {
+            if (!ModelState.IsValid)
+            {
+                return Response();
+            }
+
+            _bancoApplicationService.Update(banco);
+            return Response();
         }
         
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            _bancoApplicationService.Remove(new BancoViewModel() { Id = id });
+            return Response();
         }
     }
 }

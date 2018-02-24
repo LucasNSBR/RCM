@@ -5,8 +5,10 @@ using RCM.Application.ApplicationInterfaces;
 using RCM.Application.ApplicationServices;
 using RCM.Application.Mappers;
 using RCM.CrossCutting.MediatorServices;
+using RCM.Domain.CommandHandlers.BancoCommandHandlers;
 using RCM.Domain.CommandHandlers.ChequeCommandHandlers;
 using RCM.Domain.CommandHandlers.DuplicataCommandHandlers;
+using RCM.Domain.Commands.BancoCommands;
 using RCM.Domain.Commands.ChequeCommands;
 using RCM.Domain.Commands.DuplicataCommands;
 using RCM.Domain.Core.MediatorServices;
@@ -38,6 +40,7 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<IClienteApplicationService, ClienteApplicationService>();
             services.AddScoped<IDuplicataApplicationService, DuplicataApplicationService>();
             services.AddScoped<IChequeApplicationService, ChequeApplicationService>();
+            services.AddScoped<IBancoApplicationService, BancoApplicationService>();
         }
 
         private static void RegisterRepositories(IServiceCollection services)
@@ -46,6 +49,7 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<IDuplicataRepository, DuplicataRepository>();
             services.AddScoped<IChequeRepository, ChequeRepository>();
+            services.AddScoped<IBancoRepository, BancoRepository>();
         }
 
         private static void RegisterMiscellaneous(IServiceCollection services)
@@ -59,7 +63,6 @@ namespace RCM.CrossCutting.IoC
 
         private static void RegisterMediatrCommands(IServiceCollection services)
         {
-
             services.AddScoped<INotificationHandler<AddDuplicataCommand>, DuplicataCommandHandler>();
             services.AddScoped<INotificationHandler<UpdateDuplicataCommand>, DuplicataCommandHandler>();
             services.AddScoped<INotificationHandler<RemoveDuplicataCommand>, DuplicataCommandHandler>();
@@ -67,6 +70,10 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<INotificationHandler<AddChequeCommand>, ChequeCommandHandler>();
             services.AddScoped<INotificationHandler<UpdateChequeCommand>, ChequeCommandHandler>();
             services.AddScoped<INotificationHandler<RemoveChequeCommand>, ChequeCommandHandler>();
+
+            services.AddScoped<INotificationHandler<AddBancoCommand>, BancoCommandHandler>();
+            services.AddScoped<INotificationHandler<UpdateBancoCommand>, BancoCommandHandler>();
+            services.AddScoped<INotificationHandler<RemoveBancoCommand>, BancoCommandHandler>();
         }
 
         private static void RegisterMediatrEvents(IServiceCollection services)

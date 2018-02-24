@@ -1,5 +1,5 @@
 ﻿using RCM.Domain.Models;
-using RCM.Domain.Validations.FornecedorCommandValidators;
+using RCM.Domain.Validators.FornecedorCommandValidators;
 
 namespace RCM.Domain.Commands.FornecedorCommands
 {

@@ -54,10 +54,10 @@ namespace RCM.Domain.CommandHandlers
                     _domainNotificationHandler.AddNotification(new PropertyErrorDomainNotification("Property Error", error.ErrorMessage));
                 }
 
-                return true;
+                return false;
             }
 
-            return false;
+            return true;
         }
     }
 }

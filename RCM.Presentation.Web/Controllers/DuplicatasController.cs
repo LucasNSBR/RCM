@@ -25,12 +25,21 @@ namespace RCM.Presentation.Web.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            return Response(_duplicataApplicationService.GetById(id));
+            var model = _duplicataApplicationService.GetById(id);
+            if (model == null)
+                return NotFound();
+
+            return Response(model);
         }
         
         [HttpPost]
         public IActionResult Post([FromBody]DuplicataViewModel viewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return Response();
+            }
+
             _duplicataApplicationService.Add(viewModel);
             return Response(viewModel);
         }
@@ -38,6 +47,11 @@ namespace RCM.Presentation.Web.Controllers
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody]DuplicataViewModel viewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return Response();
+            }
+
             _duplicataApplicationService.Update(viewModel);
             return Response(viewModel);
         }

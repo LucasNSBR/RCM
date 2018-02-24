@@ -1,5 +1,5 @@
 ﻿using RCM.Domain.Models;
-using RCM.Domain.Validations.DuplicataCommandValidations;
+using RCM.Domain.Validators.DuplicataCommandValidations;
 
 namespace RCM.Domain.Commands.DuplicataCommands
 {

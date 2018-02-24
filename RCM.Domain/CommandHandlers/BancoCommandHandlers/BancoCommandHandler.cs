@@ -39,7 +39,7 @@ namespace RCM.Domain.CommandHandlers.BancoCommandHandlers
             if (!Valid(notification))
                 return Task.CompletedTask;
 
-            _baseRepository.Add(notification.Banco);
+            _baseRepository.Update(notification.Banco);
 
             if (Commit())
                 _mediator.Publish(new UpdatedBancoEvent());
@@ -52,7 +52,7 @@ namespace RCM.Domain.CommandHandlers.BancoCommandHandlers
             if (!Valid(notification))
                 return Task.CompletedTask;
 
-            _baseRepository.Add(notification.Banco);
+            _baseRepository.Remove(notification.Banco);
 
             if (Commit())
                 _mediator.Publish(new RemovedBancoEvent());

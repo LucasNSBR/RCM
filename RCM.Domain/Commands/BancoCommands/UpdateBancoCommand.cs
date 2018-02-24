@@ -1,6 +1,6 @@
 ﻿using FluentValidation.Results;
 using RCM.Domain.Models;
-using RCM.Domain.Validations.BancoCommandValidators;
+using RCM.Domain.Validators.BancoCommandValidators;
 
 namespace RCM.Domain.Commands.BancoCommands
 {

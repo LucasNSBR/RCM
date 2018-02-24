@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using RCM.Application.ApplicationInterfaces;
 using RCM.Application.ViewModels;
 using RCM.Domain.DomainNotificationHandlers;
@@ -26,38 +25,41 @@ namespace RCM.Presentation.Web.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            ChequeViewModel model = new ChequeViewModel()
-            {
-                BancoId = 1,
-                Agencia = "4202",
-                Conta = "256-9",
-                ClienteId = 1,
-                DataEmissao = DateTime.Now.AddDays(-1),
-                DataVencimento = DateTime.Now.AddDays(1),
-                NumeroCheque = "4515153",
-                Valor = 122.51m,
-            };
-            _chequeApplicationService.Add(model);
+            var model = _chequeApplicationService.GetById(id);
+            if (model == null)
+                return NotFound();
 
-            return Response(_chequeApplicationService.GetById(id));
+            return Response(model);
         }
         
         [HttpPost]
-        public void Post(ChequeViewModel model)
+        public IActionResult Post([FromBody]ChequeViewModel model)
         {
-            _chequeApplicationService.Add(model);
+            if (!ModelState.IsValid)
+            {
+                return Response();
+            }
+
+            return Response(model);
         }
         
         [HttpPut("{id}")]
-        public void Put(int id, ChequeViewModel model)
+        public IActionResult Put(int id, [FromBody]ChequeViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return Response();
+            }
+
             _chequeApplicationService.Update(model);
+            return Response(model);
         }
         
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
             _chequeApplicationService.Remove(new ChequeViewModel { Id = id });
+            return Response();
         }
     }
 }

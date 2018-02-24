@@ -1,5 +1,5 @@
 ﻿using RCM.Domain.Models;
-using RCM.Domain.Validations.ClienteCommandValidators;
+using RCM.Domain.Validators.ClienteCommandValidators;
 
 namespace RCM.Domain.Commands.ClienteCommands
 {

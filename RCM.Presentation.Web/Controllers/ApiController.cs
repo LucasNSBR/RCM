@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RCM.Domain.DomainNotificationHandlers;
+using RCM.Domain.DomainNotifications;
+using System;
 using System.Linq;
 
 namespace RCM.Presentation.Web.Controllers
@@ -15,25 +17,29 @@ namespace RCM.Presentation.Web.Controllers
 
         protected new IActionResult Response(object result = null)
         {
-            NotifyPropertyErrors();
+            NotifyModelStateErrors();
 
-            if (!ModelState.IsValid || !_domainNotificationHandler.IsEmpty())
+            if (!_domainNotificationHandler.IsEmpty())
                 return BadRequest(new
                 {
-                    data = ModelState.Values
-                    .SelectMany(e => e.Errors)
-                    .Select(e => e.ErrorMessage)
+                    errors = _domainNotificationHandler.GetNotifications()
+                    .ToList().Select(e => e.Body)
                 });
 
-            return Ok(new { data = result });
+            return Ok(result);
         }
 
-        protected void NotifyPropertyErrors()
+        protected void AddModelErrorNotification(string value = null, string key = null, Exception exception = null)
         {
-            if (!_domainNotificationHandler.IsEmpty())
-                _domainNotificationHandler.GetNotifications()
-                    .ToList()
-                    .ForEach(n => ModelState.AddModelError(n.Title, n.Body));
+            _domainNotificationHandler.AddNotification(new PropertyErrorDomainNotification(key, value));
+        }
+
+        protected void NotifyModelStateErrors()
+        {
+            foreach (var error in ModelState.Values.SelectMany(e => e.Errors))
+            {
+                AddModelErrorNotification("error", error.ErrorMessage);
+            }
         }
     }
 }

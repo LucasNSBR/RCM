@@ -22,4 +22,8 @@
     <ProjectReference Include="..\RCM.Infra\RCM.Infra.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Filters\" />
+  </ItemGroup>
+
 </Project>
