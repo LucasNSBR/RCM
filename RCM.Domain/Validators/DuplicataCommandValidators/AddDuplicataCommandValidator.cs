@@ -6,6 +6,10 @@ namespace RCM.Domain.Validators.DuplicataCommandValidations
     {
         public AddDuplicataCommandValidator() 
         {
+            ValidateNumeroDocumento();
+            ValidateDataEmissao();
+            ValidateDataVencimento();
+            ValidateValor();
         }
     }
 }

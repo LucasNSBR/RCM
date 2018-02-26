@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using RCM.Domain.Commands.ChequeCommands;
+﻿using RCM.Domain.Commands.ChequeCommands;
 
 namespace RCM.Domain.Validators.ChequeCommandValidators
 {
@@ -7,9 +6,15 @@ namespace RCM.Domain.Validators.ChequeCommandValidators
     {
         public UpdateChequeCommandValidator()
         {
-            RuleFor(c => c.Cheque.Id)
-                .NotEmpty()
-                .WithMessage("O Id do cheque não deve estar em branco.");
+            ValidateId();
+            ValidateBancoId();
+            ValidateAgencia();
+            ValidateConta();
+            ValidateClienteId();
+            ValidateNumeroCheque();
+            ValidateDataEmissao();
+            ValidateDataVencimento();
+            ValidateValor();
         }
     }
 }

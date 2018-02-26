@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using RCM.Domain.Commands.NotaFiscalCommands;
+﻿using RCM.Domain.Commands.NotaFiscalCommands;
 
 namespace RCM.Domain.Validators.NotaFiscalCommandValidators
 {
@@ -7,9 +6,11 @@ namespace RCM.Domain.Validators.NotaFiscalCommandValidators
     {
         public UpdateNotaFiscalCommandValidator()
         {
-            RuleFor(n => n.NotaFiscal.Id)
-                .NotEmpty()
-                .WithMessage("O Id da nota fiscal não deve estar em branco.");
+            ValidateId();
+            ValidateNumeroDocumento();
+            ValidateDataEmissao();
+            ValidateDataChegada();
+            ValidateValor();
         }
     }
 }

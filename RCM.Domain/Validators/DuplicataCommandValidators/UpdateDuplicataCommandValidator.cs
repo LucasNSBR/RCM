@@ -1,15 +1,16 @@
-﻿using FluentValidation;
-using RCM.Domain.Commands.DuplicataCommands;
+﻿using RCM.Domain.Commands.DuplicataCommands;
 
 namespace RCM.Domain.Validators.DuplicataCommandValidations
 {
     public class UpdateDuplicataCommandValidator : DuplicataCommandValidator<UpdateDuplicataCommand>
     {
-        public UpdateDuplicataCommandValidator() 
+        public UpdateDuplicataCommandValidator()
         {
-            RuleFor(c => c.Duplicata.Id)
-                .NotEmpty()
-                .WithMessage("O Id da duplicata não deve estar em branco.");
+            ValidateId();
+            ValidateNumeroDocumento();
+            ValidateDataEmissao();
+            ValidateDataVencimento();
+            ValidateValor();
         }
     }
 }

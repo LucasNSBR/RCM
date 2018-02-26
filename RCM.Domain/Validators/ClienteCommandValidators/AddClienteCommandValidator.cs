@@ -4,5 +4,10 @@ namespace RCM.Domain.Validators.ClienteCommandValidators
 {
     public class AddClienteCommandValidator : ClienteCommandValidator<AddClienteCommand>
     {
+        public AddClienteCommandValidator()
+        {
+            ValidateNome();
+            ValidateDescricao();
+        }
     }
 }

@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using RCM.Domain.Commands.DuplicataCommands;
+﻿using RCM.Domain.Commands.DuplicataCommands;
 
 namespace RCM.Domain.Validators.DuplicataCommandValidations
 {
@@ -7,9 +6,7 @@ namespace RCM.Domain.Validators.DuplicataCommandValidations
     {
         public RemoveDuplicataCommandValidator() 
         {
-            RuleFor(c => c.Duplicata.Id)
-                .NotEmpty()
-                .WithMessage("O Id da duplicata não deve estar em branco.");
+            ValidateId();
         }
     }
 }

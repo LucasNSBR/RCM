@@ -7,11 +7,22 @@ namespace RCM.Domain.Validators.FornecedorCommandValidators
     {
         public FornecedorCommandValidator()
         {
-            RuleFor(f => f.Fornecedor.Nome)
+        }
+
+        protected void ValidateId()
+        {
+            RuleFor(f => f.Fornecedor.Id)
                 .NotEmpty()
-                .MinimumLength(10)
-                .MaximumLength(100)
-                .WithMessage("O nome do fornecedor deve ter entre 10 e 100 caracteres e não pode estar em branco.");
+                .WithMessage("O Id do fornecedor não deve estar em branco.");
+        }
+
+        protected void ValidateNome()
+        {
+            RuleFor(f => f.Fornecedor.Nome)
+               .NotEmpty()
+               .MinimumLength(10)
+               .MaximumLength(100)
+               .WithMessage("O nome do fornecedor deve ter entre 10 e 100 caracteres e não pode estar em branco.");
         }
     }
 }

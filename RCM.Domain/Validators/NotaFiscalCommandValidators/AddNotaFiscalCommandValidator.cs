@@ -6,6 +6,10 @@ namespace RCM.Domain.Validators.NotaFiscalCommandValidators
     {
         public AddNotaFiscalCommandValidator()
         {
+            ValidateNumeroDocumento();
+            ValidateDataEmissao();
+            ValidateDataChegada();
+            ValidateValor();
         }
     }
 }
