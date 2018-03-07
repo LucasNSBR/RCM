@@ -6,11 +6,11 @@ using System.Linq;
 
 namespace RCM.Presentation.Web.Controllers
 {
-    public abstract class ApiController : Controller
+    public abstract class BaseController : Controller
     {
         protected readonly IDomainNotificationHandler _domainNotificationHandler;
 
-        public ApiController(IDomainNotificationHandler domainNotificationHandler)
+        public BaseController(IDomainNotificationHandler domainNotificationHandler)
         {
             _domainNotificationHandler = domainNotificationHandler;
         }
@@ -29,9 +29,14 @@ namespace RCM.Presentation.Web.Controllers
             return Ok(result);
         }
 
+        protected bool Success()
+        {
+            return _domainNotificationHandler.IsEmpty();
+        }
+
         protected void AddModelErrorNotification(string value = null, string key = null, Exception exception = null)
         {
-            _domainNotificationHandler.AddNotification(new PropertyErrorDomainNotification(key, value));
+            _domainNotificationHandler.AddNotification(new ModelStateErrorDomainNotification(key, value));
         }
 
         protected void NotifyModelStateErrors()

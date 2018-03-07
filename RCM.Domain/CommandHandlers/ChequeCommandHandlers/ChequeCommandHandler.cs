@@ -39,7 +39,7 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
             if (!Valid(notification))
                 return Task.CompletedTask;
 
-            _baseRepository.Add(notification.Cheque);
+            _baseRepository.Update(notification.Cheque);
 
             if (Commit())
                 _mediator.Publish(new UpdatedChequeEvent());
@@ -52,7 +52,8 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
             if (!Valid(notification))
                 return Task.CompletedTask;
 
-            _baseRepository.Add(notification.Cheque);
+            _baseRepository.Remove(notification.Cheque);
+
             if (Commit())
                 _mediator.Publish(new RemovedChequeEvent());
 

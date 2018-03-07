@@ -9,5 +9,11 @@ namespace RCM.Domain.Models
 
         public virtual ICollection<Duplicata> Duplicatas { get; set; }
         public virtual ICollection<NotaFiscal> NotasFiscais { get; set; }
+
+        public Fornecedor()
+        {
+            Duplicatas = new List<Duplicata>();
+            NotasFiscais = new List<NotaFiscal>();
+        }
     }
 }

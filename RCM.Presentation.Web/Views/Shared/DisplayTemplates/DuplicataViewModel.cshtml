@@ -1,0 +1,127 @@
+﻿@model RCM.Application.ViewModels.DuplicataViewModel
+
+<div class="row">
+    <div class="col s12">
+        <ul class="tabs tabs-fixed-width">
+            <li class="tab col s3"><a href="#geral" class="active">Geral</a></li>
+            <li class="tab col s3"><a href="#vencimento">Emissão/Vencimento</a></li>
+            <li class="tab col s3"><a href="#notaFiscal">Nota Fiscal</a></li>
+            <li class="tab col s3"><a href="#pagamento">Pagamento</a></li>
+            <li class="tab col s3"><a href="#fornecedor">Fornecedor</a></li>
+        </ul>
+    </div>
+    <div id="geral" class="col s12">
+        <p class="px-1 font-bold lead">
+            Informação Geral
+        </p>
+        <div>
+            <dl class="detail-list">
+                <dt>
+                    <label asp-for="@Model.Id"></label>
+                </dt>
+                <dd>
+                    @Model.Id
+                </dd>
+                <dt>
+                    <label asp-for="@Model.NumeroDocumento"></label>
+                </dt>
+                <dd>
+                    @Model.NumeroDocumento
+                </dd>
+                <dt>
+                    <label asp-for="@Model.Valor"></label>
+                </dt>
+                <dd>
+                    @Model.Valor.ToString("c")
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div id="vencimento" class="col s12">
+        <p class="px-1 font-bold lead">
+            Informações sobre Emissão e Vencimento
+        </p>
+        <dl class="detail-list">
+            <dt>
+                <label asp-for="@Model.DataEmissao"></label>
+            </dt>
+            <dd>
+                @Model.DataEmissao.ToShortDateString() <span class="font-italic small text-muted">(@Model.DataEmissao.ToLongDateString())</span>
+            </dd>
+            <dt>
+                <label asp-for="@Model.DataVencimento"></label>
+            </dt>
+            <dd>
+                @Model.DataVencimento.ToShortDateString() <span class="font-italic small text-muted">(@Model.DataVencimento.ToLongDateString())</span>
+            </dd>
+        </dl>
+    </div>
+    <div id="notaFiscal" class="col s12">
+        <div>
+            <p class="px-1 font-bold lead">
+                Informação sobre Nota Fiscal
+            </p>
+            <dl class="detail-list">
+                <dt>
+                    <label asp-for="@Model.NotaFiscal"></label>
+                </dt>
+                <dd>
+                    @if (Model.NotaFiscal != null)
+                    {
+                    <a asp-action="Details" asp-controller="NotasFiscais" asp-route-id="@Model.NotaFiscalId">
+                        @Model.NotaFiscal.NumeroDocumento
+                    </a>
+                    }
+                    else
+                    {
+                        <span class="font-italic text-warning">
+                            <i class="material-icons left">warning</i>
+                            Nenhuma nota fiscal relacionada.
+                        </span>
+                    }
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    <div id="pagamento" class="col s12">
+        <div>
+            <p class="px-1 font-bold lead">
+                Informação sobre Pagamento
+            </p>
+            <dl class="detail-list">
+                <dt>
+                    <label asp-for="@Model.DataPagamento"></label>
+                </dt>
+                <dd>
+                    @if (Model.DataPagamento != null)
+                    {
+                        @Model.DataPagamento?.ToShortDateString() <span class="font-italic small text-muted">(@Model.DataPagamento?.ToLongDateString())</span>
+                    }
+                    else
+                    {
+                        <span class="font-italic text-warning">
+                            <i class="material-icons left">warning</i>Pagamento ainda não foi efetuado.</span>
+                    }
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div id="fornecedor" class="col s12">
+        <div>
+            <p class="px-1 font-bold lead">
+                Informação sobre Fornecedor
+            </p>
+            <dl class="detail-list">
+                <dt>
+                    <label asp-for="@Model.Fornecedor"></label>
+                </dt>
+                <dd>
+                    <a asp-action="Details" asp-controller="Fornecedores" asp-route-id="@Model.FornecedorId">
+                        @Model.Fornecedor.Nome
+                    </a>
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>

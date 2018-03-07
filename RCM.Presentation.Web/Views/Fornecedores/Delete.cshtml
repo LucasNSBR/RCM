@@ -1,0 +1,21 @@
+﻿@model RCM.Application.ViewModels.FornecedorViewModel
+
+@{
+    ViewData["Title"] = $"Excluir Fornecedor - {Model.Nome}";
+}
+
+<h5>Excluir Fornecedor - @Model.Nome</h5>
+
+<div class="form-container col s12 m12">
+    <form asp-action="Delete">
+        @Html.DisplayForModel()
+
+        <div class="row pt-1 px-2">
+            <post-button icon-name="delete">Excluir</post-button>
+        </div>
+    </form>
+</div>
+
+<div>
+    <a asp-action="Details" asp-route-id="@Model.Id">Voltar para detalhes</a>
+</div>

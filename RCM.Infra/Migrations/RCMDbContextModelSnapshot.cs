@@ -127,9 +127,7 @@ namespace RCM.Infra.Migrations
 
                     b.Property<int>("FornecedorId");
 
-                    b.Property<string>("NotaFiscal");
-
-                    b.Property<int?>("NotaFiscalId");
+                    b.Property<int>("NotaFiscalId");
 
                     b.Property<string>("NumeroDocumento");
 
@@ -254,9 +252,10 @@ namespace RCM.Infra.Migrations
                         .HasForeignKey("FornecedorId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("RCM.Domain.Models.NotaFiscal")
+                    b.HasOne("RCM.Domain.Models.NotaFiscal", "NotaFiscal")
                         .WithMany("Duplicatas")
-                        .HasForeignKey("NotaFiscalId");
+                        .HasForeignKey("NotaFiscalId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("RCM.Domain.Models.Endereco", b =>

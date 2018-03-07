@@ -11,6 +11,7 @@ namespace RCM.Domain.Core.Commands
         public CommandResult(bool success = false)
         {
             Success = success;
+            Errors = new List<Exception>();
         }
     }
 }

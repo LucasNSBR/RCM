@@ -5,9 +5,7 @@ using RCM.Domain.DomainNotificationHandlers;
 
 namespace RCM.Presentation.Web.Controllers
 {
-    [Produces("application/json")]
-    [Route("api/Cheques")]
-    public class ChequesController : ApiController
+    public class ChequesController : BaseController
     {
         private readonly IChequeApplicationService _chequeApplicationService;
 
@@ -16,50 +14,90 @@ namespace RCM.Presentation.Web.Controllers
             _chequeApplicationService = chequeApplicationService;
         }
 
-        [HttpGet]
-        public IActionResult Get()
+        public IActionResult Index()
         {
-            return Response(_chequeApplicationService.Get());
+            var list = _chequeApplicationService.Get();
+            return View(list);
         }
-
-        [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        
+        public IActionResult Details(int id)
         {
             var model = _chequeApplicationService.GetById(id);
             if (model == null)
                 return NotFound();
 
-            return Response(model);
+            return View(model);
+        }
+
+        public IActionResult Create()
+        {
+            return View();
         }
         
         [HttpPost]
-        public IActionResult Post([FromBody]ChequeViewModel model)
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(ChequeViewModel cheque)
         {
             if (!ModelState.IsValid)
             {
-                return Response();
+                NotifyModelStateErrors();
+                return View(cheque);
             }
 
-            return Response(model);
+            _chequeApplicationService.Add(cheque);
+
+            if (Success())
+                return RedirectToAction(nameof(Index));
+            else
+                return View(cheque);
         }
         
-        [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody]ChequeViewModel model)
+        public IActionResult Edit(int id)
+        {
+            var cheque = _chequeApplicationService.GetById(id);
+            if (cheque == null)
+                return NotFound();
+
+            return View(cheque);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, ChequeViewModel cheque)
         {
             if (!ModelState.IsValid)
             {
-                return Response();
+                NotifyModelStateErrors();
+                return View(cheque);
             }
 
-            _chequeApplicationService.Update(model);
-            return Response(model);
+            _chequeApplicationService.Update(cheque);
+
+            if (Success())
+                return RedirectToAction(nameof(Index));
+            else
+                return View(cheque);
         }
-        
-        [HttpDelete("{id}")]
+
         public IActionResult Delete(int id)
         {
-            _chequeApplicationService.Remove(new ChequeViewModel { Id = id });
-            return Response();
+            var cheque = _chequeApplicationService.GetById(id);
+            if (cheque == null)
+                return NotFound();
+
+            return View(cheque);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(int id, ChequeViewModel cheque)
+        {
+            _chequeApplicationService.Remove(cheque);
+
+            if (Success())
+                return RedirectToAction(nameof(Index));
+            else
+                return View(cheque);
         }
     }
 }

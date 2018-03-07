@@ -1,0 +1,72 @@
+﻿@model RCM.Application.ViewModels.ClienteViewModel
+
+<div class="row">
+    <div class="col s12">
+        <ul class="tabs">
+            <li class="tab col s3"><a href="#geral" class="active">Geral</a></li>
+            <li class="tab col s3"><a href="#enderecos">Endereços</a></li>
+            <li class="tab col s3"><a href="#contatos">Contatos</a></li>
+            <li class="tab col s3"><a href="#cheques">Cheques</a></li>
+        </ul>
+    </div>
+    <div id="geral" class="col s12 px-2">
+        <div class="pt-2">
+            <p class="px-1 font-bold lead">
+                Informação Geral
+            </p>
+            <dl class="detail-list">
+                <dt>
+                    <label asp-for="Id">Identificação</label>
+                </dt>
+                <dd>
+                    @Model.Id
+                </dd>
+                <dt>
+                    <label asp-for="Nome">Nome</label>
+                </dt>
+                <dd>
+                    @Model.Nome
+                </dd>
+                <dt>
+                    <label asp-for="Descricao">Descrição</label>
+                </dt>
+                <dd>
+                    @if (!string.IsNullOrWhiteSpace(Model.Descricao))
+                    {
+                        @Model.Descricao
+                    }
+                    else
+                    {
+                        <span class="font-italic text-warning">
+                            <i class="material-icons left">warning</i>
+                            Nenhuma descrição relacionada.
+                        </span>
+                    }
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div id="contatos" class="col s12">
+        <div class="pt-2">
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>
+
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="enderecos" class="col s12">Test 3</div>
+    <div id="cheques" class="col s12">Test 4</div>
+
+</div>

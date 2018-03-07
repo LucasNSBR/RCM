@@ -8,9 +8,13 @@ using RCM.CrossCutting.MediatorServices;
 using RCM.Domain.CommandHandlers.BancoCommandHandlers;
 using RCM.Domain.CommandHandlers.ChequeCommandHandlers;
 using RCM.Domain.CommandHandlers.DuplicataCommandHandlers;
+using RCM.Domain.CommandHandlers.FornecedorCommandHandlers;
+using RCM.Domain.CommandHandlers.NotaFiscalCommandHandlers;
 using RCM.Domain.Commands.BancoCommands;
 using RCM.Domain.Commands.ChequeCommands;
 using RCM.Domain.Commands.DuplicataCommands;
+using RCM.Domain.Commands.FornecedorCommands;
+using RCM.Domain.Commands.NotaFiscalCommands;
 using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.DomainNotificationHandlers;
 using RCM.Domain.EventHandlers.ChequeEventHandlers;
@@ -32,6 +36,7 @@ namespace RCM.CrossCutting.IoC
             RegisterMediatrCommands(services);
             RegisterMediatrEvents(services);
             RegisterMediatrNotifications(services);
+            RegisterIdentityServices(services);
         }
 
         private static void RegisterApplicationServices(IServiceCollection services)
@@ -41,15 +46,19 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<IDuplicataApplicationService, DuplicataApplicationService>();
             services.AddScoped<IChequeApplicationService, ChequeApplicationService>();
             services.AddScoped<IBancoApplicationService, BancoApplicationService>();
+            services.AddScoped<IFornecedorApplicationService, FornecedorApplicationService>();
+            services.AddScoped<INotaFiscalApplicationService, NotaFiscalApplicationService>();
         }
 
         private static void RegisterRepositories(IServiceCollection services)
         {
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             services.AddScoped<IClienteRepository, ClienteRepository>();
+            services.AddScoped<IFornecedorRepository, FornecedorRepository>();
             services.AddScoped<IDuplicataRepository, DuplicataRepository>();
             services.AddScoped<IChequeRepository, ChequeRepository>();
             services.AddScoped<IBancoRepository, BancoRepository>();
+            services.AddScoped<INotaFiscalRepository, NotaFiscalRepository>();
         }
 
         private static void RegisterMiscellaneous(IServiceCollection services)
@@ -74,6 +83,14 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<INotificationHandler<AddBancoCommand>, BancoCommandHandler>();
             services.AddScoped<INotificationHandler<UpdateBancoCommand>, BancoCommandHandler>();
             services.AddScoped<INotificationHandler<RemoveBancoCommand>, BancoCommandHandler>();
+
+            services.AddScoped<INotificationHandler<AddNotaFiscalCommand>, NotaFiscalCommandHandler>();
+            services.AddScoped<INotificationHandler<UpdateNotaFiscalCommand>, NotaFiscalCommandHandler>();
+            services.AddScoped<INotificationHandler<RemoveNotaFiscalCommand>, NotaFiscalCommandHandler>();
+
+            services.AddScoped<INotificationHandler<AddFornecedorCommand>, FornecedorCommandHandler>();
+            services.AddScoped<INotificationHandler<UpdateFornecedorCommand>, FornecedorCommandHandler>();
+            services.AddScoped<INotificationHandler<RemoveFornecedorCommand>, FornecedorCommandHandler>();
         }
 
         private static void RegisterMediatrEvents(IServiceCollection services)
@@ -86,6 +103,10 @@ namespace RCM.CrossCutting.IoC
         private static void RegisterMediatrNotifications(IServiceCollection services)
         {
             services.AddScoped<IDomainNotificationHandler, DomainNotificationHandler>();
+        }
+
+        private static void RegisterIdentityServices(IServiceCollection services)
+        {
         }
     }
 }

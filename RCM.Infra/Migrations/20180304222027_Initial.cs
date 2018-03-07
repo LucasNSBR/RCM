@@ -70,8 +70,8 @@ namespace RCM.Infra.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Agencia = table.Column<string>(nullable: true),
-                    BancoId = table.Column<int>(nullable: true),
-                    ClienteId = table.Column<int>(nullable: true),
+                    BancoId = table.Column<int>(nullable: false),
+                    ClienteId = table.Column<int>(nullable: false),
                     Conta = table.Column<string>(nullable: true),
                     DataEmissao = table.Column<DateTime>(nullable: false),
                     DataPagamento = table.Column<DateTime>(nullable: true),
@@ -87,13 +87,13 @@ namespace RCM.Infra.Migrations
                         column: x => x.BancoId,
                         principalTable: "Bancos",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Cheques_Clientes_ClienteId",
                         column: x => x.ClienteId,
                         principalTable: "Clientes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -102,7 +102,7 @@ namespace RCM.Infra.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ClienteId = table.Column<int>(nullable: true),
+                    ClienteId = table.Column<int>(nullable: false),
                     Nome = table.Column<string>(nullable: true),
                     Observacao = table.Column<string>(nullable: true)
                 },
@@ -114,7 +114,7 @@ namespace RCM.Infra.Migrations
                         column: x => x.ClienteId,
                         principalTable: "Clientes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -123,7 +123,7 @@ namespace RCM.Infra.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    EstadoId = table.Column<int>(nullable: true),
+                    EstadoId = table.Column<int>(nullable: false),
                     Nome = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -134,7 +134,7 @@ namespace RCM.Infra.Migrations
                         column: x => x.EstadoId,
                         principalTable: "Estados",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -168,8 +168,8 @@ namespace RCM.Infra.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Bairro = table.Column<string>(nullable: true),
                     CEP = table.Column<string>(nullable: true),
-                    CidadeId = table.Column<int>(nullable: true),
-                    ClienteId = table.Column<int>(nullable: true),
+                    CidadeId = table.Column<int>(nullable: false),
+                    ClienteId = table.Column<int>(nullable: false),
                     Complemento = table.Column<string>(nullable: true),
                     Numero = table.Column<int>(nullable: false),
                     Rua = table.Column<string>(nullable: true)
@@ -182,13 +182,13 @@ namespace RCM.Infra.Migrations
                         column: x => x.CidadeId,
                         principalTable: "Cidades",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Enderecos_Clientes_ClienteId",
                         column: x => x.ClienteId,
                         principalTable: "Clientes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -200,9 +200,8 @@ namespace RCM.Infra.Migrations
                     DataEmissao = table.Column<DateTime>(nullable: false),
                     DataPagamento = table.Column<DateTime>(nullable: true),
                     DataVencimento = table.Column<DateTime>(nullable: false),
-                    FornecedorId = table.Column<int>(nullable: true),
-                    NotaFiscal = table.Column<string>(nullable: true),
-                    NotaFiscalId = table.Column<int>(nullable: true),
+                    FornecedorId = table.Column<int>(nullable: false),
+                    NotaFiscalId = table.Column<int>(nullable: false),
                     NumeroDocumento = table.Column<string>(nullable: true),
                     Valor = table.Column<decimal>(nullable: false)
                 },
@@ -214,13 +213,13 @@ namespace RCM.Infra.Migrations
                         column: x => x.FornecedorId,
                         principalTable: "Fornecedores",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Duplicatas_NotasFiscais_NotaFiscalId",
                         column: x => x.NotaFiscalId,
                         principalTable: "NotasFiscais",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

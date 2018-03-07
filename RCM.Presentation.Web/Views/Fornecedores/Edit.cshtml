@@ -1,0 +1,25 @@
+﻿@model RCM.Application.ViewModels.FornecedorViewModel
+
+@{
+    ViewData["Title"] = $"Editar Fornecedor - {Model.Nome}";
+}
+
+<h5>Editar Fornecedor - @Model.Nome</h5>
+
+<div class="form-container col s12 m12">
+    <form asp-action="Edit">
+        @Html.EditorForModel()
+
+        <div class="row pt-2 px-1">
+            <post-button icon-name="done">Confirmar</post-button>
+        </div>
+    </form>
+</div>
+
+<div>
+    <a asp-action="Details" asp-route-id="@Model.Id">Voltar para detalhes</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

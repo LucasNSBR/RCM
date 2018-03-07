@@ -1,0 +1,21 @@
+﻿@model RCM.Application.ViewModels.ClienteViewModel
+
+@{
+    ViewData["Title"] = $"Excluir Cliente {Model.Nome}";
+}
+
+<h5>Excluir Cliente - @Model.Nome</h5>
+
+<div class="form-container col s12 m12">
+    <form asp-action="Delete">
+        @Html.DisplayForModel()
+
+        <div class="row pt-2 px-1">
+            <post-button icon-name="done">Confirmar</post-button>
+        </div>
+    </form>
+</div>
+
+<div>
+    <a asp-action="Index">Voltar para Detalhes</a>
+</div>

@@ -11,7 +11,7 @@ using System;
 namespace RCM.Infra.Migrations
 {
     [DbContext(typeof(RCMDbContext))]
-    [Migration("20180220012210_Initial")]
+    [Migration("20180304222027_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,9 +42,9 @@ namespace RCM.Infra.Migrations
 
                     b.Property<string>("Agencia");
 
-                    b.Property<int?>("BancoId");
+                    b.Property<int>("BancoId");
 
-                    b.Property<int?>("ClienteId");
+                    b.Property<int>("ClienteId");
 
                     b.Property<string>("Conta");
 
@@ -72,7 +72,7 @@ namespace RCM.Infra.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("EstadoId");
+                    b.Property<int>("EstadoId");
 
                     b.Property<string>("Nome");
 
@@ -102,7 +102,7 @@ namespace RCM.Infra.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("ClienteId");
+                    b.Property<int>("ClienteId");
 
                     b.Property<string>("Nome");
 
@@ -126,11 +126,9 @@ namespace RCM.Infra.Migrations
 
                     b.Property<DateTime>("DataVencimento");
 
-                    b.Property<int?>("FornecedorId");
+                    b.Property<int>("FornecedorId");
 
-                    b.Property<string>("NotaFiscal");
-
-                    b.Property<int?>("NotaFiscalId");
+                    b.Property<int>("NotaFiscalId");
 
                     b.Property<string>("NumeroDocumento");
 
@@ -154,9 +152,9 @@ namespace RCM.Infra.Migrations
 
                     b.Property<string>("CEP");
 
-                    b.Property<int?>("CidadeId");
+                    b.Property<int>("CidadeId");
 
-                    b.Property<int?>("ClienteId");
+                    b.Property<int>("ClienteId");
 
                     b.Property<string>("Complemento");
 
@@ -223,47 +221,55 @@ namespace RCM.Infra.Migrations
                 {
                     b.HasOne("RCM.Domain.Models.Banco", "Banco")
                         .WithMany()
-                        .HasForeignKey("BancoId");
+                        .HasForeignKey("BancoId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("RCM.Domain.Models.Cliente", "Cliente")
                         .WithMany()
-                        .HasForeignKey("ClienteId");
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("RCM.Domain.Models.Cidade", b =>
                 {
                     b.HasOne("RCM.Domain.Models.Estado", "Estado")
                         .WithMany("Cidades")
-                        .HasForeignKey("EstadoId");
+                        .HasForeignKey("EstadoId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("RCM.Domain.Models.Contato", b =>
                 {
-                    b.HasOne("RCM.Domain.Models.Cliente")
+                    b.HasOne("RCM.Domain.Models.Cliente", "Cliente")
                         .WithMany("Contatos")
-                        .HasForeignKey("ClienteId");
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("RCM.Domain.Models.Duplicata", b =>
                 {
                     b.HasOne("RCM.Domain.Models.Fornecedor", "Fornecedor")
                         .WithMany("Duplicatas")
-                        .HasForeignKey("FornecedorId");
+                        .HasForeignKey("FornecedorId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("RCM.Domain.Models.NotaFiscal")
+                    b.HasOne("RCM.Domain.Models.NotaFiscal", "NotaFiscal")
                         .WithMany("Duplicatas")
-                        .HasForeignKey("NotaFiscalId");
+                        .HasForeignKey("NotaFiscalId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("RCM.Domain.Models.Endereco", b =>
                 {
                     b.HasOne("RCM.Domain.Models.Cidade", "Cidade")
                         .WithMany()
-                        .HasForeignKey("CidadeId");
+                        .HasForeignKey("CidadeId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("RCM.Domain.Models.Cliente")
+                    b.HasOne("RCM.Domain.Models.Cliente", "Cliente")
                         .WithMany("Enderecos")
-                        .HasForeignKey("ClienteId");
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("RCM.Domain.Models.NotaFiscal", b =>

@@ -1,0 +1,87 @@
+﻿@model IEnumerable<RCM.Application.ViewModels.DuplicataViewModel>
+
+@{
+    ViewData["Title"] = "Duplicatas - Índice";
+}
+
+<h5>Lista de Duplicatas</h5>
+
+<p>
+    <a asp-action="Create">Adicionar nova</a>
+</p>
+
+<div class="form-container col s12 m12">
+    @if (Model.Any())
+    {
+        <table class="highlight centered" id="itemTable">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NumeroDocumento)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DataEmissao)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DataVencimento)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DataPagamento)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Fornecedor)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Valor)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody class="table-body">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NumeroDocumento)
+                        </td>
+                        <td>
+                            @item.DataEmissao.ToShortDateString()
+                        </td>
+                        <td>
+                            @item.DataVencimento.ToShortDateString()
+                        </td>
+                        <td>
+                            @if (item.DataPagamento == null)
+                            {
+                                <span class="font-italic">Não paga</span>
+                            }
+                            else
+                            {
+                                @item.DataPagamento
+                            }
+                        </td>
+                        <td>
+                            @item.Fornecedor.Nome
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Valor)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="px-1">
+            <i class="material-icons left">warning</i>
+            Nenhuma duplicata encontrada.
+        </p>
+    }
+</div>

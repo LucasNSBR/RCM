@@ -2,12 +2,11 @@
 using RCM.Application.ApplicationInterfaces;
 using RCM.Application.ViewModels;
 using RCM.Domain.DomainNotificationHandlers;
+using System;
 
 namespace RCM.Presentation.Web.Controllers
 {
-    [Produces("application/json")]
-    [Route("api/Duplicatas")]
-    public class DuplicatasController : ApiController
+    public class DuplicatasController : BaseController
     {
         private readonly IDuplicataApplicationService _duplicataApplicationService;
 
@@ -16,51 +15,90 @@ namespace RCM.Presentation.Web.Controllers
             _duplicataApplicationService = duplicataApplicationService;
         }
 
-        [HttpGet]
-        public IActionResult Get()
+        public IActionResult Index()
         {
-            return Response(_duplicataApplicationService.Get());
+            var list = _duplicataApplicationService.Get();
+            return View(list);
         }
-
-        [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        
+        public IActionResult Details(int id)
         {
             var model = _duplicataApplicationService.GetById(id);
             if (model == null)
                 return NotFound();
 
-            return Response(model);
+            return View(model);
         }
         
+        public IActionResult Create()
+        {
+            return View();
+        }
+
         [HttpPost]
-        public IActionResult Post([FromBody]DuplicataViewModel viewModel)
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(DuplicataViewModel duplicata)
         {
             if (!ModelState.IsValid)
             {
-                return Response();
+                NotifyModelStateErrors();
+                return View(duplicata);
             }
 
-            _duplicataApplicationService.Add(viewModel);
-            return Response(viewModel);
+            _duplicataApplicationService.Add(duplicata);
+
+            if (Success())
+                return RedirectToAction(nameof(Index));
+            else
+                return View(duplicata);
         }
         
-        [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody]DuplicataViewModel viewModel)
+        public IActionResult Edit(int id)
+        {
+            var duplicata = _duplicataApplicationService.GetById(id);
+            if (duplicata == null)
+                return NotFound();
+
+            return View(duplicata);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, DuplicataViewModel duplicata)
         {
             if (!ModelState.IsValid)
             {
-                return Response();
+                NotifyModelStateErrors();
+                return View(duplicata);
             }
 
-            _duplicataApplicationService.Update(viewModel);
-            return Response(viewModel);
+            _duplicataApplicationService.Update(duplicata);
+
+            if (Success())
+                return RedirectToAction(nameof(Index));
+            else
+                return View(duplicata);
         }
         
-        [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            _duplicataApplicationService.Remove(new DuplicataViewModel { Id = id });
-            return Response();
+            var duplicata = _duplicataApplicationService.GetById(id);
+            if (duplicata == null)
+                return NotFound();
+
+            return View(duplicata);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(int id, DuplicataViewModel duplicata)
+        {
+            _duplicataApplicationService.Remove(duplicata);
+
+            if (Success())
+                return RedirectToAction(nameof(Index));
+            else
+                return View(duplicata);
         }
     }
 }

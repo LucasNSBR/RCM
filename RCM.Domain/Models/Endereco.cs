@@ -9,9 +9,9 @@
         public string Complemento { get; set; }
         public string CEP { get; set;  }
         public int CidadeId { get; set; }
-        public Cidade Cidade { get; set; }
+        public virtual Cidade Cidade { get; set; }
         public int ClienteId { get; set; }
-        public Cliente Cliente { get; set; }
+        public virtual Cliente Cliente { get; set; }
 
         public override string ToString()
         {

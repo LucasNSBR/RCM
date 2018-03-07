@@ -1,13 +1,38 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿body, html {
+    height: 100vh;
+    background-color: #f3f3f3;
 }
+
+.max-percent-height {
+    height: 100%;
+}
+
+.max-percent-width {
+    width: 100%;
+}
+
 
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-top: 25px;
+    padding-left: 50px !important;
+    padding-right: 50px !important;
+    width: 100%;
+    min-height: 100%!important;
+    color: #3b3b3b !important;
+}
+
+.form-container {
+    margin: 25px;
+    padding-top: 25px !important;
+    padding-bottom: 25px !important;
+    background-color: white;
+    height: 100%;
+}
+
+tbody tr {
+    cursor: pointer;
 }
 
 /* Carousel */
@@ -32,4 +57,194 @@
     .carousel-caption {
         display: none;
     }
+}
+
+#nav-mobile li a {
+    color: #3b3b3b;
+}
+
+.no-margin {
+    margin: 0px !important;
+}
+
+.no-border .collection-item {
+    border: 0px;
+}
+
+.no-border {
+    border: 0px;
+    border-radius: 0px;
+}
+
+.collection-item {
+    color: lightgray !important;
+    font-size: 13px;
+    font-weight: 500;
+    padding-top: 15px !important;
+    padding-bottom: 15px !important;
+}
+
+.div-brand {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+#sidebar {
+    margin: 0px;
+    height: 100%;
+    background-color: #1a2228;
+}
+
+#sidebar .collection-item {
+    background-color: #1a2228 !important;
+}
+
+#sidebar .collection-item:hover {
+    background-color: #0f1417 !important;
+}
+
+
+#homeButton {
+    font-weight: 300;
+    background-color: #9c27b0;
+}
+
+#homeButton:hover {
+    background-color: #7d218d;
+    transition: background-color 0.2s linear;
+}
+
+#homeButton a {
+    margin-left: 20px;
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding-top: 20px;
+    padding-bottom: 17px;
+    font-size: 18px;
+}
+
+.px-2 {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.px-1 {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.pt-1 {
+    padding-top: 10px !important;
+}
+
+.pt-2 {
+    padding-top: 20px !important;
+}
+
+.pt-3 {
+    padding-top: 30px !important;
+}
+
+.pb-0 {
+    padding-bottom: 0px !important;
+}
+
+.mb-0 {
+    margin-bottom: 0px !important
+}
+
+.mx-2 {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.text-violet {
+    color: #9c27b0;
+}
+
+.d-block {
+    display: block !important;
+}
+
+.d-inlineblock {
+    display: inline-block;
+}
+
+.material-icons.tiny {
+    margin-top: 2.5px;
+}
+
+.font-bold {
+    font-weight: 500;
+}
+
+.font-italic {
+    font-style: italic;
+}
+
+.lead {
+    font-size: 16px;
+}
+
+.small {
+    font-size: 12px;
+}
+
+.text-muted {
+    color: #9a9a9a;
+}
+
+.text-warning {
+    color: #cb9535;
+}
+
+.text-danger {
+    color: #cb3535;
+}
+
+
+/* Remove the input number spinner */
+input[type='number'] {
+    -moz-appearance: textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+footer {
+    margin: 0px !important;
+    padding: 25px;
+    background-color: #7d218d;
+    color: white;
+}
+
+.purple {
+    background-color: #9c27b0 !important;
+}
+
+/* Lists and Collections */
+.detail-list dt {
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+dt {
+    margin-top: 20px;
+}
+
+.detail-list dd {
+    padding-top: 3px;
+    margin-left: 15px;
+}
+
+.highlight.centered {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: 95%;
+}
+
+.table-body {
 }

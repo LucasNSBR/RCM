@@ -12,6 +12,11 @@ namespace RCM.Domain.Models
         public DateTime DataChegada { get; set; }
         public decimal Valor { get; set; }
 
+        public NotaFiscal()
+        {
+            Duplicatas = new List<Duplicata>();
+        }
+
         public override string ToString()
         {
             return NumeroDocumento;

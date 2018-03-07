@@ -10,6 +10,12 @@ namespace RCM.Domain.Models
         public virtual ICollection<Contato> Contatos { get; set; }
         public virtual ICollection<Endereco> Enderecos { get; set; }
 
+        public Cliente()
+        {
+            Contatos = new List<Contato>();
+            Enderecos = new List<Endereco>();
+        }
+
         public override string ToString()
         {
             return base.ToString();

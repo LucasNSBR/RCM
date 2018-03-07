@@ -4,6 +4,8 @@ using RCM.Domain.DomainNotificationHandlers;
 using RCM.Domain.DomainNotifications;
 using RCM.Domain.Repositories;
 using RCM.Domain.UnitOfWork;
+using System.Diagnostics;
+using System.Linq;
 
 namespace RCM.Domain.CommandHandlers
 {
@@ -25,24 +27,21 @@ namespace RCM.Domain.CommandHandlers
         protected bool Commit()
         {
             var commandResult = _unitOfWork.Commit();
-
+            
             if (commandResult.Success)
                 return true;
             else
+            {
                 foreach (var error in commandResult.Errors)
                 {
-                    _domainNotificationHandler.AddNotification(new CommitErrorDomainNotification(error.Message));
+                    _domainNotificationHandler.AddNotification(new CommitErrorDomainNotification(error.InnerException.Message));
                 }
 
-            return false;
-        }
-
-        protected void NotifyPropertyErrors(Command notification)
-        {
-            foreach (var error in notification.ValidationResult.Errors)
-            {
-                _domainNotificationHandler.AddNotification(new PropertyErrorDomainNotification("Property Error", error.ErrorMessage));
+                if (!commandResult.Errors.Any())
+                    _domainNotificationHandler.AddNotification(new CommitErrorDomainNotification("Erro desconhecido"));
             }
+
+            return false;
         }
 
         protected bool Valid(Command command)
@@ -51,7 +50,7 @@ namespace RCM.Domain.CommandHandlers
             {
                 foreach (var error in command.ValidationResult.Errors)
                 {
-                    _domainNotificationHandler.AddNotification(new PropertyErrorDomainNotification("Property Error", error.ErrorMessage));
+                    _domainNotificationHandler.AddNotification(new CommandValidationErrorNotification("Property Error", error.ErrorMessage));
                 }
 
                 return false;

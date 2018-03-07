@@ -1,0 +1,25 @@
+﻿@model RCM.Application.ViewModels.BancoViewModel
+<p class="px-1 font-bold lead">
+    Informação geral
+</p>
+
+<dl class="detail-list">
+    <dt>
+        <label asp-for="Id">Identificação</label>
+    </dt>
+    <dd>
+        @Model.Id
+    </dd>
+    <dt>
+        <label asp-for="CodigoCompensacao">Código de Compensação</label>
+    </dt>
+    <dd>
+        @Model.CodigoCompensacao
+    </dd>
+    <dt>
+        <label asp-for="Nome">Nome</label>
+    </dt>
+    <dd>
+        @Model.Nome
+    </dd>
+</dl>

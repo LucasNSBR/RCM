@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using RCM.Domain.Models;
+using RCM.Infra.EntityTypeConfig;
 using System.IO;
 
 namespace RCM.Infra.Models
@@ -26,14 +27,19 @@ namespace RCM.Infra.Models
         {
         }
 
-        protected internal virtual void OnModelCreating(DbContextOptionsBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new DuplicataEntityTypeConfig());
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var config = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json")
                 .Build();
 
-            modelBuilder.UseSqlServer(config.GetConnectionString("RCMDatabase"));
+            optionsBuilder.UseLazyLoadingProxies().UseSqlServer(config.GetConnectionString("RCMDatabase"));
         }
     }
 }

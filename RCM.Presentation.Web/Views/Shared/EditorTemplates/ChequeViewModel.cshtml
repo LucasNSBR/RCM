@@ -1,0 +1,96 @@
+﻿@model RCM.Application.ViewModels.ChequeViewModel
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="row">
+    <div class="col s12">
+        <ul class="tabs tabs-fixed-width">
+            <li class="tab col s3"><a href="#geral" class="active">Geral</a></li>
+            <li class="tab col s3"><a href="#banco">Dados Bancários</a></li>
+            <li class="tab col s3"><a href="#vencimento">Emissão/Vencimento</a></li>
+            <li class="tab col s3"><a href="#cliente">Cliente</a></li>
+        </ul>
+    </div>
+
+    <div id="geral" class="col s12 m12">
+        <p class="px-1 font-bold lead">
+            Informação Geral
+        </p>
+
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="NumeroCheque"></label>
+                <input asp-for="NumeroCheque" class="input-field" id="numeroDocumento" />
+                <span asp-validation-for="NumeroCheque" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="Valor"></label>
+                <input asp-for="Valor" class="input-field" id="valor" />
+                <span asp-validation-for="Valor" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div id="banco" class="col s12 m12">
+        <p class="px-1 font-bold lead">
+            Informações Bancárias do Cheque
+        </p>
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="BancoId"></label>
+                <input asp-for="BancoId" class="input-field" id="bancoId" />
+                <span asp-validation-for="BancoId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="Agencia"></label>
+                <input asp-for="Agencia" class="input-field" id="agencia" />
+                <span asp-validation-for="Agencia" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="Conta"></label>
+                <input asp-for="Conta" class="input-field" id="conta" />
+                <span asp-validation-for="Conta" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div id="vencimento" class="col s12 m12">
+        <p class="px-1 font-bold lead">
+            Informações sobre Emissão e Vencimento
+        </p>
+
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="DataEmissao"></label>
+                <input asp-for="DataEmissao" type="text" class="datepicker" id="dataEmissao" />
+                <span asp-validation-for="DataEmissao" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="DataVencimento"></label>
+                <input asp-for="DataVencimento" type="text" class="datepicker" id="dataVencimento" />
+                <span asp-validation-for="DataVencimento" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div id="cliente" class="col s12 m12">
+        <p class="px-1 font-bold lead">
+            Informação sobre Responsável pelo Cheque
+        </p>
+
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="ClienteId"></label>
+                <input asp-for="ClienteId" class="input-field" id="clienteId" />
+                <span asp-validation-for="ClienteId" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+</div>

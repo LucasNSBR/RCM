@@ -4,7 +4,7 @@ namespace RCM.Domain.Validators.ChequeCommandValidators
 {
     public class AddChequeCommandValidation : ChequeCommandValidator<AddChequeCommand>
     {
-        AddChequeCommandValidation()
+        public AddChequeCommandValidation()
         {
             ValidateBancoId();
             ValidateAgencia();

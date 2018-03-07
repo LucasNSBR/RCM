@@ -1,0 +1,82 @@
+﻿@model RCM.Application.ViewModels.DuplicataViewModel
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="row">
+    <div class="col s12">
+        <ul class="tabs tabs-fixed-width">
+            <li class="tab col s3"><a href="#geral" class="active">Geral</a></li>
+            <li class="tab col s3"><a href="#vencimento">Emissão/Pagamento</a></li>
+            <li class="tab col s3"><a href="#notaFiscal">Nota Fiscal</a></li>
+            <li class="tab col s3"><a href="#fornecedor">Fornecedor</a></li>
+        </ul>
+    </div>
+
+    <div id="geral" class="col s12 m12">
+        <p class="px-1 font-bold lead">
+            Informação Geral
+        </p>
+
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="NumeroDocumento"></label>
+                <input asp-for="NumeroDocumento" class="input-field" id="numeroDocumento" />
+                <span asp-validation-for="NumeroDocumento" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="Valor"></label>
+                <input asp-for="Valor" class="input-field" id="valor" />
+                <span asp-validation-for="Valor" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    
+    <div id="vencimento" class="col s12 m12">
+        <p class="px-1 font-bold lead">
+            Informações sobre Emissão e Vencimento
+        </p>
+
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="DataEmissao"></label>
+                <input asp-for="DataEmissao" type="text" class="datepicker" id="dataEmissao" />
+                <span asp-validation-for="DataEmissao" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="DataVencimento"></label>
+                <input asp-for="DataVencimento" type="text" class="datepicker" id="dataVencimento" />
+                <span asp-validation-for="DataVencimento" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    
+    <div id="notaFiscal" class="col s12 m12">
+        <p class="px-1 font-bold lead">
+            Informações sobre Nota Fiscal
+        </p>
+
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="NotaFiscalId"></label>
+                <input asp-for="NotaFiscalId" class="input-field" id="notaFiscalId" />
+                <span asp-validation-for="NotaFiscalId" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div id="fornecedor" class="col s12 m12">
+        <p class="px-1 font-bold lead">
+            Informações sobre Fornecedor
+        </p>
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="FornecedorId"></label>
+                <input asp-for="FornecedorId" class="input-field" id="fornecedorId" />
+                <span asp-validation-for="FornecedorId" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+</div>

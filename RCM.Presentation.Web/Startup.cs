@@ -1,11 +1,15 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RCM.CrossCutting.Identity.Context;
+using RCM.CrossCutting.Identity.Models;
 using RCM.CrossCutting.IoC;
 using RCM.Infra.Models;
+using System;
 
 namespace RCM.Presentation.Web
 {
@@ -23,6 +27,29 @@ namespace RCM.Presentation.Web
             services.AddMvc();
             services.AddMediatR();
             services.AddDbContext<RCMDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("RCMDatabase")));
+
+            services.AddIdentity<RCMIdentityUser, RCMIdentityRole>(cfg =>
+                {
+                    ConfigureIdentity(cfg);
+                })
+                .AddEntityFrameworkStores<RCMIdentityDbContext>()
+                .AddUserManager<RCMUserManager>()
+                .AddSignInManager<RCMSignInManager>()
+                .AddDefaultTokenProviders();
+
+            services.ConfigureApplicationCookie(cfg =>
+                {
+                    cfg.ExpireTimeSpan = TimeSpan.FromDays(7);
+                    cfg.LoginPath = "/Accounts/Login";
+                    cfg.LogoutPath = "/Accounts/Logout";
+                });
+
+            services.AddAuthentication()
+                .AddGoogle(cfg => {
+                    cfg.ClientId = "822877628478-r9in69b6dnqilsc7vd96bfd79jcqmef4.apps.googleusercontent.com";
+                    cfg.ClientSecret = "Jj3JhVJS3WTVBc6goYAB8lAy";
+                });
+
             Bootstrapper.RegisterServices(services);
         }
 
@@ -32,12 +59,32 @@ namespace RCM.Presentation.Web
             app.UseBrowserLink();
             app.UseStaticFiles();
 
+            app.UseAuthentication();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+        }
+
+        private void ConfigureIdentity(IdentityOptions options)
+        {
+            options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+            options.Lockout.MaxFailedAccessAttempts = 5;
+            
+            options.Password.RequireDigit = false;
+            options.Password.RequireLowercase = false;
+            options.Password.RequireNonAlphanumeric = false;
+            options.Password.RequireUppercase = false;
+            options.Password.RequiredLength = 6;
+
+            options.User.RequireUniqueEmail = true;
+            options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+
+            options.SignIn.RequireConfirmedPhoneNumber = false;
+            options.SignIn.RequireConfirmedEmail = true;
         }
     }
 }

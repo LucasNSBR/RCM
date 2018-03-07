@@ -5,9 +5,7 @@ using RCM.Domain.DomainNotificationHandlers;
 
 namespace RCM.Presentation.Web.Controllers
 {
-    [Produces("application/json")]
-    [Route("api/NotasFiscais")]
-    public class NotasFiscaisController : ApiController
+    public class NotasFiscaisController : BaseController
     {
         private readonly INotaFiscalApplicationService _notaFiscalApplicationService;
 
@@ -16,51 +14,90 @@ namespace RCM.Presentation.Web.Controllers
             _notaFiscalApplicationService = notaFiscalApplicationService;
         }
 
-        [HttpGet]
-        public IActionResult Get()
+        public IActionResult Index()
         {
-            return Response(_notaFiscalApplicationService.Get());
+            var list = _notaFiscalApplicationService.Get();
+            return View(list);
         }
 
-        [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public IActionResult Details(int id)
         {
             var model = _notaFiscalApplicationService.GetById(id);
             if (model == null)
                 return NotFound();
 
-            return Response(model);
+            return View(model);
+        }
+        
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(NotaFiscalViewModel notaFiscal)
+        {
+            if (!ModelState.IsValid)
+            {
+                NotifyModelStateErrors();
+                return View(notaFiscal);
+            }
+
+            _notaFiscalApplicationService.Add(notaFiscal);
+
+            if (Success())
+                return RedirectToAction(nameof(notaFiscal));
+            else
+                return View(notaFiscal);
+        }
+
+        public IActionResult Edit(int id)
+        {
+            var notaFiscal = _notaFiscalApplicationService.GetById(id);
+            if (notaFiscal == null)
+                return NotFound();
+
+            return View(notaFiscal);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, NotaFiscalViewModel notaFiscal)
+        {
+            if (!ModelState.IsValid)
+            {
+                NotifyModelStateErrors();
+                return View(notaFiscal);
+            }
+
+            _notaFiscalApplicationService.Update(notaFiscal);
+
+            if (Success())
+                return RedirectToAction(nameof(notaFiscal));
+            else
+                return View(notaFiscal);
+        }
+
+        public IActionResult Delete(int id)
+        {
+            var notaFiscal = _notaFiscalApplicationService.GetById(id);
+            if (notaFiscal == null)
+                return NotFound();
+
+            return View(notaFiscal);
         }
         
         [HttpPost]
-        public IActionResult Post([FromBody]NotaFiscalViewModel viewModel)
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(int id, NotaFiscalViewModel notaFiscal)
         {
-            if (!ModelState.IsValid)
-            {
-                return Response();
-            }
+            _notaFiscalApplicationService.Remove(notaFiscal);
 
-            _notaFiscalApplicationService.Add(viewModel);
-            return Response(viewModel);
-        }
-        
-        [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody]NotaFiscalViewModel viewModel)
-        {
-            if (!ModelState.IsValid)
-            {
-                return Response();
-            }
-
-            _notaFiscalApplicationService.Update(viewModel);
-            return Response(viewModel);
-        }
-        
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
-        {
-            _notaFiscalApplicationService.Remove(new NotaFiscalViewModel { Id = id });
-            return Response();
+            if (Success())
+                return RedirectToAction(nameof(Index));
+            else
+                return View(notaFiscal);
         }
     }
 }

@@ -5,9 +5,7 @@ using RCM.Domain.DomainNotificationHandlers;
 
 namespace RCM.Presentation.Web.Controllers
 {
-    [Produces("application/json")]
-    [Route("api/Bancos")]
-    public class BancosController : ApiController
+    public class BancosController : BaseController
     {
         private readonly IBancoApplicationService _bancoApplicationService;
 
@@ -16,51 +14,90 @@ namespace RCM.Presentation.Web.Controllers
             _bancoApplicationService = bancoApplicationService;
         }
 
-        [HttpGet]
-        public IActionResult Get()
+        public IActionResult Index()
         {
-            return Response(_bancoApplicationService.Get());
+            var list = _bancoApplicationService.Get();
+            return View(list);
         }
-        
-        [HttpGet("{id}")]
-        public IActionResult Get(int id)
+
+        public IActionResult Details(int id)
         {
-            var model = _bancoApplicationService.GetById(id);
-            if (model == null)
+            var banco = _bancoApplicationService.GetById(id);
+            if (banco == null)
                 return NotFound();
 
-            return Response(model);
+            return View(banco);
+        }
+
+        public IActionResult Create()
+        {
+            return View();
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody]BancoViewModel banco)
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(BancoViewModel banco)
         {
             if (!ModelState.IsValid)
             {
-                return Response();
+                NotifyModelStateErrors();
+                return View(banco);
             }
 
             _bancoApplicationService.Add(banco);
-            return Response(banco);
+
+            if (Success())
+                return RedirectToAction(nameof(Index));
+            else
+                return View(banco);
         }
-        
-        [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody]BancoViewModel banco)
+
+        public IActionResult Edit(int id)
+        {
+            var banco = _bancoApplicationService.GetById(id);
+            if (banco == null)
+                return NotFound();
+
+            return View(banco);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, BancoViewModel banco)
         {
             if (!ModelState.IsValid)
             {
-                return Response();
+                NotifyModelStateErrors();
+                return View(banco);
             }
 
             _bancoApplicationService.Update(banco);
-            return Response();
+
+            if (Success())
+                return RedirectToAction(nameof(Index));
+            else
+                return View(banco);
         }
-        
-        [HttpDelete("{id}")]
+
         public IActionResult Delete(int id)
         {
-            _bancoApplicationService.Remove(new BancoViewModel() { Id = id });
-            return Response();
+            var banco = _bancoApplicationService.GetById(id);
+            if (banco == null)
+                return NotFound();
+
+            return View(banco);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(int id, BancoViewModel banco)
+        {
+            _bancoApplicationService.Remove(banco);
+
+            if (Success())
+                return RedirectToAction(nameof(Index));
+            else
+                return View(banco);
         }
     }
 }

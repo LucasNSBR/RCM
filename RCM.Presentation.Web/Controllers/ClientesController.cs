@@ -5,9 +5,7 @@ using RCM.Domain.DomainNotificationHandlers;
 
 namespace RCM.Presentation.Web.Controllers
 {
-    [Produces("application/json")]
-    [Route("api/Clientes")]
-    public class ClientesController : ApiController
+    public class ClientesController : BaseController
     {
         private readonly IClienteApplicationService _clienteApplicationService;
 
@@ -16,51 +14,85 @@ namespace RCM.Presentation.Web.Controllers
             _clienteApplicationService = clienteApplicationService;
         }
 
-        [HttpGet]
-        public IActionResult Get()
+        public IActionResult Index()
         {
-            return Response(_clienteApplicationService.Get());
+            var list = _clienteApplicationService.Get();
+            return View(list);
         }
 
-        [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public IActionResult Details(int id)
         {
-            var model = _clienteApplicationService.GetById(id);
-            if (model == null)
+            var cliente = _clienteApplicationService.GetById(id);
+            if (cliente == null)
                 return NotFound();
 
-            return Response(model);
+            return View(cliente);
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody]ClienteViewModel viewModel)
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(ClienteViewModel cliente)
         {
             if (!ModelState.IsValid)
             {
-                return Response();
+                NotifyModelStateErrors();
+                return View(cliente);
             }
 
-            _clienteApplicationService.Add(viewModel);
-            return Response(viewModel);
+            _clienteApplicationService.Add(cliente);
+
+            if (Success())
+                return RedirectToAction(nameof(cliente));
+            else
+                return View(cliente);
         }
 
-        [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody]ClienteViewModel viewModel)
+        public IActionResult Edit(int id)
+        {
+            var cliente = _clienteApplicationService.GetById(id);
+            if (cliente == null)
+                return NotFound();
+
+            return View(cliente);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, ClienteViewModel cliente)
         {
             if(!ModelState.IsValid)
             {
-                return Response();
+                NotifyModelStateErrors();
+                return View(cliente);
             }
 
-            _clienteApplicationService.Update(viewModel);
-            return Response(viewModel);
+            _clienteApplicationService.Update(cliente);
+
+            if (Success())
+                return RedirectToAction(nameof(Index));
+            else
+                return View(cliente);
         }
 
-        [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            _clienteApplicationService.Remove(new ClienteViewModel { Id = id });
-            return Response();
+            var cliente = _clienteApplicationService.GetById(id);
+            if (cliente == null)
+                return NotFound();
+
+            return View(cliente);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(int id, ClienteViewModel cliente)
+        {
+            _clienteApplicationService.Remove(cliente);
+
+            if (Success())
+                return RedirectToAction(nameof(Index));
+            else
+                return View(cliente);
         }
     }
 }
