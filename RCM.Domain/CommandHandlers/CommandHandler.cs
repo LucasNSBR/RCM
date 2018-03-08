@@ -50,7 +50,7 @@ namespace RCM.Domain.CommandHandlers
             {
                 foreach (var error in command.ValidationResult.Errors)
                 {
-                    _domainNotificationHandler.AddNotification(new CommandValidationErrorNotification("Property Error", error.ErrorMessage));
+                    _domainNotificationHandler.AddNotification(new CommandValidationErrorNotification("COMMAND VALIDATION ERROR", error.ErrorMessage));
                 }
 
                 return false;

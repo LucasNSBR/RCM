@@ -29,7 +29,7 @@ namespace RCM.Infra.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new DuplicataEntityTypeConfig());
+           // modelBuilder.ApplyConfiguration(new DuplicataEntityTypeConfig());
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

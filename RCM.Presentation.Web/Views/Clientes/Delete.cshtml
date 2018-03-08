@@ -11,11 +11,11 @@
         @Html.DisplayForModel()
 
         <div class="row pt-2 px-1">
-            <post-button icon-name="done">Confirmar</post-button>
+            <post-button icon-name="delete">Excluir</post-button>
         </div>
     </form>
 </div>
 
 <div>
-    <a asp-action="Index">Voltar para Detalhes</a>
+    <a asp-action="Details" asp-route-id="@Model.Id">Voltar para Detalhes</a>
 </div>

@@ -8,6 +8,10 @@ namespace RCM.Domain.DomainNotifications
         {
         }
 
+        public ModelStateErrorDomainNotification(string body) : base("MODEL STATE ERROR", body)
+        {
+        }
+
         public ModelStateErrorDomainNotification(string title, string body) : base(title, body)
         {
         }

@@ -72,6 +72,7 @@
                 </nav>
             </div>
             <div class="body-content">
+                @await Component.InvokeAsync("Notifications")
                 @RenderBody()
             </div>
         </div>

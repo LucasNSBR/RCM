@@ -19,7 +19,7 @@
     padding-left: 50px !important;
     padding-right: 50px !important;
     width: 100%;
-    min-height: 100%!important;
+    min-height: 100% !important;
     color: #3b3b3b !important;
 }
 
@@ -95,13 +95,13 @@ tbody tr {
     background-color: #1a2228;
 }
 
-#sidebar .collection-item {
-    background-color: #1a2228 !important;
-}
+    #sidebar .collection-item {
+        background-color: #1a2228 !important;
+    }
 
-#sidebar .collection-item:hover {
-    background-color: #0f1417 !important;
-}
+        #sidebar .collection-item:hover {
+            background-color: #0f1417 !important;
+        }
 
 
 #homeButton {
@@ -109,20 +109,20 @@ tbody tr {
     background-color: #9c27b0;
 }
 
-#homeButton:hover {
-    background-color: #7d218d;
-    transition: background-color 0.2s linear;
-}
+    #homeButton:hover {
+        background-color: #7d218d;
+        transition: background-color 0.2s linear;
+    }
 
-#homeButton a {
-    margin-left: 20px;
-    display: block;
-    width: 100%;
-    height: 100%;
-    padding-top: 20px;
-    padding-bottom: 17px;
-    font-size: 18px;
-}
+    #homeButton a {
+        margin-left: 20px;
+        display: block;
+        width: 100%;
+        height: 100%;
+        padding-top: 20px;
+        padding-bottom: 17px;
+        font-size: 18px;
+    }
 
 .px-2 {
     padding-left: 20px;
@@ -152,6 +152,11 @@ tbody tr {
 
 .mb-0 {
     margin-bottom: 0px !important
+}
+
+.mx-1 {
+    margin-right: 10px;
+    margin-left: 10px;
 }
 
 .mx-2 {
@@ -247,4 +252,12 @@ dt {
 }
 
 .table-body {
+}
+
+.notification {
+    background-color: #ef4046;
+    color: white;
+    display: block;
+    width: 100%;
+    padding: 10px;
 }

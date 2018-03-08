@@ -34,7 +34,7 @@ namespace RCM.Presentation.Web.Controllers
             return _domainNotificationHandler.IsEmpty();
         }
 
-        protected void AddModelErrorNotification(string value = null, string key = null, Exception exception = null)
+        protected void AddModelErrorNotification(string key = null, string value = null, Exception exception = null)
         {
             _domainNotificationHandler.AddNotification(new ModelStateErrorDomainNotification(key, value));
         }
@@ -43,7 +43,7 @@ namespace RCM.Presentation.Web.Controllers
         {
             foreach (var error in ModelState.Values.SelectMany(e => e.Errors))
             {
-                AddModelErrorNotification("error", error.ErrorMessage);
+                AddModelErrorNotification("MODEL STATE ERROR {0}", error.ErrorMessage);
             }
         }
     }

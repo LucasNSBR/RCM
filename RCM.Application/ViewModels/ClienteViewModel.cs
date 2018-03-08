@@ -25,6 +25,9 @@ namespace RCM.Application.ViewModels
         [Display(Name = "Endereços")]
         public ICollection<EnderecoViewModel> Enderecos { get; set; }
 
+        [Display(Name = "Cheques")]
+        public ICollection<ChequeViewModel> Cheques { get; set; }
+
         public override string ToString()
         {
             return base.ToString();
