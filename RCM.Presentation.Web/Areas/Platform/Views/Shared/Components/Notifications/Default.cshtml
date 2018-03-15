@@ -1,0 +1,11 @@
+﻿@model IEnumerable<RCM.Domain.Core.Notifications.DomainNotification>
+
+<div id="notifications-div">
+    @foreach (var item in Model)
+    {
+        <div>
+            <input type="hidden" asp-for="@item.Title" />
+            <input type="hidden" asp-for="@item.Body" />
+        </div>
+    }
+</div>

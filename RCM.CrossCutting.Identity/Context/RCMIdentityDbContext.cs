@@ -7,9 +7,9 @@ using System.IO;
 
 namespace RCM.CrossCutting.Identity.Context
 {
-    public class RCMIdentityDbContext : IdentityDbContext<RCMIdentityUser, IdentityRole<int>, int>
+    public class RCMIdentityDbContext : IdentityDbContext<RCMIdentityUser, RCMIdentityRole, int>
     {
-        public RCMIdentityDbContext(DbContextOptionsBuilder dbContextOptions)
+        public RCMIdentityDbContext()
         {
         }
 

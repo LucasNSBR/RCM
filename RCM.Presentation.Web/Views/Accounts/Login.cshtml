@@ -1,0 +1,56 @@
+﻿@model RCM.CrossCutting.Identity.ViewModels.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="login-container">
+    <div class="px-1">
+        <h5 class="font-bold">
+            Login
+        </h5>
+        <p class="mt-0">
+            Entre com suas credenciais para obter acesso à plataforma
+        </p>
+    </div>
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <form asp-action="Login">
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="@Model.Email"></label>
+                <input asp-for="@Model.Email" class="input-field" />
+                <span asp-validation-for="@Model.Email" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <input type="hidden" name="returnUrl" value="@TempData["returnUrl"]" />
+            <div class="input-field col s12 m6">
+                <label asp-for="@Model.Password"></label>
+                <input asp-for="@Model.Password" class="input-field" type="password" />
+                <span asp-validation-for="@Model.Password" class="text-danger"></span> <br />
+                <a asp-action="RecoverPassword" class="font-italic small">Esqueci minha senha</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="px-1">
+                <input type="checkbox" asp-for="@Model.RememberLogin" />
+                <label asp-for="@Model.RememberLogin"></label>
+            </div>
+        </div>
+
+        <div class="px-1 pt-2">
+            <post-button icon-name="launch">Efetuar Login</post-button>
+        </div>
+    </form>
+</div>
+
+<div>
+    <a asp-action="Index" asp-controller="Home">Voltar para a Página Inicial</a>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

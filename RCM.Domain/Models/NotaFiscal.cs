@@ -8,6 +8,7 @@ namespace RCM.Domain.Models
         public int Id { get; set; }
         public string NumeroDocumento { get; set; }
         public virtual ICollection<Duplicata> Duplicatas { get; set; }
+        public virtual ICollection<NotaFiscal> NotasFiscais { get; set; } 
         public DateTime DataEmissao { get; set; }
         public DateTime DataChegada { get; set; }
         public decimal Valor { get; set; }
@@ -15,6 +16,7 @@ namespace RCM.Domain.Models
         public NotaFiscal()
         {
             Duplicatas = new List<Duplicata>();
+            NotasFiscais = new List<NotaFiscal>();
         }
 
         public override string ToString()

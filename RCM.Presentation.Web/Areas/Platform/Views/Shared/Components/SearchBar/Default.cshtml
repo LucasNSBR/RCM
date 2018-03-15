@@ -1,0 +1,27 @@
+﻿@model RCM.Presentation.Web.ViewModels.SearchBarViewModel
+
+<div class="col s12 m12">
+    <form method="get" id="searchbar">
+        <div class="row my-0 py-0">
+            <div class="input-field col s6 m6">
+                <label for="search">@Model.Placeholder</label>
+                <input type="text" id="searchInput" />
+            </div>
+            <div class="input-field col s4 m3">
+                <select id="propertyInput">
+                    @foreach (var option in Model.SelectValues)
+                    {
+                        <option value="@option.Value">@option.Key</option>
+                    }
+                </select>
+            </div>
+            <div class="col s3 m3 pt-2">
+                <button type="submit" class="btn waves-effect right max-percent-width purple">
+                    <i class="material-icons left">search</i>
+                    Pesquisar
+                </button>
+            </div>
+
+        </div>
+    </form>
+</div>

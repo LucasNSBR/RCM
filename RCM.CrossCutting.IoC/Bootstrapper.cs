@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using RCM.Application.ApplicationInterfaces;
 using RCM.Application.ApplicationServices;
 using RCM.Application.Mappers;
+using RCM.CrossCutting.Identity.Models;
 using RCM.CrossCutting.MediatorServices;
 using RCM.Domain.CommandHandlers.BancoCommandHandlers;
 using RCM.Domain.CommandHandlers.ChequeCommandHandlers;
@@ -68,6 +70,7 @@ namespace RCM.CrossCutting.IoC
             services.AddSingleton(typeof(IMapper), provider => Mapper.Instance);
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IMediatorHandler, MediatorHandler>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         private static void RegisterMediatrCommands(IServiceCollection services)

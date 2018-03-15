@@ -1,0 +1,125 @@
+﻿@model RCM.Application.ViewModels.FornecedorViewModel
+
+<div class="row">
+    <div class="col s12">
+        <ul class="tabs tabs-fixed-width">
+            <li class="tab col s3"><a href="#geral" class="active">Geral</a></li>
+            <li class="tab col s3"><a href="#enderecos">Endereços</a></li>
+            <li class="tab col s3"><a href="#contatos">Contatos</a></li>
+            <li class="tab col s3"><a href="#duplicatas">Duplicatas</a></li>
+            <li class="tab col s3"><a href="#notasfiscais">Notas Fiscais</a></li>
+        </ul>
+    </div>
+    <div id="geral" class="col s12">
+        <p class="px-1 font-bold lead">
+            Informação Geral
+        </p>
+        <div>
+            <dl class="detail-list">
+                <dt>
+                    <label asp-for="@Model.Id"></label>
+                </dt>
+                <dd>
+                    @Model.Id
+                </dd>
+                <dt>
+                    <label asp-for="@Model.Nome"></label>
+                </dt>
+                <dd>
+                    @Model.Nome
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    <div id="enderecos" class="col s12">
+        <div>
+            <p class="px-1 font-bold lead">
+                Informações sobre Endereços
+            </p>
+            <dl class="detail-list">
+                <dt>
+                    @*<label asp-for="@Model.Banco"></label>*@
+                </dt>
+                <dd>
+
+                    <span class="font-italic text-warning">
+                        <i class="material-icons left">warning</i>
+                        Nenhum endereço relacionado.
+                    </span>
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    <div id="contatos" class="col s12">
+        <p class="px-1 font-bold lead">
+            Informações sobre Contatos
+        </p>
+        <dl class="detail-list">
+            <dt>
+                @*<label asp-for="@Model.DataEmissao"></label>*@
+            </dt>
+            <dd>
+                <span class="font-italic text-warning">
+                    <i class="material-icons left">warning</i> 
+                    Nenhum contato relacionado.
+                </span>
+            </dd>
+        </dl>
+    </div>
+
+    <div id="duplicatas" class="col s12">
+        <div>
+            <p class="px-1 font-bold lead">
+                Informação sobre Duplicatas
+            </p>
+            <dl class="detail-list">
+                <dt>
+                    <label asp-for="@Model.Duplicatas"></label>
+                </dt>
+                <dd>
+                <dd>
+                    @if (Model.Duplicatas.Any())
+                    {
+                        <a asp-action="Index" asp-route-name="@Model.Nome" asp-controller="Duplicatas">@Model.Duplicatas.Count Duplicatas foram encontrados</a>
+                    }
+                    else
+                    {
+                        <span class="font-italic text-warning">
+                            <i class="material-icons left">warning</i>
+                            Nenhuma Duplicata relacionada.
+                        </span>
+                    }
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div id="notasfiscais" class="col s12">
+        <div>
+            <p class="px-1 font-bold lead">
+                Informação sobre Notas Fiscais
+            </p>
+
+            <dl class="detail-list">
+                <dt>
+                    <label asp-for="@Model.NotasFiscais"></label>
+                </dt>
+                <dd>
+                <dd>
+                    @if (Model.NotasFiscais.Any())
+                    {
+                        <a asp-action="Index" asp-route-name="@Model.Nome" asp-controller="NotasFiscais">@Model.NotasFiscais.Count Notas Fiscais foram encontrados</a>
+                    }
+                    else
+                    {
+                        <span class="font-italic text-warning">
+                            <i class="material-icons left">warning</i>
+                            Nenhuma Nota Fiscal relacionada.
+                        </span>
+                    }
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>

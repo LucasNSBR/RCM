@@ -1,5 +1,5 @@
-﻿body, html {
-    height: 100vh;
+﻿body {
+    min-height: 100vh;
     background-color: #f3f3f3;
 }
 
@@ -11,52 +11,51 @@
     width: 100%;
 }
 
+footer {
+    padding-bottom: 29px!important;
+}
+
+.position-fixed {
+    position: fixed;
+}
 
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
-    padding-top: 25px;
+    padding-top: 10px;
+    padding-bottom: 15px;
     padding-left: 50px !important;
     padding-right: 50px !important;
     width: 100%;
-    min-height: 100% !important;
+    min-height: 91vh;
     color: #3b3b3b !important;
 }
 
-.form-container {
-    margin: 25px;
-    padding-top: 25px !important;
+.login-container {
+    margin: auto;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    background-color: white;
+    padding: 15px;
     padding-bottom: 25px !important;
+}
+
+.form-container {
+    padding-top: 5px !important;
+    padding-bottom: 25px !important;
+    margin-bottom: 15px!important;
     background-color: white;
     height: 100%;
+    /*max-height: 450px;*/
 }
 
 tbody tr {
     cursor: pointer;
 }
 
-/* Carousel */
-.carousel-caption p {
-    font-size: 20px;
-    line-height: 1.4;
-}
-
-/* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
-    width: 100%;
-}
-
 /* QR code generator */
 #qrCode {
     margin: 15px;
-}
-
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
-    /* Hide captions */
-    .carousel-caption {
-        display: none;
-    }
 }
 
 #nav-mobile li a {
@@ -92,16 +91,17 @@ tbody tr {
 #sidebar {
     margin: 0px;
     height: 100%;
+    padding: 0px;
     background-color: #1a2228;
 }
 
-    #sidebar .collection-item {
-        background-color: #1a2228 !important;
-    }
+#sidebar .collection-item {
+    background-color: #1a2228 !important;
+}
 
-        #sidebar .collection-item:hover {
-            background-color: #0f1417 !important;
-        }
+#sidebar .collection-item:hover {
+    background-color: #0f1417 !important;
+}
 
 
 #homeButton {
@@ -109,20 +109,20 @@ tbody tr {
     background-color: #9c27b0;
 }
 
-    #homeButton:hover {
-        background-color: #7d218d;
-        transition: background-color 0.2s linear;
-    }
+#homeButton:hover {
+    background-color: #7d218d;
+    transition: background-color 0.2s linear;
+}
 
-    #homeButton a {
-        margin-left: 20px;
-        display: block;
-        width: 100%;
-        height: 100%;
-        padding-top: 20px;
-        padding-bottom: 17px;
-        font-size: 18px;
-    }
+#homeButton a {
+    margin-left: 20px;
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding-top: 20px;
+    padding-bottom: 17px;
+    font-size: 18px;
+}
 
 .px-2 {
     padding-left: 20px;
@@ -146,12 +146,34 @@ tbody tr {
     padding-top: 30px !important;
 }
 
+.pt-0 {
+    padding-top: 0px !important;
+}
+
 .pb-0 {
     padding-bottom: 0px !important;
 }
 
+.py-0 {
+    padding-bottom: 0px !important;
+    padding-top: 0px !important;
+}
+
+.my-0 {
+    margin-bottom: 0px !important;
+    margin-top: 0px !important;
+}
+
+.mt-0 {
+    margin-top: 0px !important
+}
+
 .mb-0 {
     margin-bottom: 0px !important
+}
+
+.mb-1 {
+    margin-bottom: 1px !important
 }
 
 .mx-1 {
@@ -173,7 +195,7 @@ tbody tr {
 }
 
 .d-inlineblock {
-    display: inline-block;
+    display: inline-block !important;
 }
 
 .material-icons.tiny {
@@ -260,4 +282,19 @@ dt {
     display: block;
     width: 100%;
     padding: 10px;
+}
+
+.select-wrapper ul li span {
+    color: #9c27b0 !important;
+}
+
+.parallax-container {
+    min-height: 380px;
+    line-height: 0;
+    height: auto;
+    color: rgba(255,255,255,.9);
+}
+
+.parallax-container .section {
+    width: 100%;
 }

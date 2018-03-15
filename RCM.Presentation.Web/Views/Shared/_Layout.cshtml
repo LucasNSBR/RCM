@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] | RCM.Presentation.Web</title>
+    <title>@ViewData["Title"] | RCM Beta </title>
 
     <environment include="Development">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -19,34 +19,16 @@
 </head>
 <body>
     <div class="row no-pad-top max-percent-height mb-0">
-        <div class="col m2 s12 hide-on-small-and-down no-margin no-padding max-percent-height">
-            @Html.Partial("_Sidebar")
-        </div>
-        <div class="col s12 m10 no-margin max-percent-height no-padding">
+        <div class="col s12 m12 no-margin max-percent-height no-padding">
             <div>
                 <nav class="z-depth-0">
                     <div class="nav-wrapper white text-violet px-2">
-                        <h6 class="d-inlineblock">@Html.Raw(DateTime.Now.ToLongDateString())</h6>
+                        <a asp-action="Index" asp-controller="Home" asp-area="" class="brand-logo black-text font-italic">RCM</a>
                         <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-                        
+
                         <!-- PC Sidebar -->
                         <ul id="nav-mobile" class="right hide-on-med-and-down">
-                            <li>
-                                <a asp-action="Index" asp-controller="Settings">
-                                    <i class="material-icons center px-2">notifications</i>
-                                </a>
-                            </li>
-                            <li>
-                                <a asp-action="Index" asp-controller="Manage">
-                                    <i class="material-icons left">settings</i>
-                                    Settings
-                                </a>
-                            </li>
-                            <li>
-                                <a asp-action="Login" asp-controller="Account">
-                                    <i class="material-icons left">account_circle</i>Login
-                                </a>
-                            </li>
+                            @await Component.InvokeAsync("UserInformation")
                         </ul>
 
                         <!-- Mobile Sidebar-->
@@ -62,17 +44,17 @@
                                 </a>
                             </li>
                             <li>
-                                <a asp-action="Index" asp-controller="Login">
+                                <a asp-action="Index" asp-controller="Login" asp-area="">
                                     <i class="material-icons left">account_circle</i>Login
                                 </a>
                             </li>
                         </ul>
-                    
+
                     </div>
                 </nav>
             </div>
             <div class="body-content">
-                @await Component.InvokeAsync("Notifications")
+                @await  Component.InvokeAsync("Notifications")
                 @RenderBody()
             </div>
         </div>

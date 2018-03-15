@@ -1,0 +1,81 @@
+﻿@model RCM.Application.ViewModels.FornecedorViewModel
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="row">
+    <div class="col s12">
+        <ul class="tabs tabs-fixed-width">
+            <li class="tab col s3"><a href="#geral" class="active">Geral</a></li>
+            <li class="tab col s3"><a href="#enderecos">Endereços</a></li>
+            <li class="tab col s3"><a href="#contatos">Contatos</a></li>
+        </ul>
+    </div>
+
+    <div id="geral" class="col s12 m12">
+        <p class="px-1 font-bold lead">
+            Informação Geral
+        </p>
+
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="Nome"></label>
+                <input asp-for="Nome" class="input-field" id="numeroDocumento" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+        </div>
+        @*<div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="Descricao"></label>
+                <input asp-for="Descricao" class="input-field" id="valor" />
+                <span asp-validation-for="Descricao" class="text-danger"></span>
+            </div>
+        </div>*@
+    </div>
+
+    <div id="enderecos" class="col s12 m12">
+        <p class="px-1 font-bold lead">
+            Informações sobre Endereço
+        </p>
+        @*<div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for=""></label>
+                <input asp-for="" class="input-field" id="bancoId" />
+                <span asp-validation-for="" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for=""></label>
+                <input asp-for="" class="input-field" id="agencia" />
+                <span asp-validation-for="" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for=""></label>
+                <input asp-for="" class="input-field" id="conta" />
+                <span asp-validation-for="" class="text-danger"></span>
+            </div>
+        </div>*@
+    </div>
+
+    <div id="contatos" class="col s12 m12">
+        <p class="px-1 font-bold lead">
+            Informações sobre Contato
+        </p>
+
+        @*<div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="DataEmissao"></label>
+                <input asp-for="DataEmissao" type="text" class="datepicker" id="dataEmissao" />
+                <span asp-validation-for="DataEmissao" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="DataVencimento"></label>
+                <input asp-for="DataVencimento" type="text" class="datepicker" id="dataVencimento" />
+                <span asp-validation-for="DataVencimento" class="text-danger"></span>
+            </div>
+        </div>*@
+    </div>
+</div>

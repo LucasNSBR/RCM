@@ -3,7 +3,6 @@
 namespace RCM.CrossCutting.Identity.Models
 {
     public class RCMIdentityRole : IdentityRole<int>
-    {
-        
+    {   
     }
 }

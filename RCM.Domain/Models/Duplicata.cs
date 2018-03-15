@@ -6,6 +6,7 @@ namespace RCM.Domain.Models
     {
         public int Id { get; set; }
         public string NumeroDocumento { get; set; }
+        public string Observacao { get; set; }
         public int NotaFiscalId { get; set; }
         public virtual NotaFiscal NotaFiscal { get; set; }
         public DateTime DataEmissao { get; set; }

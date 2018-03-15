@@ -15,26 +15,12 @@ namespace RCM.Presentation.Web.Controllers
             _domainNotificationHandler = domainNotificationHandler;
         }
 
-        protected new IActionResult Response(object result = null)
-        {
-            NotifyModelStateErrors();
-
-            if (!_domainNotificationHandler.IsEmpty())
-                return BadRequest(new
-                {
-                    errors = _domainNotificationHandler.GetNotifications()
-                    .ToList().Select(e => e.Body)
-                });
-
-            return Ok(result);
-        }
-
         protected bool Success()
         {
             return _domainNotificationHandler.IsEmpty();
         }
 
-        protected void AddModelErrorNotification(string key = null, string value = null, Exception exception = null)
+        private void AddModelErrorNotification(string key = null, string value = null, Exception exception = null)
         {
             _domainNotificationHandler.AddNotification(new ModelStateErrorDomainNotification(key, value));
         }

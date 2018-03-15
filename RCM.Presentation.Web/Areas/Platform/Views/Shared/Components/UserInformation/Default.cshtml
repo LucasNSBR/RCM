@@ -1,0 +1,8 @@
+﻿@model RCM.CrossCutting.Identity.Models.RCMIdentityUser
+
+<li>
+    <a asp-action="Manage" asp-controller="Settings" class="font-bold">@Model.Email</a>
+</li>
+<li>
+    @Html.ActionLink("Logout", "Logout", "Accounts", new { area = "" })
+</li>

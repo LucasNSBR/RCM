@@ -23,13 +23,13 @@ namespace RCM.Infra.Models
         {
         }
 
-        public RCMDbContext(DbContextOptions options) : base(options)
+        public RCMDbContext(DbContextOptions<RCMDbContext> options) : base(options)
         {
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-           // modelBuilder.ApplyConfiguration(new DuplicataEntityTypeConfig());
+            modelBuilder.ApplyConfiguration(new DuplicataEntityTypeConfig());
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

@@ -14,7 +14,7 @@ namespace RCM.Presentation.Web.TagHelpers
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             output.TagName = "button";
-            output.Attributes.Add("class", $"{ButtonDefaultClasses}");
+            output.Attributes.Add("class", $"{ButtonDefaultClasses} {AdditionalClasses}");
             output.PreContent.AppendHtml($"<i class=\"{IconDefaultClasses}\">{IconName}</i>");
         }
     }

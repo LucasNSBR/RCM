@@ -27,12 +27,14 @@ namespace RCM.Presentation.Web
             services.AddMvc();
             services.AddMediatR();
             services.AddDbContext<RCMDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("RCMDatabase")));
+            services.AddDbContext<RCMIdentityDbContext>();
 
             services.AddIdentity<RCMIdentityUser, RCMIdentityRole>(cfg =>
                 {
                     ConfigureIdentity(cfg);
                 })
                 .AddEntityFrameworkStores<RCMIdentityDbContext>()
+                .AddUserStore<RCMUserStore>()
                 .AddUserManager<RCMUserManager>()
                 .AddSignInManager<RCMSignInManager>()
                 .AddDefaultTokenProviders();
@@ -45,7 +47,8 @@ namespace RCM.Presentation.Web
                 });
 
             services.AddAuthentication()
-                .AddGoogle(cfg => {
+                .AddGoogle(cfg =>
+                {
                     cfg.ClientId = "822877628478-r9in69b6dnqilsc7vd96bfd79jcqmef4.apps.googleusercontent.com";
                     cfg.ClientSecret = "Jj3JhVJS3WTVBc6goYAB8lAy";
                 });
@@ -64,6 +67,25 @@ namespace RCM.Presentation.Web
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                    name: "accounts",
+                    template: "Accounts/",
+                    defaults: new { controller = "Accounts", action = "Login" });
+
+                routes.MapRoute(
+                    name: "platform",
+                    template: "Platform/",
+                    defaults: new { area = "Platform", controller = "Duplicatas", action = "Index" });
+
+                routes.MapRoute(
+                    name: "manage",
+                    template: "Platform/Manage/",
+                    defaults: new { area = "Platform", controller = "Manage", action = "Settings" });
+
+                routes.MapRoute(
+                     name: "areas",
+                     template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+                routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
@@ -73,7 +95,7 @@ namespace RCM.Presentation.Web
         {
             options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
             options.Lockout.MaxFailedAccessAttempts = 5;
-            
+
             options.Password.RequireDigit = false;
             options.Password.RequireLowercase = false;
             options.Password.RequireNonAlphanumeric = false;
@@ -81,7 +103,7 @@ namespace RCM.Presentation.Web
             options.Password.RequiredLength = 6;
 
             options.User.RequireUniqueEmail = true;
-            options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+            options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@";
 
             options.SignIn.RequireConfirmedPhoneNumber = false;
             options.SignIn.RequireConfirmedEmail = true;

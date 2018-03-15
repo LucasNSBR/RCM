@@ -1,0 +1,50 @@
+﻿@model RCM.CrossCutting.Identity.ViewModels.ConfirmEmailViewModel
+
+@{
+    ViewData["Title"] = "Confirmar Email";
+}
+
+<div class="login-container">
+    <div class="px-1">
+        <h5 class="font-bold">
+            Confirmar E-mail
+        </h5>
+        <p class="mt-0">
+            Entre com o código enviado para o seu e-mail no campo abaixo
+        </p>
+    </div>
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <form asp-action="ConfirmEmail">
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="input-field" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="Code"></label>
+                <input asp-for="Code" class="input-field" />
+                <span asp-validation-for="Code" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="px-1 pt-2">
+            <post-button icon-name="done">Confirmar E-mail</post-button>
+        </div>
+    </form>
+</div>
+
+<div>
+    <a asp-action="Index">Voltar para o Login</a>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

@@ -1,0 +1,97 @@
+﻿@model IEnumerable<RCM.Application.ViewModels.ChequeViewModel>
+
+@{
+    ViewData["Title"] = "Cheques - Índice ";
+}
+
+<float-action-button asp-controller="Cheques" asp-action="Create" asp-area="Platform"></float-action-button>
+
+<div class="form-container col s12 m12">
+    @await Component.InvokeAsync("SearchBar", new Dictionary<string, string>() { { "Número do Cheque", "chequePrefix" }, { "Nome do cliente", "clientePrefix" } })
+
+    @if (Model.Any())
+    {
+        <table class="highlight centered" id="itemTable">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Banco)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Conta)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NumeroCheque)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Cliente)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DataEmissao)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DataVencimento)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DataPagamento)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Valor)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody class="table-body">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.Id
+                        </td>
+                        <td>
+                            @item.Banco.Nome.Substring(0, 10).Insert(10, "...")
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Conta)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NumeroCheque)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ClienteId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DataEmissao)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DataVencimento)
+                        </td>
+                        <td>
+                            @if (item.DataPagamento == null)
+                            {
+                                <span class="font-italic">Não pago</span>
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(modelItem => item.DataPagamento)
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Valor)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="px-1">
+            <i class="material-icons left">warning</i>
+            Nenhum cheque encontrado.
+        </p>
+    }
+</div>

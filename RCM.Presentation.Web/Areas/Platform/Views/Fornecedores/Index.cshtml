@@ -1,0 +1,48 @@
+﻿@model IEnumerable<RCM.Application.ViewModels.FornecedorViewModel>
+
+@{
+    ViewData["Title"] = "Fornecedores - Índice";
+}
+
+<float-action-button asp-controller="Fornecedores" asp-action="Create" asp-area="Platform"></float-action-button>
+
+<div class="form-container col s12 m12">
+    @await Component.InvokeAsync("SearchBar", new Dictionary<string, string>() { { "Nome", "nomePrefix" } })
+    
+    @if (Model.Any())
+    {
+        <table class="highlight centered">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nome)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody class="table-body">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nome)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="px-1">
+            <i class="material-icons left">warning</i>
+            Nenhum fornecedor encontrado.
+        </p>
+    }
+</div>

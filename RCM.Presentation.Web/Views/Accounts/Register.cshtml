@@ -1,0 +1,74 @@
+﻿@model RCM.CrossCutting.Identity.ViewModels.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Registrar-se";
+}
+
+<div class="login-container col s12 m12">
+    <div class="px-1">
+        <h5 class="font-bold">
+            Registrar
+        </h5>
+        <p class="mt-0">
+            Entre com suas credenciais para obter acesso à plataforma
+        </p>
+    </div>
+
+    <form asp-action="Register">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="FirstName"></label>
+                <input asp-for="FirstName" class="input-field" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="LastName"></label>
+                <input asp-for="LastName" class="input-field" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="Age" class="control-label"></label>
+                <input asp-for="Age" class="form-control" />
+                <span asp-validation-for="Age" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="input-field" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="Password"></label>
+                <input asp-for="Password" type="password" class="input-field" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="ConfirmPassword"></label>
+                <input asp-for="ConfirmPassword" type="password" class="input-field" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="px-1 pt-2">
+            <post-button icon-name="launch">Efetuar Login</post-button>
+        </div>
+    </form>
+</div>
+
+<div>
+    <a asp-action="Index">Voltar para o Login</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

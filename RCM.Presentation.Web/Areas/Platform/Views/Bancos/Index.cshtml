@@ -1,0 +1,63 @@
+﻿@model IEnumerable<RCM.Application.ViewModels.BancoViewModel>
+
+@{
+    ViewData["Title"] = "Bancos - Índice";
+}
+
+<float-action-button asp-controller="Bancos" asp-action="Create" asp-area="Platform"></float-action-button>
+
+<div class="form-container col s12 m12">
+    @await Component.InvokeAsync("SearchBar", new Dictionary<string, string>() { { "Nome", "bancoPrefix" } })
+   
+    @if (Model.Any())
+    {
+        <table class="highlight centered" id="itemTable">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CodigoCompensacao)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nome)
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="table-body">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.Id
+                        </td>
+                        <td>
+                            @item.CodigoCompensacao
+                        </td>
+                        <td>
+                            @item.Nome
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <ul class="pagination center pt-2 mb-0">
+            <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+            <li class="active"><a href="#!">1</a></li>
+            <li class="waves-effect"><a href="#!">2</a></li>
+            <li class="waves-effect"><a href="#!">3</a></li>
+            <li class="waves-effect"><a href="#!">4</a></li>
+            <li class="waves-effect"><a href="#!">5</a></li>
+            <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+        </ul>
+    }
+    else
+    {
+        <p class="px-1">
+            <i class="material-icons left">warning</i>
+            Nenhum banco encontrado.
+        </p>
+    }
+</div>
