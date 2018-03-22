@@ -1,0 +1,26 @@
+﻿@model RCM.CrossCutting.Identity.ViewModels.ProfileViewModel
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="row">
+    <div class="input-field col s12 m6">
+        <label asp-for="FirstName"></label>
+        <input asp-for="FirstName" class="input-field" />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+</div>
+<div class="row">
+    <div class="input-field col s12 m6">
+        <label asp-for="LastName"></label>
+        <input asp-for="LastName" class="input-field" />
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+</div>
+<div class="row">
+    <div class="input-field col s12 m6">
+        <label asp-for="Age"></label>
+        <input asp-for="Age" class="input-field" />
+        <span asp-validation-for="Age" class="text-danger"></span>
+    </div>
+</div>
+
+

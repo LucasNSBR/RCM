@@ -15,6 +15,6 @@ namespace RCM.CrossCutting.Identity.ViewModels
         public string Password { get; set; }
 
         [Display(Name = "Login persistente")]
-        public bool RememberLogin { get; set; }
+        public bool PersistentLogin { get; set; }
     }
 }

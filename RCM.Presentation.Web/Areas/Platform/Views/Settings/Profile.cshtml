@@ -1,116 +1,24 @@
-﻿@model RCM.CrossCutting.Identity.Models.RCMUserManager
+﻿@model RCM.CrossCutting.Identity.ViewModels.ProfileViewModel
 
 @{
-    ViewData["Title"] = "Informações do perfil";
+    ViewData["Title"] = "Editar Perfil";
 }
+<h5>Editar Perfil</h5>
 
-<h2>Profile</h2>
-
-<h4>RCMUserManager</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Profile">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="SupportsUserAuthenticationTokens" /> @Html.DisplayNameFor(model => model.SupportsUserAuthenticationTokens)
-                    </label>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="SupportsUserAuthenticatorKey" /> @Html.DisplayNameFor(model => model.SupportsUserAuthenticatorKey)
-                    </label>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="SupportsUserTwoFactorRecoveryCodes" /> @Html.DisplayNameFor(model => model.SupportsUserTwoFactorRecoveryCodes)
-                    </label>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="SupportsUserTwoFactor" /> @Html.DisplayNameFor(model => model.SupportsUserTwoFactor)
-                    </label>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="SupportsUserPassword" /> @Html.DisplayNameFor(model => model.SupportsUserPassword)
-                    </label>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="SupportsUserSecurityStamp" /> @Html.DisplayNameFor(model => model.SupportsUserSecurityStamp)
-                    </label>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="SupportsUserRole" /> @Html.DisplayNameFor(model => model.SupportsUserRole)
-                    </label>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="SupportsUserLogin" /> @Html.DisplayNameFor(model => model.SupportsUserLogin)
-                    </label>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="SupportsUserEmail" /> @Html.DisplayNameFor(model => model.SupportsUserEmail)
-                    </label>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="SupportsUserPhoneNumber" /> @Html.DisplayNameFor(model => model.SupportsUserPhoneNumber)
-                    </label>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="SupportsUserClaim" /> @Html.DisplayNameFor(model => model.SupportsUserClaim)
-                    </label>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="SupportsUserLockout" /> @Html.DisplayNameFor(model => model.SupportsUserLockout)
-                    </label>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="SupportsQueryableUsers" /> @Html.DisplayNameFor(model => model.SupportsQueryableUsers)
-                    </label>
-                </div>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </form>
-    </div>
+<div class="form-container col s12 m12">
+    <form asp-action="Profile">
+        
+        <div class="pt-2 px-1">
+            <post-button>Confirmar</post-button>
+        </div>
+    </form>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Voltar para Início</a>
 </div>
 
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

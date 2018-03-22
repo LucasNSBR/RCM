@@ -6,24 +6,11 @@ namespace RCM.Domain.Validators.ChequeCommandValidators
 {
     public abstract class ChequeCommandValidator<T> : AbstractValidator<T> where T : ChequeCommand
     {
-        public ChequeCommandValidator()
-        {
-        }
-
         protected void ValidateId()
         {
             RuleFor(ch => ch.Cheque.Id)
                 .NotEmpty()
                 .WithMessage("O Id do cheque não pode estar vazio.");
-        }
-
-        protected void ValidateNumeroCheque()
-        {
-            RuleFor(ch => ch.Cheque.NumeroCheque)
-                .NotEmpty()
-                .MinimumLength(6)
-                .MaximumLength(8)
-                .WithMessage("O número do cheque deve ter entre 6 e 8 caracteres e não pode estar em branco.");
         }
 
         protected void ValidateBancoId()
@@ -39,14 +26,7 @@ namespace RCM.Domain.Validators.ChequeCommandValidators
                 .NotEmpty()
                 .MinimumLength(4)
                 .MaximumLength(5)
-                .WithMessage("A agência deve ter entre 4 e 5 caracteres e não deve estar em branco.");
-        }
-
-        protected void ValidateClienteId()
-        {
-            RuleFor(ch => ch.Cheque.ClienteId)
-                .NotEmpty()
-                .WithMessage("O cheque deve estar relacionado a um cliente.");
+                .WithMessage("A agência deve ter entre 4 e 5 caracteres e não deve estar vazio.");
         }
 
         protected void ValidateConta()
@@ -55,7 +35,30 @@ namespace RCM.Domain.Validators.ChequeCommandValidators
                 .NotEmpty()
                 .MinimumLength(4)
                 .MaximumLength(12)
-                .WithMessage("A conta deve ter entre 6 e 10 caracteres e não deve estar em branco.");
+                .WithMessage("A conta deve ter entre 6 e 10 caracteres e não deve estar vazio.");
+        }
+
+        protected void ValidateNumeroCheque()
+        {
+            RuleFor(ch => ch.Cheque.NumeroCheque)
+                .NotEmpty()
+                .MinimumLength(6)
+                .MaximumLength(8)
+                .WithMessage("O número do cheque deve ter entre 6 e 8 caracteres e não pode estar vazio.");
+        }
+
+        protected void ValidateObservacao()
+        {
+            RuleFor(d => d.Cheque.Observacao)
+                .MaximumLength(1000)
+                .WithMessage("O campo observação deve ter até 1000 caracteres.");
+        }
+
+        protected void ValidateClienteId()
+        {
+            RuleFor(ch => ch.Cheque.ClienteId)
+                .NotEmpty()
+                .WithMessage("O cheque deve estar relacionado a um cliente.");
         }
 
         protected void ValidateDataEmissao()

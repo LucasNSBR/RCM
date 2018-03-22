@@ -1,12 +1,11 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using RCM.Application.ApplicationInterfaces;
+using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.Repositories;
 using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using AutoMapper.QueryableExtensions;
 using System.Linq;
-using RCM.Domain.Core.MediatorServices;
+using System.Linq.Expressions;
 
 namespace RCM.Application.ApplicationServices
 {
@@ -25,12 +24,12 @@ namespace RCM.Application.ApplicationServices
             _mediator = mediator;
         }
 
-        public IEnumerable<TViewModel> Get()
+        public IQueryable<TViewModel> Get()
         {
             return _baseRepository.Get().AsQueryable().ProjectTo<TViewModel>();
         }
 
-        public IEnumerable<TViewModel> Get(Expression<Func<TModel, bool>> expression)
+        public IQueryable<TViewModel> Get(Expression<Func<TModel, bool>> expression)
         {
             return _baseRepository.Get(expression).AsQueryable().ProjectTo<TViewModel>();
         }
@@ -51,6 +50,11 @@ namespace RCM.Application.ApplicationServices
 
         public virtual void Update(TViewModel viewModel)
         {
+        }
+
+        public void Dispose()
+        {
+            _baseRepository.Dispose();
         }
 
         protected TModel ProjectToModel(TViewModel viewModel)

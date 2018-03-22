@@ -1,17 +1,17 @@
 ﻿@model IEnumerable<RCM.Application.ViewModels.ChequeViewModel>
 
 @{
-    ViewData["Title"] = "Cheques - Índice ";
+    ViewData["Title"] = "Cheques - Índice";
 }
 
-<float-action-button asp-controller="Cheques" asp-action="Create" asp-area="Platform"></float-action-button>
+<float-action-button controller="Cheques"></float-action-button>
 
 <div class="form-container col s12 m12">
-    @await Component.InvokeAsync("SearchBar", new Dictionary<string, string>() { { "Número do Cheque", "chequePrefix" }, { "Nome do cliente", "clientePrefix" } })
+    @await Component.InvokeAsync("SearchBar", new Dictionary<string, string>() { { "Número do Cheque", "chequePrefix" }, { "Nome do Cliente", "clientePrefix" } })
 
     @if (Model.Any())
     {
-        <table class="highlight centered" id="itemTable">
+        <table class="highlight centered">
             <thead>
                 <tr>
                     <th>
@@ -41,7 +41,6 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Valor)
                     </th>
-                    <th></th>
                 </tr>
             </thead>
             <tbody class="table-body">
@@ -49,7 +48,7 @@
                 {
                     <tr>
                         <td>
-                            @item.Id
+                            @Html.DisplayFor(modelItem => item.Id)
                         </td>
                         <td>
                             @item.Banco.Nome.Substring(0, 10).Insert(10, "...")

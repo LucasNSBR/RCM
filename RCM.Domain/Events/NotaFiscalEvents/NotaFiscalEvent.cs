@@ -2,7 +2,7 @@
 
 namespace RCM.Domain.Events.NotaFiscalEvents
 {
-    public class NotaFiscalEvent : Event
+    public abstract class NotaFiscalEvent : Event
     {
     }
 }

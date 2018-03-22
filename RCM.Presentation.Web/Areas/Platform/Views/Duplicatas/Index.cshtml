@@ -4,14 +4,14 @@
     ViewData["Title"] = "Duplicatas - Índice";
 }
 
-<float-action-button asp-controller="Duplicatas" asp-action="Create" asp-area="Platform"></float-action-button>
+<float-action-button controller="Duplicatas"></float-action-button>
 
 <div class="form-container col s12 m12">
     @await Component.InvokeAsync("SearchBar", new Dictionary<string, string>() { { "Número do Documento", "documentoPrefix" }, { "Nome do Fornecedor", "fornecedorPrefix" } })
 
     @if (Model.Any())
     {
-        <table class="highlight centered" id="itemTable">
+        <table class="highlight centered">
             <thead>
                 <tr>
                     <th>
@@ -35,7 +35,6 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Valor)
                     </th>
-                    <th></th>
                 </tr>
             </thead>
             <tbody class="table-body">
@@ -49,10 +48,10 @@
                             @Html.DisplayFor(modelItem => item.NumeroDocumento)
                         </td>
                         <td>
-                            @item.DataEmissao.ToShortDateString()
+                            @Html.DisplayFor(modelItem => item.DataEmissao)
                         </td>
                         <td>
-                            @item.DataVencimento.ToShortDateString()
+                            @Html.DisplayFor(modelItem => item.DataVencimento)
                         </td>
                         <td>
                             @if (item.DataPagamento == null)
@@ -61,11 +60,11 @@
                             }
                             else
                             {
-                                @item.DataPagamento
+                                @Html.DisplayFor(modelItem => item.DataPagamento)
                             }
                         </td>
                         <td>
-                            @item.Fornecedor.Nome
+                            @Html.DisplayFor(modelItem => item.Fornecedor.Nome)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Valor)

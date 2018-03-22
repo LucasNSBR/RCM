@@ -12,10 +12,5 @@
         public virtual Cidade Cidade { get; set; }
         public int ClienteId { get; set; }
         public virtual Cliente Cliente { get; set; }
-
-        public override string ToString()
-        {
-            return $"{Rua}, {Numero}, {Bairro}";
-        }
     }
 }

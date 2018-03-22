@@ -7,8 +7,8 @@ namespace RCM.Domain.Validators.BancoCommandValidators
         public UpdateBancoCommandValidator()
         {
             ValidateId();
-            ValidateName();
             ValidateCodigoCompensacao();
+            ValidateName();
         }
     }
 }

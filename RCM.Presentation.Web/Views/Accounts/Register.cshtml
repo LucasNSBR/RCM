@@ -10,7 +10,7 @@
             Registrar
         </h5>
         <p class="mt-0">
-            Entre com suas credenciais para obter acesso à plataforma
+            Crie uma conta para obter acesso à plataforma
         </p>
     </div>
 
@@ -32,8 +32,8 @@
         </div>
         <div class="row">
             <div class="input-field col s12 m6">
-                <label asp-for="Age" class="control-label"></label>
-                <input asp-for="Age" class="form-control" />
+                <label asp-for="Age"></label>
+                <input asp-for="Age" class="input-field" />
                 <span asp-validation-for="Age" class="text-danger"></span>
             </div>
         </div>
@@ -60,7 +60,7 @@
         </div>
 
         <div class="px-1 pt-2">
-            <post-button icon-name="launch">Efetuar Login</post-button>
+            <post-button icon-name="launch">Criar Conta</post-button>
         </div>
     </form>
 </div>
@@ -68,6 +68,7 @@
 <div>
     <a asp-action="Index">Voltar para o Login</a>
 </div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

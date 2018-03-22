@@ -5,8 +5,6 @@ namespace RCM.Domain.Commands.NotaFiscalCommands
 {
     public class AddNotaFiscalCommand : NotaFiscalCommand
     {
-        public string get { get; set; }
-
         public AddNotaFiscalCommand(NotaFiscal notaFiscal) : base(notaFiscal)
         {
         }

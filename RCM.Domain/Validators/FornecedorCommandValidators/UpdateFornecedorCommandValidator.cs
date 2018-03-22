@@ -8,6 +8,7 @@ namespace RCM.Domain.Validators.FornecedorCommandValidators
         {
             ValidateId();
             ValidateNome();
+            ValidateObservacao();
         }
     }
 }

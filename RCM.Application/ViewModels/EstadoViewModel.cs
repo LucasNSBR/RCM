@@ -13,10 +13,5 @@ namespace RCM.Application.ViewModels
 
         [Display(Name = "Cidades")]
         public ICollection<CidadeViewModel> Cidades { get; set; }
-
-        public override string ToString()
-        {
-            return Nome;
-        }
     }
 }

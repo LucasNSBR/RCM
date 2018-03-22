@@ -5,7 +5,7 @@ namespace RCM.Domain.Commands.ClienteCommands
 {
     public abstract class ClienteCommand : Command
     {
-        public Cliente Cliente { get; private set; }
+        public Cliente Cliente { get; }
 
         public ClienteCommand(Cliente cliente) 
         {

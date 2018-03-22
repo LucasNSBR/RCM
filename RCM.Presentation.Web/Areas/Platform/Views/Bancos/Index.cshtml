@@ -4,14 +4,14 @@
     ViewData["Title"] = "Bancos - Índice";
 }
 
-<float-action-button asp-controller="Bancos" asp-action="Create" asp-area="Platform"></float-action-button>
+<float-action-button controller="Bancos"></float-action-button>
 
 <div class="form-container col s12 m12">
     @await Component.InvokeAsync("SearchBar", new Dictionary<string, string>() { { "Nome", "bancoPrefix" } })
-   
+
     @if (Model.Any())
     {
-        <table class="highlight centered" id="itemTable">
+        <table class="highlight centered">
             <thead>
                 <tr>
                     <th>
@@ -30,28 +30,18 @@
                 {
                     <tr>
                         <td>
-                            @item.Id
+                            @Html.DisplayFor(modelItem => item.Id)
                         </td>
                         <td>
-                            @item.CodigoCompensacao
+                            @Html.DisplayFor(modelItem => item.CodigoCompensacao)
                         </td>
                         <td>
-                            @item.Nome
+                            @Html.DisplayFor(modelItem => item.Nome)
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
-
-        <ul class="pagination center pt-2 mb-0">
-            <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-            <li class="active"><a href="#!">1</a></li>
-            <li class="waves-effect"><a href="#!">2</a></li>
-            <li class="waves-effect"><a href="#!">3</a></li>
-            <li class="waves-effect"><a href="#!">4</a></li>
-            <li class="waves-effect"><a href="#!">5</a></li>
-            <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-        </ul>
     }
     else
     {

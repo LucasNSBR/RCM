@@ -20,7 +20,12 @@
     <ProjectReference Include="..\RCM.CrossCutting.Identity\RCM.CrossCutting.Identity.csproj" />
     <ProjectReference Include="..\RCM.CrossCutting.IoC\RCM.CrossCutting.IoC.csproj" />
     <ProjectReference Include="..\RCM.Domain\RCM.Domain.csproj" />
-    <ProjectReference Include="..\RCM.Infra\RCM.Infra.csproj" />
+    <ProjectReference Include="..\RCM.Infra.Data\RCM.Infra.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+    <Folder Include="Middlewares\" />
   </ItemGroup>
 
 </Project>

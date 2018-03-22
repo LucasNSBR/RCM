@@ -31,7 +31,7 @@ namespace RCM.Tests
 
         }
 
-        public IEnumerable<BancoViewModel> GetBancos()
+        public IQueryable<BancoViewModel> GetBancos()
         {
             return new List<BancoViewModel>()
             {
@@ -53,7 +53,13 @@ namespace RCM.Tests
                     CodigoCompensacao = 241,
                     Nome = "Banco do Brasil"
                 },
-            };
+            }.AsQueryable();
+        }
+
+        public void TestAccountSettingsController()
+        {
+            var mock = new Mock<AccountsController>();
+            var notifications = new Mock<IDomainNotificationHandler>();
         }
     }
 }

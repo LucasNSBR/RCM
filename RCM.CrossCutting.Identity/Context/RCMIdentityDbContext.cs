@@ -1,26 +1,26 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using RCM.CrossCutting.Identity.Models;
-using System.IO;
 
 namespace RCM.CrossCutting.Identity.Context
 {
     public class RCMIdentityDbContext : IdentityDbContext<RCMIdentityUser, RCMIdentityRole, int>
     {
-        public RCMIdentityDbContext()
+        public RCMIdentityDbContext(DbContextOptions<RCMIdentityDbContext> options) : base(options)
         {
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
-            var config = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
-                .Build();
+            //builder.ApplyConfiguration(new RoleClaimEntityTypeConfig());
+            //builder.ApplyConfiguration(new RoleEntityTypeConfig());
+            //builder.ApplyConfiguration(new UserClaimEntityTypeConfig());
+            //builder.ApplyConfiguration(new UserLoginEntityConfig());
+            //builder.ApplyConfiguration(new UserRoleEntityTypeConfig());
+            //builder.ApplyConfiguration(new UserEntityTypeConfig());
+            //builder.ApplyConfiguration(new UserTokenEntityTypeConfig());
 
-            optionsBuilder.UseSqlServer(config.GetConnectionString("RCMDatabase"));
+            base.OnModelCreating(builder);
         }
     }
 }

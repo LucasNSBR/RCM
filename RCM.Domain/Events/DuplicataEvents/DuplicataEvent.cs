@@ -2,7 +2,7 @@
 
 namespace RCM.Domain.Events.DuplicataEvents
 {
-    public class DuplicataEvent : Event
+    public abstract class DuplicataEvent : Event
     {
     }
 }

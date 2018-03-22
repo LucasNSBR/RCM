@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RCM.Domain.DomainNotificationHandlers;
 using RCM.Domain.DomainNotifications;
-using System;
+using RCM.Presentation.Web.Areas.Platform.Controllers;
 using System.Linq;
 
 namespace RCM.Presentation.Web.Controllers
@@ -20,17 +20,17 @@ namespace RCM.Presentation.Web.Controllers
             return _domainNotificationHandler.IsEmpty();
         }
 
-        private void AddModelErrorNotification(string key = null, string value = null, Exception exception = null)
-        {
-            _domainNotificationHandler.AddNotification(new ModelStateErrorDomainNotification(key, value));
-        }
-
         protected void NotifyModelStateErrors()
         {
             foreach (var error in ModelState.Values.SelectMany(e => e.Errors))
             {
-                AddModelErrorNotification("MODEL STATE ERROR {0}", error.ErrorMessage);
+                _domainNotificationHandler.AddNotification(new ModelStateErrorDomainNotification(error.ErrorMessage));
             }
+        }
+
+        public RedirectToActionResult RedirectToPlatform()
+        {
+            return RedirectToAction(nameof(DuplicatasController.Index), "Duplicatas", new { area = "Platform" });
         }
     }
 }

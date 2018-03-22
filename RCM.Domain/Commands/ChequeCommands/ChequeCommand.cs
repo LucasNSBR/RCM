@@ -5,7 +5,7 @@ namespace RCM.Domain.Commands.ChequeCommands
 {
     public abstract class ChequeCommand : Command
     {
-        public Cheque Cheque { get; private set; }
+        public Cheque Cheque { get; }
 
         public ChequeCommand(Cheque cheque) 
         {

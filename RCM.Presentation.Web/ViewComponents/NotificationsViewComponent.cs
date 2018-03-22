@@ -14,8 +14,8 @@ namespace RCM.Presentation.Web.ViewComponents
 
         public IViewComponentResult Invoke()
         {
-            var items = _domainNotificationHandler.GetNotifications();
-            return View(items);
+            var notifications = _domainNotificationHandler.GetNotifications();
+            return View(notifications); 
         }
     }
 }

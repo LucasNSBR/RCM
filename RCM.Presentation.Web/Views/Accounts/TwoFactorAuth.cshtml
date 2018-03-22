@@ -1,0 +1,53 @@
+﻿@model RCM.CrossCutting.Identity.ViewModels.TwoFactorAuthViewModel
+
+@{
+    ViewData["Title"] = "Segundo Fator de Autenticação";
+}
+
+
+<div class="login-container col s12 m12">
+    <div class="px-1">
+        <h5 class="font-bold">
+            Segundo Fator de Autenticação
+        </h5>
+        <p class="mt-0">
+            Use o código enviado para o seu e-mail para completar o login e ter acesso à plataforma
+        </p>
+    </div>
+
+    <form asp-action="TwoFactorAuth">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="Code"></label>
+                <input asp-for="Code" class="input-field" />
+                <span asp-validation-for="Code" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="px-1">
+                <input type="checkbox" asp-for="@Model.PersistentLogin" />
+                <label asp-for="@Model.PersistentLogin"></label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="px-1">
+                <input type="checkbox" asp-for="@Model.RememberClient" />
+                <label asp-for="@Model.RememberClient"></label>
+            </div>
+        </div>
+
+        <div class="px-1 pt-2">
+            <post-button icon-name="launch">Efetuar Login</post-button>
+        </div>
+    </form>
+</div>
+
+<div>
+    <a asp-action="Index">Voltar para o Login</a>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

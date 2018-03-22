@@ -1,0 +1,27 @@
+﻿@model RCM.CrossCutting.Identity.ViewModels.ProfileViewModel
+
+
+<p class="px-1 font-bold lead">
+    Informação geral
+</p>
+
+<dl class="detail-list">
+    <dt>
+        <label asp-for="FirstName">Nome</label>
+    </dt>
+    <dd>
+        @Model.FirstName
+    </dd>
+    <dt>
+        <label asp-for="LastName">Sobrenome</label>
+    </dt>
+    <dd>
+        @Model.LastName
+    </dd>
+    <dt>
+        <label asp-for="Age">Idade</label>
+    </dt>
+    <dd>
+        @Model.Age
+    </dd>
+</dl>

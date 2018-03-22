@@ -4,44 +4,44 @@ using RCM.Application.ApplicationInterfaces;
 using RCM.Application.ViewModels;
 using RCM.Domain.DomainNotificationHandlers;
 using RCM.Presentation.Web.Controllers;
-using System.Linq;
 
 namespace RCM.Presentation.Web.Areas.Platform.Controllers
 {
-    [Authorize]
+    [Authorize(Policy = "Admin")]
+    [Authorize(Policy = "Manager")]
     [Area("Platform")]
     public class ChequesController : BaseController
     {
         private readonly IChequeApplicationService _chequeApplicationService;
 
-        public ChequesController(IChequeApplicationService chequeApplicationService, IDomainNotificationHandler domainNotificationHandler) : base(domainNotificationHandler)
+        public ChequesController(IChequeApplicationService chequeApplicationService, IDomainNotificationHandler domainNotificationHandler) : 
+                                                                                                                    base(domainNotificationHandler)
         {
             _chequeApplicationService = chequeApplicationService;
         }
 
-        public IActionResult Index(string clienteName = "")
+        public IActionResult Index()
         {
-            var list = _chequeApplicationService.Get()
-                .Where(c => c.Cliente.Nome.ToLower().Contains(clienteName.ToLower()))
-                .OrderBy(c => c.Cliente.Nome);
-
+            var list = _chequeApplicationService.Get();
             return View(list);
         }
         
         public IActionResult Details(int id)
         {
-            var model = _chequeApplicationService.GetById(id);
-            if (model == null)
+            var cheque = _chequeApplicationService.GetById(id);
+            if (cheque == null)
                 return NotFound();
 
-            return View(model);
+            return View(cheque);
         }
 
+        [Authorize(Policy = "ActiveUser")]
         public IActionResult Create()
         {
             return View();
         }
-        
+
+        [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(ChequeViewModel cheque)
@@ -59,7 +59,8 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             else
                 return View(cheque);
         }
-        
+
+        [Authorize(Policy = "ActiveUser")]
         public IActionResult Edit(int id)
         {
             var cheque = _chequeApplicationService.GetById(id);
@@ -69,6 +70,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             return View(cheque);
         }
 
+        [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, ChequeViewModel cheque)
@@ -87,6 +89,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 return View(cheque);
         }
 
+        [Authorize(Policy = "ActiveUser")]
         public IActionResult Delete(int id)
         {
             var cheque = _chequeApplicationService.GetById(id);
@@ -96,6 +99,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             return View(cheque);
         }
 
+        [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Delete(int id, ChequeViewModel cheque)

@@ -7,13 +7,15 @@ using RCM.Presentation.Web.Controllers;
 
 namespace RCM.Presentation.Web.Areas.Platform.Controllers
 {
-    [Authorize]
+    [Authorize(Policy = "Admin")]
+    [Authorize(Policy = "Manager")]
     [Area("Platform")]
     public class DuplicatasController : BaseController
     {
         private readonly IDuplicataApplicationService _duplicataApplicationService;
 
-        public DuplicatasController(IDuplicataApplicationService duplicataApplicationService, IDomainNotificationHandler domainNotificationHandler) : base(domainNotificationHandler)
+        public DuplicatasController(IDuplicataApplicationService duplicataApplicationService, IDomainNotificationHandler domainNotificationHandler) : 
+                                                                                                                            base(domainNotificationHandler)
         {
             _duplicataApplicationService = duplicataApplicationService;
         }
@@ -26,18 +28,20 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         
         public IActionResult Details(int id)
         {
-            var model = _duplicataApplicationService.GetById(id);
-            if (model == null)
+            var duplicata = _duplicataApplicationService.GetById(id);
+            if (duplicata == null)
                 return NotFound();
 
-            return View(model);
+            return View(duplicata);
         }
-        
+
+        [Authorize(Policy = "ActiveUser")]
         public IActionResult Create()
         {
             return View();
         }
 
+        [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(DuplicataViewModel duplicata)
@@ -55,7 +59,8 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             else
                 return View(duplicata);
         }
-        
+
+        [Authorize(Policy = "ActiveUser")]
         public IActionResult Edit(int id)
         {
             var duplicata = _duplicataApplicationService.GetById(id);
@@ -65,6 +70,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             return View(duplicata);
         }
 
+        [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, DuplicataViewModel duplicata)
@@ -82,7 +88,8 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             else
                 return View(duplicata);
         }
-        
+
+        [Authorize(Policy = "ActiveUser")]
         public IActionResult Delete(int id)
         {
             var duplicata = _duplicataApplicationService.GetById(id);
@@ -92,6 +99,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             return View(duplicata);
         }
 
+        [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Delete(int id, DuplicataViewModel duplicata)

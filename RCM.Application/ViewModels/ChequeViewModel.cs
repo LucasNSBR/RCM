@@ -31,6 +31,9 @@ namespace RCM.Application.ViewModels
         [StringLength(8, MinimumLength = 6, ErrorMessage = "O campo número do cheque deve ter entre 6 e 10 caracteres.")]
         public string NumeroCheque { get; set; }
 
+        [Display(Name = "Observação")]
+        public string Observacao { get; set; }
+
         [Display(Name = "Id do Cliente")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O cliente relacionado é requerido.")]
         public int ClienteId { get; set; }
@@ -53,14 +56,9 @@ namespace RCM.Application.ViewModels
         public DateTime? DataPagamento { get; set; }
 
         [Display(Name = "Valor")]
-        [DisplayFormat(ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true, DataFormatString = "{0:c}")]
+        [DisplayFormat(ApplyFormatInEditMode = false, ConvertEmptyStringToNull = true, DataFormatString = "{0:c}")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo valor é requerido.")]
         [Range(0, 99999, ErrorMessage = "O campo valor deve ser estar entre 0 e 99999.")]
         public decimal Valor { get; set; }
-
-        public override string ToString()
-        {
-            return NumeroCheque;
-        }
     }
 }

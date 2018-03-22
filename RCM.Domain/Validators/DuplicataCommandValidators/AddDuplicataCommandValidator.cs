@@ -7,6 +7,7 @@ namespace RCM.Domain.Validators.DuplicataCommandValidations
         public AddDuplicataCommandValidator() 
         {
             ValidateNumeroDocumento();
+            ValidateObservacao();
             ValidateDataEmissao();
             ValidateDataVencimento();
             ValidateValor();

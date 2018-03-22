@@ -1,14 +1,11 @@
 ﻿using RCM.Domain.Core.Notifications;
+using RCM.Domain.Helpers;
 
 namespace RCM.Domain.DomainNotifications
 {
     public class AuthenticationErrorDomainNotification : DomainNotification
     {
-        public AuthenticationErrorDomainNotification()
-        {
-        }
-
-        public AuthenticationErrorDomainNotification(string body) : base("AUTHENTICATION ERROR", body)
+        public AuthenticationErrorDomainNotification(string body) : base(NotificationMessageContants.AuthenticationError, body)
         {
         }
 

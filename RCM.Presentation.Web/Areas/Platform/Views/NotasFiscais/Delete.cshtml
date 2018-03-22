@@ -1,50 +1,21 @@
 ﻿@model RCM.Application.ViewModels.NotaFiscalViewModel
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = $"Excluir Nota Fiscal {Model.NumeroDocumento}";
 }
 
-<h2>Delete</h2>
+<h2>Excluir Nota Fiscal - @Model.NumeroDocumento</h2>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>NotaFiscalViewModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NumeroDocumento)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NumeroDocumento)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DataEmissao)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DataEmissao)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DataChegada)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DataChegada)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Valor)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Valor)
-        </dd>
-    </dl>
-    
+<div class="form-container col s12 m12">
     <form asp-action="Delete">
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Back to List</a>
+        @Html.DisplayForModel()
+
+        <div class="row pt-2 px-1">
+            <post-button icon-name="delete">Excluir</post-button>
+        </div>
     </form>
+</div>
+
+<div>
+    <a asp-action="Details" asp-route-id="@Model.Id">Voltar para Detalhes</a>
 </div>

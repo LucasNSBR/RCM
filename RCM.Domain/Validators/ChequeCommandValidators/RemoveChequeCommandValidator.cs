@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using RCM.Domain.Commands.ChequeCommands;
+﻿using RCM.Domain.Commands.ChequeCommands;
 
 namespace RCM.Domain.Validators.ChequeCommandValidators
 {
@@ -7,7 +6,7 @@ namespace RCM.Domain.Validators.ChequeCommandValidators
     {
         public RemoveChequeCommandValidator()
         {
-            ValidateBancoId();
+            ValidateId();
         }
     }
 }

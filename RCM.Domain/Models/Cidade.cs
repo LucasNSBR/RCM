@@ -6,10 +6,5 @@
         public string Nome { get; set; }
         public int EstadoId { get; set; }
         public virtual Estado Estado { get; set; }
-
-        public override string ToString()
-        {
-            return Nome;
-        }
     }
 }

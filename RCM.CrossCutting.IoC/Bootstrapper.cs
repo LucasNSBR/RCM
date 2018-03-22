@@ -5,15 +5,16 @@ using Microsoft.Extensions.DependencyInjection;
 using RCM.Application.ApplicationInterfaces;
 using RCM.Application.ApplicationServices;
 using RCM.Application.Mappers;
-using RCM.CrossCutting.Identity.Models;
 using RCM.CrossCutting.MediatorServices;
 using RCM.Domain.CommandHandlers.BancoCommandHandlers;
 using RCM.Domain.CommandHandlers.ChequeCommandHandlers;
+using RCM.Domain.CommandHandlers.ClienteCommandHandlers;
 using RCM.Domain.CommandHandlers.DuplicataCommandHandlers;
 using RCM.Domain.CommandHandlers.FornecedorCommandHandlers;
 using RCM.Domain.CommandHandlers.NotaFiscalCommandHandlers;
 using RCM.Domain.Commands.BancoCommands;
 using RCM.Domain.Commands.ChequeCommands;
+using RCM.Domain.Commands.ClienteCommands;
 using RCM.Domain.Commands.DuplicataCommands;
 using RCM.Domain.Commands.FornecedorCommands;
 using RCM.Domain.Commands.NotaFiscalCommands;
@@ -22,9 +23,11 @@ using RCM.Domain.DomainNotificationHandlers;
 using RCM.Domain.EventHandlers.ChequeEventHandlers;
 using RCM.Domain.Events.ChequeEvents;
 using RCM.Domain.Repositories;
+using RCM.Domain.Services.Email;
 using RCM.Domain.UnitOfWork;
-using RCM.Infra.Repositories;
-using RCM.Infra.UnitOfWork;
+using RCM.Infra.Data.Repositories;
+using RCM.Infra.Data.UnitOfWork;
+using RCM.Infra.Services.Email;
 
 namespace RCM.CrossCutting.IoC
 {
@@ -32,6 +35,7 @@ namespace RCM.CrossCutting.IoC
     {
         public static void RegisterServices(IServiceCollection services)
         {
+            RegisterIntrastructureServices(services);
             RegisterMiscellaneous(services);
             RegisterRepositories(services);
             RegisterApplicationServices(services);
@@ -41,26 +45,10 @@ namespace RCM.CrossCutting.IoC
             RegisterIdentityServices(services);
         }
 
-        private static void RegisterApplicationServices(IServiceCollection services)
+        private static void RegisterIntrastructureServices(IServiceCollection services)
         {
-            services.AddScoped(typeof(IBaseApplicationService<,>), typeof(BaseApplicationService<,>));
-            services.AddScoped<IClienteApplicationService, ClienteApplicationService>();
-            services.AddScoped<IDuplicataApplicationService, DuplicataApplicationService>();
-            services.AddScoped<IChequeApplicationService, ChequeApplicationService>();
-            services.AddScoped<IBancoApplicationService, BancoApplicationService>();
-            services.AddScoped<IFornecedorApplicationService, FornecedorApplicationService>();
-            services.AddScoped<INotaFiscalApplicationService, NotaFiscalApplicationService>();
-        }
-
-        private static void RegisterRepositories(IServiceCollection services)
-        {
-            services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
-            services.AddScoped<IClienteRepository, ClienteRepository>();
-            services.AddScoped<IFornecedorRepository, FornecedorRepository>();
-            services.AddScoped<IDuplicataRepository, DuplicataRepository>();
-            services.AddScoped<IChequeRepository, ChequeRepository>();
-            services.AddScoped<IBancoRepository, BancoRepository>();
-            services.AddScoped<INotaFiscalRepository, NotaFiscalRepository>();
+            services.AddTransient<IEmailDispatcher, EmailDispatcher>();
+            services.AddTransient<IEmailGenerator, EmailGenerator>();
         }
 
         private static void RegisterMiscellaneous(IServiceCollection services)
@@ -73,27 +61,53 @@ namespace RCM.CrossCutting.IoC
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
+        private static void RegisterRepositories(IServiceCollection services)
+        {
+            services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+            services.AddScoped<IBancoRepository, BancoRepository>();
+            services.AddScoped<IChequeRepository, ChequeRepository>();
+            services.AddScoped<IClienteRepository, ClienteRepository>();
+            services.AddScoped<IDuplicataRepository, DuplicataRepository>();
+            services.AddScoped<IFornecedorRepository, FornecedorRepository>();
+            services.AddScoped<INotaFiscalRepository, NotaFiscalRepository>();
+        }
+
+        private static void RegisterApplicationServices(IServiceCollection services)
+        {
+            services.AddScoped(typeof(IBaseApplicationService<,>), typeof(BaseApplicationService<,>));
+            services.AddScoped<IBancoApplicationService, BancoApplicationService>();
+            services.AddScoped<IChequeApplicationService, ChequeApplicationService>();
+            services.AddScoped<IClienteApplicationService, ClienteApplicationService>();
+            services.AddScoped<IDuplicataApplicationService, DuplicataApplicationService>();
+            services.AddScoped<IFornecedorApplicationService, FornecedorApplicationService>();
+            services.AddScoped<INotaFiscalApplicationService, NotaFiscalApplicationService>();
+        }
+
         private static void RegisterMediatrCommands(IServiceCollection services)
         {
-            services.AddScoped<INotificationHandler<AddDuplicataCommand>, DuplicataCommandHandler>();
-            services.AddScoped<INotificationHandler<UpdateDuplicataCommand>, DuplicataCommandHandler>();
-            services.AddScoped<INotificationHandler<RemoveDuplicataCommand>, DuplicataCommandHandler>();
+            services.AddScoped<INotificationHandler<AddBancoCommand>, BancoCommandHandler>();
+            services.AddScoped<INotificationHandler<UpdateBancoCommand>, BancoCommandHandler>();
+            services.AddScoped<INotificationHandler<RemoveBancoCommand>, BancoCommandHandler>();
 
             services.AddScoped<INotificationHandler<AddChequeCommand>, ChequeCommandHandler>();
             services.AddScoped<INotificationHandler<UpdateChequeCommand>, ChequeCommandHandler>();
             services.AddScoped<INotificationHandler<RemoveChequeCommand>, ChequeCommandHandler>();
 
-            services.AddScoped<INotificationHandler<AddBancoCommand>, BancoCommandHandler>();
-            services.AddScoped<INotificationHandler<UpdateBancoCommand>, BancoCommandHandler>();
-            services.AddScoped<INotificationHandler<RemoveBancoCommand>, BancoCommandHandler>();
+            services.AddScoped<INotificationHandler<AddClienteCommand>, ClienteCommandHandler>();
+            services.AddScoped<INotificationHandler<UpdateClienteCommand>, ClienteCommandHandler>();
+            services.AddScoped<INotificationHandler<RemoveClienteCommand>, ClienteCommandHandler>();
 
-            services.AddScoped<INotificationHandler<AddNotaFiscalCommand>, NotaFiscalCommandHandler>();
-            services.AddScoped<INotificationHandler<UpdateNotaFiscalCommand>, NotaFiscalCommandHandler>();
-            services.AddScoped<INotificationHandler<RemoveNotaFiscalCommand>, NotaFiscalCommandHandler>();
+            services.AddScoped<INotificationHandler<AddDuplicataCommand>, DuplicataCommandHandler>();
+            services.AddScoped<INotificationHandler<UpdateDuplicataCommand>, DuplicataCommandHandler>();
+            services.AddScoped<INotificationHandler<RemoveDuplicataCommand>, DuplicataCommandHandler>();
 
             services.AddScoped<INotificationHandler<AddFornecedorCommand>, FornecedorCommandHandler>();
             services.AddScoped<INotificationHandler<UpdateFornecedorCommand>, FornecedorCommandHandler>();
             services.AddScoped<INotificationHandler<RemoveFornecedorCommand>, FornecedorCommandHandler>();
+
+            services.AddScoped<INotificationHandler<AddNotaFiscalCommand>, NotaFiscalCommandHandler>();
+            services.AddScoped<INotificationHandler<UpdateNotaFiscalCommand>, NotaFiscalCommandHandler>();
+            services.AddScoped<INotificationHandler<RemoveNotaFiscalCommand>, NotaFiscalCommandHandler>();
         }
 
         private static void RegisterMediatrEvents(IServiceCollection services)

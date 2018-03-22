@@ -15,10 +15,5 @@ namespace RCM.Domain.Models
         public int FornecedorId { get; set; }
         public virtual Fornecedor Fornecedor { get; set; }
         public decimal Valor { get; set; }
-
-        public override string ToString()
-        {
-            return NumeroDocumento;
-        }
     }
 }

@@ -15,7 +15,6 @@ namespace RCM.Application.ViewModels
         public string Nome { get; set; }
 
         [Display(Name = "Observações")]
-        [StringLength(1000, MinimumLength = 10, ErrorMessage = "O campo nome deve ter entre 10 e 1000 caracteres.")]
         public string Observacao { get; set; }
 
         [Display(Name = "Duplicatas")]
@@ -23,6 +22,5 @@ namespace RCM.Application.ViewModels
 
         [Display(Name = "Notas Fiscais")]
         public ICollection<NotaFiscalViewModel> NotasFiscais { get; set; }
-
     }
 }

@@ -4,8 +4,6 @@ using RCM.Domain.DomainNotificationHandlers;
 using RCM.Domain.DomainNotifications;
 using RCM.Domain.Repositories;
 using RCM.Domain.UnitOfWork;
-using System.Diagnostics;
-using System.Linq;
 
 namespace RCM.Domain.CommandHandlers
 {
@@ -36,27 +34,27 @@ namespace RCM.Domain.CommandHandlers
                 {
                     _domainNotificationHandler.AddNotification(new CommitErrorDomainNotification(error.InnerException.Message));
                 }
-
-                if (!commandResult.Errors.Any())
-                    _domainNotificationHandler.AddNotification(new CommitErrorDomainNotification("Erro desconhecido"));
             }
 
             return false;
         }
 
-        protected bool Valid(Command command)
+        protected bool NotifyCommandErrors(Command command)
         {
+            if (!_domainNotificationHandler.IsEmpty())
+                return true;
+            
             if (!command.IsValid())
             {
                 foreach (var error in command.ValidationResult.Errors)
                 {
-                    _domainNotificationHandler.AddNotification(new CommandValidationErrorDomainNotification("COMMAND VALIDATION ERROR", error.ErrorMessage));
+                    _domainNotificationHandler.AddNotification(new CommandValidationErrorDomainNotification(error.ErrorMessage));
                 }
 
-                return false;
+                return true;
             }
 
-            return true;
+            return false;
         }
     }
 }

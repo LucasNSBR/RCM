@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
 using RCM.Domain.Core.MediatorServices;
+using System.Threading.Tasks;
 
 namespace RCM.CrossCutting.MediatorServices
 {
@@ -13,12 +13,12 @@ namespace RCM.CrossCutting.MediatorServices
             _mediator = mediator;
         }
 
-        public async Task Publish<T>(T notification) where T : INotification
+        public async Task SendCommand<T>(T command) where T : INotification
         {
-            await _mediator.Publish(notification);
+            await _mediator.Publish(command);
         }
 
-        public async Task SendCommand<T>(T notification) where T : INotification
+        public async Task Publish<T>(T notification) where T : INotification
         {
             await _mediator.Publish(notification);
         }

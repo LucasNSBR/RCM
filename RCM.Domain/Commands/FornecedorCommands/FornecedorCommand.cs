@@ -5,7 +5,7 @@ namespace RCM.Domain.Commands.FornecedorCommands
 {
     public abstract class FornecedorCommand : Command
     {
-        public Fornecedor Fornecedor { get; private set; }
+        public Fornecedor Fornecedor { get; }
 
         public FornecedorCommand(Fornecedor fornecedor) 
         {

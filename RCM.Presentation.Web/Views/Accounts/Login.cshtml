@@ -13,37 +13,53 @@
             Entre com suas credenciais para obter acesso à plataforma
         </p>
     </div>
+    <div class="row">
+        <div class="col s6 m8">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <form asp-action="Login">
+                <div class="row">
+                    <div class="input-field col s12 m8">
+                        <label asp-for="@Model.Email"></label>
+                        <input asp-for="@Model.Email" class="input-field" />
+                        <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <input type="hidden" name="returnUrl" value="@TempData["returnUrl"]" />
+                    <div class="input-field col s12 m8">
+                        <label asp-for="@Model.Password"></label>
+                        <input asp-for="@Model.Password" class="input-field" type="password" />
+                        <span asp-validation-for="@Model.Password" class="text-danger"></span> <br />
+                        <a asp-action="RecoverPassword" class="font-italic small">Esqueci minha senha</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="px-1">
+                        <input type="checkbox" asp-for="@Model.PersistentLogin" />
+                        <label asp-for="@Model.PersistentLogin"></label>
+                    </div>
+                </div>
 
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="px-1 pt-2">
+                    <post-button icon-name="launch">Efetuar Login</post-button>
+                </div>
+            </form>
+        </div>
+        <div class="col s6 m4">
+            <p class="lead">
+                Ou faça login usando um provedor externo
+            </p>
+            <div class="row">
+                <a asp-action="ExternalLogin" asp-route-provider="Google" asp-route-returnUrl="@TempData["returnUrl"]" class="btn waves-effect google-plus-button col s12 m8">
+                    Google+
+                </a>
 
-    <form asp-action="Login">
-        <div class="row">
-            <div class="input-field col s12 m6">
-                <label asp-for="@Model.Email"></label>
-                <input asp-for="@Model.Email" class="input-field" />
-                <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                <button class="btn waves-effect facebook-button col s12 m8 mt-1">
+                    Facebook
+                </button>
             </div>
         </div>
-        <div class="row">
-            <input type="hidden" name="returnUrl" value="@TempData["returnUrl"]" />
-            <div class="input-field col s12 m6">
-                <label asp-for="@Model.Password"></label>
-                <input asp-for="@Model.Password" class="input-field" type="password" />
-                <span asp-validation-for="@Model.Password" class="text-danger"></span> <br />
-                <a asp-action="RecoverPassword" class="font-italic small">Esqueci minha senha</a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="px-1">
-                <input type="checkbox" asp-for="@Model.RememberLogin" />
-                <label asp-for="@Model.RememberLogin"></label>
-            </div>
-        </div>
-
-        <div class="px-1 pt-2">
-            <post-button icon-name="launch">Efetuar Login</post-button>
-        </div>
-    </form>
+    </div>
 </div>
 
 <div>

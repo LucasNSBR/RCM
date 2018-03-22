@@ -5,7 +5,7 @@ namespace RCM.Domain.Commands.BancoCommands
 {
     public abstract class BancoCommand : Command
     {
-        public Banco Banco { get; private set; }
+        public Banco Banco { get; }
 
         public BancoCommand(Banco banco) 
         {

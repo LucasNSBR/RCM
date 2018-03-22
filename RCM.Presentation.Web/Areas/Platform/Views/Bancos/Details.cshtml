@@ -1,12 +1,12 @@
 ﻿@model RCM.Application.ViewModels.BancoViewModel
 
 @{
-    ViewData["Title"] = $"Detalhes - {@Model.Nome}";
+    ViewData["Title"] = $"Detalhes - {Model.Nome}";
 }
 
 <h5>Detalhes do Banco - @Model.Nome</h5>
 
-<div class="col m12 s12 form-container">
+<div class="form-container col m12 s12">
     @Html.DisplayForModel()
 
     <div class="center pt-3">

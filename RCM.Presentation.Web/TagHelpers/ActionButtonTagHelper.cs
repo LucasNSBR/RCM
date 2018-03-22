@@ -2,13 +2,18 @@
 
 namespace RCM.Presentation.Web.TagHelpers
 {
-    [HtmlTargetElement("action-button", TagStructure = TagStructure.NormalOrSelfClosing)]
     public class ActionButtonTagHelper : TagHelper
     {
         public string IconName { get; set; }
-        public string IconDefaultClasses { get; set; } = "material-icons left";
-        public string ButtonDefaultClasses { get; set; } = "btn waves-effect purple";
-        public string AdditionalClasses { get; set; }
+        public string IconDefaultClasses { get; set; } 
+        public string ButtonDefaultClasses { get; set; } 
+
+        public ActionButtonTagHelper()
+        {
+            IconName = IconName ?? "edit";
+            IconDefaultClasses = IconDefaultClasses ?? "material-icons left";
+            ButtonDefaultClasses = ButtonDefaultClasses ?? "btn waves-effect purple";
+        }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {

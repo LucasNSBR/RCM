@@ -6,15 +6,11 @@ namespace RCM.Domain.Validators.NotaFiscalCommandValidators
 {
     public abstract class NotaFiscalCommandValidator<T> : AbstractValidator<T> where T : NotaFiscalCommand
     {
-        public NotaFiscalCommandValidator()
-        {
-        }
-
         protected void ValidateId()
         {
             RuleFor(n => n.NotaFiscal.Id)
                 .NotEmpty()
-                .WithMessage("O Id da nota fiscal não pode estar em branco.");
+                .WithMessage("O Id da nota fiscal não pode estar vazio.");
         }
 
         protected void ValidateNumeroDocumento()
@@ -22,7 +18,7 @@ namespace RCM.Domain.Validators.NotaFiscalCommandValidators
             RuleFor(n => n.NotaFiscal.NumeroDocumento)
                 .NotEmpty()
                 .Length(6)
-                .WithMessage("O número da nota fiscal deve ter 6 caracteres e não deve estar em branco.");
+                .WithMessage("O número da nota fiscal deve ter 6 caracteres e não deve estar vazio.");
         }
 
         protected void ValidateDataEmissao()
@@ -45,8 +41,8 @@ namespace RCM.Domain.Validators.NotaFiscalCommandValidators
         {
             RuleFor(n => n.NotaFiscal.Valor)
                 .NotEmpty()
-                .GreaterThan(0)
-                .WithMessage("O valor da nota fiscal deve ser maior que 0.");
+                .InclusiveBetween(1, 99999)
+                .WithMessage("O valor da nota fiscal deve estar em um formato válido.");
         }
     }
 }

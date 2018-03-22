@@ -1,59 +1,65 @@
 ﻿@model IEnumerable<RCM.Application.ViewModels.NotaFiscalViewModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Notas Fiscais - Índice";
 }
 
-<h2>Index</h2>
+<float-action-button controller="NotasFiscais"></float-action-button>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Id)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.NumeroDocumento)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DataEmissao)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DataChegada)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Valor)
-                </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumeroDocumento)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataEmissao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataChegada)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Valor)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="form-container col s12 m12">
+    @await Component.InvokeAsync("SearchBar", new Dictionary<string, string>() { { "Número da Nota Fiscal", "notaPrefix" } })
+
+    @if (Model.Any())
+    {
+        <table class="highlight centered">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NumeroDocumento)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DataEmissao)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DataChegada)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Valor)
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="table-body">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NumeroDocumento)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DataEmissao)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DataChegada)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Valor)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="px-1">
+            <i class="material-icons left">warning</i>
+            Nenhuma nota fiscal encontrada.
+        </p>
+    }
+</div>

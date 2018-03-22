@@ -4,7 +4,7 @@
     ViewData["Title"] = "Fornecedores - Índice";
 }
 
-<float-action-button asp-controller="Fornecedores" asp-action="Create" asp-area="Platform"></float-action-button>
+<float-action-button controller="Fornecedores"></float-action-button>
 
 <div class="form-container col s12 m12">
     @await Component.InvokeAsync("SearchBar", new Dictionary<string, string>() { { "Nome", "nomePrefix" } })
@@ -20,7 +20,6 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Nome)
                     </th>
-                    <th></th>
                 </tr>
             </thead>
             <tbody class="table-body">

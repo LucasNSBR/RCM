@@ -10,8 +10,8 @@
     <form asp-action="Edit">
         @Html.EditorForModel()
 
-        <div class="pt-2 px-1">
-            <post-button icon-name="done">Confirmar</post-button>
+        <div class="row pt-2 px-1">
+            <post-button>Confirmar</post-button>
         </div>
     </form>
 </div>
@@ -19,6 +19,7 @@
 <div>
     <a asp-action="Details" asp-route-id="@Model.Id">Voltar para detalhes</a>
 </div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

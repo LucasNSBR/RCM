@@ -15,8 +15,6 @@ namespace RCM.Application.ViewModels
         public string Nome { get; set; }
 
         [Display(Name = "Descrição")]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "O campo descrição é requerido.")]
-        [StringLength(100, MinimumLength = 10, ErrorMessage = "O campo descrição deve ter entre 10 e 100 caracteres.")]
         public string Descricao { get; set; }
 
         [Display(Name = "Contatos")]
@@ -27,10 +25,5 @@ namespace RCM.Application.ViewModels
 
         [Display(Name = "Cheques")]
         public ICollection<ChequeViewModel> Cheques { get; set; }
-
-        public override string ToString()
-        {
-            return base.ToString();
-        }
     }
 }

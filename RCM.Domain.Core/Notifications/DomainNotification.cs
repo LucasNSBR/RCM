@@ -1,27 +1,21 @@
 ﻿using RCM.Domain.Core.Models;
-using System;
 
 namespace RCM.Domain.Core.Notifications
 {
     public abstract class DomainNotification : Message
     {
-        public string Title { get; set; }
-        public string Body { get; set; }
-        public DateTime? DateRead { get; private set; }
-
-        public DomainNotification()
+        public string Title { get; private set; }
+        public string Body { get; private set; }
+        
+        public DomainNotification(string body)
         {
+            Body = body;
         }
 
         public DomainNotification(string title, string body)
         {
             Title = title;
             Body = body;
-        }
-
-        public void MarkAsRead()
-        {
-            DateRead = DateTime.Now;
         }
     }
 }

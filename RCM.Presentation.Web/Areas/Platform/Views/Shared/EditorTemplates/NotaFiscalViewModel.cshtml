@@ -1,0 +1,39 @@
+﻿@model RCM.Application.ViewModels.NotaFiscalViewModel
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="row">
+    <div class="input-field col s12 m6">
+        <label asp-for="Id"></label>
+        <input asp-for="Id" class="input-field" />
+        <span asp-validation-for="Id" class="text-danger"></span>
+    </div>
+</div>
+<div class="row">
+    <div class="input-field col s12 m6">
+        <label asp-for="NumeroDocumento"></label>
+        <input asp-for="NumeroDocumento" class="input-field" />
+        <span asp-validation-for="NumeroDocumento" class="text-danger"></span>
+    </div>
+</div>
+<div class="row">
+    <div class="input-field col s12 m6">
+        <label asp-for="DataEmissao"></label>
+        <input asp-for="DataEmissao" class="input-field" />
+        <span asp-validation-for="DataEmissao" class="text-danger"></span>
+    </div>
+</div>
+<div class="row">
+    <div class="input-field col s12 m6">
+        <label asp-for="DataChegada"></label>
+        <input asp-for="DataChegada" class="input-field" />
+        <span asp-validation-for="DataChegada" class="text-danger"></span>
+    </div>
+</div>
+<div class="row">
+    <div class="input-field col s12 m6">
+        <label asp-for="Valor"></label>
+        <input asp-for="Valor" class="input-field" />
+        <span asp-validation-for="Valor" class="text-danger"></span>
+    </div>
+</div>
+

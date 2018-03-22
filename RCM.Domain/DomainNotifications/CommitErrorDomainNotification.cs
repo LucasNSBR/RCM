@@ -1,17 +1,12 @@
 ﻿using RCM.Domain.Core.Notifications;
+using RCM.Domain.Helpers;
 
 namespace RCM.Domain.DomainNotifications
 {
     public class CommitErrorDomainNotification : DomainNotification
     {
-        public CommitErrorDomainNotification()
+        public CommitErrorDomainNotification(string body) : base(NotificationMessageContants.CommitError, body)
         {
-        }
-
-        public CommitErrorDomainNotification(string body)
-        {
-            Title = "Nós temos um erro de commit.";
-            Body = body;
         }
 
         public CommitErrorDomainNotification(string title, string body) : base(title, body)

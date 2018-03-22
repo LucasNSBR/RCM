@@ -1,1 +1,25 @@
-﻿@await Component.InvokeAsync("UserInformation")
+﻿@model RCM.CrossCutting.Identity.ViewModels.ManageViewModel
+
+@{
+    ViewData["Title"] = "Configurações da conta";
+}
+<h5>Configurações</h5>
+
+<div class="form-container col s12 m12">
+    <form asp-action="Manage">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="pt-2 px-1">
+            <post-button>Confirmar</post-button>
+        </div>
+    </form>
+</div>
+
+<div>
+    <a asp-action="Index">Voltar para Início</a>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

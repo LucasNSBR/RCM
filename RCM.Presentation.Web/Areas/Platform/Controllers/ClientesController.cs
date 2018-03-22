@@ -13,7 +13,8 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
     {
         private readonly IClienteApplicationService _clienteApplicationService;
 
-        public ClientesController(IClienteApplicationService clienteApplicationService, IDomainNotificationHandler domainNotificationHandler) : base(domainNotificationHandler)
+        public ClientesController(IClienteApplicationService clienteApplicationService, IDomainNotificationHandler domainNotificationHandler) :
+                                                                                                                      base(domainNotificationHandler)
         {
             _clienteApplicationService = clienteApplicationService;
         }
@@ -33,6 +34,13 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             return View(cliente);
         }
 
+        [Authorize(Policy = "ActiveUser")]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(ClienteViewModel cliente)
@@ -46,11 +54,12 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             _clienteApplicationService.Add(cliente);
 
             if (Success())
-                return RedirectToAction(nameof(cliente));
+                return RedirectToAction(nameof(Index));
             else
                 return View(cliente);
         }
 
+        [Authorize(Policy = "ActiveUser")]
         public IActionResult Edit(int id)
         {
             var cliente = _clienteApplicationService.GetById(id);
@@ -60,11 +69,12 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             return View(cliente);
         }
 
+        [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, ClienteViewModel cliente)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 NotifyModelStateErrors();
                 return View(cliente);
@@ -78,6 +88,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 return View(cliente);
         }
 
+        [Authorize(Policy = "ActiveUser")]
         public IActionResult Delete(int id)
         {
             var cliente = _clienteApplicationService.GetById(id);
@@ -87,6 +98,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             return View(cliente);
         }
 
+        [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Delete(int id, ClienteViewModel cliente)

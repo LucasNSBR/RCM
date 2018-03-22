@@ -5,7 +5,7 @@ namespace RCM.Domain.Commands.DuplicataCommands
 {
     public abstract class DuplicataCommand : Command
     {
-        public Duplicata Duplicata { get; private set; }
+        public Duplicata Duplicata { get; }
 
         public DuplicataCommand(Duplicata duplicata) 
         {

@@ -16,10 +16,5 @@ namespace RCM.Application.ViewModels
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo nome é requerido.")]
         [StringLength(50, MinimumLength = 4, ErrorMessage = "O campo nome deve ter entre 4 e 50 caracteres.")]
         public string Nome { get; set; }
-
-        public override string ToString()
-        {
-            return Nome;
-        }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace RCM.Domain.Models
+﻿using System.Collections.Generic;
+
+namespace RCM.Domain.Models
 {
     public class Banco
     {
@@ -6,9 +8,6 @@
         public int CodigoCompensacao { get; set; }
         public string Nome { get; set; }
 
-        public override string ToString()
-        {
-            return Nome;
-        }
+        public virtual ICollection<Cheque> Cheques { get; set; }
     }
 }

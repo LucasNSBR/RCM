@@ -1,7 +1,7 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
 using RCM.Domain.Events.ChequeEvents;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace RCM.Domain.EventHandlers.ChequeEventHandlers
 {

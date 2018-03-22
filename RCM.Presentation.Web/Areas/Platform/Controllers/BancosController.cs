@@ -4,26 +4,25 @@ using RCM.Application.ApplicationInterfaces;
 using RCM.Application.ViewModels;
 using RCM.Domain.DomainNotificationHandlers;
 using RCM.Presentation.Web.Controllers;
-using System.Linq;
 
 namespace RCM.Presentation.Web.Areas.Platform.Controllers
 {
-    [Authorize]
+    [Authorize(Policy = "Admin")]
+    [Authorize(Policy = "Manager")]
     [Area("Platform")]
     public class BancosController : BaseController
     {
         private readonly IBancoApplicationService _bancoApplicationService;
 
-        public BancosController(IBancoApplicationService bancoApplicationService, IDomainNotificationHandler domainNotificationHandler) : base(domainNotificationHandler)
+        public BancosController(IBancoApplicationService bancoApplicationService, IDomainNotificationHandler domainNotificationHandler) : 
+                                                                                                                base(domainNotificationHandler)
         {
             _bancoApplicationService = bancoApplicationService;
         }
 
-        public IActionResult Index(string bancoName = "")
+        public IActionResult Index()
         {
-            var list = _bancoApplicationService.Get()
-                .Where(b => b.Nome.ToLower().Contains(bancoName?.ToLower() ?? string.Empty));
-
+            var list = _bancoApplicationService.Get();
             return View(list);
         }
 
@@ -36,11 +35,13 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             return View(banco);
         }
 
+        [Authorize(Policy = "ActiveUser")]
         public IActionResult Create()
         {
             return View();
         }
 
+        [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(BancoViewModel banco)
@@ -59,6 +60,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 return View(banco);
         }
 
+        [Authorize(Policy = "ActiveUser")]
         public IActionResult Edit(int id)
         {
             var banco = _bancoApplicationService.GetById(id);
@@ -68,6 +70,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             return View(banco);
         }
 
+        [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, BancoViewModel banco)
@@ -86,6 +89,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 return View(banco);
         }
 
+        [Authorize(Policy = "ActiveUser")]
         public IActionResult Delete(int id)
         {
             var banco = _bancoApplicationService.GetById(id);
@@ -95,6 +99,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             return View(banco);
         }
 
+        [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Delete(int id, BancoViewModel banco)

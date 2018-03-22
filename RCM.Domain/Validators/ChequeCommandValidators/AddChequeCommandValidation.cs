@@ -9,8 +9,9 @@ namespace RCM.Domain.Validators.ChequeCommandValidators
             ValidateBancoId();
             ValidateAgencia();
             ValidateConta();
-            ValidateClienteId();
             ValidateNumeroCheque();
+            ValidateObservacao();
+            ValidateClienteId();
             ValidateDataEmissao();
             ValidateDataVencimento();
             ValidateValor();

@@ -13,7 +13,8 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
     {
         private readonly IFornecedorApplicationService _fornecedorApplicationService;
 
-        public FornecedoresController(IFornecedorApplicationService fornecedorApplicationService, IDomainNotificationHandler domainNotificationHandler) : base(domainNotificationHandler)
+        public FornecedoresController(IFornecedorApplicationService fornecedorApplicationService, IDomainNotificationHandler domainNotificationHandler) : 
+                                                                                                                                base(domainNotificationHandler)
         {
             _fornecedorApplicationService = fornecedorApplicationService;
         }
@@ -33,11 +34,13 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             return View(fornecedor);
         }
 
+        [Authorize(Policy = "ActiveUser")]
         public IActionResult Create()
         {
             return View();
         }
 
+        [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(FornecedorViewModel fornecedor)
@@ -55,8 +58,9 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             else
                 return View(fornecedor);
         }
-        
-        public ActionResult Edit(int id)
+
+        [Authorize(Policy = "ActiveUser")]
+        public IActionResult Edit(int id)
         {
             var fornecedor = _fornecedorApplicationService.GetById(id);
             if (fornecedor == null)
@@ -65,6 +69,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             return View(fornecedor);
         }
 
+        [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, FornecedorViewModel fornecedor)
@@ -82,7 +87,8 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             else
                 return View(fornecedor);
         }
-        
+
+        [Authorize(Policy = "ActiveUser")]
         public IActionResult Delete(int id)
         {
             var fornecedor = _fornecedorApplicationService.GetById(id);
@@ -92,6 +98,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             return View(fornecedor);
         }
 
+        [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Delete(int id, FornecedorViewModel fornecedor)

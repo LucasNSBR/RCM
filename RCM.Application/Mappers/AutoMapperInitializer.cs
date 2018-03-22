@@ -10,7 +10,6 @@ namespace RCM.Application.Mappers
             {
                 cfg.AddProfile(new DomainToViewModelMappingProfile());
                 cfg.AddProfile(new ViewModelToDomainMappingProfile());
-                cfg.AddProfile(new ViewModelToCommandMappingProfile());
             });
         }
     }

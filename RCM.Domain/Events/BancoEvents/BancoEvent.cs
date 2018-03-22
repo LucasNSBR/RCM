@@ -2,7 +2,7 @@
 
 namespace RCM.Domain.Events.BancoEvents
 {
-    public class BancoEvent : Event
+    public abstract class BancoEvent : Event
     {
     }
 }

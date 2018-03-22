@@ -146,6 +146,10 @@ tbody tr {
     padding-top: 30px !important;
 }
 
+.pt-4 {
+    padding-top: 40px !important;
+}
+
 .pt-0 {
     padding-top: 0px !important;
 }
@@ -166,6 +170,10 @@ tbody tr {
 
 .mt-0 {
     margin-top: 0px !important
+}
+
+.mt-1 {
+    margin-top: 10px !important
 }
 
 .mb-0 {
@@ -249,7 +257,11 @@ footer {
 }
 
 .purple {
-    background-color: #9c27b0 !important;
+    background-color: #9c27b0;
+}
+
+button.purple:hover{
+    background-color: #c63bdd!important;
 }
 
 /* Lists and Collections */
@@ -297,4 +309,20 @@ dt {
 
 .parallax-container .section {
     width: 100%;
+}
+
+.facebook-button {
+    background-color: #3b5998;
+}
+
+.facebook-button:hover {
+    background-color: #4676dc;
+}
+
+.google-plus-button {
+    background-color: #D34836;
+}
+
+.google-plus-button:hover {
+    background-color: #eb4e39;
 }

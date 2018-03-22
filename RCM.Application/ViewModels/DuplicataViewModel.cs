@@ -17,6 +17,9 @@ namespace RCM.Application.ViewModels
         [Display(Name = "Id da Nota Fiscal")]
         public int NotaFiscalId { get; set; }
 
+        [Display(Name = "Observação")]
+        public string Observacao { get; set; }
+
         [Display(Name = "Nota Fiscal")]
         public NotaFiscalViewModel NotaFiscal { get; set; }
 
@@ -42,14 +45,9 @@ namespace RCM.Application.ViewModels
         public FornecedorViewModel Fornecedor { get; set; }
 
         [Display(Name = "Valor")]
-        [DisplayFormat(ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true, DataFormatString = "{0:c}")]
+        [DisplayFormat(ApplyFormatInEditMode = false, ConvertEmptyStringToNull = true, DataFormatString = "{0:c}")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo valor é requerido.")]
         [Range(0, 99999, ErrorMessage = "O campo valor deve ser estar entre 0 e 99999.")]
         public decimal Valor { get; set; }
-
-        public override string ToString()
-        {
-            return NumeroDocumento;
-        }
     }
 }

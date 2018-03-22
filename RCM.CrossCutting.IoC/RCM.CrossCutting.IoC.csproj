@@ -14,6 +14,7 @@
     <ProjectReference Include="..\RCM.CrossCutting.Mediator\RCM.CrossCutting.Mediator.csproj" />
     <ProjectReference Include="..\RCM.Domain.Core\RCM.Domain.Core.csproj" />
     <ProjectReference Include="..\RCM.Domain\RCM.Domain.csproj" />
+    <ProjectReference Include="..\RCM.Infra.Data\RCM.Infra.Data.csproj" />
     <ProjectReference Include="..\RCM.Infra\RCM.Infra.csproj" />
   </ItemGroup>
 
@@ -21,6 +22,10 @@
     <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions">
       <HintPath>..\..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.dependencyinjection.abstractions\2.0.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="NewFolder\" />
   </ItemGroup>
 
 </Project>

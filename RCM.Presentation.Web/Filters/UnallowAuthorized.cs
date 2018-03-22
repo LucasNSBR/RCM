@@ -5,9 +5,16 @@ namespace RCM.Presentation.Web.Filters
 {
     public class UnallowAuthorized : ActionFilterAttribute, IActionFilter
     {
-        public string RedirectActionName { get; set; } = "Index";
-        public string RedirectControllerName { get; set; } = "Duplicatas";
-        public string RedirectAreaName { get; set; } = "Platform"; 
+        public string RedirectActionName { get; set; } 
+        public string RedirectControllerName { get; set; }
+        public string RedirectAreaName { get; set; }
+
+        public UnallowAuthorized()
+        {
+            RedirectActionName = RedirectActionName ?? "Index";
+            RedirectControllerName = RedirectControllerName ?? "Home";
+            RedirectAreaName = RedirectAreaName ?? "Platform";
+        }
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {

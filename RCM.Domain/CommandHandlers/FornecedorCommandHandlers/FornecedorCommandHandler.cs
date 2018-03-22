@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
 using RCM.Domain.Commands.FornecedorCommands;
 using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.DomainNotificationHandlers;
@@ -8,6 +6,8 @@ using RCM.Domain.Events.FornecedorEvents;
 using RCM.Domain.Models;
 using RCM.Domain.Repositories;
 using RCM.Domain.UnitOfWork;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace RCM.Domain.CommandHandlers.FornecedorCommandHandlers
 {
@@ -17,13 +17,13 @@ namespace RCM.Domain.CommandHandlers.FornecedorCommandHandlers
                                             INotificationHandler<RemoveFornecedorCommand>
     {
         public FornecedorCommandHandler(IMediatorHandler mediator, IFornecedorRepository fornecedorRepository, IUnitOfWork unitOfWork, IDomainNotificationHandler domainNotificationHandler) :
-                                                                                                                    base(mediator, fornecedorRepository, unitOfWork, domainNotificationHandler)
+                                                                                                                base(mediator, fornecedorRepository, unitOfWork, domainNotificationHandler)
         {
         }
 
         public Task Handle(AddFornecedorCommand notification, CancellationToken cancellationToken)
         {
-            if (!Valid(notification))
+            if (NotifyCommandErrors(notification))
                 return Task.CompletedTask;
 
             _baseRepository.Add(notification.Fornecedor);
@@ -36,7 +36,7 @@ namespace RCM.Domain.CommandHandlers.FornecedorCommandHandlers
 
         public Task Handle(UpdateFornecedorCommand notification, CancellationToken cancellationToken)
         {
-            if (!Valid(notification))
+            if (NotifyCommandErrors(notification))
                 return Task.CompletedTask;
 
             _baseRepository.Add(notification.Fornecedor);
@@ -49,7 +49,7 @@ namespace RCM.Domain.CommandHandlers.FornecedorCommandHandlers
 
         public Task Handle(RemoveFornecedorCommand notification, CancellationToken cancellationToken)
         {
-            if (!Valid(notification))
+            if (NotifyCommandErrors(notification))
                 return Task.CompletedTask;
 
             _baseRepository.Add(notification.Fornecedor);

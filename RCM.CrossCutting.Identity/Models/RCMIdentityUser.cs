@@ -13,6 +13,13 @@ namespace RCM.CrossCutting.Identity.Models
             Email = email;
         }
 
+        public RCMIdentityUser(string firstName, string lastName, int age) 
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            Age = age;
+        }
+
         public RCMIdentityUser(string email, string firstName, string lastName, int age) : base(email)
         {
             Email = email;

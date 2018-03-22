@@ -13,7 +13,8 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
     {
         private readonly INotaFiscalApplicationService _notaFiscalApplicationService;
 
-        public NotasFiscaisController(INotaFiscalApplicationService notaFiscalApplicationService, IDomainNotificationHandler domainNotificationHandler) : base(domainNotificationHandler)
+        public NotasFiscaisController(INotaFiscalApplicationService notaFiscalApplicationService, IDomainNotificationHandler domainNotificationHandler) : 
+                                                                                                                                base(domainNotificationHandler)
         {
             _notaFiscalApplicationService = notaFiscalApplicationService;
         }
@@ -26,18 +27,20 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
 
         public IActionResult Details(int id)
         {
-            var model = _notaFiscalApplicationService.GetById(id);
-            if (model == null)
+            var notaFiscal = _notaFiscalApplicationService.GetById(id);
+            if (notaFiscal == null)
                 return NotFound();
 
-            return View(model);
+            return View(notaFiscal);
         }
-        
+
+        [Authorize(Policy = "ActiveUser")]
         public IActionResult Create()
         {
             return View();
         }
 
+        [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(NotaFiscalViewModel notaFiscal)
@@ -51,11 +54,12 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             _notaFiscalApplicationService.Add(notaFiscal);
 
             if (Success())
-                return RedirectToAction(nameof(notaFiscal));
+                return RedirectToAction(nameof(Index));
             else
                 return View(notaFiscal);
         }
 
+        [Authorize(Policy = "ActiveUser")]
         public IActionResult Edit(int id)
         {
             var notaFiscal = _notaFiscalApplicationService.GetById(id);
@@ -65,6 +69,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             return View(notaFiscal);
         }
 
+        [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, NotaFiscalViewModel notaFiscal)
@@ -83,6 +88,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 return View(notaFiscal);
         }
 
+        [Authorize(Policy = "ActiveUser")]
         public IActionResult Delete(int id)
         {
             var notaFiscal = _notaFiscalApplicationService.GetById(id);
@@ -91,7 +97,8 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
 
             return View(notaFiscal);
         }
-        
+
+        [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Delete(int id, NotaFiscalViewModel notaFiscal)

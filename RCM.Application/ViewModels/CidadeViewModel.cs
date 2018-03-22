@@ -16,11 +16,8 @@ namespace RCM.Application.ViewModels
         [Display(Name = "Id do Estado")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O estado relacionado é requerido.")]
         public int EstadoId { get; set; }
-        public EstadoViewModel Estado { get; set; }
 
-        public override string ToString()
-        {
-            return Nome;
-        }
+        [Display(Name = "Estado")]
+        public EstadoViewModel Estado { get; set; }
     }
 }

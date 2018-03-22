@@ -6,11 +6,7 @@ namespace RCM.Domain.Models
     {
         public int Id { get; set; }
         public string Nome { get; set; }
-        public virtual ICollection<Cidade> Cidades { get; set; }
 
-        public override string ToString()
-        {
-            return Nome;
-        }
+        public virtual ICollection<Cidade> Cidades { get; set; }
     }
 }

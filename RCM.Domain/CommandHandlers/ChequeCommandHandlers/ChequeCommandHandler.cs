@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
 using RCM.Domain.Commands.ChequeCommands;
 using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.DomainNotificationHandlers;
@@ -8,6 +6,8 @@ using RCM.Domain.Events.ChequeEvents;
 using RCM.Domain.Models;
 using RCM.Domain.Repositories;
 using RCM.Domain.UnitOfWork;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
 {
@@ -17,16 +17,16 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
                                         INotificationHandler<RemoveChequeCommand>
     {
         public ChequeCommandHandler(IMediatorHandler mediator, IChequeRepository chequeRepository, IUnitOfWork unitOfWork, IDomainNotificationHandler domainNotificationHandler) : 
-                                                                                                            base(mediator, chequeRepository, unitOfWork, domainNotificationHandler)
+                                                                                                    base(mediator, chequeRepository, unitOfWork, domainNotificationHandler)
         {
         }
 
-        public Task Handle(AddChequeCommand notification, CancellationToken cancellationToken)
+        public Task Handle(AddChequeCommand command, CancellationToken cancellationToken)
         {
-            if (!Valid(notification))
+            if (NotifyCommandErrors(command))
                 return Task.CompletedTask;
 
-            _baseRepository.Add(notification.Cheque);
+            _baseRepository.Add(command.Cheque);
 
             if (Commit())
                 _mediator.Publish(new AddedChequeEvent());
@@ -34,12 +34,12 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
             return Task.CompletedTask;
         }
 
-        public Task Handle(UpdateChequeCommand notification, CancellationToken cancellationToken)
+        public Task Handle(UpdateChequeCommand command, CancellationToken cancellationToken)
         {
-            if (!Valid(notification))
+            if (NotifyCommandErrors(command))
                 return Task.CompletedTask;
 
-            _baseRepository.Update(notification.Cheque);
+            _baseRepository.Update(command.Cheque);
 
             if (Commit())
                 _mediator.Publish(new UpdatedChequeEvent());
@@ -47,12 +47,12 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
             return Task.CompletedTask;
         }
 
-        public Task Handle(RemoveChequeCommand notification, CancellationToken cancellationToken)
+        public Task Handle(RemoveChequeCommand command, CancellationToken cancellationToken)
         {
-            if (!Valid(notification))
+            if (NotifyCommandErrors(command))
                 return Task.CompletedTask;
 
-            _baseRepository.Remove(notification.Cheque);
+            _baseRepository.Remove(command.Cheque);
 
             if (Commit())
                 _mediator.Publish(new RemovedChequeEvent());

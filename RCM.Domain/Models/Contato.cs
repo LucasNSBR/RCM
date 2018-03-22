@@ -7,10 +7,5 @@
         public int ClienteId { get; set; }
         public virtual Cliente Cliente { get; set; }
         public string Observacao { get; set; }
-
-        public override string ToString()
-        {
-            return Nome;
-        }
     }
 }

@@ -5,15 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] | RCM Beta </title>
 
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <environment include="Development">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="~/lib/materialize/css/materialize.css" />
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
     <environment exclude="Development">
-        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
-              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"
+              asp-fallback-href="~/lib/materialize/css/materialize.css" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
 </head>
@@ -28,7 +27,7 @@
                     <div class="nav-wrapper white text-violet px-2">
                         <h6 class="d-inlineblock">@Html.Raw(DateTime.Now.ToLongDateString())</h6>
                         <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-                        
+
                         <!-- PC Sidebar -->
                         <ul id="nav-mobile" class="right hide-on-med-and-down">
                             <li id="notificationsSymbol">
@@ -37,12 +36,12 @@
                                 </a>
                             </li>
                             <li>
-                                <a asp-action="Index" asp-controller="Manage">
+                                <a asp-action="Manage" asp-controller="Settings">
                                     <i class="material-icons left">settings</i>
                                     Ajustes
                                 </a>
                             </li>
-                               
+
                             @await Component.InvokeAsync("UserInformation")
                         </ul>
 
@@ -64,7 +63,7 @@
                                 </a>
                             </li>
                         </ul>
-                    
+
                     </div>
                 </nav>
             </div>
@@ -74,10 +73,6 @@
             </div>
         </div>
     </div>
-    @*<footer>
-        <p>&copy; 2018 - RCM.Presentation.Web</p>
-    </footer>*@
-
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
@@ -91,11 +86,9 @@
                 crossorigin="anonymous"
                 integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
         </script>
-        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
-                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                crossorigin="anonymous"
-                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"
+                asp-fallback-src="~/lib/materialize/js/materialize.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>

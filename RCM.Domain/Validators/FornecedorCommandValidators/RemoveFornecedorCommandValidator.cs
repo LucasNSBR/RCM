@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using RCM.Domain.Commands.FornecedorCommands;
+﻿using RCM.Domain.Commands.FornecedorCommands;
 
 namespace RCM.Domain.Validators.FornecedorCommandValidators
 {
@@ -7,9 +6,7 @@ namespace RCM.Domain.Validators.FornecedorCommandValidators
     {
         public RemoveFornecedorCommandValidator()
         {
-            RuleFor(f => f.Fornecedor.Id)
-                .NotEmpty()
-                .WithMessage("O Id do fornecedor não deve estar em branco.");
+            ValidateId();
         }
     }
 }

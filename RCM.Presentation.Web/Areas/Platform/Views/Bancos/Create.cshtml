@@ -1,20 +1,17 @@
 ﻿@model RCM.Application.ViewModels.BancoViewModel
 
 @{
-    ViewData["Title"] = "Adicionar novo banco";
+    ViewData["Title"] = "Adicionar novo Banco";
 }
 
 <h5>Adicionar</h5>
 
-<div class="col s12 m12 form-container">
-    <p class="px-1 font-bold lead">
-        Informação geral
-    </p>
+<div class="form-container col s12 m12">
     <form asp-action="Create">
         @Html.EditorForModel()
 
         <div class="row pt-2 px-1">
-            <post-button icon-name="done">Confirmar</post-button>
+            <post-button>Confirmar</post-button>
         </div>
     </form>
 </div>
@@ -23,7 +20,7 @@
     <a asp-action="Index">Voltar para a lista</a>
 </div>
 
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
-

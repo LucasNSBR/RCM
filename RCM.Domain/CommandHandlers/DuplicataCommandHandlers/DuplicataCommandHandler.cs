@@ -23,7 +23,7 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
 
         public Task Handle(AddDuplicataCommand notification, CancellationToken cancellationToken)
         {
-            if (!Valid(notification))
+            if (NotifyCommandErrors(notification))
                 return Task.CompletedTask;
 
             _baseRepository.Add(notification.Duplicata);
@@ -36,7 +36,7 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
 
         public Task Handle(UpdateDuplicataCommand notification, CancellationToken cancellationToken)
         {
-            if (!Valid(notification))
+            if (NotifyCommandErrors(notification))
                 return Task.CompletedTask;
 
             _baseRepository.Update(notification.Duplicata);
@@ -49,7 +49,7 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
 
         public Task Handle(RemoveDuplicataCommand notification, CancellationToken cancellationToken)
         {
-            if (!Valid(notification))
+            if (NotifyCommandErrors(notification))
                 return Task.CompletedTask;
 
             _baseRepository.Remove(notification.Duplicata);

@@ -4,9 +4,9 @@
     ViewData["Title"] = "Clientes - Índice";
 }
 
-<float-action-button asp-controller="Clientes" asp-action="Create" asp-area="Platform"></float-action-button>
+<float-action-button controller="Clientes"></float-action-button>
 
-<div class="col s12 m12 form-container">
+<div class="form-container col s12 m12">
     @await Component.InvokeAsync("SearchBar", new Dictionary<string, string>() { { "Nome do Cliente", "clientePrefix" } })
     
     @if (Model.Any())
