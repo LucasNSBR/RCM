@@ -3,7 +3,7 @@ using RCM.Domain.Commands.ClienteCommands;
 using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.DomainNotificationHandlers;
 using RCM.Domain.Events.ClienteEvents;
-using RCM.Domain.Models;
+using RCM.Domain.Models.ClienteModels;
 using RCM.Domain.Repositories;
 using RCM.Domain.UnitOfWork;
 using System.Threading;

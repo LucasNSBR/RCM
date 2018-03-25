@@ -3,11 +3,13 @@
 @{
     ViewData["Title"] = "Editar Perfil";
 }
+
 <h5>Editar Perfil</h5>
 
 <div class="form-container col s12 m12">
-    <form asp-action="Profile">
-        
+    <form asp-action="Edit">
+        @Html.EditorForModel()
+
         <div class="pt-2 px-1">
             <post-button>Confirmar</post-button>
         </div>
@@ -15,7 +17,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Voltar para Início</a>
+    <a asp-action="Index">Voltar para Perfil</a>
 </div>
 
 

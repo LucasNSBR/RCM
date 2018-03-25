@@ -3,7 +3,7 @@ using RCM.Application.ApplicationInterfaces;
 using RCM.Application.ViewModels;
 using RCM.Domain.Commands.BancoCommands;
 using RCM.Domain.Core.MediatorServices;
-using RCM.Domain.Models;
+using RCM.Domain.Models.BancoModels;
 using RCM.Domain.Repositories;
 
 namespace RCM.Application.ApplicationServices

@@ -1,6 +1,14 @@
 ﻿using AutoMapper;
 using RCM.Application.ViewModels;
 using RCM.Domain.Models;
+using RCM.Domain.Models.BancoModels;
+using RCM.Domain.Models.ChequeModels;
+using RCM.Domain.Models.CidadeModels;
+using RCM.Domain.Models.ClienteModels;
+using RCM.Domain.Models.DuplicataModels;
+using RCM.Domain.Models.EstadoModels;
+using RCM.Domain.Models.FornecedorModels;
+using RCM.Domain.Models.NotaFiscalModels;
 
 namespace RCM.Application.Mappers
 {

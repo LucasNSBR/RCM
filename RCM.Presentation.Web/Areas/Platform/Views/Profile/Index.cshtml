@@ -1,0 +1,19 @@
+﻿@model RCM.CrossCutting.Identity.ViewModels.ProfileViewModel
+
+@{
+    ViewData["Title"] = "Meu Perfil";
+}
+
+<h5>Informações Pessoais</h5>
+
+<div class="form-container col s12 m12">
+    @Html.DisplayForModel()
+
+    <div class="pt-3">
+        <action-button asp-action="Edit" asp-controller="Profile" asp-area="Platform" icon-name="edit">Editar</action-button>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Voltar para a Página Inicial</a>
+</div>

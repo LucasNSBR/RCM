@@ -3,7 +3,7 @@ using RCM.Domain.Commands.ChequeCommands;
 using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.DomainNotificationHandlers;
 using RCM.Domain.Events.ChequeEvents;
-using RCM.Domain.Models;
+using RCM.Domain.Models.ChequeModels;
 using RCM.Domain.Repositories;
 using RCM.Domain.UnitOfWork;
 using System.Threading;

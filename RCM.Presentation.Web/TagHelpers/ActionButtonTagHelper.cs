@@ -28,7 +28,7 @@ namespace RCM.Presentation.Web.TagHelpers
             output.Attributes.TryGetAttribute("asp-area", out areaAttr);
 
             output.Attributes.Clear();
-            output.Attributes.Add("href", $"/{areaAttr.Value}/{controllerAttr.Value}/{actionAttr.Value}/{routeAttr.Value}");
+            output.Attributes.Add("href", $"/{areaAttr.Value}/{controllerAttr.Value}/{actionAttr.Value}/{routeAttr?.Value ?? ""}");
             output.Attributes.Add("class", $"{ButtonDefaultClasses}");
             output.PreContent.AppendHtml($"<i class=\"{IconDefaultClasses}\">{IconName}</i>");
         }

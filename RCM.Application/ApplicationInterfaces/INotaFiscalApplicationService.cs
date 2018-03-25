@@ -1,5 +1,5 @@
 ﻿using RCM.Application.ViewModels;
-using RCM.Domain.Models;
+using RCM.Domain.Models.NotaFiscalModels;
 
 namespace RCM.Application.ApplicationInterfaces
 {

@@ -22,7 +22,6 @@ namespace RCM.Presentation.Web.Controllers
         private readonly IEmailGenerator _emailGenerator;
         private readonly IEmailDispatcher _emailDispatcher;
 
-        #region OK
         public AccountsController(RCMUserManager rcmUserManager, RCMSignInManager rcmSignInManager, IDomainNotificationHandler domainNotificationHandler, IHttpContextAccessor httpContextAccessor, IEmailGenerator emailGenerator, IEmailDispatcher emailDispatcher) : base(domainNotificationHandler)
         {
             _rcmUserManager = rcmUserManager;
@@ -57,7 +56,7 @@ namespace RCM.Presentation.Web.Controllers
                 var code = await _rcmUserManager.GenerateEmailConfirmationTokenAsync(user);
                 await SendAccountConfirmationEmailAsync(user.Email, code);
 
-                return RedirectToAction(nameof(ConfirmEmailSent));
+                return RedirectToPlatform();
             }
             else
                 identityResult.Errors.ToList().ForEach(e => NotifyIdentityError(e.Description));
@@ -83,7 +82,7 @@ namespace RCM.Presentation.Web.Controllers
                 return View(loginViewModel);
             }
             
-            var signInResult = await _rcmSignInManager.PasswordSignInAsync(loginViewModel.Email, loginViewModel.Password, loginViewModel.PersistentLogin, true);
+            var signInResult = await _rcmSignInManager.PasswordSignInAsync(loginViewModel.Email, loginViewModel.Password, loginViewModel.PersistentLogin, false);
 
             if (signInResult.Succeeded)
             {
@@ -99,7 +98,7 @@ namespace RCM.Presentation.Web.Controllers
             else if(signInResult.IsLockedOut)
                 return RedirectToAction(nameof(LockedOut));
 
-            NotifyIdentityError("O usuário e/ou senha estão incorretos.");
+            NotifyIdentityError("O e-mail e/ou senha estão incorretos.");
             return View(loginViewModel);
         }
 
@@ -179,21 +178,22 @@ namespace RCM.Presentation.Web.Controllers
             }
         }
 
-        public IActionResult ConfirmEmailSent(string email)
-        {
-            return View();
-        }
-
-        [UnallowAuthorized]
         public async Task<IActionResult> ConfirmEmail(string email, string code)
         {
             var user = await _rcmUserManager.FindByEmailAsync(email);
             var result = await _rcmUserManager.ConfirmEmailAsync(user, code.Replace(" ", "+"));
 
             if (result.Succeeded)
-                return RedirectToAction(nameof(Login));
-            else
-                throw new Exception("Ocorreu um erro ao tentar validar a conta. É necessário pedir um novo e-mail de confirmação");
+            {
+                var claimResult = await _rcmUserManager.AddClaimAsync(user, new Claim("ActiveUser", "True"));
+
+                if (claimResult.Succeeded)
+                    return RedirectToAction(nameof(Login));
+                else
+                    claimResult.Errors.ToList().ForEach(e => NotifyIdentityError(e.Description));
+            }
+
+            throw new Exception("Ocorreu um erro ao tentar validar a conta. É necessário pedir um novo e-mail de confirmação");
         }
 
         [NonAction]
@@ -283,8 +283,6 @@ namespace RCM.Presentation.Web.Controllers
             TempData["returnUrl"] = returnUrl;
             return View();
         }
-        #endregion
-
 
         [UnallowAuthorized]
         [HttpPost]
@@ -309,6 +307,11 @@ namespace RCM.Presentation.Web.Controllers
 
             return View(twoFactorAuthViewModel);
         }
+        
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
 
         [Authorize]
         public async Task<IActionResult> Logout()
@@ -318,7 +321,7 @@ namespace RCM.Presentation.Web.Controllers
         }
 
         #region Helpers
-        private void NotifyIdentityError(string description = "")
+        private void NotifyIdentityError(string description)
         {
             _domainNotificationHandler.AddNotification(new AuthenticationErrorDomainNotification(description));
         }

@@ -3,7 +3,7 @@ using RCM.Application.ApplicationInterfaces;
 using RCM.Application.ViewModels;
 using RCM.Domain.Commands.ChequeCommands;
 using RCM.Domain.Core.MediatorServices;
-using RCM.Domain.Models;
+using RCM.Domain.Models.ChequeModels;
 using RCM.Domain.Repositories;
 
 namespace RCM.Application.ApplicationServices

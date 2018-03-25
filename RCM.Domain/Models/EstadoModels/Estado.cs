@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using RCM.Domain.Models.CidadeModels;
+using System.Collections.Generic;
 
-namespace RCM.Domain.Models
+namespace RCM.Domain.Models.EstadoModels
 {
     public class Estado
     {

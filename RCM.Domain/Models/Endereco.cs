@@ -1,4 +1,7 @@
-﻿namespace RCM.Domain.Models
+﻿using RCM.Domain.Models.CidadeModels;
+using RCM.Domain.Models.ClienteModels;
+
+namespace RCM.Domain.Models
 {
     public class Endereco
     {

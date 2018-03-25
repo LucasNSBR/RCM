@@ -1,8 +1,10 @@
-﻿using System;
+﻿using RCM.Domain.Models.ClienteModels;
+using RCM.Domain.Models.ProdutoModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace RCM.Domain.Models
+namespace RCM.Domain.Models.VendaModels
 {
     public class Venda
     {

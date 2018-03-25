@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using RCM.Domain.Models;
+using RCM.Domain.Models.ClienteModels;
 
 namespace RCM.Infra.Data.EntityTypeConfig
 {

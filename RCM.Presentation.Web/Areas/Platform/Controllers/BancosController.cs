@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using RCM.Application.ApplicationInterfaces;
 using RCM.Application.ViewModels;
 using RCM.Domain.DomainNotificationHandlers;
+using RCM.Domain.Models.BancoModels;
 using RCM.Presentation.Web.Controllers;
 
 namespace RCM.Presentation.Web.Areas.Platform.Controllers
@@ -20,9 +21,15 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             _bancoApplicationService = bancoApplicationService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int? codigoCompensacao, string nome = null)
         {
-            var list = _bancoApplicationService.Get();
+            var nomeSpecification = new BancoNomeSpecification(nome);
+            var codigoCompensacaoSpecification = new BancoCodigoCompensacaoSpecification(codigoCompensacao);
+
+            var list = _bancoApplicationService.Get(nomeSpecification
+                .And(codigoCompensacaoSpecification)
+                .ToExpression());
+
             return View(list);
         }
 

@@ -1,4 +1,4 @@
-﻿using RCM.Domain.Models;
+﻿using RCM.Domain.Models.DuplicataModels;
 
 namespace RCM.Domain.Repositories
 {

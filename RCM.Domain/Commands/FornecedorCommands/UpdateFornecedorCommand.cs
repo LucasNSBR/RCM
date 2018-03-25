@@ -1,4 +1,4 @@
-﻿using RCM.Domain.Models;
+﻿using RCM.Domain.Models.FornecedorModels;
 using RCM.Domain.Validators.FornecedorCommandValidators;
 
 namespace RCM.Domain.Commands.FornecedorCommands

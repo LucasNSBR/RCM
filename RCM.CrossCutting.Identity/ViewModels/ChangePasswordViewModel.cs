@@ -16,7 +16,7 @@ namespace RCM.CrossCutting.Identity.ViewModels
 
         [Display(Name = "Confirmar Nova Senha")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo é requerido.")]
-        [Compare("Password", ErrorMessage = "As senhas não conferem.")]
+        [Compare("NewPassword", ErrorMessage = "As senhas não conferem.")]
         public string ConfirmNewPassword { get; set; }
     }
 }

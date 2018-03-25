@@ -1,5 +1,5 @@
 ﻿using RCM.Domain.Core.Commands;
-using RCM.Domain.Models;
+using RCM.Domain.Models.DuplicataModels;
 
 namespace RCM.Domain.Commands.DuplicataCommands
 {

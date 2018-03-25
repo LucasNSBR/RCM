@@ -3,7 +3,7 @@ using RCM.Domain.Commands.BancoCommands;
 using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.DomainNotificationHandlers;
 using RCM.Domain.Events.BancoEvents;
-using RCM.Domain.Models;
+using RCM.Domain.Models.BancoModels;
 using RCM.Domain.Repositories;
 using RCM.Domain.UnitOfWork;
 using System.Threading;

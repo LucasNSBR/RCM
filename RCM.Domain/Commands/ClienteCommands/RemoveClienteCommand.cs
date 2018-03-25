@@ -1,4 +1,4 @@
-﻿using RCM.Domain.Models;
+﻿using RCM.Domain.Models.ClienteModels;
 using RCM.Domain.Validators.ClienteCommandValidators;
 
 namespace RCM.Domain.Commands.ClienteCommands

@@ -30,7 +30,7 @@ namespace RCM.Presentation.Web.Controllers
 
         public RedirectToActionResult RedirectToPlatform()
         {
-            return RedirectToAction(nameof(DuplicatasController.Index), "Duplicatas", new { area = "Platform" });
+            return RedirectToAction(nameof(DuplicatasController.Index), "Clientes", new { area = "Platform" });
         }
     }
 }

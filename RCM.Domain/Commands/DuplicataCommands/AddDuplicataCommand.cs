@@ -1,4 +1,4 @@
-﻿using RCM.Domain.Models;
+﻿using RCM.Domain.Models.DuplicataModels;
 using RCM.Domain.Validators.DuplicataCommandValidations;
 
 namespace RCM.Domain.Commands.DuplicataCommands

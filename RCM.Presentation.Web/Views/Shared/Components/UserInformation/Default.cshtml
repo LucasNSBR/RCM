@@ -1,15 +1,15 @@
 ﻿@model RCM.CrossCutting.Identity.Models.RCMIdentityUser
 
 <li>
-    <a class='dropdown-button' href='#' data-activates='dropdown-menu'><i class="material-icons left">keyboard_arrow_down</i>@Model.Email</a>
+    <a class='dropdown-button white-text' href='#' data-activates='user-menu'><i class="material-icons left">keyboard_arrow_down</i>@Model.Email</a>
 </li>
 
-<ul id='dropdown-menu' class='dropdown-content'>
-    <li><a asp-area="Platform" asp-action="Index" class="font-bold">Acessar Plataforma</a></li>
-    <li><a asp-area="Platform" asp-controller="Manage" asp-action="Settings">Configurações</a></li>
-    <li><a asp-area="Platform" asp-controller="Manage" asp-action="Profile">Perfil</a></li>
+<ul id='user-menu' class='dropdown-content'>
+    <li><a asp-area="Platform" asp-controller="Clientes" asp-action="Index" class="font-bold">Acessar Plataforma</a></li>
+    <li><a asp-area="Platform" asp-controller="Settings" asp-action="Index">Ajustes</a></li>
+    <li><a asp-area="Platform" asp-controller="Profile" asp-action="Index">Perfil</a></li>
 </ul>
 
 <li>
-    <a asp-action="Logout" asp-controller="Accounts" asp-area="">Logout</a>
+    <a asp-action="Logout" asp-controller="Accounts" asp-area="" class="white-text">Logout</a>
 </li>

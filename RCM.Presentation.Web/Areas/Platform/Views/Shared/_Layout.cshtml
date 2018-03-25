@@ -36,7 +36,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a asp-action="Manage" asp-controller="Settings">
+                                <a asp-action="Index" asp-controller="Settings">
                                     <i class="material-icons left">settings</i>
                                     Ajustes
                                 </a>
@@ -67,7 +67,7 @@
                     </div>
                 </nav>
             </div>
-            <div class="body-content">
+            <div class="platform-content">
                 @await Component.InvokeAsync("Notifications")
                 @RenderBody()
             </div>

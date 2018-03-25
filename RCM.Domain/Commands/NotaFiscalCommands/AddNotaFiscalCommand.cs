@@ -1,4 +1,4 @@
-﻿using RCM.Domain.Models;
+﻿using RCM.Domain.Models.NotaFiscalModels;
 using RCM.Domain.Validators.NotaFiscalCommandValidators;
 
 namespace RCM.Domain.Commands.NotaFiscalCommands

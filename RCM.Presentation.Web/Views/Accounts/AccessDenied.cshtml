@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewData["Title"] = "Acesso não autorizado";
+}
+
+<div class="login-container">
+    <div class="px-1">
+        <h5 class="font-bold">
+            Oops... Algo deu errado!
+        </h5>
+        <p class="mt-0 lead">
+            A página não pode ser exibida.
+            Isso ocorreu porque talvez você não tenha confirmado seu e-mail ou não tenha as permissões necessárias para acessar a página.
+            <a asp-action="Index" asp-controller="Manage" asp-area="Platform">Clique aqui para conferir seu e-mail e permissões</a>
+        </p>
+
+        <p class="pt-2">
+            <a asp-action="Index" asp-controller="Home">
+                Clique aqui para voltar à página inicial
+            </a>
+        </p>
+    </div>
+</div>

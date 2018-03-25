@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using RCM.Application.ApplicationInterfaces;
 using RCM.Application.ViewModels;
 using RCM.Domain.DomainNotificationHandlers;
+using RCM.Domain.Models.ClienteModels;
 using RCM.Presentation.Web.Controllers;
 
 namespace RCM.Presentation.Web.Areas.Platform.Controllers
@@ -19,9 +20,13 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             _clienteApplicationService = clienteApplicationService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string nome = null)
         {
-            var list = _clienteApplicationService.Get();
+            var nomeSpecification = new ClienteNomeSpecification(nome);
+
+            var list = _clienteApplicationService.Get(nomeSpecification
+                .ToExpression());
+
             return View(list);
         }
 

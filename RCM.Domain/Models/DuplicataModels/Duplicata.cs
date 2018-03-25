@@ -1,6 +1,8 @@
-﻿using System;
+﻿using RCM.Domain.Models.FornecedorModels;
+using RCM.Domain.Models.NotaFiscalModels;
+using System;
 
-namespace RCM.Domain.Models
+namespace RCM.Domain.Models.DuplicataModels
 {
     public class Duplicata
     {

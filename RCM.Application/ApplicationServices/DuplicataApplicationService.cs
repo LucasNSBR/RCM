@@ -3,7 +3,7 @@ using RCM.Application.ApplicationInterfaces;
 using RCM.Application.ViewModels;
 using RCM.Domain.Commands.DuplicataCommands;
 using RCM.Domain.Core.MediatorServices;
-using RCM.Domain.Models;
+using RCM.Domain.Models.DuplicataModels;
 using RCM.Domain.Repositories;
 
 namespace RCM.Application.ApplicationServices

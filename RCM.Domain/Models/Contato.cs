@@ -1,4 +1,6 @@
-﻿namespace RCM.Domain.Models
+﻿using RCM.Domain.Models.ClienteModels;
+
+namespace RCM.Domain.Models
 {
     public class Contato
     {

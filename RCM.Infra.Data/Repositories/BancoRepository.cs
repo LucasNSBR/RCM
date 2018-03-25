@@ -1,4 +1,4 @@
-﻿using RCM.Domain.Models;
+﻿using RCM.Domain.Models.BancoModels;
 using RCM.Domain.Repositories;
 using RCM.Infra.Data.Context;
 

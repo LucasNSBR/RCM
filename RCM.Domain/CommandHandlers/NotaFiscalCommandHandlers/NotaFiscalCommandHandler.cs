@@ -3,7 +3,7 @@ using RCM.Domain.Commands.NotaFiscalCommands;
 using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.DomainNotificationHandlers;
 using RCM.Domain.Events.NotaFiscalEvents;
-using RCM.Domain.Models;
+using RCM.Domain.Models.NotaFiscalModels;
 using RCM.Domain.Repositories;
 using RCM.Domain.UnitOfWork;
 using System.Threading;

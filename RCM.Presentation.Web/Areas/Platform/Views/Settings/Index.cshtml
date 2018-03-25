@@ -1,0 +1,72 @@
+﻿@model RCM.CrossCutting.Identity.ViewModels.ManageViewModel
+
+@{
+    ViewData["Title"] = "Configurações da conta";
+}
+<h5>Configurações</h5>
+
+<div class="form-container col s12 m12">
+    <dl class="detail-list">
+        <dt>
+            <label asp-for="ConfirmedEmail"></label>
+        </dt>
+        <dd>
+            @if (Model.ConfirmedEmail == false)
+            {
+                <span class="text-danger">Seu e-mail não está confirmado, funções importantes estão desativadas.</span>
+                <a asp-action="SendConfirmEmail">Enviar código de confirmação</a>
+            }
+            else
+            {
+                <span class="text-info">Seu e-mail está confirmado, você tem acesso total às funções do sistema.</span> <br />
+            }
+        </dd>
+        <dt>
+            <label asp-for="TwoFactorActivated"></label>
+        </dt>
+        <dd>
+            @if (Model.TwoFactorActivated == false)
+            {
+                <span>Autenticação em dois fatores está desativada.</span>
+                <a asp-action="EnableTwoFactorAuth">Clique aqui para ativar</a>
+            }
+            else
+            {
+                <span>Autenticação em dois fatores está ativada.</span>
+                <a asp-action="DisableTwoFactorAuth">Clique aqui para desativar</a>
+            }
+        </dd>
+        <dt>
+            <label asp-for="Roles"></label>
+        </dt>
+        <dd>
+            @if (Model.Roles.Any())
+            {
+                foreach (var role in Model.Roles)
+                {
+                    <span>@role</span><br />
+                }
+            }
+            else
+            {
+                <span>Visualizar informações.</span>
+            }
+        </dd>
+
+        <dt class="pt-3 lead font-bold">
+            <label>Outras operações</label>
+        </dt>
+        <dd>
+            <a asp-action="ChangePassword">Alterar senha</a>
+        </dd>
+    </dl>
+</div>
+
+<div>
+    <a asp-action="Index">Voltar para Início</a>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

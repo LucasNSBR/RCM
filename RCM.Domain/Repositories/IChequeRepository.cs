@@ -1,4 +1,4 @@
-﻿using RCM.Domain.Models;
+﻿using RCM.Domain.Models.ChequeModels;
 
 namespace RCM.Domain.Repositories
 {

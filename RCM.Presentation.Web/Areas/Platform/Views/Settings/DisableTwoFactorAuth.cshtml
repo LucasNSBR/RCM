@@ -1,0 +1,37 @@
+﻿@model RCM.CrossCutting.Identity.ViewModels.DisableTwoFactorAuthViewModel
+
+@{
+    ViewData["Title"] = "Confirmar desativação";
+}
+
+<h5>Confirmar desativação do Segundo Fator</h5>
+
+<div class="form-container col s12 m12">
+    <p class="px-1 pt-1">
+        Você deve fornecer o código enviado para o seu e-mail para prosseguir com a operação
+    </p>
+
+    <form asp-action="DisableTwoFactorAuth">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="Code"></label>
+                <input asp-for="Code" class="input-field" />
+                <span asp-validation-for="Code" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="pt-2 px-1">
+            <post-button>Confirmar</post-button>
+        </div>
+    </form>
+</div>
+
+<div>
+    <a asp-action="Index">Voltar para Ajustes</a>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

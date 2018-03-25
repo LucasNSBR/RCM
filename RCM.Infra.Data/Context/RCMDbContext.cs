@@ -1,6 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using RCM.Domain.Models;
+using RCM.Domain.Models.BancoModels;
+using RCM.Domain.Models.ChequeModels;
+using RCM.Domain.Models.CidadeModels;
+using RCM.Domain.Models.ClienteModels;
+using RCM.Domain.Models.DuplicataModels;
+using RCM.Domain.Models.EstadoModels;
+using RCM.Domain.Models.FornecedorModels;
+using RCM.Domain.Models.NotaFiscalModels;
 using RCM.Infra.Data.EntityTypeConfig;
 using System.IO;
 

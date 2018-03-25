@@ -20,9 +20,9 @@
     <div class="row no-pad-top max-percent-height mb-0">
         <div class="col s12 m12 no-margin max-percent-height no-padding">
             <div>
-                <nav class="z-depth-0">
-                    <div class="nav-wrapper white text-violet px-2">
-                        <a asp-action="Index" asp-controller="Home" asp-area="" class="brand-logo black-text font-italic">RCM</a>
+                <nav class="z-depth-2">
+                    <div class="nav-wrapper purple white-text px-2">
+                        <a asp-action="Index" asp-controller="Home" asp-area="" class="brand-logo white-text font-italic">RCM</a>
                         <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
 
                         <!-- PC Sidebar -->
@@ -58,9 +58,25 @@
             </div>
         </div>
     </div>
-    <footer>
-        <p>&copy; 2018 - RCM Beta</p>
+    <footer class="page-footer purple">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">RCM Beta</h5>
+                    <p class="grey-text text-lighten-4">Solução simples para relacionamento de clientes e financeiro</p>
+                </div>
+                <div class="col l4 offset-l2 s12">
+                    <h5 class="white-text">Links</h5>
+                    <ul>
+                        <li><a class="grey-text text-lighten-3" href="#!">Login</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#!">Criar Conta</a></li>
+                        <li><a class="grey-text text-lighten-3 font-bold" href="#!">Github</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </footer>
+
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>

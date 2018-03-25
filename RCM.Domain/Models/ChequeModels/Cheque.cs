@@ -1,6 +1,8 @@
 ﻿using System;
+using RCM.Domain.Models.BancoModels;
+using RCM.Domain.Models.ClienteModels;
 
-namespace RCM.Domain.Models
+namespace RCM.Domain.Models.ChequeModels
 {
     public class Cheque
     {

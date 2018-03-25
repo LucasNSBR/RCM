@@ -3,6 +3,7 @@
     $('.parallax').parallax();
     $(".button-collapse").sideNav();
     $('select').material_select();
+    $('.collapsible').collapsible();
 
     function initialize() {
         var inputName = $('#searchInput')[0];
@@ -47,5 +48,9 @@
         
         console.log(inputName.name);
     });
+
+    $('#advancedSearchToggler').click(function () {
+        $("#advancedSearch").toggle(400);
+    })
 });
 

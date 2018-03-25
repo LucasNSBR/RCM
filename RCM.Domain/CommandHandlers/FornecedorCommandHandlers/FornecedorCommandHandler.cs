@@ -3,7 +3,7 @@ using RCM.Domain.Commands.FornecedorCommands;
 using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.DomainNotificationHandlers;
 using RCM.Domain.Events.FornecedorEvents;
-using RCM.Domain.Models;
+using RCM.Domain.Models.FornecedorModels;
 using RCM.Domain.Repositories;
 using RCM.Domain.UnitOfWork;
 using System.Threading;

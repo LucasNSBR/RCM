@@ -42,6 +42,7 @@ namespace RCM.Presentation.Web
                     cfg.ExpireTimeSpan = TimeSpan.FromDays(7);
                     cfg.LoginPath = Configuration["CookieConfiguration:LoginPath"];
                     cfg.LogoutPath = Configuration["CookieConfiguration:LogoutPath"];
+                    cfg.AccessDeniedPath = Configuration["CookieConfiguration:AccessDeniedPath"];
                 });
 
             services.AddAuthentication()
@@ -86,7 +87,7 @@ namespace RCM.Presentation.Web
                 routes.MapRoute(
                     name: "platform",
                     template: "Platform/",
-                    defaults: new { area = "Platform", controller = "Duplicatas", action = "Index" });
+                    defaults: new { area = "Platform", controller = "Clientes", action = "Index" });
 
                 routes.MapRoute(
                     name: "manage",

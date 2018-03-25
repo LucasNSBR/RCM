@@ -1,4 +1,6 @@
-﻿namespace RCM.Domain.Models
+﻿using RCM.Domain.Models.EstadoModels;
+
+namespace RCM.Domain.Models.CidadeModels
 {
     public class Cidade
     {

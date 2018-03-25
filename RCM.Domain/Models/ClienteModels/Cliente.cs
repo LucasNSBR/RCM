@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using RCM.Domain.Models.ChequeModels;
+using System.Collections.Generic;
 
-namespace RCM.Domain.Models
+namespace RCM.Domain.Models.ClienteModels
 {
     public class Cliente
     {

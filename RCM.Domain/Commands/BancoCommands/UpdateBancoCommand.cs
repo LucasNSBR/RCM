@@ -1,4 +1,4 @@
-﻿using RCM.Domain.Models;
+﻿using RCM.Domain.Models.BancoModels;
 using RCM.Domain.Validators.BancoCommandValidators;
 
 namespace RCM.Domain.Commands.BancoCommands
