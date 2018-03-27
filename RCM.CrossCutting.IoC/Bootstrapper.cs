@@ -114,8 +114,8 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<INotificationHandler<RemoveNotaFiscalCommand>, NotaFiscalCommandHandler>();
 
             services.AddScoped<INotificationHandler<AddProdutoCommand>, ProdutoCommandHandler>();
-            services.AddScoped<INotificationHandler<UpdateBancoCommand>, ProdutoCommandHandler>();
-            services.AddScoped<INotificationHandler<RemoveBancoCommand>, ProdutoCommandHandler>();
+            services.AddScoped<INotificationHandler<UpdateProdutoCommand>, ProdutoCommandHandler>();
+            services.AddScoped<INotificationHandler<RemoveProdutoCommand>, ProdutoCommandHandler>();
         }
 
         private static void RegisterMediatrEvents(IServiceCollection services)

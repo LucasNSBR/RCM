@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using RCM.Application.ApplicationInterfaces;
 using RCM.Application.ViewModels;
 using RCM.Domain.DomainNotificationHandlers;
+using RCM.Domain.Models.ProdutoModels;
 using RCM.Presentation.Web.Controllers;
 
 namespace RCM.Presentation.Web.Areas.Platform.Controllers
@@ -19,9 +20,15 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             _produtoApplicationService = produtoApplicationService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string nome = null, string aplicacao = null)
         {
-            var list = _produtoApplicationService.Get();
+            var nomeSpecification = new ProdutoNomeSpecification(nome);
+            var aplicacaoSpecification = new ProdutoAplicacaoSpecification(aplicacao);
+
+            var list = _produtoApplicationService.Get(nomeSpecification
+                .And(aplicacaoSpecification)
+                .ToExpression());
+
             return View(list);
         }
 
