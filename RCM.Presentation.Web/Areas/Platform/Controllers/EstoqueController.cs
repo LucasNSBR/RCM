@@ -9,29 +9,29 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
 {
     [Authorize]
     [Area("Platform")]
-    public class FornecedoresController : BaseController
+    public class EstoqueController : BaseController
     {
-        private readonly IFornecedorApplicationService _fornecedorApplicationService;
+        private readonly IProdutoApplicationService _produtoApplicationService;
 
-        public FornecedoresController(IFornecedorApplicationService fornecedorApplicationService, IDomainNotificationHandler domainNotificationHandler) :
-                                                                                                                                base(domainNotificationHandler)
+        public EstoqueController(IProdutoApplicationService produtoApplicationService, IDomainNotificationHandler domainNotificationHandler) : 
+                                                                                                                    base(domainNotificationHandler)
         {
-            _fornecedorApplicationService = fornecedorApplicationService;
+            _produtoApplicationService = produtoApplicationService;
         }
 
         public IActionResult Index()
         {
-            var list = _fornecedorApplicationService.Get();
+            var list = _produtoApplicationService.Get();
             return View(list);
         }
 
         public IActionResult Details(int id)
         {
-            var fornecedor = _fornecedorApplicationService.GetById(id);
-            if (fornecedor == null)
+            var produto = _produtoApplicationService.GetById(id);
+            if (produto == null)
                 return NotFound();
 
-            return View(fornecedor);
+            return View(produto);
         }
 
         [Authorize(Policy = "ActiveUser")]
@@ -43,72 +43,73 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(FornecedorViewModel fornecedor)
+        public IActionResult Create(ProdutoViewModel produto)
         {
             if (!ModelState.IsValid)
             {
                 NotifyModelStateErrors();
-                return View(fornecedor);
+                return View(produto);
             }
 
-            _fornecedorApplicationService.Add(fornecedor);
+            _produtoApplicationService.Add(produto);
 
             if (Success())
                 return RedirectToAction(nameof(Index));
-            else
-                return View(fornecedor);
+
+            return View(produto);
         }
 
         [Authorize(Policy = "ActiveUser")]
         public IActionResult Edit(int id)
         {
-            var fornecedor = _fornecedorApplicationService.GetById(id);
-            if (fornecedor == null)
+            var produto = _produtoApplicationService.GetById(id);
+            if (produto == null)
                 return NotFound();
 
-            return View(fornecedor);
+            return View(produto);
         }
+
 
         [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, FornecedorViewModel fornecedor)
+        public IActionResult Edit(int id, ProdutoViewModel produto)
         {
             if (!ModelState.IsValid)
             {
                 NotifyModelStateErrors();
-                return View(fornecedor);
+                return View(produto);
             }
 
-            _fornecedorApplicationService.Update(fornecedor);
+            _produtoApplicationService.Update(produto);
 
             if (Success())
                 return RedirectToAction(nameof(Index));
-            else
-                return View(fornecedor);
+
+            return View(produto);
         }
 
         [Authorize(Policy = "ActiveUser")]
         public IActionResult Delete(int id)
         {
-            var fornecedor = _fornecedorApplicationService.GetById(id);
-            if (fornecedor == null)
+            var produto = _produtoApplicationService.GetById(id);
+            if (produto == null)
                 return NotFound();
 
-            return View(fornecedor);
+            return View(produto);
         }
 
         [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(int id, FornecedorViewModel fornecedor)
+        public IActionResult Delete(int id, ProdutoViewModel produto)
         {
-            _fornecedorApplicationService.Remove(fornecedor);
+            _produtoApplicationService.Remove(produto);
 
             if (Success())
                 return RedirectToAction(nameof(Index));
 
-            return View(fornecedor);
+            return View(produto);
         }
     }
 }

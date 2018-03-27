@@ -14,19 +14,20 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
     public class DuplicataCommandHandler : CommandHandler<Duplicata>,
                                            INotificationHandler<AddDuplicataCommand>,
                                            INotificationHandler<UpdateDuplicataCommand>,
-                                           INotificationHandler<RemoveDuplicataCommand>
+                                           INotificationHandler<RemoveDuplicataCommand>,
+                                           INotificationHandler<PagarDuplicataCommand>
     {
         public DuplicataCommandHandler(IMediatorHandler mediator, IDuplicataRepository duplicataRepository, IUnitOfWork unitOfWork, IDomainNotificationHandler domainNotificationHandler) : 
                                                                                                                 base(mediator, duplicataRepository, unitOfWork, domainNotificationHandler)
         {
         }
 
-        public Task Handle(AddDuplicataCommand notification, CancellationToken cancellationToken)
+        public Task Handle(AddDuplicataCommand command, CancellationToken cancellationToken)
         {
-            if (NotifyCommandErrors(notification))
+            if (NotifyCommandErrors(command))
                 return Task.CompletedTask;
 
-            _baseRepository.Add(notification.Duplicata);
+            _baseRepository.Add(command.Duplicata);
 
             if (Commit())
                 _mediator.Publish(new AddedDuplicataEvent());
@@ -34,12 +35,12 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
             return Task.CompletedTask;
         }
 
-        public Task Handle(UpdateDuplicataCommand notification, CancellationToken cancellationToken)
+        public Task Handle(UpdateDuplicataCommand command, CancellationToken cancellationToken)
         {
-            if (NotifyCommandErrors(notification))
+            if (NotifyCommandErrors(command))
                 return Task.CompletedTask;
 
-            _baseRepository.Update(notification.Duplicata);
+            _baseRepository.Update(command.Duplicata);
 
             if (Commit())
                 _mediator.Publish(new UpdatedDuplicataEvent());
@@ -47,15 +48,32 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
             return Task.CompletedTask;
         }
 
-        public Task Handle(RemoveDuplicataCommand notification, CancellationToken cancellationToken)
+        public Task Handle(RemoveDuplicataCommand command, CancellationToken cancellationToken)
         {
-            if (NotifyCommandErrors(notification))
+            if (NotifyCommandErrors(command))
                 return Task.CompletedTask;
 
-            _baseRepository.Remove(notification.Duplicata);
+            _baseRepository.Remove(command.Duplicata);
 
             if (Commit())
                 _mediator.Publish(new RemovedDuplicataEvent());
+
+            return Task.CompletedTask;
+        }
+
+        public Task Handle(PagarDuplicataCommand command, CancellationToken cancellationToken)
+        {
+            var valorPago = command.ValorPago;
+            var dataPagamento = command.DataPagamento;
+
+            if (NotifyCommandErrors(command))
+                return Task.CompletedTask;
+
+            command.Duplicata.Pagar(dataPagamento, valorPago);
+            _baseRepository.Update(command.Duplicata);
+
+            if (Commit())
+                _mediator.Publish(new UpdatedDuplicataEvent());
 
             return Task.CompletedTask;
         }

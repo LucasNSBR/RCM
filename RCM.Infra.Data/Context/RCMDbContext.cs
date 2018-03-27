@@ -9,6 +9,9 @@ using RCM.Domain.Models.DuplicataModels;
 using RCM.Domain.Models.EstadoModels;
 using RCM.Domain.Models.FornecedorModels;
 using RCM.Domain.Models.NotaFiscalModels;
+using RCM.Domain.Models.OrdemServicoModels;
+using RCM.Domain.Models.ProdutoModels;
+using RCM.Domain.Models.VendaModels;
 using RCM.Infra.Data.EntityTypeConfig;
 using System.IO;
 
@@ -26,7 +29,10 @@ namespace RCM.Infra.Data.Context
         public DbSet<Banco> Bancos { get; set; }
         public DbSet<Endereco> Enderecos { get; set; }
         public DbSet<Contato> Contatos { get; set; }
-        
+        public DbSet<Produto> Produtos { get; set; }
+        public DbSet<OrdemServico> OrdensServico { get; set; }
+        public DbSet<Venda> Vendas { get; set; }
+
         public RCMDbContext(DbContextOptions<RCMDbContext> options) : base(options)
         {
         }
@@ -52,7 +58,6 @@ namespace RCM.Infra.Data.Context
                 .Build();
 
             optionsBuilder
-                .UseLazyLoadingProxies()
                 .UseSqlServer(config.GetConnectionString("RCMDatabase"));
         }
     }

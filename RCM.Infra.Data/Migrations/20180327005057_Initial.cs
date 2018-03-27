@@ -15,8 +15,8 @@ namespace RCM.Infra.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CodigoCompensacao = table.Column<int>(nullable: false),
-                    Nome = table.Column<string>(nullable: true)
+                    CodigoCompensacao = table.Column<int>(maxLength: 4, nullable: false),
+                    Nome = table.Column<string>(maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -29,8 +29,8 @@ namespace RCM.Infra.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Descricao = table.Column<string>(nullable: true),
-                    Nome = table.Column<string>(nullable: true)
+                    Descricao = table.Column<string>(maxLength: 1000, nullable: true),
+                    Nome = table.Column<string>(maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -51,33 +51,21 @@ namespace RCM.Infra.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Fornecedores",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Nome = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Fornecedores", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Cheques",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Agencia = table.Column<string>(nullable: true),
+                    Agencia = table.Column<string>(maxLength: 5, nullable: false),
                     BancoId = table.Column<int>(nullable: false),
                     ClienteId = table.Column<int>(nullable: false),
-                    Conta = table.Column<string>(nullable: true),
+                    Conta = table.Column<string>(maxLength: 10, nullable: false),
                     DataEmissao = table.Column<DateTime>(nullable: false),
                     DataPagamento = table.Column<DateTime>(nullable: true),
                     DataVencimento = table.Column<DateTime>(nullable: false),
-                    NumeroCheque = table.Column<string>(nullable: true),
-                    Valor = table.Column<decimal>(nullable: false)
+                    NumeroCheque = table.Column<string>(maxLength: 8, nullable: false),
+                    Observacao = table.Column<string>(maxLength: 1000, nullable: true),
+                    Valor = table.Column<decimal>(maxLength: 4, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -103,8 +91,8 @@ namespace RCM.Infra.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ClienteId = table.Column<int>(nullable: false),
-                    Nome = table.Column<string>(nullable: true),
-                    Observacao = table.Column<string>(nullable: true)
+                    Nome = table.Column<string>(maxLength: 50, nullable: false),
+                    Observacao = table.Column<string>(maxLength: 1000, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -118,13 +106,52 @@ namespace RCM.Infra.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "OrdensServico",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ClienteId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrdensServico", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OrdensServico_Clientes_ClienteId",
+                        column: x => x.ClienteId,
+                        principalTable: "Clientes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Vendas",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ClienteId = table.Column<int>(nullable: false),
+                    DataVenda = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Vendas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Vendas_Clientes_ClienteId",
+                        column: x => x.ClienteId,
+                        principalTable: "Clientes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Cidades",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     EstadoId = table.Column<int>(nullable: false),
-                    Nome = table.Column<string>(nullable: true)
+                    Nome = table.Column<string>(maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -138,24 +165,31 @@ namespace RCM.Infra.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "NotasFiscais",
+                name: "Produtos",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    DataChegada = table.Column<DateTime>(nullable: false),
-                    DataEmissao = table.Column<DateTime>(nullable: false),
-                    FornecedorId = table.Column<int>(nullable: true),
-                    NumeroDocumento = table.Column<string>(nullable: true),
-                    Valor = table.Column<decimal>(nullable: false)
+                    Aplicacao = table.Column<string>(nullable: true),
+                    Nome = table.Column<string>(nullable: true),
+                    OrdemServicoId = table.Column<int>(nullable: true),
+                    PrecoVenda = table.Column<decimal>(nullable: false),
+                    Quantidade = table.Column<int>(nullable: false),
+                    VendaId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_NotasFiscais", x => x.Id);
+                    table.PrimaryKey("PK_Produtos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_NotasFiscais_Fornecedores_FornecedorId",
-                        column: x => x.FornecedorId,
-                        principalTable: "Fornecedores",
+                        name: "FK_Produtos_OrdensServico_OrdemServicoId",
+                        column: x => x.OrdemServicoId,
+                        principalTable: "OrdensServico",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Produtos_Vendas_VendaId",
+                        column: x => x.VendaId,
+                        principalTable: "Vendas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -166,13 +200,13 @@ namespace RCM.Infra.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Bairro = table.Column<string>(nullable: true),
-                    CEP = table.Column<string>(nullable: true),
+                    Bairro = table.Column<string>(maxLength: 25, nullable: false),
+                    CEP = table.Column<string>(maxLength: 8, nullable: false),
                     CidadeId = table.Column<int>(nullable: false),
                     ClienteId = table.Column<int>(nullable: false),
-                    Complemento = table.Column<string>(nullable: true),
-                    Numero = table.Column<int>(nullable: false),
-                    Rua = table.Column<string>(nullable: true)
+                    Complemento = table.Column<string>(maxLength: 100, nullable: true),
+                    Numero = table.Column<int>(maxLength: 4, nullable: false),
+                    Rua = table.Column<string>(maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -192,6 +226,57 @@ namespace RCM.Infra.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Fornecedores",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Nome = table.Column<string>(maxLength: 100, nullable: false),
+                    Observacao = table.Column<string>(maxLength: 1000, nullable: true),
+                    ProdutoId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Fornecedores", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Fornecedores_Produtos_ProdutoId",
+                        column: x => x.ProdutoId,
+                        principalTable: "Produtos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "NotasFiscais",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    DataChegada = table.Column<DateTime>(nullable: false),
+                    DataEmissao = table.Column<DateTime>(nullable: false),
+                    FornecedorId = table.Column<int>(nullable: true),
+                    NotaFiscalId = table.Column<int>(nullable: true),
+                    NumeroDocumento = table.Column<string>(maxLength: 6, nullable: false),
+                    Valor = table.Column<decimal>(maxLength: 4, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_NotasFiscais", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_NotasFiscais_Fornecedores_FornecedorId",
+                        column: x => x.FornecedorId,
+                        principalTable: "Fornecedores",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_NotasFiscais_NotasFiscais_NotaFiscalId",
+                        column: x => x.NotaFiscalId,
+                        principalTable: "NotasFiscais",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Duplicatas",
                 columns: table => new
                 {
@@ -202,8 +287,11 @@ namespace RCM.Infra.Data.Migrations
                     DataVencimento = table.Column<DateTime>(nullable: false),
                     FornecedorId = table.Column<int>(nullable: false),
                     NotaFiscalId = table.Column<int>(nullable: false),
-                    NumeroDocumento = table.Column<string>(nullable: true),
-                    Valor = table.Column<decimal>(nullable: false)
+                    NumeroDocumento = table.Column<string>(maxLength: 20, nullable: false),
+                    Observacao = table.Column<string>(maxLength: 1000, nullable: true),
+                    Pago = table.Column<bool>(nullable: false),
+                    Valor = table.Column<decimal>(maxLength: 4, nullable: false),
+                    ValorPago = table.Column<decimal>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -263,9 +351,39 @@ namespace RCM.Infra.Data.Migrations
                 column: "ClienteId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Fornecedores_ProdutoId",
+                table: "Fornecedores",
+                column: "ProdutoId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_NotasFiscais_FornecedorId",
                 table: "NotasFiscais",
                 column: "FornecedorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_NotasFiscais_NotaFiscalId",
+                table: "NotasFiscais",
+                column: "NotaFiscalId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrdensServico_ClienteId",
+                table: "OrdensServico",
+                column: "ClienteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Produtos_OrdemServicoId",
+                table: "Produtos",
+                column: "OrdemServicoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Produtos_VendaId",
+                table: "Produtos",
+                column: "VendaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Vendas_ClienteId",
+                table: "Vendas",
+                column: "ClienteId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -292,13 +410,22 @@ namespace RCM.Infra.Data.Migrations
                 name: "Cidades");
 
             migrationBuilder.DropTable(
-                name: "Clientes");
-
-            migrationBuilder.DropTable(
                 name: "Fornecedores");
 
             migrationBuilder.DropTable(
                 name: "Estados");
+
+            migrationBuilder.DropTable(
+                name: "Produtos");
+
+            migrationBuilder.DropTable(
+                name: "OrdensServico");
+
+            migrationBuilder.DropTable(
+                name: "Vendas");
+
+            migrationBuilder.DropTable(
+                name: "Clientes");
         }
     }
 }

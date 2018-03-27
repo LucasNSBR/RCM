@@ -12,12 +12,14 @@ using RCM.Domain.CommandHandlers.ClienteCommandHandlers;
 using RCM.Domain.CommandHandlers.DuplicataCommandHandlers;
 using RCM.Domain.CommandHandlers.FornecedorCommandHandlers;
 using RCM.Domain.CommandHandlers.NotaFiscalCommandHandlers;
+using RCM.Domain.CommandHandlers.ProdutoCommandHandlers;
 using RCM.Domain.Commands.BancoCommands;
 using RCM.Domain.Commands.ChequeCommands;
 using RCM.Domain.Commands.ClienteCommands;
 using RCM.Domain.Commands.DuplicataCommands;
 using RCM.Domain.Commands.FornecedorCommands;
 using RCM.Domain.Commands.NotaFiscalCommands;
+using RCM.Domain.Commands.ProdutoCommands;
 using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.DomainNotificationHandlers;
 using RCM.Domain.EventHandlers.ChequeEventHandlers;
@@ -70,6 +72,7 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<IDuplicataRepository, DuplicataRepository>();
             services.AddScoped<IFornecedorRepository, FornecedorRepository>();
             services.AddScoped<INotaFiscalRepository, NotaFiscalRepository>();
+            services.AddScoped<IProdutoRepository, ProdutoRepository>();
         }
 
         private static void RegisterApplicationServices(IServiceCollection services)
@@ -81,6 +84,7 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<IDuplicataApplicationService, DuplicataApplicationService>();
             services.AddScoped<IFornecedorApplicationService, FornecedorApplicationService>();
             services.AddScoped<INotaFiscalApplicationService, NotaFiscalApplicationService>();
+            services.AddScoped<IProdutoApplicationService, ProdutoApplicationService>();
         }
 
         private static void RegisterMediatrCommands(IServiceCollection services)
@@ -108,6 +112,10 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<INotificationHandler<AddNotaFiscalCommand>, NotaFiscalCommandHandler>();
             services.AddScoped<INotificationHandler<UpdateNotaFiscalCommand>, NotaFiscalCommandHandler>();
             services.AddScoped<INotificationHandler<RemoveNotaFiscalCommand>, NotaFiscalCommandHandler>();
+
+            services.AddScoped<INotificationHandler<AddProdutoCommand>, ProdutoCommandHandler>();
+            services.AddScoped<INotificationHandler<UpdateBancoCommand>, ProdutoCommandHandler>();
+            services.AddScoped<INotificationHandler<RemoveBancoCommand>, ProdutoCommandHandler>();
         }
 
         private static void RegisterMediatrEvents(IServiceCollection services)

@@ -4,6 +4,7 @@ using RCM.Application.ApplicationInterfaces;
 using RCM.Application.ViewModels;
 using RCM.Domain.DomainNotificationHandlers;
 using RCM.Presentation.Web.Controllers;
+using System;
 
 namespace RCM.Presentation.Web.Areas.Platform.Controllers
 {
@@ -56,8 +57,8 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
 
             if (Success())
                 return RedirectToAction(nameof(Index));
-            else
-                return View(duplicata);
+            
+            return View(duplicata);
         }
 
         [Authorize(Policy = "ActiveUser")]
@@ -85,8 +86,8 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
 
             if (Success())
                 return RedirectToAction(nameof(Index));
-            else
-                return View(duplicata);
+            
+            return View(duplicata);
         }
 
         [Authorize(Policy = "ActiveUser")]
@@ -108,8 +109,27 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
 
             if (Success())
                 return RedirectToAction(nameof(Index));
-            else
-                return View(duplicata);
+
+            return View(duplicata);
+        }
+
+        [Authorize(Policy = "ActiveUser")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Pagamento(DuplicataViewModel duplicata, DateTime dataPagamento, decimal valorPago)
+        {
+            if(!ModelState.IsValid)
+            {
+                NotifyModelStateErrors();
+                return RedirectToAction(nameof(Details), duplicata);
+            }
+            
+            _duplicataApplicationService.Pagar(duplicata, dataPagamento, valorPago);
+
+            if (Success())
+                return RedirectToAction(nameof(Details), duplicata);
+
+            return RedirectToAction(nameof(Details));
         }
     }
 }

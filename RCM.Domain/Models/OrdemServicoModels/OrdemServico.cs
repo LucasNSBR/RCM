@@ -8,8 +8,9 @@ namespace RCM.Domain.Models.OrdemServicoModels
     public class OrdemServico
     {
         public int Id { get; set; }
-        public Cliente Cliente { get; set; }
-        public ICollection<Produto> Produtos { get; }
+        public int ClienteId { get; set; }
+        public virtual Cliente Cliente { get; set; }
+        public virtual ICollection<Produto> Produtos { get; }
         public decimal Total { get; }
 
         public void AdicionarProduto(Produto produto)

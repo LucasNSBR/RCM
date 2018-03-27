@@ -142,10 +142,10 @@ tbody tr {
     background-color: #9c27b0;
 }
 
-#homeButton:hover {
-    background-color: #7d218d;
-    transition: background-color 0.2s linear;
-}
+    #homeButton:hover {
+        background-color: #ff05f2;
+        transition: background-color 0.2s linear;
+    }
 
 #homeButton a {
     margin-left: 20px;

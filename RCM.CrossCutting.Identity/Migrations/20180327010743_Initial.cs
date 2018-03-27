@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace RCM.CrossCutting.Identity.Migrations
 {
-    public partial class ASPNetIdentity : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -21,12 +21,12 @@ namespace RCM.Domain.CommandHandlers.NotaFiscalCommandHandlers
         {
         }
 
-        public Task Handle(AddNotaFiscalCommand notification, CancellationToken cancellationToken)
+        public Task Handle(AddNotaFiscalCommand command, CancellationToken cancellationToken)
         {
-            if (NotifyCommandErrors(notification))
+            if (NotifyCommandErrors(command))
                 return Task.CompletedTask;
 
-            _baseRepository.Add(notification.NotaFiscal);
+            _baseRepository.Add(command.NotaFiscal);
 
             if (Commit())
                 _mediator.Publish(new AddedNotaFiscalEvent());
@@ -34,12 +34,12 @@ namespace RCM.Domain.CommandHandlers.NotaFiscalCommandHandlers
             return Task.CompletedTask;
         }
 
-        public Task Handle(UpdateNotaFiscalCommand notification, CancellationToken cancellationToken)
+        public Task Handle(UpdateNotaFiscalCommand command, CancellationToken cancellationToken)
         {
-            if (NotifyCommandErrors(notification))
+            if (NotifyCommandErrors(command))
                 return Task.CompletedTask;
 
-            _baseRepository.Update(notification.NotaFiscal);
+            _baseRepository.Update(command.NotaFiscal);
 
             if (Commit())
                 _mediator.Publish(new UpdatedNotaFiscalEvent());
@@ -47,12 +47,12 @@ namespace RCM.Domain.CommandHandlers.NotaFiscalCommandHandlers
             return Task.CompletedTask;
         }
 
-        public Task Handle(RemoveNotaFiscalCommand notification, CancellationToken cancellationToken)
+        public Task Handle(RemoveNotaFiscalCommand command, CancellationToken cancellationToken)
         {
-            if (NotifyCommandErrors(notification))
+            if (NotifyCommandErrors(command))
                 return Task.CompletedTask;
 
-            _baseRepository.Remove(notification.NotaFiscal);
+            _baseRepository.Remove(command.NotaFiscal);
 
             if (Commit())
                 _mediator.Publish(new RemovedNotaFiscalEvent());

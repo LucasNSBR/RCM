@@ -21,12 +21,12 @@ namespace RCM.Domain.CommandHandlers.ClienteCommandHandlers
         {
         }
 
-        public Task Handle(AddClienteCommand notification, CancellationToken cancellationToken)
+        public Task Handle(AddClienteCommand command, CancellationToken cancellationToken)
         {
-            if (NotifyCommandErrors(notification))
+            if (NotifyCommandErrors(command))
                 return Task.CompletedTask;
 
-            _baseRepository.Add(notification.Cliente);
+            _baseRepository.Add(command.Cliente);
 
             if (Commit())
                 _mediator.Publish(new AddedClienteEvent());
@@ -34,12 +34,12 @@ namespace RCM.Domain.CommandHandlers.ClienteCommandHandlers
             return Task.CompletedTask;
         }
 
-        public Task Handle(UpdateClienteCommand notification, CancellationToken cancellationToken)
+        public Task Handle(UpdateClienteCommand command, CancellationToken cancellationToken)
         {
-            if (NotifyCommandErrors(notification))
+            if (NotifyCommandErrors(command))
                 return Task.CompletedTask;
 
-            _baseRepository.Update(notification.Cliente);
+            _baseRepository.Update(command.Cliente);
 
             if (Commit())
                 _mediator.Publish(new UpdatedClienteEvent());
@@ -47,12 +47,12 @@ namespace RCM.Domain.CommandHandlers.ClienteCommandHandlers
             return Task.CompletedTask;
         }
 
-        public Task Handle(RemoveClienteCommand notification, CancellationToken cancellationToken)
+        public Task Handle(RemoveClienteCommand command, CancellationToken cancellationToken)
         {
-            if (NotifyCommandErrors(notification))
+            if (NotifyCommandErrors(command))
                 return Task.CompletedTask;
 
-            _baseRepository.Remove(notification.Cliente);
+            _baseRepository.Remove(command.Cliente);
 
             if (Commit())
                 _mediator.Publish(new RemovedClienteEvent());

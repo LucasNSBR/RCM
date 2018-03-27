@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using RCM.Application.ApplicationInterfaces;
 using RCM.Application.ViewModels;
 using RCM.Domain.Commands.DuplicataCommands;
@@ -27,6 +28,11 @@ namespace RCM.Application.ApplicationServices
         public override void Remove(DuplicataViewModel viewModel)
         {
             _mediator.SendCommand(new RemoveDuplicataCommand(ProjectToModel(viewModel)));
+        }
+
+        public void Pagar(DuplicataViewModel viewModel, DateTime dataPagamento, decimal valorPago)
+        {
+            _mediator.SendCommand(new PagarDuplicataCommand(ProjectToModel(viewModel), dataPagamento, valorPago));
         }
     }
 }

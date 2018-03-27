@@ -8,8 +8,13 @@ namespace RCM.Domain.Models.ProdutoModels
         public int Id { get; set; }
         public string Nome { get; set; }
         public string Aplicacao { get; set; }
-        public string Quantidade { get; set; }
+        public int Quantidade { get; set; }
         public decimal PrecoVenda { get; set; }
         public virtual ICollection<Fornecedor> Fornecedores { get; set; }
+
+        public Produto()
+        {
+            Fornecedores = new List<Fornecedor>();
+        }
     }
 }
