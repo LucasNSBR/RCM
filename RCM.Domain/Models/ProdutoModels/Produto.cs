@@ -5,16 +5,31 @@ namespace RCM.Domain.Models.ProdutoModels
 {
     public class Produto
     {
-        public int Id { get; set; }
-        public string Nome { get; set; }
-        public string Aplicacao { get; set; }
-        public int Quantidade { get; set; }
-        public decimal PrecoVenda { get; set; }
-        public virtual ICollection<Fornecedor> Fornecedores { get; set; }
+        public int Id { get; private set; }
+        public string Nome { get; private set; }
+        public string Aplicacao { get; private set; }
+        public int Quantidade { get; private set; }
+        public decimal PrecoVenda { get; private set; }
 
-        public Produto()
+        private List<Fornecedor> _fornecedores;
+        public virtual IReadOnlyList<Fornecedor> Fornecedores
         {
-            Fornecedores = new List<Fornecedor>();
+            get
+            {
+                return _fornecedores;
+            }
+        }
+
+        private Produto() { }
+
+        public Produto(string nome, string aplicacao, int quantidade, decimal precoVenda)
+        {
+            Nome = nome;
+            Aplicacao = aplicacao;
+            Quantidade = quantidade;
+            PrecoVenda = precoVenda;
+
+            _fornecedores = new List<Fornecedor>();
         }
     }
 }

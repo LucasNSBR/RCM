@@ -23,4 +23,20 @@
     <dd>
         @Model.Nome
     </dd>
+    <dt>
+        <label asp-for="Cheques">Quantidade de Cheques</label>
+    </dt>
+    <dd>
+        @if (Model.Cheques.Any())
+        {
+            <span>Model.Cheques.Count</span>
+        }
+        else
+        {
+            <p class="px-1 col s12 m12">
+                <i class="material-icons left">warning</i>
+                Nenhum cheque encontrado.
+            </p>
+        }
+    </dd>
 </dl>

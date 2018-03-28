@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace RCM.Application.ViewModels
 {
@@ -16,5 +17,8 @@ namespace RCM.Application.ViewModels
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo nome é requerido.")]
         [StringLength(50, MinimumLength = 4, ErrorMessage = "O campo nome deve ter entre 4 e 50 caracteres.")]
         public string Nome { get; set; }
+
+        [Display(Name = "Cheques")]
+        public List<ChequeViewModel> Cheques { get; set; }
     }
 }

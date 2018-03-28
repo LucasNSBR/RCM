@@ -5,9 +5,25 @@ namespace RCM.Domain.Models.EstadoModels
 {
     public class Estado
     {
-        public int Id { get; set; }
-        public string Nome { get; set; }
+        public int Id { get; private set; }
+        public string Nome { get; private set; }
 
-        public virtual ICollection<Cidade> Cidades { get; set; }
+        private List<Cidade> _cidades;
+        public virtual IReadOnlyList<Cidade> Cidades
+        {
+            get
+            {
+                return _cidades;
+            }
+        }
+
+        private Estado() { }
+
+        public Estado(string nome)
+        {
+            Nome = nome;
+
+            _cidades = new List<Cidade>();
+        }
     }
 }

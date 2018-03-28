@@ -5,19 +5,45 @@ namespace RCM.Domain.Models.ClienteModels
 {
     public class Cliente
     {
-        public int Id { get; set; }
-        public string Nome { get; set; }
-        public string Descricao { get; set; }
+        public int Id { get; private set; }
+        public string Nome { get; private set; }
+        public string Descricao { get; private set; }
 
-        public virtual ICollection<Contato> Contatos { get; set; }
-        public virtual ICollection<Endereco> Enderecos { get; set; }
-        public virtual ICollection<Cheque> Cheques { get; set; }
+        private List<Contato> _contatos;
+        public virtual IReadOnlyList<Contato> Contatos {
+            get
+            {
+                return _contatos;
+            }
+        }
 
-        public Cliente()
+        private List<Endereco> _enderecos;
+        public virtual IReadOnlyList<Endereco> Enderecos
         {
-            Contatos = new List<Contato>();
-            Enderecos = new List<Endereco>();
-            Cheques = new List<Cheque>();
+            get
+            {
+                return _enderecos;
+            }
+        }
+
+        private List<Cheque> _cheques;
+        public virtual IReadOnlyList<Cheque> Cheques
+        {
+            get
+            {
+                return _cheques;
+            }
+        }
+
+        private Cliente() { }
+
+        public Cliente(string nome)
+        {
+            _contatos = new List<Contato>();
+            _enderecos = new List<Endereco>();
+            _cheques = new List<Cheque>();
+
+            Nome = nome;
         }
     }
 }

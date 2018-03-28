@@ -5,10 +5,26 @@ namespace RCM.Domain.Models.BancoModels
 {
     public class Banco
     {
-        public int Id { get; set; }
-        public int CodigoCompensacao { get; set; }
-        public string Nome { get; set; }
+        public int Id { get; private set; }
+        public int CodigoCompensacao { get; private set; }
+        public string Nome { get; private set; }
 
-        public virtual ICollection<Cheque> Cheques { get; set; }
+        private List<Cheque> _cheques;
+        public virtual IReadOnlyList<Cheque> Cheques
+        {
+            get
+            {
+                return _cheques;   
+            }
+        }
+
+        private Banco() { }
+
+        public Banco(string nome)
+        {
+            Nome = nome;
+
+            _cheques = new List<Cheque>();
+        }
     }
 }

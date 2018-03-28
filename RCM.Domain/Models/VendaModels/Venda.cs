@@ -8,16 +8,34 @@ namespace RCM.Domain.Models.VendaModels
 {
     public class Venda
     {
-        public int Id { get; set; }
-        public DateTime DataVenda { get; set; }
-        public virtual Cliente Cliente { get; set; }
-        public int ClienteId { get; set; }
-        public virtual ICollection<Produto> Produtos { get; }
-        public decimal Total { get; }
+        public int Id { get; private set; }
+        public DateTime DataVenda { get; private set; }
+        public int ClienteId { get; private set; }
+        public virtual Cliente Cliente { get; private set; }
+
+        private List<Produto> _produtos;
+        public virtual IReadOnlyList<Produto> Produtos
+        {
+            get
+            {
+                return _produtos;
+            }
+        }
+
+        public decimal Total { get; private set; }
+
+        private Venda() { }
+
+        public Venda(Cliente cliente, DateTime dataVenda, List<Produto> produtos)
+        {
+            Cliente = cliente;
+            DataVenda = dataVenda;
+            _produtos = produtos;
+        }
 
         public void AdicionarProduto(Produto produto)
         {
-            Produtos.Add(produto);
+            _produtos.Add(produto);
         }
 
         public decimal Finalizar()

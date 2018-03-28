@@ -12,6 +12,6 @@ namespace RCM.Application.ViewModels
         public string Nome { get; set; }
 
         [Display(Name = "Cidades")]
-        public ICollection<CidadeViewModel> Cidades { get; set; }
+        public List<CidadeViewModel> Cidades { get; set; }
     }
 }

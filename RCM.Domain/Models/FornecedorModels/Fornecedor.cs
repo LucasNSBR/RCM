@@ -1,22 +1,52 @@
 ﻿using RCM.Domain.Models.DuplicataModels;
 using RCM.Domain.Models.NotaFiscalModels;
+using RCM.Domain.Models.ProdutoModels;
 using System.Collections.Generic;
 
 namespace RCM.Domain.Models.FornecedorModels
 {
     public class Fornecedor
     {
-        public int Id { get; set; }
-        public string Nome { get; set; }
-        public string Observacao { get; set; }
+        public int Id { get; private set; }
+        public string Nome { get; private set; }
+        public string Observacao { get; private set; }
 
-        public virtual ICollection<Duplicata> Duplicatas { get; set; }
-        public virtual ICollection<NotaFiscal> NotasFiscais { get; set; }
-
-        public Fornecedor()
+        private List<Duplicata> _duplicatas;
+        public virtual IReadOnlyList<Duplicata> Duplicatas
         {
-            Duplicatas = new List<Duplicata>();
-            NotasFiscais = new List<NotaFiscal>();
+            get
+            {
+                return _duplicatas;
+            }
+        }
+
+        private List<NotaFiscal> _notasFiscais;
+        public virtual IReadOnlyList<NotaFiscal> NotasFiscais
+        {
+            get
+            {
+                return _notasFiscais;
+            }
+        }
+
+        private List<Produto> _produtos;
+        public virtual IReadOnlyList<Produto> Produtos
+        {
+            get
+            {
+                return _produtos;
+            }
+        }
+
+        private Fornecedor() { }
+
+        public Fornecedor(string nome)
+        {
+            Nome = nome;
+
+            _duplicatas = new List<Duplicata>();
+            _notasFiscais = new List<NotaFiscal>();
+            _produtos = new List<Produto>();
         }
     }
 }

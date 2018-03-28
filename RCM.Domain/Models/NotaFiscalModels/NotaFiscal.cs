@@ -1,4 +1,5 @@
 ﻿using RCM.Domain.Models.DuplicataModels;
+using RCM.Domain.Models.ProdutoModels;
 using System;
 using System.Collections.Generic;
 
@@ -6,19 +7,43 @@ namespace RCM.Domain.Models.NotaFiscalModels
 {
     public class NotaFiscal
     {
-        public int Id { get; set; }
-        public string NumeroDocumento { get; set; }
-        public DateTime DataEmissao { get; set; }
-        public DateTime DataChegada { get; set; }
-        public decimal Valor { get; set; }
+        public int Id { get; private set; }
+        public string NumeroDocumento { get; private set; }
+        public DateTime DataEmissao { get; private set; }
+        public DateTime DataChegada { get; private set; }
+        public decimal Valor { get; private set; }
 
-        public virtual ICollection<Duplicata> Duplicatas { get; set; }
-        public virtual ICollection<NotaFiscal> NotasFiscais { get; set; }
-
-        public NotaFiscal()
+        private List<Duplicata> _duplicatas; 
+        public virtual IReadOnlyList<Duplicata> Duplicatas
         {
-            Duplicatas = new List<Duplicata>();
-            NotasFiscais = new List<NotaFiscal>();
+            get
+            {
+                return _duplicatas;
+            }
+        }
+
+        private List<Produto> _produtos;
+        public virtual IReadOnlyList<Produto> Produtos
+        {
+            get
+            {
+                return _produtos;
+            }
+        }
+
+        private NotaFiscal()
+        {
+        }
+
+        public NotaFiscal(string numeroDocumento, DateTime dataEmissao, DateTime dataChegada, decimal valor, List<Produto> produtos)
+        {
+            NumeroDocumento = numeroDocumento;
+            DataEmissao = dataEmissao;
+            DataChegada = dataChegada;
+            Valor = valor;
+
+            _duplicatas = new List<Duplicata>();
+            _produtos = new List<Produto>();
         }
     }
 }

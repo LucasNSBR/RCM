@@ -18,12 +18,12 @@ namespace RCM.Application.ViewModels
         public string Descricao { get; set; }
 
         [Display(Name = "Contatos")]
-        public ICollection<ContatoViewModel> Contatos { get; set; }
+        public List<ContatoViewModel> Contatos { get; set; }
 
         [Display(Name = "Endereços")]
-        public ICollection<EnderecoViewModel> Enderecos { get; set; }
+        public List<EnderecoViewModel> Enderecos { get; set; }
 
         [Display(Name = "Cheques")]
-        public ICollection<ChequeViewModel> Cheques { get; set; }
+        public List<ChequeViewModel> Cheques { get; set; }
     }
 }

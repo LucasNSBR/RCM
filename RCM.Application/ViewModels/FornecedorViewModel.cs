@@ -18,9 +18,12 @@ namespace RCM.Application.ViewModels
         public string Observacao { get; set; }
 
         [Display(Name = "Duplicatas")]
-        public ICollection<DuplicataViewModel> Duplicatas { get; set; }
+        public List<DuplicataViewModel> Duplicatas { get; set; }
 
         [Display(Name = "Notas Fiscais")]
-        public ICollection<NotaFiscalViewModel> NotasFiscais { get; set; }
+        public List<NotaFiscalViewModel> NotasFiscais { get; set; }
+
+        [Display(Name = "Produtos")]
+        public List<ProdutoViewModel> Produtos { get; set; }
     }
 }

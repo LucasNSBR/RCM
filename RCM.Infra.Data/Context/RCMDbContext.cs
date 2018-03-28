@@ -58,6 +58,7 @@ namespace RCM.Infra.Data.Context
                 .Build();
 
             optionsBuilder
+                .UseLazyLoadingProxies()
                 .UseSqlServer(config.GetConnectionString("RCMDatabase"));
         }
     }

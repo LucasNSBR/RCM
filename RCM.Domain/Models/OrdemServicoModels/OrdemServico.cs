@@ -7,15 +7,32 @@ namespace RCM.Domain.Models.OrdemServicoModels
 {
     public class OrdemServico
     {
-        public int Id { get; set; }
-        public int ClienteId { get; set; }
-        public virtual Cliente Cliente { get; set; }
-        public virtual ICollection<Produto> Produtos { get; }
-        public decimal Total { get; }
+        public int Id { get; private set; }
+        public int ClienteId { get; private set; }
+        public virtual Cliente Cliente { get; private set; }
+
+        private List<Produto> _produtos;
+        public virtual IReadOnlyList<Produto> Produtos
+        {
+            get
+            {
+                return _produtos;
+            }
+        }
+
+        public decimal Total { get; private set; }
+
+        private OrdemServico() { }
+
+        public OrdemServico(Cliente cliente, List<Produto> produtos)
+        {
+            Cliente = cliente;
+            _produtos = produtos;
+        }
 
         public void AdicionarProduto(Produto produto)
         {
-            Produtos.Add(produto);
+            _produtos.Add(produto);
         }
         
         public decimal CalcularTotal()

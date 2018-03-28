@@ -16,7 +16,7 @@ namespace RCM.Application.ViewModels
         public string NumeroDocumento { get; set; }
 
         [Display(Name = "Duplicatas")]
-        public ICollection<DuplicataViewModel> Duplicatas { get; set; }
+        public List<DuplicataViewModel> Duplicatas { get; set; }
 
         [Display(Name = "Data de Emissão")]
         [DisplayFormat(ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true, DataFormatString = "{0:dd/MM/yyyy}")]
