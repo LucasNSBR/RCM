@@ -1,48 +1,20 @@
 ﻿@model RCM.Application.ViewModels.ProdutoViewModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = $"Detalhes - {Model.Nome}";
 }
 
-<h2>Details</h2>
+<h5>Detalhes do Produto - @Model.Nome</h5>
+
+<div class="form-container col m12 s12">
+    @Html.DisplayForModel()
+
+    <div class="center pt-3">
+        <action-button asp-action="Edit" asp-controller="Estoque" asp-area="Platform" asp-route-id="@Model.Id" icon-name="edit">Editar</action-button>
+        <action-button asp-action="Delete" asp-controller="Estoque" asp-area="Platform" asp-route-id="@Model.Id" icon-name="delete">Excluir</action-button>
+    </div>
+</div>
 
 <div>
-    <h4>ProdutoViewModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Aplicacao)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Aplicacao)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Quantidade)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Quantidade)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.PrecoVenda)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.PrecoVenda)
-        </dd>
-    </dl>
-</div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Voltar para a lista</a>
 </div>

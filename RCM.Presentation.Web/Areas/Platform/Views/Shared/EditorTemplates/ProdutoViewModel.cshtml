@@ -1,0 +1,70 @@
+﻿@model RCM.Application.ViewModels.ProdutoViewModel
+
+<div class="row">
+    <div class="col s12">
+        <ul class="tabs tabs-fixed-width">
+            <li class="tab col s3"><a href="#geral" class="active">Geral</a></li>
+            <li class="tab col s3"><a href="#estoque">Estoque</a></li>
+            <li class="tab col s3"><a href="#preco">Preços</a></li>
+            <li class="tab col s3"><a href="#fornecedor">Fornecedores</a></li>
+        </ul>
+    </div>
+
+    <div id="geral" class="col s12 m12">
+        <p class="px-1 font-bold lead">
+            Informação Geral
+        </p>
+
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="Nome"></label>
+                <input asp-for="Nome" class="input-field" id="nome" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="Aplicacao"></label>
+                <textarea asp-for="Aplicacao" class="materialize-textarea" id="aplicacao"></textarea>
+                <span asp-validation-for="Aplicacao" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div id="estoque" class="col s12 m12">
+        <div>
+            <p class="px-1 font-bold lead">
+                Informações sobre estoque
+            </p>
+
+            <div class="row">
+                <div class="input-field col s12 m6">
+                    <label asp-for="Quantidade"></label>
+                    <input asp-for="Quantidade" class="input-field" id="quantidade" />
+                    <span asp-validation-for="Quantidade" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="preco" class="col s12 m12">
+        <p class="px-1 font-bold lead">
+            Informações sobre Preços
+        </p>
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="PrecoVenda"></label>
+                <input asp-for="PrecoVenda" class="input-field" id="precoVenda" />
+                <span asp-validation-for="PrecoVenda" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div id="fornecedor" class="col s12 m12">
+        <div>
+            <p class="px-1 font-bold lead">
+                Informação sobre Fornecedor
+            </p>
+        </div>
+    </div>
+</div>

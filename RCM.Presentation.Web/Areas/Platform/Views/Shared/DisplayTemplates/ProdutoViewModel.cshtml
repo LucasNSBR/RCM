@@ -1,0 +1,125 @@
+﻿@model RCM.Application.ViewModels.ProdutoViewModel
+
+<div class="row">
+    <div class="col s12">
+        <ul class="tabs tabs-fixed-width">
+            <li class="tab col s3"><a href="#geral" class="active">Geral</a></li>
+            <li class="tab col s3"><a href="#estoque">Estoque</a></li>
+            <li class="tab col s3"><a href="#preco">Preços</a></li>
+            <li class="tab col s3"><a href="#fornecedor">Fornecedores</a></li>
+            <li class="tab col s3"><a href="#funcoes">Funções</a></li>
+        </ul>
+    </div>
+
+    <div id="geral" class="col s12 m12">
+        <p class="px-1 font-bold lead">
+            Informação Geral
+        </p>
+        <div>
+            <dl class="detail-list">
+                <dt>
+                    <label asp-for="@Model.Id"></label>
+                </dt>
+                <dd>
+                    @Model.Id
+                </dd>
+                <dt>
+                    <label asp-for="@Model.PrecoVenda"></label>
+                </dt>
+                <dd>
+                    @Model.Nome
+                </dd>
+                <dt>
+                    <label asp-for="@Model.Aplicacao"></label>
+                </dt>
+                <dd>
+                    @Model.Aplicacao
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    <div id="estoque" class="col s12 m12">
+        <div>
+            <p class="px-1 font-bold lead">
+                Informações sobre estoque
+            </p>
+            <dl class="detail-list">
+                <dt>
+                    <label asp-for="@Model.Quantidade"></label>
+                </dt>
+                <dd>
+                    @if (Model.Quantidade > 0)
+                    {
+                        @Model.Quantidade
+                    }
+                    else
+                    {
+                        <span class="font-italic text-warning">
+                            <i class="material-icons left">warning</i>
+                            Estoque zerado.
+                        </span>
+                    }
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    <div id="preco" class="col s12 m12">
+        <p class="px-1 font-bold lead">
+            Informações sobre Preços
+        </p>
+        <dl class="detail-list">
+            <dt>
+                <label asp-for="@Model.PrecoVenda"></label>
+            </dt>
+            <dd>
+                @Model.PrecoVenda.ToString("c")
+            </dd>
+        </dl>
+    </div>
+
+    <div id="fornecedor" class="col s12 m12">
+        <div>
+            <p class="px-1 font-bold lead">
+                Informação sobre Fornecedor
+            </p>
+            <dl class="detail-list">
+                <dt>
+                    <label asp-for="@Model.Fornecedores"></label>
+                </dt>
+                <dd>
+                    @if (Model.Fornecedores.Any())
+                    {
+                        foreach (var fornecedor in Model.Fornecedores)
+                        {
+                            <a asp-action="Details" asp-controller="Fornecedores" asp-route-id="@fornecedor.Nome">@fornecedor.Nome</a><br />
+                        }
+                    }
+                    else
+                    {
+                        <span class="font-italic text-warning">
+                            <i class="material-icons left">warning</i>Nenhum fornecedor encontrado para este produto.
+                        </span>
+                    }
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    <div id="funcoes" class="col s12 m12">
+        <div>
+            <p class="px-1 font-bold lead">
+                Funções
+            </p>
+            <dl class="detail-list">
+                <dt>
+                    Funções básicas
+                </dt>
+                <dd>
+                    <a asp-action="Details" asp-controller="Produtos">Repor estoque</a>
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>
