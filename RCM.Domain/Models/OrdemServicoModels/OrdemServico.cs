@@ -1,14 +1,15 @@
-﻿using RCM.Domain.Models.ClienteModels;
+﻿using RCM.Domain.Core.Models;
+using RCM.Domain.Models.ClienteModels;
 using RCM.Domain.Models.ProdutoModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace RCM.Domain.Models.OrdemServicoModels
 {
-    public class OrdemServico
+    public class OrdemServico : Entity
     {
-        public int Id { get; private set; }
-        public int ClienteId { get; private set; }
+        public Guid ClienteId { get; private set; }
         public virtual Cliente Cliente { get; private set; }
 
         private List<Produto> _produtos;

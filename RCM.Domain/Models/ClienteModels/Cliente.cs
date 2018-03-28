@@ -1,16 +1,17 @@
-﻿using RCM.Domain.Models.ChequeModels;
+﻿using RCM.Domain.Core.Models;
+using RCM.Domain.Models.ChequeModels;
 using System.Collections.Generic;
 
 namespace RCM.Domain.Models.ClienteModels
 {
-    public class Cliente
+    public class Cliente : Entity
     {
-        public int Id { get; private set; }
         public string Nome { get; private set; }
         public string Descricao { get; private set; }
 
         private List<Contato> _contatos;
-        public virtual IReadOnlyList<Contato> Contatos {
+        public virtual IReadOnlyList<Contato> Contatos
+        {
             get
             {
                 return _contatos;

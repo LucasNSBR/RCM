@@ -4,6 +4,7 @@ using RCM.Application.ApplicationInterfaces;
 using RCM.Application.ViewModels;
 using RCM.Domain.DomainNotificationHandlers;
 using RCM.Presentation.Web.Controllers;
+using System;
 
 namespace RCM.Presentation.Web.Areas.Platform.Controllers
 {
@@ -26,7 +27,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             return View(list);
         }
         
-        public IActionResult Details(int id)
+        public IActionResult Details(Guid id)
         {
             var cheque = _chequeApplicationService.GetById(id);
             if (cheque == null)
@@ -61,7 +62,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         }
 
         [Authorize(Policy = "ActiveUser")]
-        public IActionResult Edit(int id)
+        public IActionResult Edit(Guid id)
         {
             var cheque = _chequeApplicationService.GetById(id);
             if (cheque == null)
@@ -73,7 +74,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, ChequeViewModel cheque)
+        public IActionResult Edit(Guid id, ChequeViewModel cheque)
         {
             if (!ModelState.IsValid)
             {
@@ -90,7 +91,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         }
 
         [Authorize(Policy = "ActiveUser")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(Guid id)
         {
             var cheque = _chequeApplicationService.GetById(id);
             if (cheque == null)
@@ -102,7 +103,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(int id, ChequeViewModel cheque)
+        public IActionResult Delete(Guid id, ChequeViewModel cheque)
         {
             _chequeApplicationService.Remove(cheque);
 

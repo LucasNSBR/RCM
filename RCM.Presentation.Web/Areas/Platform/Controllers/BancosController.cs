@@ -5,6 +5,7 @@ using RCM.Application.ViewModels;
 using RCM.Domain.DomainNotificationHandlers;
 using RCM.Domain.Models.BancoModels;
 using RCM.Presentation.Web.Controllers;
+using System;
 
 namespace RCM.Presentation.Web.Areas.Platform.Controllers
 {
@@ -33,7 +34,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             return View(list);
         }
 
-        public IActionResult Details(int id)
+        public IActionResult Details(Guid id)
         {
             var banco = _bancoApplicationService.GetById(id);
             if (banco == null)
@@ -68,7 +69,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         }
 
         [Authorize(Policy = "ActiveUser")]
-        public IActionResult Edit(int id)
+        public IActionResult Edit(Guid id)
         {
             var banco = _bancoApplicationService.GetById(id);
             if (banco == null)
@@ -80,7 +81,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, BancoViewModel banco)
+        public IActionResult Edit(Guid id, BancoViewModel banco)
         {
             if (!ModelState.IsValid)
             {
@@ -97,7 +98,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         }
 
         [Authorize(Policy = "ActiveUser")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(Guid id)
         {
             var banco = _bancoApplicationService.GetById(id);
             if (banco == null)
@@ -109,7 +110,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(int id, BancoViewModel banco)
+        public IActionResult Delete(Guid id, BancoViewModel banco)
         {
             _bancoApplicationService.Remove(banco);
 

@@ -1,5 +1,5 @@
 ﻿using RCM.Domain.Emails;
-using RCM.Domain.Models.Email;
+using RCM.Domain.Models.EmailModels;
 using RCM.Domain.Services.Email;
 
 namespace RCM.Infra.Services.Email

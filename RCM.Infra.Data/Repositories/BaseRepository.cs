@@ -38,7 +38,7 @@ namespace RCM.Infra.Data.Repositories
             return _dbSet.Where(expression).AsNoTracking();
         }
 
-        public TModel GetById(int id)
+        public TModel GetById(Guid id)
         {
             return _dbSet.Find(id);
         }

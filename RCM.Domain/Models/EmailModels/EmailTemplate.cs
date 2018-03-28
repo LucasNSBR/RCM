@@ -9,17 +9,21 @@ namespace RCM.Domain.Emails
         public string Subject { get; private set; }
         public string Body { get; private set; }
         public string TemplateId { get; private set; }
-        public Dictionary<string, string> SendGridSubstitutions { get; private set; }
+
+        private Dictionary<string, string> _sendGridSubstitutions;
+        public IReadOnlyDictionary<string, string> SendGridSubstitutions
+        {
+            get
+            {
+                return _sendGridSubstitutions;
+            }
+        }
 
         public EmailTemplate(string to)
         {
             To = to;
-            SendGridSubstitutions = new Dictionary<string, string>();
-        }
 
-        public void AddTo(string to)
-        {
-            To = to;
+            _sendGridSubstitutions = new Dictionary<string, string>();
         }
 
         public void SetSendGridTemplateId(string templateId)
@@ -32,7 +36,7 @@ namespace RCM.Domain.Emails
             if (SendGridSubstitutions.ContainsKey(key))
                 throw new ArgumentException();
 
-            SendGridSubstitutions.Add(key, value);
+            _sendGridSubstitutions.Add(key, value);
         }
     }
 }

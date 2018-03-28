@@ -1,11 +1,11 @@
-﻿using RCM.Domain.Models.CidadeModels;
+﻿using RCM.Domain.Core.Models;
+using RCM.Domain.Models.CidadeModels;
 using System.Collections.Generic;
 
 namespace RCM.Domain.Models.EstadoModels
 {
-    public class Estado
+    public class Estado : Entity
     {
-        public int Id { get; private set; }
         public string Nome { get; private set; }
 
         private List<Cidade> _cidades;

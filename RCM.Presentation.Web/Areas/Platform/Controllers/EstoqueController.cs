@@ -5,6 +5,7 @@ using RCM.Application.ViewModels;
 using RCM.Domain.DomainNotificationHandlers;
 using RCM.Domain.Models.ProdutoModels;
 using RCM.Presentation.Web.Controllers;
+using System;
 
 namespace RCM.Presentation.Web.Areas.Platform.Controllers
 {
@@ -32,7 +33,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             return View(list);
         }
 
-        public IActionResult Details(int id)
+        public IActionResult Details(Guid id)
         {
             var produto = _produtoApplicationService.GetById(id);
             if (produto == null)
@@ -67,7 +68,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         }
 
         [Authorize(Policy = "ActiveUser")]
-        public IActionResult Edit(int id)
+        public IActionResult Edit(Guid id)
         {
             var produto = _produtoApplicationService.GetById(id);
             if (produto == null)
@@ -80,7 +81,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, ProdutoViewModel produto)
+        public IActionResult Edit(Guid id, ProdutoViewModel produto)
         {
             if (!ModelState.IsValid)
             {
@@ -97,7 +98,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         }
 
         [Authorize(Policy = "ActiveUser")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(Guid id)
         {
             var produto = _produtoApplicationService.GetById(id);
             if (produto == null)
@@ -109,7 +110,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(int id, ProdutoViewModel produto)
+        public IActionResult Delete(Guid id, ProdutoViewModel produto)
         {
             _produtoApplicationService.Remove(produto);
 

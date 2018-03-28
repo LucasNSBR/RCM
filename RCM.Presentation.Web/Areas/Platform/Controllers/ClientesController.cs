@@ -5,6 +5,7 @@ using RCM.Application.ViewModels;
 using RCM.Domain.DomainNotificationHandlers;
 using RCM.Domain.Models.ClienteModels;
 using RCM.Presentation.Web.Controllers;
+using System;
 
 namespace RCM.Presentation.Web.Areas.Platform.Controllers
 {
@@ -30,7 +31,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             return View(list);
         }
 
-        public IActionResult Details(int id)
+        public IActionResult Details(Guid id)
         {
             var cliente = _clienteApplicationService.GetById(id);
             if (cliente == null)
@@ -65,7 +66,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         }
 
         [Authorize(Policy = "ActiveUser")]
-        public IActionResult Edit(int id)
+        public IActionResult Edit(Guid id)
         {
             var cliente = _clienteApplicationService.GetById(id);
             if (cliente == null)
@@ -77,7 +78,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, ClienteViewModel cliente)
+        public IActionResult Edit(Guid id, ClienteViewModel cliente)
         {
             if (!ModelState.IsValid)
             {
@@ -94,7 +95,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         }
 
         [Authorize(Policy = "ActiveUser")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(Guid id)
         {
             var cliente = _clienteApplicationService.GetById(id);
             if (cliente == null)
@@ -106,7 +107,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(int id, ClienteViewModel cliente)
+        public IActionResult Delete(Guid id, ClienteViewModel cliente)
         {
             _clienteApplicationService.Remove(cliente);
 

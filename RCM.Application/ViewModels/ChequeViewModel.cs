@@ -5,13 +5,13 @@ namespace RCM.Application.ViewModels
 {
     public class ChequeViewModel
     {
+        [Key]
         [Display(Name = "Id")]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "O campo Id é requerido.")]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Display(Name = "Id do Banco")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O banco relacionado é requerido.")]
-        public int BancoId { get; set; }
+        public Guid BancoId { get; set; }
 
         [Display(Name = "Banco")]
         public BancoViewModel Banco { get; set; }
@@ -36,7 +36,7 @@ namespace RCM.Application.ViewModels
 
         [Display(Name = "Id do Cliente")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O cliente relacionado é requerido.")]
-        public int ClienteId { get; set; }
+        public Guid ClienteId { get; set; }
 
         [Display(Name = "Cliente")]
         public ClienteViewModel Cliente { get; set; }

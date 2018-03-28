@@ -34,7 +34,7 @@ namespace RCM.Application.ApplicationServices
             return _baseRepository.Get(expression).AsQueryable().ProjectTo<TViewModel>();
         }
 
-        public TViewModel GetById(int id)
+        public TViewModel GetById(Guid id)
         {
             var model = ProjectToViewModel(_baseRepository.GetById(id));
             return model;

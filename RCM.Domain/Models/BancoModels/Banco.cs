@@ -1,11 +1,11 @@
-﻿using RCM.Domain.Models.ChequeModels;
+﻿using RCM.Domain.Core.Models;
+using RCM.Domain.Models.ChequeModels;
 using System.Collections.Generic;
 
 namespace RCM.Domain.Models.BancoModels
 {
-    public class Banco
+    public class Banco : Entity
     {
-        public int Id { get; private set; }
         public int CodigoCompensacao { get; private set; }
         public string Nome { get; private set; }
 

@@ -46,8 +46,12 @@ namespace RCM.Infra.Data.Context
             modelBuilder.ApplyConfiguration(new ContatoEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new DuplicataEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new EnderecoEntityTypeConfig());
-            modelBuilder.ApplyConfiguration(new FornecedorEntityConfig());
-            modelBuilder.ApplyConfiguration(new NotaFiscalEntityConfig());
+            modelBuilder.ApplyConfiguration(new EstadoEntityTypeConfig());
+            modelBuilder.ApplyConfiguration(new FornecedorEntityTypeConfig());
+            modelBuilder.ApplyConfiguration(new NotaFiscalEntityTypeConfig());
+            modelBuilder.ApplyConfiguration(new OrdemServicoEntityTypeConfig());
+            modelBuilder.ApplyConfiguration(new ProdutoEntityTypeConfig());
+            modelBuilder.ApplyConfiguration(new VendaEntityTypeConfig());
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

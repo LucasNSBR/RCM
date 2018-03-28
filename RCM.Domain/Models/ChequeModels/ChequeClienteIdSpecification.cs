@@ -6,9 +6,9 @@ namespace RCM.Domain.Models.ChequeModels
 {
     public class ChequeClienteIdSpecification : BaseSpecification<Cheque>, ISpecification<Cheque>
     {
-        private readonly int? _clienteId;
+        private readonly Guid _clienteId;
 
-        public ChequeClienteIdSpecification(int? clienteId)
+        public ChequeClienteIdSpecification(Guid clienteId)
         {
             _clienteId = clienteId;
         }

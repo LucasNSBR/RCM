@@ -6,9 +6,9 @@ namespace RCM.Domain.Models.DuplicataModels
 {
     public class DuplicataFornecedorIdSpecification : BaseSpecification<Duplicata>, ISpecification<Duplicata>
     {
-        private readonly int? _fornecedorId;
+        private readonly Guid _fornecedorId;
 
-        public DuplicataFornecedorIdSpecification(int? fornecedorId)
+        public DuplicataFornecedorIdSpecification(Guid fornecedorId)
         {
             _fornecedorId = fornecedorId;
         }

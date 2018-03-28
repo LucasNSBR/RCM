@@ -4,6 +4,7 @@ using RCM.Application.ApplicationInterfaces;
 using RCM.Application.ViewModels;
 using RCM.Domain.DomainNotificationHandlers;
 using RCM.Presentation.Web.Controllers;
+using System;
 
 namespace RCM.Presentation.Web.Areas.Platform.Controllers
 {
@@ -25,7 +26,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             return View(list);
         }
 
-        public IActionResult Details(int id)
+        public IActionResult Details(Guid id)
         {
             var notaFiscal = _notaFiscalApplicationService.GetById(id);
             if (notaFiscal == null)
@@ -60,7 +61,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         }
 
         [Authorize(Policy = "ActiveUser")]
-        public IActionResult Edit(int id)
+        public IActionResult Edit(Guid id)
         {
             var notaFiscal = _notaFiscalApplicationService.GetById(id);
             if (notaFiscal == null)
@@ -72,7 +73,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, NotaFiscalViewModel notaFiscal)
+        public IActionResult Edit(Guid id, NotaFiscalViewModel notaFiscal)
         {
             if (!ModelState.IsValid)
             {
@@ -89,7 +90,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         }
 
         [Authorize(Policy = "ActiveUser")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(Guid id)
         {
             var notaFiscal = _notaFiscalApplicationService.GetById(id);
             if (notaFiscal == null)
@@ -101,7 +102,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(int id, NotaFiscalViewModel notaFiscal)
+        public IActionResult Delete(Guid id, NotaFiscalViewModel notaFiscal)
         {
             _notaFiscalApplicationService.Remove(notaFiscal);
 

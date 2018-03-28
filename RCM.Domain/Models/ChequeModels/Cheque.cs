@@ -1,19 +1,19 @@
 ﻿using System;
+using RCM.Domain.Core.Models;
 using RCM.Domain.Models.BancoModels;
 using RCM.Domain.Models.ClienteModels;
 
 namespace RCM.Domain.Models.ChequeModels
 {
-    public class Cheque
+    public class Cheque : Entity
     {
-        public int Id { get; private set; }
-        public int BancoId { get; private set; }
+        public Guid BancoId { get; private set; }
         public virtual Banco Banco { get; private set; }
         public string Agencia { get; private set; }
         public string Conta { get; private set; }
         public string NumeroCheque { get; private set; }
         public string Observacao { get; private set; }
-        public int ClienteId { get; private set; }
+        public Guid ClienteId { get; private set; }
         public virtual Cliente Cliente { get; private set; }
         public DateTime DataEmissao { get; private set; }
         public DateTime DataVencimento { get; private set; }

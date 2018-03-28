@@ -1,4 +1,5 @@
 ﻿using RCM.Domain.Models.FornecedorModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -6,8 +7,9 @@ namespace RCM.Application.ViewModels
 {
     public class ProdutoViewModel
     {
+        [Key]
         [Display(Name = "Id")]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Display(Name = "Nome")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo nome é requerido.")]

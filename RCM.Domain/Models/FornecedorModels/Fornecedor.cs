@@ -1,13 +1,13 @@
-﻿using RCM.Domain.Models.DuplicataModels;
+﻿using RCM.Domain.Core.Models;
+using RCM.Domain.Models.DuplicataModels;
 using RCM.Domain.Models.NotaFiscalModels;
 using RCM.Domain.Models.ProdutoModels;
 using System.Collections.Generic;
 
 namespace RCM.Domain.Models.FornecedorModels
 {
-    public class Fornecedor
+    public class Fornecedor : Entity
     {
-        public int Id { get; private set; }
         public string Nome { get; private set; }
         public string Observacao { get; private set; }
 

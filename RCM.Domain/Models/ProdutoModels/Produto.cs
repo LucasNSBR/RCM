@@ -1,11 +1,11 @@
-﻿using RCM.Domain.Models.FornecedorModels;
+﻿using RCM.Domain.Core.Models;
+using RCM.Domain.Models.FornecedorModels;
 using System.Collections.Generic;
 
 namespace RCM.Domain.Models.ProdutoModels
 {
-    public class Produto
+    public class Produto : Entity
     {
-        public int Id { get; private set; }
         public string Nome { get; private set; }
         public string Aplicacao { get; private set; }
         public int Quantidade { get; private set; }

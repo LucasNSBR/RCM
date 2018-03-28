@@ -10,7 +10,7 @@ namespace RCM.Application.ApplicationInterfaces
     {
         IQueryable<TViewModel> Get();
         IQueryable<TViewModel> Get(Expression<Func<TModel, bool>> expression);
-        TViewModel GetById(int id);
+        TViewModel GetById(Guid id);
 
         void Add(TViewModel viewModel);
         void Update(TViewModel viewModel);

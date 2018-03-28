@@ -6,9 +6,9 @@ namespace RCM.Application.ViewModels
 {
     public class NotaFiscalViewModel
     {
+        [Key]
         [Display(Name = "Id")]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "O campo Id é requerido.")]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Display(Name = "Número do documento")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo número do documento é requerido.")]

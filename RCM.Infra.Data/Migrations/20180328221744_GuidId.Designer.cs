@@ -11,8 +11,8 @@ using System;
 namespace RCM.Infra.Data.Migrations
 {
     [DbContext(typeof(RCMDbContext))]
-    [Migration("20180328032223_DomainFixes")]
-    partial class DomainFixes
+    [Migration("20180328221744_GuidId")]
+    partial class GuidId
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,7 +23,7 @@ namespace RCM.Infra.Data.Migrations
 
             modelBuilder.Entity("RCM.Domain.Models.BancoModels.Banco", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("CodigoCompensacao")
@@ -40,16 +40,16 @@ namespace RCM.Infra.Data.Migrations
 
             modelBuilder.Entity("RCM.Domain.Models.ChequeModels.Cheque", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Agencia")
                         .IsRequired()
                         .HasMaxLength(5);
 
-                    b.Property<int>("BancoId");
+                    b.Property<Guid>("BancoId");
 
-                    b.Property<int>("ClienteId");
+                    b.Property<Guid>("ClienteId");
 
                     b.Property<string>("Conta")
                         .IsRequired()
@@ -82,10 +82,10 @@ namespace RCM.Infra.Data.Migrations
 
             modelBuilder.Entity("RCM.Domain.Models.CidadeModels.Cidade", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("EstadoId");
+                    b.Property<Guid>("EstadoId");
 
                     b.Property<string>("Nome")
                         .IsRequired()
@@ -100,7 +100,7 @@ namespace RCM.Infra.Data.Migrations
 
             modelBuilder.Entity("RCM.Domain.Models.ClienteModels.Cliente", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Descricao")
@@ -117,10 +117,10 @@ namespace RCM.Infra.Data.Migrations
 
             modelBuilder.Entity("RCM.Domain.Models.Contato", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("ClienteId");
+                    b.Property<Guid>("ClienteId");
 
                     b.Property<string>("Nome")
                         .IsRequired()
@@ -138,7 +138,7 @@ namespace RCM.Infra.Data.Migrations
 
             modelBuilder.Entity("RCM.Domain.Models.DuplicataModels.Duplicata", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("DataEmissao");
@@ -147,9 +147,9 @@ namespace RCM.Infra.Data.Migrations
 
                     b.Property<DateTime>("DataVencimento");
 
-                    b.Property<int>("FornecedorId");
+                    b.Property<Guid>("FornecedorId");
 
-                    b.Property<int>("NotaFiscalId");
+                    b.Property<Guid>("NotaFiscalId");
 
                     b.Property<string>("NumeroDocumento")
                         .IsRequired()
@@ -176,7 +176,7 @@ namespace RCM.Infra.Data.Migrations
 
             modelBuilder.Entity("RCM.Domain.Models.Endereco", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Bairro")
@@ -187,9 +187,9 @@ namespace RCM.Infra.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(8);
 
-                    b.Property<int>("CidadeId");
+                    b.Property<Guid>("CidadeId");
 
-                    b.Property<int>("ClienteId");
+                    b.Property<Guid>("ClienteId");
 
                     b.Property<string>("Complemento")
                         .HasMaxLength(100);
@@ -212,7 +212,7 @@ namespace RCM.Infra.Data.Migrations
 
             modelBuilder.Entity("RCM.Domain.Models.EstadoModels.Estado", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Nome");
@@ -224,7 +224,7 @@ namespace RCM.Infra.Data.Migrations
 
             modelBuilder.Entity("RCM.Domain.Models.FornecedorModels.Fornecedor", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Nome")
@@ -241,14 +241,14 @@ namespace RCM.Infra.Data.Migrations
 
             modelBuilder.Entity("RCM.Domain.Models.NotaFiscalModels.NotaFiscal", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("DataChegada");
 
                     b.Property<DateTime>("DataEmissao");
 
-                    b.Property<int?>("FornecedorId");
+                    b.Property<Guid?>("FornecedorId");
 
                     b.Property<string>("NumeroDocumento")
                         .IsRequired()
@@ -266,10 +266,10 @@ namespace RCM.Infra.Data.Migrations
 
             modelBuilder.Entity("RCM.Domain.Models.OrdemServicoModels.OrdemServico", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("ClienteId");
+                    b.Property<Guid>("ClienteId");
 
                     b.Property<decimal>("Total");
 
@@ -282,22 +282,28 @@ namespace RCM.Infra.Data.Migrations
 
             modelBuilder.Entity("RCM.Domain.Models.ProdutoModels.Produto", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Aplicacao");
+                    b.Property<string>("Aplicacao")
+                        .IsRequired()
+                        .HasMaxLength(1000);
 
-                    b.Property<string>("Nome");
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasMaxLength(100);
 
-                    b.Property<int?>("NotaFiscalId");
+                    b.Property<Guid?>("NotaFiscalId");
 
-                    b.Property<int?>("OrdemServicoId");
+                    b.Property<Guid?>("OrdemServicoId");
 
-                    b.Property<decimal>("PrecoVenda");
+                    b.Property<decimal>("PrecoVenda")
+                        .HasMaxLength(4);
 
-                    b.Property<int>("Quantidade");
+                    b.Property<int>("Quantidade")
+                        .HasMaxLength(4);
 
-                    b.Property<int?>("VendaId");
+                    b.Property<Guid?>("VendaId");
 
                     b.HasKey("Id");
 
@@ -312,10 +318,10 @@ namespace RCM.Infra.Data.Migrations
 
             modelBuilder.Entity("RCM.Domain.Models.VendaModels.Venda", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("ClienteId");
+                    b.Property<Guid>("ClienteId");
 
                     b.Property<DateTime>("DataVenda");
 

@@ -4,7 +4,7 @@ using RCM.Domain.Models.NotaFiscalModels;
 
 namespace RCM.Infra.Data.EntityTypeConfig
 {
-    public class NotaFiscalEntityConfig : IEntityTypeConfiguration<NotaFiscal>
+    public class NotaFiscalEntityTypeConfig : IEntityTypeConfiguration<NotaFiscal>
     {
         public void Configure(EntityTypeBuilder<NotaFiscal> builder)
         {

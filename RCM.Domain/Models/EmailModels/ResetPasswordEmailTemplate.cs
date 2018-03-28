@@ -1,6 +1,6 @@
 ﻿using RCM.Domain.Emails;
 
-namespace RCM.Domain.Models.Email
+namespace RCM.Domain.Models.EmailModels
 {
     public class ResetPasswordEmailTemplate : EmailTemplate
     {

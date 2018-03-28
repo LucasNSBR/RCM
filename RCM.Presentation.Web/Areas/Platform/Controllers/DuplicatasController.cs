@@ -27,7 +27,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             return View(list);
         }
         
-        public IActionResult Details(int id)
+        public IActionResult Details(Guid id)
         {
             var duplicata = _duplicataApplicationService.GetById(id);
             if (duplicata == null)
@@ -62,7 +62,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         }
 
         [Authorize(Policy = "ActiveUser")]
-        public IActionResult Edit(int id)
+        public IActionResult Edit(Guid id)
         {
             var duplicata = _duplicataApplicationService.GetById(id);
             if (duplicata == null)
@@ -74,7 +74,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, DuplicataViewModel duplicata)
+        public IActionResult Edit(Guid id, DuplicataViewModel duplicata)
         {
             if (!ModelState.IsValid)
             {
@@ -91,7 +91,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         }
 
         [Authorize(Policy = "ActiveUser")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(Guid id)
         {
             var duplicata = _duplicataApplicationService.GetById(id);
             if (duplicata == null)
@@ -103,7 +103,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(int id, DuplicataViewModel duplicata)
+        public IActionResult Delete(Guid id, DuplicataViewModel duplicata)
         {
             _duplicataApplicationService.Remove(duplicata);
 

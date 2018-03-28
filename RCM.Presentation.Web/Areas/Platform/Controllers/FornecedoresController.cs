@@ -4,6 +4,7 @@ using RCM.Application.ApplicationInterfaces;
 using RCM.Application.ViewModels;
 using RCM.Domain.DomainNotificationHandlers;
 using RCM.Presentation.Web.Controllers;
+using System;
 
 namespace RCM.Presentation.Web.Areas.Platform.Controllers
 {
@@ -25,7 +26,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             return View(list);
         }
 
-        public IActionResult Details(int id)
+        public IActionResult Details(Guid id)
         {
             var fornecedor = _fornecedorApplicationService.GetById(id);
             if (fornecedor == null)
@@ -60,7 +61,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         }
 
         [Authorize(Policy = "ActiveUser")]
-        public IActionResult Edit(int id)
+        public IActionResult Edit(Guid id)
         {
             var fornecedor = _fornecedorApplicationService.GetById(id);
             if (fornecedor == null)
@@ -72,7 +73,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, FornecedorViewModel fornecedor)
+        public IActionResult Edit(Guid id, FornecedorViewModel fornecedor)
         {
             if (!ModelState.IsValid)
             {
@@ -89,7 +90,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         }
 
         [Authorize(Policy = "ActiveUser")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(Guid id)
         {
             var fornecedor = _fornecedorApplicationService.GetById(id);
             if (fornecedor == null)
@@ -101,7 +102,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(int id, FornecedorViewModel fornecedor)
+        public IActionResult Delete(Guid id, FornecedorViewModel fornecedor)
         {
             _fornecedorApplicationService.Remove(fornecedor);
 

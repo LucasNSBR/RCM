@@ -3,6 +3,7 @@ using RCM.Domain.Emails;
 using RCM.Domain.Services.Email;
 using SendGrid;
 using SendGrid.Helpers.Mail;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace RCM.Infra.Services.Email
@@ -24,7 +25,7 @@ namespace RCM.Infra.Services.Email
             message.SetFrom(new EmailAddress("lucas.pereira.campos@hotmail.com", "RCM Email Service"));
             message.AddTo(template.To);
             message.SetTemplateId(template.TemplateId);
-            message.AddSubstitutions(template.SendGridSubstitutions);
+            message.AddSubstitutions(template.SendGridSubstitutions.ToDictionary(k => k.Key, v => v.Value));
 
             await Execute(message);
         }

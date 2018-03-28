@@ -1,12 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace RCM.Application.ViewModels
 {
     public class BancoViewModel
     {
+        [Key]
         [Display(Name = "Id")]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         
         [Display(Name = "Código de compensação")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo código de compensação é requerido.")]

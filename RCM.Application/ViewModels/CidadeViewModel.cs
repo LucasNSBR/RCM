@@ -1,12 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace RCM.Application.ViewModels
 {
     public class CidadeViewModel
     {
+        [Key]
         [Display(Name = "Id")]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "O campo Id é requerido.")]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Display(Name = "Nome")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo nome é requerido.")]
@@ -15,7 +16,7 @@ namespace RCM.Application.ViewModels
 
         [Display(Name = "Id do Estado")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O estado relacionado é requerido.")]
-        public int EstadoId { get; set; }
+        public Guid EstadoId { get; set; }
 
         [Display(Name = "Estado")]
         public EstadoViewModel Estado { get; set; }

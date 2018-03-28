@@ -1,13 +1,13 @@
-﻿using RCM.Domain.Models.DuplicataModels;
+﻿using RCM.Domain.Core.Models;
+using RCM.Domain.Models.DuplicataModels;
 using RCM.Domain.Models.ProdutoModels;
 using System;
 using System.Collections.Generic;
 
 namespace RCM.Domain.Models.NotaFiscalModels
 {
-    public class NotaFiscal
+    public class NotaFiscal : Entity
     {
-        public int Id { get; private set; }
         public string NumeroDocumento { get; private set; }
         public DateTime DataEmissao { get; private set; }
         public DateTime DataChegada { get; private set; }
@@ -31,9 +31,7 @@ namespace RCM.Domain.Models.NotaFiscalModels
             }
         }
 
-        private NotaFiscal()
-        {
-        }
+        private NotaFiscal() { }
 
         public NotaFiscal(string numeroDocumento, DateTime dataEmissao, DateTime dataChegada, decimal valor, List<Produto> produtos)
         {

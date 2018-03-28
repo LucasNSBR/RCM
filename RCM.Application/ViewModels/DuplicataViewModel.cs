@@ -5,9 +5,9 @@ namespace RCM.Application.ViewModels
 {
     public class DuplicataViewModel
     {
+        [Key]
         [Display(Name = "Id")]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "O campo Id é requerido.")]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Display(Name = "Número do Documento")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo número do documento é requerido.")]
@@ -15,7 +15,7 @@ namespace RCM.Application.ViewModels
         public string NumeroDocumento { get; set; }
 
         [Display(Name = "Id da Nota Fiscal")]
-        public int NotaFiscalId { get; set; }
+        public Guid NotaFiscalId { get; set; }
 
         [Display(Name = "Observação")]
         public string Observacao { get; set; }
@@ -39,7 +39,7 @@ namespace RCM.Application.ViewModels
 
         [Display(Name = "Id do Fornecedor")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O fornecedor relacionado é requerido.")]
-        public int FornecedorId { get; set; }
+        public Guid FornecedorId { get; set; }
 
         [Display(Name = "Fornecedor")]
         public FornecedorViewModel Fornecedor { get; set; }

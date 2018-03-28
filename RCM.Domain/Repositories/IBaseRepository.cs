@@ -9,7 +9,7 @@ namespace RCM.Domain.Repositories
     {
         IQueryable<TModel> Get();
         IQueryable<TModel> Get(Expression<Func<TModel, bool>> expression);
-        TModel GetById(int id);
+        TModel GetById(Guid id);
 
         void Add(TModel model);
         void Update(TModel model);

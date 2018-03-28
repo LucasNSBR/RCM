@@ -11,7 +11,7 @@ using System;
 namespace RCM.CrossCutting.Identity.Migrations
 {
     [DbContext(typeof(RCMIdentityDbContext))]
-    [Migration("20180327010743_Initial")]
+    [Migration("20180328221843_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -4,7 +4,7 @@ using RCM.Domain.Models.FornecedorModels;
 
 namespace RCM.Infra.Data.EntityTypeConfig
 {
-    public class FornecedorEntityConfig : IEntityTypeConfiguration<Fornecedor>
+    public class FornecedorEntityTypeConfig : IEntityTypeConfiguration<Fornecedor>
     {
         public void Configure(EntityTypeBuilder<Fornecedor> builder)
         {

@@ -1,13 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace RCM.Application.ViewModels
 {
     public class ClienteViewModel
     {
+        [Key]
         [Display(Name = "Id")]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "O campo Id é requerido.")]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Display(Name = "Nome")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo nome é requerido.")]
