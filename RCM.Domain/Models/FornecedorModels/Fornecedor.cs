@@ -38,7 +38,7 @@ namespace RCM.Domain.Models.FornecedorModels
             }
         }
 
-        private Fornecedor() { }
+        protected Fornecedor() { }
 
         public Fornecedor(string nome)
         {

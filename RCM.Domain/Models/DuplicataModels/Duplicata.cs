@@ -21,7 +21,7 @@ namespace RCM.Domain.Models.DuplicataModels
         public decimal? ValorPago { get; private set; }
         public DateTime? DataPagamento { get; private set; }
 
-        private Duplicata() { }
+        protected Duplicata() { }
 
         public Duplicata(string numeroDocumento, DateTime dataEmissao, DateTime dataVencimento, Fornecedor fornecedor, decimal valor)
         {

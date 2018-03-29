@@ -24,7 +24,7 @@ namespace RCM.Domain.Models.VendaModels
 
         public decimal Total { get; private set; }
 
-        private Venda() { }
+        protected Venda() { }
 
         public Venda(Cliente cliente, DateTime dataVenda, List<Produto> produtos)
         {

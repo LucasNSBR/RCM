@@ -11,7 +11,7 @@ namespace RCM.Domain.Models
         public virtual Cliente Cliente { get; private set; }
         public string Observacao { get; private set; }
 
-        private Contato() { }
+        protected Contato() { }
 
         public Contato(string nome, Cliente cliente)
         {

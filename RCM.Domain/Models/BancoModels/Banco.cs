@@ -18,7 +18,7 @@ namespace RCM.Domain.Models.BancoModels
             }
         }
 
-        private Banco() { }
+        protected Banco() { }
 
         public Banco(string nome)
         {

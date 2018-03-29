@@ -17,7 +17,7 @@ namespace RCM.Domain.Models.EstadoModels
             }
         }
 
-        private Estado() { }
+        protected Estado() { }
 
         public Estado(string nome)
         {

@@ -17,7 +17,7 @@ namespace RCM.Domain.Models
         public Guid ClienteId { get; private set; }
         public virtual Cliente Cliente { get; private set; }
 
-        private Endereco() { }
+        protected Endereco() { }
 
         public Endereco(int numero, string rua, string bairro, Cidade cidade, Cliente cliente)
         {

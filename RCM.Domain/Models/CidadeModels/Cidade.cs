@@ -10,7 +10,7 @@ namespace RCM.Domain.Models.CidadeModels
         public Guid EstadoId { get; private set; }
         public virtual Estado Estado { get; private set; }
 
-        private Cidade() { }
+        protected Cidade() { }
 
         public Cidade(string nome, Estado estado)
         {

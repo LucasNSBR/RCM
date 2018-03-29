@@ -20,7 +20,7 @@ namespace RCM.Domain.Models.ProdutoModels
             }
         }
 
-        private Produto() { }
+        protected Produto() { }
 
         public Produto(string nome, string aplicacao, int quantidade, decimal precoVenda)
         {

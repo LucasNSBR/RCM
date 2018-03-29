@@ -20,7 +20,7 @@ namespace RCM.Domain.Models.ChequeModels
         public DateTime? DataPagamento { get; private set; }
         public decimal Valor { get; private set; }
 
-        private Cheque() { }
+        protected Cheque() { }
         
         public Cheque(Banco banco, string agencia, string conta, string numeroCheque, Cliente cliente, DateTime dataEmissao, DateTime dataVencimento, decimal valor)
         {

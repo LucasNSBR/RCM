@@ -23,7 +23,7 @@ namespace RCM.Domain.Models.OrdemServicoModels
 
         public decimal Total { get; private set; }
 
-        private OrdemServico() { }
+        protected OrdemServico() { }
 
         public OrdemServico(Cliente cliente, List<Produto> produtos)
         {

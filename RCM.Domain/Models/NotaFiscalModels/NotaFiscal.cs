@@ -31,7 +31,7 @@ namespace RCM.Domain.Models.NotaFiscalModels
             }
         }
 
-        private NotaFiscal() { }
+        protected NotaFiscal() { }
 
         public NotaFiscal(string numeroDocumento, DateTime dataEmissao, DateTime dataChegada, decimal valor, List<Produto> produtos)
         {

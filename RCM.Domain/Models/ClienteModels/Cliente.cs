@@ -36,7 +36,7 @@ namespace RCM.Domain.Models.ClienteModels
             }
         }
 
-        private Cliente() { }
+        protected Cliente() { }
 
         public Cliente(string nome)
         {
