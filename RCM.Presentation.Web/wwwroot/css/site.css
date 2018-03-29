@@ -270,6 +270,10 @@ tbody tr {
     display: block !important;
 }
 
+.d-hidden {
+    display: none;
+}
+
 .d-inlineblock {
     display: inline-block !important;
 }

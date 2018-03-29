@@ -14,25 +14,21 @@
         }
     }
 
-    var hostInfo = function () {
-        this.url = window.location.toString();
-    };
-
-    $(".table-body").click(function (handler) {
-        var itemId = handler.target.parentElement.firstElementChild.innerHTML;
-        var url = new hostInfo().url.concat("/Details/", itemId.trim());
-
-        window.location = url;
-    })
-
     $('.datepicker').pickadate({
-        selectMonths: true, 
-        selectYears: 15, 
+        selectMonths: true,
+        selectYears: 15,
         today: 'Hoje',
         clear: 'Limpar',
         close: 'Ok',
-        closeOnSelect: false 
+        closeOnSelect: false
     });
+
+    $(".table-body").click(function (handler) {
+        var itemId = handler.target.parentElement.firstElementChild.innerHTML;
+        var url = currentUrl.concat("/Details/", itemId.trim());
+
+        window.location = url;
+    })
 
     $("#notifications-div").children().each(function (index, element) {
         var title = element.firstElementChild.value + ' - ';
