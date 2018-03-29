@@ -31,6 +31,7 @@ namespace RCM.Domain.Models.ChequeModels
             Cliente = cliente;
             DataEmissao = dataEmissao;
             DataVencimento = dataVencimento;
+            Valor = valor;
         }
     }
 }

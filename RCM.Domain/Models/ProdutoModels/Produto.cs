@@ -31,5 +31,10 @@ namespace RCM.Domain.Models.ProdutoModels
 
             _fornecedores = new List<Fornecedor>();
         }
+
+        public void ReporEstoque(int quantidade)
+        {
+            Quantidade += quantidade;
+        }
     }
 }

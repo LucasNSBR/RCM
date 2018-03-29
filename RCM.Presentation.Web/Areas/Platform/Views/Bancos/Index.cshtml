@@ -20,17 +20,17 @@
             </div>
         </div>
     </form>
-    
+
     @if (Model.Any())
     {
         <table class="highlight centered">
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.CodigoCompensacao)
+                        @Html.DisplayNameFor(model => model.Nome)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Nome)
+                        @Html.DisplayNameFor(model => model.CodigoCompensacao)
                     </th>
                 </tr>
             </thead>
@@ -42,10 +42,10 @@
                             @Html.DisplayFor(modelItem => item.Id)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.CodigoCompensacao)
+                            @Html.DisplayFor(modelItem => item.Nome)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Nome)
+                            @Html.DisplayFor(modelItem => item.CodigoCompensacao)
                         </td>
                     </tr>
                 }

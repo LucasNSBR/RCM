@@ -33,13 +33,13 @@
     </div>
 
     <div id="banco" class="col s12 m12">
-        <p class="px-1 font-bold lead">
+        <p class="px-1 pb-1 font-bold lead">
             Informações Bancárias do Cheque
         </p>
         <div class="row">
             <div class="input-field col s12 m6">
+                <select asp-for="BancoId" asp-items="@(new SelectList(Model.Bancos, "Id", "Nome"))" id="bancoId"></select>                
                 <label asp-for="BancoId"></label>
-                <input asp-for="BancoId" class="input-field" id="bancoId" />
                 <span asp-validation-for="BancoId" class="text-danger"></span>
             </div>
         </div>
@@ -87,8 +87,8 @@
 
         <div class="row">
             <div class="input-field col s12 m6">
+                <select asp-for="ClienteId" asp-items="@(new SelectList(Model.Clientes, "Id", "Nome"))" id="clienteId"></select>
                 <label asp-for="ClienteId"></label>
-                <input asp-for="ClienteId" class="input-field" id="clienteId" />
                 <span asp-validation-for="ClienteId" class="text-danger"></span>
             </div>
         </div>

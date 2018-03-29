@@ -5,6 +5,7 @@ using RCM.Application.ViewModels;
 using RCM.Domain.DomainNotificationHandlers;
 using RCM.Presentation.Web.Controllers;
 using System;
+using System.Linq;
 
 namespace RCM.Presentation.Web.Areas.Platform.Controllers
 {
@@ -14,11 +15,15 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
     public class ChequesController : BaseController
     {
         private readonly IChequeApplicationService _chequeApplicationService;
+        private readonly IBancoApplicationService _bancoApplicationService;
+        private readonly IClienteApplicationService _clienteApplicationService;
 
-        public ChequesController(IChequeApplicationService chequeApplicationService, IDomainNotificationHandler domainNotificationHandler) : 
+        public ChequesController(IChequeApplicationService chequeApplicationService, IClienteApplicationService clienteApplicationService, IBancoApplicationService bancoApplicationService, IDomainNotificationHandler domainNotificationHandler) :
                                                                                                                     base(domainNotificationHandler)
         {
             _chequeApplicationService = chequeApplicationService;
+            _bancoApplicationService = bancoApplicationService;
+            _clienteApplicationService = clienteApplicationService;
         }
 
         public IActionResult Index()
@@ -26,7 +31,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             var list = _chequeApplicationService.Get();
             return View(list);
         }
-        
+
         public IActionResult Details(Guid id)
         {
             var cheque = _chequeApplicationService.GetById(id);
@@ -39,7 +44,8 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         public IActionResult Create()
         {
-            return View();
+            var cheque = PopulateSelectLists(new ChequeViewModel());
+            return View(cheque);
         }
 
         [Authorize(Policy = "ActiveUser")]
@@ -57,8 +63,9 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
 
             if (Success())
                 return RedirectToAction(nameof(Index));
-            else
-                return View(cheque);
+
+            cheque = PopulateSelectLists(cheque);
+            return View(cheque);
         }
 
         [Authorize(Policy = "ActiveUser")]
@@ -68,6 +75,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             if (cheque == null)
                 return NotFound();
 
+            cheque = PopulateSelectLists(cheque);
             return View(cheque);
         }
 
@@ -86,8 +94,9 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
 
             if (Success())
                 return RedirectToAction(nameof(Index));
-            else
-                return View(cheque);
+
+            cheque = PopulateSelectLists(cheque);
+            return View(cheque);
         }
 
         [Authorize(Policy = "ActiveUser")]
@@ -111,6 +120,13 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 return RedirectToAction(nameof(Index));
             else
                 return View(cheque);
+        }
+
+        private ChequeViewModel PopulateSelectLists(ChequeViewModel chequeViewModel)
+        {
+            chequeViewModel.Clientes = _clienteApplicationService.Get().ToList();
+            chequeViewModel.Bancos = _bancoApplicationService.Get().ToList();
+            return chequeViewModel;
         }
     }
 }

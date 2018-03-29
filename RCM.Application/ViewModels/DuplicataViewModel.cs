@@ -15,7 +15,7 @@ namespace RCM.Application.ViewModels
         public string NumeroDocumento { get; set; }
 
         [Display(Name = "Id da Nota Fiscal")]
-        public Guid NotaFiscalId { get; set; }
+        public Guid? NotaFiscalId { get; set; }
 
         [Display(Name = "Observação")]
         public string Observacao { get; set; }

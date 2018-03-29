@@ -9,7 +9,7 @@ namespace RCM.Domain.Models.DuplicataModels
     {
         public string NumeroDocumento { get; private set; }
         public string Observacao { get; private set; }
-        public Guid NotaFiscalId { get; private set; }
+        public Guid? NotaFiscalId { get; private set; }
         public virtual NotaFiscal NotaFiscal { get; private set; }
         public DateTime DataEmissao { get; private set; }
         public DateTime DataVencimento { get; private set; }
