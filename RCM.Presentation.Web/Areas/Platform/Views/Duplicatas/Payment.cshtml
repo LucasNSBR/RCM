@@ -1,0 +1,26 @@
+﻿@model RCM.Application.ViewModels.PagamentoViewModel
+
+@{
+    ViewData["Title"] = $"Pagar Duplicata";
+}
+
+<h5>Pagamento de duplicata</h5>
+
+<div class="form-container col s12 m12">
+    <form asp-action="Payment">
+        @Html.EditorForModel()
+
+        <div class="row pt-2 px-1">
+            <post-button>Confirmar</post-button>
+        </div>
+    </form>
+</div>
+
+<div>
+    <a asp-action="Index">Voltar para a lista</a>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

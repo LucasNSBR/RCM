@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace RCM.Application.ViewModels
@@ -32,11 +33,7 @@ namespace RCM.Application.ViewModels
         [DisplayFormat(ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true, DataFormatString = "{0:dd/MM/yyyy}")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo data de emissão é requerido.")]
         public DateTime DataVencimento { get; set; }
-
-        [Display(Name = "Pagamento")]
-        [DisplayFormat(ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true, DataFormatString = "{0:dd/MM/yyyy}")]
-        public DateTime? DataPagamento { get; set; }
-
+        
         [Display(Name = "Id do Fornecedor")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O fornecedor relacionado é requerido.")]
         public Guid FornecedorId { get; set; }
@@ -44,10 +41,16 @@ namespace RCM.Application.ViewModels
         [Display(Name = "Fornecedor")]
         public FornecedorViewModel Fornecedor { get; set; }
 
+        [Display(Name = "Pagamento")]
+        public PagamentoViewModel Pagamento { get; set; }
+
         [Display(Name = "Valor")]
         [DisplayFormat(ApplyFormatInEditMode = false, ConvertEmptyStringToNull = true, DataFormatString = "{0:c}")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo valor é requerido.")]
         [Range(0, 99999, ErrorMessage = "O campo valor deve ser estar entre 0 e 99999.")]
         public decimal Valor { get; set; }
+
+        [Display(Name = "Fornecedores")]
+        public List<FornecedorViewModel> Fornecedores { get; set; }
     }
 }

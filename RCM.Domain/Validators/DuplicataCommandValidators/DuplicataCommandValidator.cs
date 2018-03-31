@@ -2,20 +2,20 @@
 using RCM.Domain.Commands.DuplicataCommands;
 using System;
 
-namespace RCM.Domain.Validators.DuplicataCommandValidations
+namespace RCM.Domain.Validators.DuplicataCommandValidators
 {
     public abstract class DuplicataCommandValidator<T> : AbstractValidator<T> where T : DuplicataCommand
     {
         protected void ValidateId()
         {
-            RuleFor(c => c.Duplicata.Id)
+            RuleFor(c => c.Id)
                 .NotEmpty()
                 .WithMessage("O Id da duplicata não deve estar vazio.");
         }
 
         protected void ValidateNumeroDocumento()
         {
-            RuleFor(d => d.Duplicata.NumeroDocumento)
+            RuleFor(d => d.NumeroDocumento)
                 .NotEmpty()
                 .MinimumLength(5)
                 .MaximumLength(20)
@@ -24,14 +24,14 @@ namespace RCM.Domain.Validators.DuplicataCommandValidations
 
         protected void ValidateObservacao()
         {
-            RuleFor(d => d.Duplicata.Observacao)
+            RuleFor(d => d.Observacao)
                 .MaximumLength(1000)
                 .WithMessage("O campo observação deve ter até 1000 caracteres.");
         }
 
         protected void ValidateDataEmissao()
         {
-            RuleFor(d => d.Duplicata.DataEmissao)
+            RuleFor(d => d.DataEmissao)
                 .NotEmpty()
                 .LessThanOrEqualTo(DateTime.Now)
                 .WithMessage("A data de emissão deve estar em um formato válido.");
@@ -39,7 +39,7 @@ namespace RCM.Domain.Validators.DuplicataCommandValidations
 
         protected void ValidateDataVencimento()
         {
-            RuleFor(d => d.Duplicata.DataVencimento)
+            RuleFor(d => d.DataVencimento)
                 .NotEmpty()
                 .GreaterThanOrEqualTo(DateTime.Now)
                 .WithMessage("A data de vencimento deve estar em um formato válido.");
@@ -47,7 +47,7 @@ namespace RCM.Domain.Validators.DuplicataCommandValidations
 
         protected void ValidateValor()
         {
-            RuleFor(d => d.Duplicata.Valor)
+            RuleFor(d => d.Valor)
                 .NotEmpty()
                 .ExclusiveBetween(1, 99999)
                 .WithMessage("O valor da duplicata deve estar em um formato válido.");

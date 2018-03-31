@@ -5,7 +5,7 @@ using System;
 
 namespace RCM.Domain.Models.DuplicataModels
 {
-    public class Duplicata : Entity
+    public class Duplicata : Entity<Duplicata>
     {
         public string NumeroDocumento { get; private set; }
         public string Observacao { get; private set; }
@@ -16,30 +16,48 @@ namespace RCM.Domain.Models.DuplicataModels
         public Guid FornecedorId { get; private set; }
         public virtual Fornecedor Fornecedor { get; private set; }
         public decimal Valor { get; private set; }
-
-        public bool Pago { get; private set; }
-        public decimal? ValorPago { get; private set; }
-        public DateTime? DataPagamento { get; private set; }
+        public virtual Pagamento Pagamento { get; set; }
 
         protected Duplicata() { }
 
-        public Duplicata(string numeroDocumento, DateTime dataEmissao, DateTime dataVencimento, Fornecedor fornecedor, decimal valor)
+        public Duplicata(string numeroDocumento, DateTime dataEmissao, DateTime dataVencimento, Guid fornecedorId, decimal valor, string observacao = null)
         {
             NumeroDocumento = numeroDocumento;
             DataEmissao = dataEmissao;
             DataVencimento = dataVencimento;
-            Fornecedor = fornecedor;
+            FornecedorId = fornecedorId;
             Valor = valor;
+            Observacao = observacao ?? Observacao;
+
+            Pagamento = new Pagamento();
         }
 
-        public void Pagar(DateTime dataPagamento, decimal valorPago)
+        public Duplicata(Guid id, string numeroDocumento, DateTime dataEmissao, DateTime dataVencimento, Guid fornecedorId, decimal valor, string observacao = null)
         {
-            if (Pago)
-                return;
+            Id = id;
+            NumeroDocumento = numeroDocumento;
+            DataEmissao = dataEmissao;
+            DataVencimento = dataVencimento;
+            FornecedorId = fornecedorId;
+            Valor = valor;
+            Observacao = observacao ?? Observacao;
 
-            DataPagamento = dataPagamento;
-            ValorPago = valorPago;
-            Pago = true;
+            Pagamento = new Pagamento();
+        }
+
+        public void VincularNotaFiscal(Guid notaFiscalId)
+        {
+            NotaFiscalId = notaFiscalId;
+        }
+
+        public void Pagar(Pagamento pagamento)
+        {
+            Pagamento = new Pagamento(pagamento.DataPagamento, pagamento.ValorPago) ?? throw new ArgumentNullException("Pagamento");
+        }
+
+        public void EstornarPagamento()
+        {
+            Pagamento = new Pagamento();
         }
     }
 }

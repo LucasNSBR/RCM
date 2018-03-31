@@ -4,6 +4,7 @@
     $(".button-collapse").sideNav();
     $('select').material_select();
     $('.collapsible').collapsible();
+    $('.modal').modal();
 
     function initialize() {
         var inputName = $('#searchInput')[0];

@@ -5,6 +5,7 @@ using RCM.Application.ViewModels;
 using RCM.Domain.DomainNotificationHandlers;
 using RCM.Presentation.Web.Controllers;
 using System;
+using System.Linq;
 
 namespace RCM.Presentation.Web.Areas.Platform.Controllers
 {
@@ -14,11 +15,13 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
     public class DuplicatasController : BaseController
     {
         private readonly IDuplicataApplicationService _duplicataApplicationService;
+        private readonly IFornecedorApplicationService _fornecedorApplicationService;
 
-        public DuplicatasController(IDuplicataApplicationService duplicataApplicationService, IDomainNotificationHandler domainNotificationHandler) : 
+        public DuplicatasController(IDuplicataApplicationService duplicataApplicationService, IFornecedorApplicationService fornecedorApplicationService, IDomainNotificationHandler domainNotificationHandler) : 
                                                                                                                             base(domainNotificationHandler)
         {
             _duplicataApplicationService = duplicataApplicationService;
+            _fornecedorApplicationService = fornecedorApplicationService;
         }
 
         public IActionResult Index()
@@ -39,7 +42,8 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         public IActionResult Create()
         {
-            return View();
+            var duplicata = PopulateSelectLists(new DuplicataViewModel());
+            return View(duplicata);
         }
 
         [Authorize(Policy = "ActiveUser")]
@@ -52,12 +56,13 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 NotifyModelStateErrors();
                 return View(duplicata);
             }
-
+            
             _duplicataApplicationService.Add(duplicata);
 
             if (Success())
                 return RedirectToAction(nameof(Index));
-            
+
+            duplicata = PopulateSelectLists(duplicata);
             return View(duplicata);
         }
 
@@ -68,6 +73,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             if (duplicata == null)
                 return NotFound();
 
+            duplicata = PopulateSelectLists(duplicata);
             return View(duplicata);
         }
 
@@ -86,7 +92,8 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
 
             if (Success())
                 return RedirectToAction(nameof(Index));
-            
+
+            duplicata = PopulateSelectLists(duplicata);
             return View(duplicata);
         }
 
@@ -114,22 +121,53 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         }
 
         [Authorize(Policy = "ActiveUser")]
+        public IActionResult Payment(Guid id)
+        {
+            return View();
+        }
+
+        [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Pagamento(DuplicataViewModel duplicata, DateTime dataPagamento, decimal valorPago)
+        public IActionResult Payment(Guid id, PagamentoViewModel pagamento)
         {
-            if(!ModelState.IsValid)
+            var duplicata = _duplicataApplicationService.GetById(id);
+            if (duplicata == null || !duplicata.Pagamento.IsEmpty)
+                return NotFound();
+
+            if (!ModelState.IsValid)
             {
                 NotifyModelStateErrors();
-                return RedirectToAction(nameof(Details), duplicata);
+                return View(pagamento);
             }
             
-            _duplicataApplicationService.Pagar(duplicata, dataPagamento, valorPago);
+            _duplicataApplicationService.Pagar(duplicata, pagamento);
 
             if (Success())
-                return RedirectToAction(nameof(Details), duplicata);
+                return RedirectToAction(nameof(Details), new { id });
 
-            return RedirectToAction(nameof(Details));
+            return View(pagamento);
+        }
+
+        [Authorize(Policy = "ActiveUser")]
+        public IActionResult CancelPayment(Guid id)
+        {
+            var duplicata = _duplicataApplicationService.GetById(id);
+            if (duplicata == null || duplicata.Pagamento.IsEmpty)
+                return NotFound();
+
+            _duplicataApplicationService.Estornar(duplicata);
+
+            if (Success())
+                return RedirectToAction(nameof(Details), new { duplicata.Id });
+
+            return View();
+        }
+
+        public DuplicataViewModel PopulateSelectLists(DuplicataViewModel viewModel)
+        {
+            viewModel.Fornecedores = _fornecedorApplicationService.Get().ToList();
+            return viewModel;
         }
     }
 }

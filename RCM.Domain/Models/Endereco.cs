@@ -5,7 +5,7 @@ using System;
 
 namespace RCM.Domain.Models
 {
-    public class Endereco : Entity
+    public class Endereco : Entity<Endereco>
     {
         public int Numero { get; private set; }
         public string Rua { get; private set; }

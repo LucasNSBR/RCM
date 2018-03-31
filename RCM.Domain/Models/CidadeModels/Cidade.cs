@@ -4,7 +4,7 @@ using System;
 
 namespace RCM.Domain.Models.CidadeModels
 {
-    public class Cidade : Entity
+    public class Cidade : Entity<Cidade>
     {
         public string Nome { get; private set; }
         public Guid EstadoId { get; private set; }

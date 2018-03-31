@@ -8,6 +8,8 @@
             <li class="tab col s3"><a href="#notaFiscal">Nota Fiscal</a></li>
             <li class="tab col s3"><a href="#pagamento">Pagamento</a></li>
             <li class="tab col s3"><a href="#fornecedor">Fornecedor</a></li>
+            <li class="tab col s3"><a href="#funcoes">Funções</a></li>
+
         </ul>
     </div>
 
@@ -71,9 +73,9 @@
                 <dd>
                     @if (Model.NotaFiscal != null)
                     {
-                    <a asp-action="Details" asp-controller="NotasFiscais" asp-route-id="@Model.NotaFiscalId">
-                        @Model.NotaFiscal.NumeroDocumento
-                    </a>
+                        <a asp-action="Details" asp-controller="NotasFiscais" asp-route-id="@Model.NotaFiscalId">
+                            @Model.NotaFiscal.NumeroDocumento
+                        </a>
                     }
                     else
                     {
@@ -94,19 +96,29 @@
             </p>
             <dl class="detail-list">
                 <dt>
-                    <label asp-for="@Model.DataPagamento"></label>
+                    <label asp-for="@Model.Pagamento.DataPagamento"></label>
                 </dt>
                 <dd>
-                    @if (Model.DataPagamento != null)
+                    @if (!Model.Pagamento.IsEmpty)
                     {
-                        @Model.DataPagamento?.ToShortDateString() <span class="font-italic small text-muted">(@Model.DataPagamento?.ToLongDateString())</span>
+                        @Model.Pagamento.DataPagamento.ToShortDateString() <span class="font-italic small text-muted">(@Model.Pagamento.DataPagamento.ToLongDateString())</span>
                     }
                     else
                     {
                         <span class="font-italic text-warning">
-                            <i class="material-icons left">warning</i>Pagamento ainda não foi efetuado.</span>
+                            <i class="material-icons left">warning</i>Pagamento ainda não foi efetuado.
+                        </span>
                     }
                 </dd>
+                @if (!Model.Pagamento.IsEmpty)
+                {
+                    <dt>
+                        <label asp-for="@Model.Pagamento.ValorPago"></label>
+                    </dt>
+                    <dd>
+                        @Model.Pagamento.ValorPago.ToString("c")
+                    </dd>
+                }
             </dl>
         </div>
     </div>
@@ -127,5 +139,44 @@
                 </dd>
             </dl>
         </div>
+    </div>
+
+    <div id="funcoes" class="col s12 m12">
+        <div>
+            <p class="px-1 font-bold lead">
+                Funções básicas
+            </p>
+            <dl class="detail-list">
+                <dt>
+                    <label>Pagamento</label>
+                </dt>
+                <dd>
+                    @if (Model.Pagamento.IsEmpty)
+                    {
+                        <a asp-action="Payment" asp-route-id="@Model.Id">
+                            Pagar Duplicata
+                        </a>
+                        <br />
+                    }
+                    else
+                    {
+                        <a class="modal-trigger" href="#estornoModal" id="estornarPagamento">
+                            Estornar Pagamento
+                        </a>
+                    }
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>
+
+<div id="estornoModal" class="modal">
+    <div class="modal-content">
+        <h4>Confirmar Estorno</h4>
+        <p>Tem certeza que deseja confirmar o estorno do pagamento?</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+        <a asp-action="CancelPayment" asp-route-id="@Model.Id" class="modal-action modal-close waves-effect waves-green btn-flat">Confirmar</a>
     </div>
 </div>

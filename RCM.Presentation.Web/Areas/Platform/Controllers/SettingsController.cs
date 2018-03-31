@@ -144,7 +144,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
 
         private void NotifyIdentityError(string description)
         {
-            _domainNotificationHandler.AddNotification(new AuthenticationErrorDomainNotification(description));
+            _domainNotificationHandler.AddNotification(new AuthenticationErrorNotification(description));
         }
         #endregion
     }

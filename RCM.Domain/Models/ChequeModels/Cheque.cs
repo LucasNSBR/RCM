@@ -5,7 +5,7 @@ using RCM.Domain.Models.ClienteModels;
 
 namespace RCM.Domain.Models.ChequeModels
 {
-    public class Cheque : Entity
+    public class Cheque : Entity<Cheque>
     {
         public Guid BancoId { get; private set; }
         public virtual Banco Banco { get; private set; }

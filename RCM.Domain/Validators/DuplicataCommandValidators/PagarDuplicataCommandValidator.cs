@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using RCM.Domain.Commands.DuplicataCommands;
-using RCM.Domain.Validators.DuplicataCommandValidations;
 
 namespace RCM.Domain.Validators.DuplicataCommandValidators
 {

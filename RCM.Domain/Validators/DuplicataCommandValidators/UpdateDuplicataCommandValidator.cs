@@ -1,6 +1,6 @@
 ﻿using RCM.Domain.Commands.DuplicataCommands;
 
-namespace RCM.Domain.Validators.DuplicataCommandValidations
+namespace RCM.Domain.Validators.DuplicataCommandValidators
 {
     public class UpdateDuplicataCommandValidator : DuplicataCommandValidator<UpdateDuplicataCommand>
     {

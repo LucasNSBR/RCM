@@ -32,7 +32,7 @@ namespace RCM.Domain.CommandHandlers
             {
                 foreach (var error in commandResult.Errors)
                 {
-                    _domainNotificationHandler.AddNotification(new CommitErrorDomainNotification(error.InnerException.Message));
+                    _domainNotificationHandler.AddNotification(new CommitErrorNotification(error.InnerException.Message));
                 }
             }
 
@@ -48,7 +48,7 @@ namespace RCM.Domain.CommandHandlers
             {
                 foreach (var error in command.ValidationResult.Errors)
                 {
-                    _domainNotificationHandler.AddNotification(new CommandValidationErrorDomainNotification(error.ErrorMessage));
+                    _domainNotificationHandler.AddNotification(new CommandValidationErrorNotification(error.ErrorMessage));
                 }
 
                 return true;

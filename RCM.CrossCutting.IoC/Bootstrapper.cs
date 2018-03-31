@@ -104,6 +104,8 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<INotificationHandler<AddDuplicataCommand>, DuplicataCommandHandler>();
             services.AddScoped<INotificationHandler<UpdateDuplicataCommand>, DuplicataCommandHandler>();
             services.AddScoped<INotificationHandler<RemoveDuplicataCommand>, DuplicataCommandHandler>();
+            services.AddScoped<INotificationHandler<PagarDuplicataCommand>, DuplicataCommandHandler>();
+            services.AddScoped<INotificationHandler<EstornarDuplicataCommand>, DuplicataCommandHandler>();
 
             services.AddScoped<INotificationHandler<AddFornecedorCommand>, FornecedorCommandHandler>();
             services.AddScoped<INotificationHandler<UpdateFornecedorCommand>, FornecedorCommandHandler>();

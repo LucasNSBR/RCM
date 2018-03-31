@@ -3,16 +3,16 @@ using System;
 
 namespace RCM.Domain.Commands.DuplicataCommands
 {
-    public class RemoveDuplicataCommand : DuplicataCommand
+    public class EstornarDuplicataCommand : DuplicataCommand
     {
-        public RemoveDuplicataCommand(Guid id) 
+        public EstornarDuplicataCommand(Guid id)
         {
             Id = id;
         }
 
         public override bool IsValid()
         {
-            ValidationResult = new RemoveDuplicataCommandValidator().Validate(this);
+            ValidationResult = new EstornarDuplicataCommandValidator().Validate(this);
             return ValidationResult.IsValid;
         }
     }

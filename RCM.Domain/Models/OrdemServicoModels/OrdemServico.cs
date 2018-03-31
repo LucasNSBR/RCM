@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace RCM.Domain.Models.OrdemServicoModels
 {
-    public class OrdemServico : Entity
+    public class OrdemServico : Entity<OrdemServico>
     {
         public Guid ClienteId { get; private set; }
         public virtual Cliente Cliente { get; private set; }

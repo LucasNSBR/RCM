@@ -11,9 +11,10 @@ using System;
 namespace RCM.Infra.Data.Migrations
 {
     [DbContext(typeof(RCMDbContext))]
-    partial class RCMDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180330020148_DuplicataPagamentoUpdate")]
+    partial class DuplicataPagamentoUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -371,11 +372,9 @@ namespace RCM.Infra.Data.Migrations
                         {
                             b1.Property<Guid>("DuplicataId");
 
-                            b1.Property<DateTime>("DataPagamento")
-                                .HasColumnName("DataPagamento");
+                            b1.Property<DateTime>("DataPagamento");
 
-                            b1.Property<decimal>("ValorPago")
-                                .HasColumnName("ValorPago");
+                            b1.Property<decimal>("ValorPago");
 
                             b1.ToTable("Duplicatas");
 

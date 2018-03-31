@@ -1,5 +1,4 @@
 ﻿using System;
-using RCM.Domain.Models.DuplicataModels;
 using RCM.Domain.Validators.DuplicataCommandValidators;
 
 namespace RCM.Domain.Commands.DuplicataCommands
@@ -9,8 +8,9 @@ namespace RCM.Domain.Commands.DuplicataCommands
         public DateTime DataPagamento { get; private set; }
         public decimal ValorPago { get; private set; }
         
-        public PagarDuplicataCommand(Duplicata duplicata, DateTime dataPagamento, decimal valorPago) : base(duplicata)
+        public PagarDuplicataCommand(Guid id, DateTime dataPagamento, decimal valorPago)
         {
+            Id = id;
             DataPagamento = dataPagamento;
             ValorPago = valorPago;
         }

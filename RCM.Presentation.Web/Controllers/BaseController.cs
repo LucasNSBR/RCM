@@ -24,7 +24,7 @@ namespace RCM.Presentation.Web.Controllers
         {
             foreach (var error in ModelState.Values.SelectMany(e => e.Errors))
             {
-                _domainNotificationHandler.AddNotification(new ModelStateErrorDomainNotification(error.ErrorMessage));
+                _domainNotificationHandler.AddNotification(new ModelStateErrorNotification(error.ErrorMessage));
             }
         }
 

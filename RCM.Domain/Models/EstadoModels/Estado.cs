@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace RCM.Domain.Models.EstadoModels
 {
-    public class Estado : Entity
+    public class Estado : Entity<Estado>
     {
         public string Nome { get; private set; }
 

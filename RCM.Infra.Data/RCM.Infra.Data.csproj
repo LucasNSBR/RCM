@@ -17,8 +17,4 @@
     <ProjectReference Include="..\RCM.Domain\RCM.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ComplexTypeConfig\" />
-  </ItemGroup>
-
 </Project>

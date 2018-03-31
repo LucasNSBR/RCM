@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace RCM.Domain.Models.VendaModels
 {
-    public class Venda : Entity
+    public class Venda : Entity<Venda>
     {
         public DateTime DataVenda { get; private set; }
         public Guid ClienteId { get; private set; }

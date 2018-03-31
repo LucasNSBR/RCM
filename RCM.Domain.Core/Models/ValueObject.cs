@@ -1,6 +1,7 @@
 ﻿namespace RCM.Domain.Core.Models
 {
-    public class ValueObject
+    public abstract class ValueObject
     {
+        //public abstract bool IsEmpty();
     }
 }

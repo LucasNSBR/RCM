@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RCM.Domain.Core.Models;
 using RCM.Domain.Repositories;
 using RCM.Infra.Data.Context;
 using System;
@@ -7,7 +8,7 @@ using System.Linq.Expressions;
 
 namespace RCM.Infra.Data.Repositories
 {
-    public class BaseRepository<TModel> : IBaseRepository<TModel> where TModel : class
+    public class BaseRepository<TModel> : IBaseRepository<TModel> where TModel : Entity<TModel>
     {
         protected readonly RCMDbContext _dbContext;
         protected readonly DbSet<TModel> _dbSet;

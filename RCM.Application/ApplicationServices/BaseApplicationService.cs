@@ -26,7 +26,7 @@ namespace RCM.Application.ApplicationServices
 
         public IQueryable<TViewModel> Get()
         {
-            return _baseRepository.Get().AsQueryable().ProjectTo<TViewModel>();
+            return _baseRepository.Get().ProjectTo<TViewModel>();
         }
 
         public IQueryable<TViewModel> Get(Expression<Func<TModel, bool>> expression)

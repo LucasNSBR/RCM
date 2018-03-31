@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace RCM.Domain.Models.BancoModels
 {
-    public class Banco : Entity
+    public class Banco : Entity<Banco>
     {
         public int CodigoCompensacao { get; private set; }
         public string Nome { get; private set; }

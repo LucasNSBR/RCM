@@ -4,7 +4,7 @@ using System;
 
 namespace RCM.Domain.Models
 {
-    public class Contato : Entity
+    public class Contato : Entity<Contato>
     {
         public string Nome { get; private set; }
         public Guid ClienteId { get; private set; }

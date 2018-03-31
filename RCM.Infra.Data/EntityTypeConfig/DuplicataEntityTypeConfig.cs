@@ -36,6 +36,11 @@ namespace RCM.Infra.Data.EntityTypeConfig
             builder.Property(d => d.Valor)
                 .IsRequired()
                 .HasMaxLength(4);
+
+            builder.OwnsOne(d => d.Pagamento, cfg => {
+                cfg.Property(d => d.DataPagamento).HasColumnName("DataPagamento");
+                cfg.Property(d => d.ValorPago).HasColumnName("ValorPago");
+            });
         }
     }
 }

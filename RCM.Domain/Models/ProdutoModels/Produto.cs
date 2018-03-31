@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace RCM.Domain.Models.ProdutoModels
 {
-    public class Produto : Entity
+    public class Produto : Entity<Produto>
     {
         public string Nome { get; private set; }
         public string Aplicacao { get; private set; }

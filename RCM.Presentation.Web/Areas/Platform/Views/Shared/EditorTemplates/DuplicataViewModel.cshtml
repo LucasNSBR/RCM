@@ -73,8 +73,8 @@
         </p>
         <div class="row">
             <div class="input-field col s12 m6">
+                <select asp-for="FornecedorId" asp-items="@(new SelectList(Model.Fornecedores, "Id", "Nome"))" id="fornecedorId"></select>
                 <label asp-for="FornecedorId"></label>
-                <input asp-for="FornecedorId" class="input-field" id="fornecedorId" />
                 <span asp-validation-for="FornecedorId" class="text-danger"></span>
             </div>
         </div>

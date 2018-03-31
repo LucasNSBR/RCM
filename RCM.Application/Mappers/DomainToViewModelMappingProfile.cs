@@ -26,6 +26,7 @@ namespace RCM.Application.Mappers
             CreateMap<Contato, ContatoViewModel>();
             CreateMap<Fornecedor, FornecedorViewModel>();
             CreateMap<Banco, BancoViewModel>();
+            CreateMap<Pagamento, PagamentoViewModel>();
         }
     }
 }

@@ -24,7 +24,7 @@
                         @Html.DisplayNameFor(model => model.DataVencimento)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.DataPagamento)
+                        @Html.DisplayNameFor(model => model.Pagamento)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Fornecedor)
@@ -51,19 +51,17 @@
                             @Html.DisplayFor(modelItem => item.DataVencimento)
                         </td>
                         <td>
-                            @if (item.DataPagamento == null)
+                            @if (item.Pagamento.IsEmpty)
                             {
                                 <span class="font-italic">Não paga</span>
                             }
                             else
                             {
-                                @Html.DisplayFor(modelItem => item.DataPagamento)
+                                @item.Pagamento.DataPagamento.ToShortDateString()
                             }
                         </td>
                         <td>
-                            <a asp-action="Details" asp-controller="Fornecedores" asp-route-id="@item.Fornecedor.Nome">
-                                @Html.DisplayFor(modelItem => item.Fornecedor.Nome)
-                            </a>
+                            @Html.DisplayFor(modelItem => item.Fornecedor.Nome)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Valor)

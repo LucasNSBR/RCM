@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace RCM.Domain.Models.NotaFiscalModels
 {
-    public class NotaFiscal : Entity
+    public class NotaFiscal : Entity<NotaFiscal>
     {
         public string NumeroDocumento { get; private set; }
         public DateTime DataEmissao { get; private set; }

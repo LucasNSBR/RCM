@@ -2,9 +2,9 @@
 
 namespace RCM.Domain.Validators.DuplicataCommandValidators
 {
-    public class RemoveDuplicataCommandValidator : DuplicataCommandValidator<RemoveDuplicataCommand>
+    public class EstornarDuplicataCommandValidator : DuplicataCommandValidator<EstornarDuplicataCommand>
     {
-        public RemoveDuplicataCommandValidator() 
+        public EstornarDuplicataCommandValidator()
         {
             ValidateId();
         }

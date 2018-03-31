@@ -1,0 +1,21 @@
+﻿@model RCM.Application.ViewModels.PagamentoViewModel
+
+<p class="px-1 font-bold lead">
+    Informação geral
+</p>
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="row">
+    <div class="input-field col s12 m6">
+        <label asp-for="DataPagamento"></label>
+        <input asp-for="DataPagamento" type="text" class="datepicker" id="dataVencimento" />
+        <span asp-validation-for="DataPagamento" class="text-danger"></span>
+    </div>
+</div>
+<div class="row">
+    <div class="input-field col s12 m6">
+        <label asp-for="ValorPago"></label>
+        <input asp-for="ValorPago" class="input-field" id="valorPago" />
+        <span asp-validation-for="ValorPago" class="text-danger"></span>
+    </div>
+</div>

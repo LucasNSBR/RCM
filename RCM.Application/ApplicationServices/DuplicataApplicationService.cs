@@ -17,22 +17,27 @@ namespace RCM.Application.ApplicationServices
 
         public override void Add(DuplicataViewModel viewModel)
         {
-            _mediator.SendCommand(new AddDuplicataCommand(ProjectToModel(viewModel)));
+            _mediator.SendCommand(new AddDuplicataCommand(viewModel.NumeroDocumento, viewModel.Observacao, viewModel.DataEmissao, viewModel.DataVencimento, viewModel.Valor, viewModel.FornecedorId, viewModel.NotaFiscalId));
         }
 
         public override void Update(DuplicataViewModel viewModel)
         {
-            _mediator.SendCommand(new UpdateDuplicataCommand(ProjectToModel(viewModel)));
+            _mediator.SendCommand(new UpdateDuplicataCommand(viewModel.Id, viewModel.NumeroDocumento, viewModel.Observacao, viewModel.DataEmissao, viewModel.DataVencimento, viewModel.Valor, viewModel.FornecedorId, viewModel.NotaFiscalId));
         }
 
         public override void Remove(DuplicataViewModel viewModel)
         {
-            _mediator.SendCommand(new RemoveDuplicataCommand(ProjectToModel(viewModel)));
+            _mediator.SendCommand(new RemoveDuplicataCommand(viewModel.Id));
         }
 
-        public void Pagar(DuplicataViewModel viewModel, DateTime dataPagamento, decimal valorPago)
+        public void Pagar(DuplicataViewModel viewModel, PagamentoViewModel pagamentoViewModel)
         {
-            _mediator.SendCommand(new PagarDuplicataCommand(ProjectToModel(viewModel), dataPagamento, valorPago));
+            _mediator.SendCommand(new PagarDuplicataCommand(viewModel.Id, pagamentoViewModel.DataPagamento, pagamentoViewModel.ValorPago));
+        }
+
+        public void Estornar(DuplicataViewModel viewModel)
+        {
+            _mediator.SendCommand(new EstornarDuplicataCommand(viewModel.Id));
         }
     }
 }
