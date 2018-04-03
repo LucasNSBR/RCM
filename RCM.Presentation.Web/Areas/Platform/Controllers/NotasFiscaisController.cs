@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using RCM.Application.ApplicationInterfaces;
 using RCM.Application.ViewModels;
 using RCM.Domain.DomainNotificationHandlers;
+using RCM.Domain.Models.NotaFiscalModels;
 using RCM.Presentation.Web.Controllers;
 using System;
 
@@ -20,9 +21,15 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             _notaFiscalApplicationService = notaFiscalApplicationService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(decimal? minValor, decimal? maxValor, string numeroDocumento = null)
         {
-            var list = _notaFiscalApplicationService.Get();
+            var valorSpecification = new NotaFiscalValorSpecification(minValor, maxValor);
+            var numeroDocumentoSpecification = new NotaFiscalNumeroDocumentoSpecification(numeroDocumento);
+
+            var list = _notaFiscalApplicationService.Get(valorSpecification
+                .And(numeroDocumentoSpecification)
+                .ToExpression());
+
             return View(list);
         }
 

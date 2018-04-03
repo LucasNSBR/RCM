@@ -45,6 +45,11 @@ namespace RCM.Domain.Models.DuplicataModels
             Pagamento = new Pagamento();
         }
 
+        public bool Vencida()
+        {
+            return DataVencimento < DateTime.Now;
+        }
+
         public void VincularNotaFiscal(Guid notaFiscalId)
         {
             NotaFiscalId = notaFiscalId;

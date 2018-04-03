@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using RCM.Application.ApplicationInterfaces;
 using RCM.Application.ViewModels;
 using RCM.Domain.DomainNotificationHandlers;
+using RCM.Domain.Models.FornecedorModels;
 using RCM.Presentation.Web.Controllers;
 using System;
 
@@ -20,9 +21,13 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             _fornecedorApplicationService = fornecedorApplicationService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string nome = null)
         {
-            var list = _fornecedorApplicationService.Get();
+            var nomeSpecification = new FornecedorNomeSpecification(nome);
+
+            var list = _fornecedorApplicationService.Get(nomeSpecification
+                .ToExpression());
+
             return View(list);
         }
 

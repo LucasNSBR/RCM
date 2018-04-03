@@ -6,17 +6,24 @@ namespace RCM.Domain.Models.DuplicataModels
 {
     public class DuplicataValorSpecification : BaseSpecification<Duplicata>, ISpecification<Duplicata>
     {
-        private readonly decimal? _valor;
+        private readonly decimal? _minValor;
+        private readonly decimal? _maxValor;
 
-        public DuplicataValorSpecification(decimal? valor)
+        public DuplicataValorSpecification(decimal? minValor, decimal? maxValor)
         {
-            _valor = valor;
+            _minValor = minValor;
+            _maxValor = maxValor;
         }
 
         public override Expression<Func<Duplicata, bool>> ToExpression()
         {
-            if (_valor != null)
-                return d => (_valor < (d.Valor + 1)) && (_valor > (d.Valor - 1));
+            if (_minValor != null && _maxValor != null)
+                return d => d.Valor >= _minValor && d.Valor <= _maxValor;
+
+            if (_minValor != null)
+                return d => d.Valor >= _minValor;
+            if (_maxValor != null)
+                return d => d.Valor <= _maxValor;
 
             return d => true;
         }

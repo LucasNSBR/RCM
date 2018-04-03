@@ -21,12 +21,16 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             _produtoApplicationService = produtoApplicationService;
         }
 
-        public IActionResult Index(string nome = null, string aplicacao = null)
+        public IActionResult Index(decimal? minValor, decimal? maxValor, int? minQuantidade, int? maxQuantidade, string nome = null, string aplicacao = null)
         {
+            var valorSpecification = new ProdutoPrecoVendaSpecification(minValor, maxValor);
+            var quantidadeSpecification = new ProdutoQuantidadeSpecification(minQuantidade, maxQuantidade);
             var nomeSpecification = new ProdutoNomeSpecification(nome);
             var aplicacaoSpecification = new ProdutoAplicacaoSpecification(aplicacao);
 
-            var list = _produtoApplicationService.Get(nomeSpecification
+            var list = _produtoApplicationService.Get(valorSpecification
+                .And(quantidadeSpecification)
+                .And(nomeSpecification)
                 .And(aplicacaoSpecification)
                 .ToExpression());
 

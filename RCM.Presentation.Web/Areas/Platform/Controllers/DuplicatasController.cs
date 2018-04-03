@@ -2,8 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using RCM.Application.ApplicationInterfaces;
 using RCM.Application.ViewModels;
+using RCM.Domain.Core.Extensions;
 using RCM.Domain.DomainNotificationHandlers;
+using RCM.Domain.Models.DuplicataModels;
 using RCM.Presentation.Web.Controllers;
+using RCM.Presentation.Web.ViewModels;
 using System;
 using System.Linq;
 
@@ -24,10 +27,25 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             _fornecedorApplicationService = fornecedorApplicationService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(bool? apenasNaoPagas, bool? apenasVencidas, decimal? minValor, decimal? maxValor, Guid? fornecedorId, string numeroDocumento = null, string dataEmissao = null, string dataVencimento = null)
         {
-            var list = _duplicataApplicationService.Get();
-            return View(list);
+            var pagaSpecification = new DuplicataNaoPagaSpecification(apenasNaoPagas);
+            var vencidaSpecification = new DuplicataVencidaSpecification(apenasVencidas);
+            var valorSpecification = new DuplicataValorSpecification(minValor, maxValor);
+            var fornecedorIdSpecification = new DuplicataFornecedorIdSpecification(fornecedorId);
+            var numeroDocumentoSpecification = new DuplicataNumeroDocumentoSpecification(numeroDocumento);
+            var dataSpecification = new DuplicataDataSpecification(dataEmissao.ToDateTime(), dataVencimento.ToDateTime());
+            
+            var list = _duplicataApplicationService.Get(pagaSpecification
+                .And(vencidaSpecification)
+                .And(valorSpecification)
+                .And(fornecedorIdSpecification)
+                .And(numeroDocumentoSpecification)
+                .And(dataSpecification)
+                .ToExpression());
+
+            var viewModel = new DuplicataIndexViewModel { Duplicatas = list, Fornecedores = _fornecedorApplicationService.Get() };
+            return View(viewModel);
         }
         
         public IActionResult Details(Guid id)

@@ -21,7 +21,8 @@
         today: 'Hoje',
         clear: 'Limpar',
         close: 'Ok',
-        closeOnSelect: false
+        closeOnSelect: false,
+        format: 'dd/mm/yyyy' 
     });
 
     $(".table-body").click(function (handler) {
@@ -48,6 +49,6 @@
 
     $('#advancedSearchToggler').click(function () {
         $("#advancedSearch").toggle(400);
-    })
+    });
 });
 

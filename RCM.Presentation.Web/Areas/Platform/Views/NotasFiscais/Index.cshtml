@@ -7,7 +7,18 @@
 <float-action-button controller="NotasFiscais"></float-action-button>
 
 <div class="form-container col s12 m12">
-    @await Component.InvokeAsync("SearchBar", new Dictionary<string, string>() { { "Número da Nota Fiscal", "notaPrefix" } })
+    <form>
+        @await Component.InvokeAsync("SearchBar", new Dictionary<string, string>() { { "Número da Nota Fiscal", "numeroDocumento" } })
+
+        <div class="input-field col s12 m3">
+            <input name="minValor" type="text" class="input-field" id="minValor" />
+            <label for="minValor">Valor mínimo</label>
+        </div>
+        <div class="input-field col s12 m3">
+            <input name="maxValor" type="text" class="input-field" id="maxValor" />
+            <label for="maxValor">Valor máximo</label>
+        </div>
+    </form>
 
     @if (Model.Any())
     {
@@ -54,7 +65,7 @@
     }
     else
     {
-        <p class="px-1">
+        <p class="px-1 col s12 m12">
             <i class="material-icons left">warning</i>
             Nenhuma nota fiscal encontrada.
         </p>

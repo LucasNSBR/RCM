@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +12,8 @@ using RCM.CrossCutting.IoC;
 using RCM.Infra.Data.Context;
 using RCM.Infra.Services.Email;
 using System;
+using System.Collections.Generic;
+using System.Globalization;
 
 namespace RCM.Presentation.Web
 {
@@ -78,30 +81,30 @@ namespace RCM.Presentation.Web
             app.UseAuthentication();
 
             app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "accounts",
-                    template: "Accounts/",
-                    defaults: new { controller = "Accounts", action = "Login" });
+                {
+                    routes.MapRoute(
+                        name: "accounts",
+                        template: "Accounts/",
+                        defaults: new { controller = "Accounts", action = "Login" });
 
-                routes.MapRoute(
-                    name: "platform",
-                    template: "Platform/",
-                    defaults: new { area = "Platform", controller = "Clientes", action = "Index" });
+                    routes.MapRoute(
+                        name: "platform",
+                        template: "Platform/",
+                        defaults: new { area = "Platform", controller = "Clientes", action = "Index" });
 
-                routes.MapRoute(
-                    name: "manage",
-                    template: "Platform/Manage/",
-                    defaults: new { area = "Platform", controller = "Settings", action = "Profile" });
+                    routes.MapRoute(
+                        name: "manage",
+                        template: "Platform/Manage/",
+                        defaults: new { area = "Platform", controller = "Settings", action = "Profile" });
 
-                routes.MapRoute(
-                     name: "areas",
-                     template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                    routes.MapRoute(
+                         name: "areas",
+                         template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
+                    routes.MapRoute(
+                        name: "default",
+                        template: "{controller=Home}/{action=Index}/{id?}");
+                });
         }
 
         private void ConfigureIdentity(IdentityOptions options)

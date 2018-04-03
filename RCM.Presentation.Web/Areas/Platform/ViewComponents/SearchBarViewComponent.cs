@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using RCM.Presentation.Web.ViewComponentsModels;
+using RCM.Presentation.Web.ViewModels;
 
 namespace RCM.Presentation.Web.Areas.Platform.ViewComponents
 {

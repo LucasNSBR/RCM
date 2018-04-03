@@ -7,8 +7,10 @@
 <float-action-button controller="Fornecedores"></float-action-button>
 
 <div class="form-container col s12 m12">
-    @await Component.InvokeAsync("SearchBar", new Dictionary<string, string>() { { "Nome", "nomePrefix" } })
-    
+    <form>
+        @await Component.InvokeAsync("SearchBar", new Dictionary<string, string>() { { "Nome", "nomePrefix" } })
+    </form>
+
     @if (Model.Any())
     {
         <table class="highlight centered">
@@ -36,7 +38,7 @@
     }
     else
     {
-        <p class="px-1">
+        <p class="px-1 col s12 m12">
             <i class="material-icons left">warning</i>
             Nenhum fornecedor encontrado.
         </p>

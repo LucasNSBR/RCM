@@ -24,11 +24,11 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
 
         public IActionResult Index(int? codigoCompensacao, string nome = null)
         {
-            var nomeSpecification = new BancoNomeSpecification(nome);
             var codigoCompensacaoSpecification = new BancoCodigoCompensacaoSpecification(codigoCompensacao);
+            var nomeSpecification = new BancoNomeSpecification(nome);
 
-            var list = _bancoApplicationService.Get(nomeSpecification
-                .And(codigoCompensacaoSpecification)
+            var list = _bancoApplicationService.Get(codigoCompensacaoSpecification
+                .And(nomeSpecification)
                 .ToExpression());
 
             return View(list);

@@ -6,17 +6,25 @@ namespace RCM.Domain.Models.NotaFiscalModels
 {
     public class NotaFiscalValorSpecification : BaseSpecification<NotaFiscal>, ISpecification<NotaFiscal>
     {
-        private readonly decimal? _valor;
+        private readonly decimal? _minValor;
+        private readonly decimal? _maxValor;
 
-        public NotaFiscalValorSpecification(decimal valor)
+        public NotaFiscalValorSpecification(decimal? minValor, decimal? maxValor)
         {
-            _valor = valor;
+            _minValor = minValor;
+            _maxValor = maxValor;
         }
 
         public override Expression<Func<NotaFiscal, bool>> ToExpression()
         {
-            if (_valor != null)
-                return nf => (_valor > nf.Valor - 1) && (_valor < nf.Valor + 1);
+            if (_minValor != null)
+                return nf => nf.Valor >= _minValor;
+
+            if (_maxValor != null)
+                return nf => nf.Valor <= _maxValor;
+
+            if (_minValor != null && _maxValor != null)
+                return nf => nf.Valor >= _minValor && nf.Valor <= _maxValor;
 
             return nf => true;
         }

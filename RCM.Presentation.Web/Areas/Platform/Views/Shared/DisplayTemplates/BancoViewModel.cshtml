@@ -29,7 +29,7 @@
     <dd>
         @if (Model.Cheques.Any())
         {
-            <span>Model.Cheques.Count</span>
+            <span>@Model.Cheques.Count()</span>
         }
         else
         {

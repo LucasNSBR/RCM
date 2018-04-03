@@ -2,8 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using RCM.Application.ApplicationInterfaces;
 using RCM.Application.ViewModels;
+using RCM.Domain.Core.Extensions;
 using RCM.Domain.DomainNotificationHandlers;
+using RCM.Domain.Models.ChequeModels;
 using RCM.Presentation.Web.Controllers;
+using RCM.Presentation.Web.ViewModels;
 using System;
 using System.Linq;
 
@@ -26,10 +29,25 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             _clienteApplicationService = clienteApplicationService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(decimal? minValor, decimal? maxValor, Guid? clienteId, string agencia = null, string conta = null, string numeroCheque = null, string dataEmissao = null, string dataVencimento = null)
         {
-            var list = _chequeApplicationService.Get();
-            return View(list);
+            var valorSpecification = new ChequeValorSpecification(minValor, maxValor);
+            var clienteIdSpecification = new ChequeClienteIdSpecification(clienteId);
+            var agenciaSpecification = new ChequeAgenciaSpecification(agencia);
+            var contaSpecification = new ChequeContaCorrenteSpecification(conta);
+            var numeroSpecification = new ChequeNumeroSpecification(numeroCheque);
+            var dataSpecification = new ChequeDataSpecification(dataEmissao.ToDateTime(), dataVencimento.ToDateTime());
+
+            var list = _chequeApplicationService.Get(valorSpecification
+                .And(clienteIdSpecification)
+                .And(agenciaSpecification)
+                .And(contaSpecification)
+                .And(numeroSpecification)
+                .And(dataSpecification)
+                .ToExpression());
+
+            var viewModel = new ChequesIndexViewModel { Cheques = list, Clientes = _clienteApplicationService.Get() };
+            return View(viewModel);
         }
 
         public IActionResult Details(Guid id)

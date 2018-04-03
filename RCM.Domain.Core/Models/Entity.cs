@@ -47,5 +47,21 @@ namespace RCM.Domain.Core.Models
         public void AddDomainError(Expression<Func<T, object>> property)
         {
         }
+
+        public override bool Equals(object obj)
+        {
+            var other = obj as Entity<T>;
+            if (other.GetType() != GetType() || other == null) return false;
+
+            if (ReferenceEquals(this, null)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            
+            return Id == other.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return (397 * Id.GetHashCode());
+        }
     }
 }

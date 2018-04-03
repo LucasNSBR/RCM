@@ -1,4 +1,4 @@
-﻿@model IEnumerable<RCM.Application.ViewModels.ChequeViewModel>
+﻿@model RCM.Presentation.Web.ViewModels.ChequesIndexViewModel
 
 @{
     ViewData["Title"] = "Cheques - Índice";
@@ -7,41 +7,78 @@
 <float-action-button controller="Cheques"></float-action-button>
 
 <div class="form-container col s12 m12">
-    @await Component.InvokeAsync("SearchBar", new Dictionary<string, string>() { { "Número do Cheque", "chequePrefix" }, { "Nome do Cliente", "clientePrefix" } })
+    <form>
+        @await Component.InvokeAsync("SearchBar", new Dictionary<string, string>() { { "Número do Cheque", "numeroCheque" }, { "Nome do Cliente", "nomeCliente" } })
 
-    @if (Model.Any())
+        <div id="advancedSearch" class="col s12 m12">
+            <div class="row">
+                <div class="input-field col s12 m3">
+                    <input name="minValor" type="text" class="input-field" id="minValor" />
+                    <label for="minValor">Valor mínimo</label>
+                </div>
+                <div class="input-field col s12 m3">
+                    <input name="maxValor" type="text" class="input-field" id="maxValor" />
+                    <label for="maxValor">Valor máximo</label>
+                </div>
+                <div class="input-field col s12 m3">
+                    <input name="dataEmissao" type="text" class="datepicker" id="dataEmissao" />
+                    <label for="dataEmissao">Data de Emissão</label>
+                </div>
+                <div class="input-field col s12 m3">
+                    <input name="dataVencimento" type="text" class="datepicker" id="dataVencimento" />
+                    <label for="dataVencimento">Data de Vencimento</label>
+                </div>
+                <div class="input-field col s12 m6">
+                    <select name="clienteId" asp-items="@(new SelectList(Model.Clientes, "Id", "Nome"))" id="clienteId">
+                        <option value="">Todos os Clientes</option>
+                    </select>
+                    <label for="dataVencimento">Escolher Cliente</label>
+                </div>
+                <div class="input-field col s12 m3">
+                    <input name="agencia" type="text" class="input-field" id="agencia" />
+                    <label for="agencia">Número da Agência</label>
+                </div>
+                <div class="input-field col s12 m3">
+                    <input name="conta" type="text" class="input-field" id="conta" />
+                    <label for="conta">Número da Conta Corrente</label>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    @if (Model.Cheques.Any())
     {
         <table class="highlight centered">
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.Banco)
+                        @Html.DisplayNameFor(model => model.Cheques.FirstOrDefault().Banco)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Conta)
+                        @Html.DisplayNameFor(model => model.Cheques.FirstOrDefault().Conta)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.NumeroCheque)
+                        @Html.DisplayNameFor(model => model.Cheques.FirstOrDefault().NumeroCheque)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Cliente)
+                        @Html.DisplayNameFor(model => model.Cheques.FirstOrDefault().Cliente)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.DataEmissao)
+                        @Html.DisplayNameFor(model => model.Cheques.FirstOrDefault().DataEmissao)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.DataVencimento)
+                        @Html.DisplayNameFor(model => model.Cheques.FirstOrDefault().DataVencimento)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.DataPagamento)
+                        @Html.DisplayNameFor(model => model.Cheques.FirstOrDefault().DataPagamento)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Valor)
+                        @Html.DisplayNameFor(model => model.Cheques.FirstOrDefault().Valor)
                     </th>
                 </tr>
             </thead>
             <tbody class="table-body">
-                @foreach (var item in Model)
+                @foreach (var item in Model.Cheques)
                 {
                     <tr>
                         <td class="d-hidden">
@@ -85,7 +122,7 @@
     }
     else
     {
-        <p class="px-1">
+        <p class="px-1 col s12 m12">
             <i class="material-icons left">warning</i>
             Nenhum cheque encontrado.
         </p>

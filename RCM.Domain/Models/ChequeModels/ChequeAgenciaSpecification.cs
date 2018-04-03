@@ -16,7 +16,7 @@ namespace RCM.Domain.Models.ChequeModels
         public override Expression<Func<Cheque, bool>> ToExpression()
         {
             if (_agencia != null)
-                return c => c.NumeroCheque.ToLower().Contains(_agencia.ToLower());
+                return c => c.Agencia.ToLower().Contains(_agencia.ToLower());
 
             return c => true;
         }
