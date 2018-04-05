@@ -1,12 +1,13 @@
-﻿using RCM.Domain.Models.FornecedorModels;
-using RCM.Domain.Validators.FornecedorCommandValidators;
+﻿using RCM.Domain.Validators.FornecedorCommandValidators;
+using System;
 
 namespace RCM.Domain.Commands.FornecedorCommands
 {
     public class RemoveFornecedorCommand : FornecedorCommand
     {
-        public RemoveFornecedorCommand(Fornecedor fornecedor) : base(fornecedor)
+        public RemoveFornecedorCommand(Guid id)
         {
+            Id = id;
         }
 
         public override bool IsValid()

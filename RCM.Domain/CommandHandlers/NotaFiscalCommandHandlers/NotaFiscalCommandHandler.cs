@@ -26,7 +26,8 @@ namespace RCM.Domain.CommandHandlers.NotaFiscalCommandHandlers
             if (NotifyCommandErrors(command))
                 return Task.CompletedTask;
 
-            _baseRepository.Add(command.NotaFiscal);
+            NotaFiscal notaFiscal = new NotaFiscal(command.NumeroDocumento, command.DataEmissao, command.Valor);
+            _baseRepository.Add(notaFiscal);
 
             if (Commit())
                 _mediator.Publish(new AddedNotaFiscalEvent());
@@ -39,7 +40,8 @@ namespace RCM.Domain.CommandHandlers.NotaFiscalCommandHandlers
             if (NotifyCommandErrors(command))
                 return Task.CompletedTask;
 
-            _baseRepository.Update(command.NotaFiscal);
+            NotaFiscal notaFiscal = new NotaFiscal(command.Id, command.NumeroDocumento, command.DataEmissao, command.Valor);
+            _baseRepository.Update(notaFiscal);
 
             if (Commit())
                 _mediator.Publish(new UpdatedNotaFiscalEvent());
@@ -52,7 +54,8 @@ namespace RCM.Domain.CommandHandlers.NotaFiscalCommandHandlers
             if (NotifyCommandErrors(command))
                 return Task.CompletedTask;
 
-            _baseRepository.Remove(command.NotaFiscal);
+            NotaFiscal notaFiscal = _baseRepository.GetById(command.Id);
+            _baseRepository.Remove(notaFiscal);
 
             if (Commit())
                 _mediator.Publish(new RemovedNotaFiscalEvent());

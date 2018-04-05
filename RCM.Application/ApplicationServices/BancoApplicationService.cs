@@ -16,17 +16,17 @@ namespace RCM.Application.ApplicationServices
 
         public override void Add(BancoViewModel viewModel)
         {
-            _mediator.SendCommand(new AddBancoCommand(ProjectToModel(viewModel)));
+            _mediator.SendCommand(new AddBancoCommand(viewModel.Nome, viewModel.CodigoCompensacao));
         }
 
         public override void Update(BancoViewModel viewModel)
         {
-            _mediator.SendCommand(new UpdateBancoCommand(ProjectToModel(viewModel)));
+            _mediator.SendCommand(new UpdateBancoCommand(viewModel.Id, viewModel.Nome, viewModel.CodigoCompensacao));
         }
 
         public override void Remove(BancoViewModel viewModel)
         {
-            _mediator.SendCommand(new RemoveBancoCommand(ProjectToModel(viewModel)));
+            _mediator.SendCommand(new RemoveBancoCommand(viewModel.Id));
         }
     }
 }

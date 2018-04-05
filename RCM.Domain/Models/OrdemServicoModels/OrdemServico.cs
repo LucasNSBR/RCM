@@ -9,6 +9,7 @@ namespace RCM.Domain.Models.OrdemServicoModels
 {
     public class OrdemServico : Entity<OrdemServico>
     {
+        public OrdemServicoStatus Status { get; private set; }
         public Guid ClienteId { get; private set; }
         public virtual Cliente Cliente { get; private set; }
 
@@ -21,14 +22,18 @@ namespace RCM.Domain.Models.OrdemServicoModels
             }
         }
 
+        public DateTime DataEntrada { get; private set; }
+        public DateTime? DataSaida { get; private set; }
         public decimal Total { get; private set; }
 
         protected OrdemServico() { }
 
-        public OrdemServico(Cliente cliente, List<Produto> produtos)
+        public OrdemServico(Cliente cliente, List<Produto> produtos, DateTime? dataEntrada = null)
         {
             Cliente = cliente;
             _produtos = produtos;
+            DataEntrada = dataEntrada ?? DateTime.Now;
+            Status = OrdemServicoStatus.Aberta;
         }
 
         public void AdicionarProduto(Produto produto)
@@ -39,6 +44,13 @@ namespace RCM.Domain.Models.OrdemServicoModels
         public decimal CalcularTotal()
         {
             return Produtos.Sum(p => p.PrecoVenda);
+        }
+
+        public OrdemServico FecharOrdem(DateTime dataSaida)
+        {
+            DataSaida = dataSaida;
+            Status = OrdemServicoStatus.Fechada;
+            return this;
         }
     }
 }

@@ -1,15 +1,12 @@
 ﻿using RCM.Domain.Core.Commands;
-using RCM.Domain.Models.BancoModels;
+using System;
 
 namespace RCM.Domain.Commands.BancoCommands
 {
     public abstract class BancoCommand : Command
     {
-        public Banco Banco { get; }
-
-        public BancoCommand(Banco banco) 
-        {
-            Banco = banco;
-        }
+        public Guid Id { get; set; }
+        public string Nome { get; set; }
+        public int CodigoCompensacao { get; set; }
     }
 }

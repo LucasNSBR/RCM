@@ -22,7 +22,7 @@
         clear: 'Limpar',
         close: 'Ok',
         closeOnSelect: false,
-        format: 'dd/mm/yyyy' 
+        format: 'dd/mm/yyyy'
     });
 
     $(".table-body").click(function (handler) {
@@ -43,7 +43,7 @@
         var inputName = $('#searchInput')[0];
         var optionValue = $('#propertyInput option:selected')[0];
         inputName.name = optionValue.value;
-        
+
         console.log(inputName.name);
     });
 

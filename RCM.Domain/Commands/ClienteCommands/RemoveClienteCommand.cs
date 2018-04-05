@@ -1,12 +1,13 @@
-﻿using RCM.Domain.Models.ClienteModels;
-using RCM.Domain.Validators.ClienteCommandValidators;
+﻿using RCM.Domain.Validators.ClienteCommandValidators;
+using System;
 
 namespace RCM.Domain.Commands.ClienteCommands
 {
     public class RemoveClienteCommand : ClienteCommand
     {
-        public RemoveClienteCommand(Cliente cliente) : base(cliente)
+        public RemoveClienteCommand(Guid id) 
         {
+            Id = id;
         }
 
         public override bool IsValid()

@@ -26,7 +26,8 @@ namespace RCM.Domain.CommandHandlers.BancoCommandHandlers
             if (NotifyCommandErrors(command))
                 return Task.CompletedTask;
 
-            _baseRepository.Add(command.Banco);
+            Banco banco = new Banco(command.Nome, command.CodigoCompensacao);
+            _baseRepository.Add(banco);
 
             if (Commit())
                 _mediator.Publish(new AddedBancoEvent());
@@ -39,7 +40,9 @@ namespace RCM.Domain.CommandHandlers.BancoCommandHandlers
             if (NotifyCommandErrors(command))
                 return Task.CompletedTask;
 
-            _baseRepository.Update(command.Banco);
+            Banco banco = new Banco(command.Id, command.Nome, command.CodigoCompensacao);
+
+            _baseRepository.Update(banco);
 
             if (Commit())
                 _mediator.Publish(new UpdatedBancoEvent());
@@ -52,7 +55,8 @@ namespace RCM.Domain.CommandHandlers.BancoCommandHandlers
             if (NotifyCommandErrors(command))
                 return Task.CompletedTask;
 
-            _baseRepository.Remove(command.Banco);
+            Banco banco = _baseRepository.GetById(command.Id);
+            _baseRepository.Remove(banco);
 
             if (Commit())
                 _mediator.Publish(new RemovedBancoEvent());

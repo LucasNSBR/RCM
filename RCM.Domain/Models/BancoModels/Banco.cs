@@ -1,5 +1,6 @@
 ﻿using RCM.Domain.Core.Models;
 using RCM.Domain.Models.ChequeModels;
+using System;
 using System.Collections.Generic;
 
 namespace RCM.Domain.Models.BancoModels
@@ -20,9 +21,19 @@ namespace RCM.Domain.Models.BancoModels
 
         protected Banco() { }
 
-        public Banco(string nome)
+        public Banco(Guid id, string nome, int codigoCompensacao)
+        {
+            Id = id;
+            Nome = nome;
+            CodigoCompensacao = codigoCompensacao;
+
+            _cheques = new List<Cheque>();
+        }
+
+        public Banco(string nome, int codigoCompensacao)
         {
             Nome = nome;
+            CodigoCompensacao = codigoCompensacao;
 
             _cheques = new List<Cheque>();
         }

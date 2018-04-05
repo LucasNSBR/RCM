@@ -1,12 +1,13 @@
-﻿using RCM.Domain.Models.NotaFiscalModels;
-using RCM.Domain.Validators.NotaFiscalCommandValidators;
+﻿using RCM.Domain.Validators.NotaFiscalCommandValidators;
+using System;
 
 namespace RCM.Domain.Commands.NotaFiscalCommands
 {
     public class RemoveNotaFiscalCommand : NotaFiscalCommand
     {
-        public RemoveNotaFiscalCommand(NotaFiscal notaFiscal) : base(notaFiscal)
+        public RemoveNotaFiscalCommand(Guid id)
         {
+            Id = id;
         }
 
         public override bool IsValid()

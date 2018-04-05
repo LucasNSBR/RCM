@@ -1,12 +1,15 @@
-﻿using RCM.Domain.Models.ClienteModels;
-using RCM.Domain.Validators.ClienteCommandValidators;
+﻿using RCM.Domain.Validators.ClienteCommandValidators;
+using System;
 
 namespace RCM.Domain.Commands.ClienteCommands
 {
     public class UpdateClienteCommand : ClienteCommand
     {
-        public UpdateClienteCommand(Cliente cliente) : base(cliente)
+        public UpdateClienteCommand(Guid id, string nome, string descricao) 
         {
+            Id = id;
+            Nome = nome;
+            Descricao = descricao;
         }
 
         public override bool IsValid()

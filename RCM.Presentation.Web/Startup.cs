@@ -74,6 +74,13 @@ namespace RCM.Presentation.Web
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseRequestLocalization(new RequestLocalizationOptions()
+            {
+                SupportedCultures = new List<CultureInfo>() { new CultureInfo("pt-BR") },
+                SupportedUICultures = new List<CultureInfo>() { new CultureInfo("pt-BR") },
+                DefaultRequestCulture = new RequestCulture("pt-BR"),
+            });
+
             app.UseDeveloperExceptionPage();
             app.UseBrowserLink();
             app.UseStaticFiles();

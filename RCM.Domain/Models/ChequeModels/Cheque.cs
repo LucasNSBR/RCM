@@ -7,13 +7,15 @@ namespace RCM.Domain.Models.ChequeModels
 {
     public class Cheque : Entity<Cheque>
     {
-        public Guid BancoId { get; private set; }
+        public Guid BancoId { get; set; }
         public virtual Banco Banco { get; private set; }
         public string Agencia { get; private set; }
         public string Conta { get; private set; }
         public string NumeroCheque { get; private set; }
         public string Observacao { get; private set; }
-        public Guid ClienteId { get; private set; }
+
+        public Guid ClienteId { get; set; }
+
         public virtual Cliente Cliente { get; private set; }
         public DateTime DataEmissao { get; private set; }
         public DateTime DataVencimento { get; private set; }
@@ -21,14 +23,34 @@ namespace RCM.Domain.Models.ChequeModels
         public decimal Valor { get; private set; }
 
         protected Cheque() { }
-        
-        public Cheque(Banco banco, string agencia, string conta, string numeroCheque, Cliente cliente, DateTime dataEmissao, DateTime dataVencimento, decimal valor)
+
+        public Cheque(Guid id, Banco banco, string agencia, string conta, string numeroCheque, Cliente cliente, DateTime dataEmissao, DateTime dataVencimento, decimal valor)
         {
+            Id = id;
+
             Banco = banco;
+
             Agencia = agencia;
             Conta = conta;
             NumeroCheque = numeroCheque;
+
             Cliente = cliente;
+
+            DataEmissao = dataEmissao;
+            DataVencimento = dataVencimento;
+            Valor = valor;
+        }
+
+        public Cheque(Banco banco, string agencia, string conta, string numeroCheque, Cliente cliente, DateTime dataEmissao, DateTime dataVencimento, decimal valor)
+        {
+            Banco = banco;
+
+            Agencia = agencia;
+            Conta = conta;
+            NumeroCheque = numeroCheque;
+
+            Cliente = cliente;
+            
             DataEmissao = dataEmissao;
             DataVencimento = dataVencimento;
             Valor = valor;

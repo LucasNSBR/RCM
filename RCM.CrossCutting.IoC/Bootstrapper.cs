@@ -12,6 +12,7 @@ using RCM.Domain.CommandHandlers.ClienteCommandHandlers;
 using RCM.Domain.CommandHandlers.DuplicataCommandHandlers;
 using RCM.Domain.CommandHandlers.FornecedorCommandHandlers;
 using RCM.Domain.CommandHandlers.NotaFiscalCommandHandlers;
+using RCM.Domain.CommandHandlers.OrdemServicoCommandHandlers;
 using RCM.Domain.CommandHandlers.ProdutoCommandHandlers;
 using RCM.Domain.Commands.BancoCommands;
 using RCM.Domain.Commands.ChequeCommands;
@@ -19,6 +20,7 @@ using RCM.Domain.Commands.ClienteCommands;
 using RCM.Domain.Commands.DuplicataCommands;
 using RCM.Domain.Commands.FornecedorCommands;
 using RCM.Domain.Commands.NotaFiscalCommands;
+using RCM.Domain.Commands.OrdemServicoCommands;
 using RCM.Domain.Commands.ProdutoCommands;
 using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.DomainNotificationHandlers;
@@ -72,6 +74,7 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<IDuplicataRepository, DuplicataRepository>();
             services.AddScoped<IFornecedorRepository, FornecedorRepository>();
             services.AddScoped<INotaFiscalRepository, NotaFiscalRepository>();
+            services.AddScoped<IOrdemServicoRepository, OrdemServicoRepository>();
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
         }
 
@@ -84,6 +87,7 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<IDuplicataApplicationService, DuplicataApplicationService>();
             services.AddScoped<IFornecedorApplicationService, FornecedorApplicationService>();
             services.AddScoped<INotaFiscalApplicationService, NotaFiscalApplicationService>();
+            services.AddScoped<IOrdemServicoApplicationService, OrdemServicoApplicationService>();
             services.AddScoped<IProdutoApplicationService, ProdutoApplicationService>();
         }
 
@@ -118,6 +122,9 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<INotificationHandler<AddProdutoCommand>, ProdutoCommandHandler>();
             services.AddScoped<INotificationHandler<UpdateProdutoCommand>, ProdutoCommandHandler>();
             services.AddScoped<INotificationHandler<RemoveProdutoCommand>, ProdutoCommandHandler>();
+
+            services.AddScoped<IRequestHandler<AddOrdemServicoCommand, string>, OrdemServicoCommandHandler>();
+            services.AddScoped<IRequestHandler<UpdateOrdemServicoCommand, string>, OrdemServicoCommandHandler>();
         }
 
         private static void RegisterMediatrEvents(IServiceCollection services)

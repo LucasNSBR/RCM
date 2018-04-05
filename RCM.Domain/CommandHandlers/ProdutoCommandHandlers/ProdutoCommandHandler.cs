@@ -25,7 +25,8 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
             if (NotifyCommandErrors(command))
                 return Task.CompletedTask;
 
-            _baseRepository.Add(command.Produto);
+            Produto produto = new Produto(command.Nome, command.Aplicacao, command.Quantidade, command.PrecoVenda);
+            _baseRepository.Add(produto);
 
             if (Commit())
                 _mediator.Publish(new AddedProdutoEvent());
@@ -38,7 +39,8 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
             if (NotifyCommandErrors(command))
                 return Task.CompletedTask;
 
-            _baseRepository.Update(command.Produto);
+            Produto produto = new Produto(command.Id, command.Nome, command.Aplicacao, command.Quantidade, command.PrecoVenda);
+            _baseRepository.Update(produto);
 
             if (Commit())
                 _mediator.Publish(new UpdatedProdutoEvent());
@@ -51,7 +53,8 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
             if (NotifyCommandErrors(command))
                 return Task.CompletedTask;
 
-            _baseRepository.Remove(command.Produto);
+            Produto produto = _baseRepository.GetById(command.Id);
+            _baseRepository.Remove(produto);
 
             if (Commit())
                 _mediator.Publish(new RemovedProdutoEvent());

@@ -7,14 +7,14 @@ namespace RCM.Domain.Validators.BancoCommandValidators
     {
         protected void ValidateId()
         {
-            RuleFor(b => b.Banco.Id)
+            RuleFor(b => b.Id)
                 .NotEmpty()
                 .WithMessage("O Id do banco não pode estar vazio.");
         }
 
         protected void ValidateCodigoCompensacao()
         {
-            RuleFor(b => b.Banco.CodigoCompensacao)
+            RuleFor(b => b.CodigoCompensacao)
                 .NotEmpty()
                 .InclusiveBetween(0, 9999)
                 .WithMessage("O código de compensação do banco deve ter até 4 caracteres e não pode estar vazio.");
@@ -22,7 +22,7 @@ namespace RCM.Domain.Validators.BancoCommandValidators
 
         protected void ValidateName()
         {
-            RuleFor(b => b.Banco.Nome)
+            RuleFor(b => b.Nome)
                 .NotEmpty()
                 .MinimumLength(4)
                 .MaximumLength(50)

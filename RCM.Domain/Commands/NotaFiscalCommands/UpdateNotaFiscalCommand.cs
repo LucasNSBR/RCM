@@ -1,12 +1,17 @@
-﻿using RCM.Domain.Models.NotaFiscalModels;
-using RCM.Domain.Validators.NotaFiscalCommandValidators;
+﻿using RCM.Domain.Validators.NotaFiscalCommandValidators;
+using System;
 
 namespace RCM.Domain.Commands.NotaFiscalCommands
 {
     public class UpdateNotaFiscalCommand : NotaFiscalCommand
     {
-        public UpdateNotaFiscalCommand(NotaFiscal notaFiscal) : base(notaFiscal)
+        public UpdateNotaFiscalCommand(Guid id, string numeroDocumento, DateTime dataEmissao, decimal valor, DateTime? dataChegada = null)
         {
+            Id = id;
+            NumeroDocumento = numeroDocumento;
+            DataEmissao = dataEmissao;
+            Valor = valor;
+            DataChegada = dataChegada ?? dataEmissao;
         }
 
         public override bool IsValid()

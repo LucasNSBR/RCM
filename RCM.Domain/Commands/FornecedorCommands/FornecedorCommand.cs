@@ -1,15 +1,12 @@
 ﻿using RCM.Domain.Core.Commands;
-using RCM.Domain.Models.FornecedorModels;
+using System;
 
 namespace RCM.Domain.Commands.FornecedorCommands
 {
     public abstract class FornecedorCommand : Command
     {
-        public Fornecedor Fornecedor { get; }
-
-        public FornecedorCommand(Fornecedor fornecedor) 
-        {
-            Fornecedor = fornecedor;
-        }
+        public Guid Id { get; set; }
+        public string Nome { get; set; }
+        public string Observacao { get; set; }
     }
 }

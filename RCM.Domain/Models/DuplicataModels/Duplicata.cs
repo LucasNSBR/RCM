@@ -20,25 +20,25 @@ namespace RCM.Domain.Models.DuplicataModels
 
         protected Duplicata() { }
 
-        public Duplicata(string numeroDocumento, DateTime dataEmissao, DateTime dataVencimento, Guid fornecedorId, decimal valor, string observacao = null)
+        public Duplicata(string numeroDocumento, DateTime dataEmissao, DateTime dataVencimento, Fornecedor fornecedor, decimal valor, string observacao = null)
         {
             NumeroDocumento = numeroDocumento;
             DataEmissao = dataEmissao;
             DataVencimento = dataVencimento;
-            FornecedorId = fornecedorId;
+            Fornecedor = fornecedor;
             Valor = valor;
             Observacao = observacao ?? Observacao;
 
             Pagamento = new Pagamento();
         }
 
-        public Duplicata(Guid id, string numeroDocumento, DateTime dataEmissao, DateTime dataVencimento, Guid fornecedorId, decimal valor, string observacao = null)
+        public Duplicata(Guid id, string numeroDocumento, DateTime dataEmissao, DateTime dataVencimento, Fornecedor fornecedor, decimal valor, string observacao = null)
         {
             Id = id;
             NumeroDocumento = numeroDocumento;
             DataEmissao = dataEmissao;
             DataVencimento = dataVencimento;
-            FornecedorId = fornecedorId;
+            Fornecedor = fornecedor;
             Valor = valor;
             Observacao = observacao ?? Observacao;
 

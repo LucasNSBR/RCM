@@ -41,7 +41,7 @@ namespace RCM.Domain.Validators.DuplicataCommandValidators
         {
             RuleFor(d => d.DataVencimento)
                 .NotEmpty()
-                .GreaterThanOrEqualTo(DateTime.Now)
+                .GreaterThanOrEqualTo(d => d.DataEmissao)
                 .WithMessage("A data de vencimento deve estar em um formato válido.");
         }
 

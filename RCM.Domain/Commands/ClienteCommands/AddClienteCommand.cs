@@ -1,12 +1,13 @@
-﻿using RCM.Domain.Models.ClienteModels;
-using RCM.Domain.Validators.ClienteCommandValidators;
+﻿using RCM.Domain.Validators.ClienteCommandValidators;
 
 namespace RCM.Domain.Commands.ClienteCommands
 {
     public class AddClienteCommand : ClienteCommand
     {
-        public AddClienteCommand(Cliente cliente) : base(cliente)
+        public AddClienteCommand(string nome, string descricao)
         {
+            Nome = nome;
+            Descricao = descricao;
         }
 
         public override bool IsValid()

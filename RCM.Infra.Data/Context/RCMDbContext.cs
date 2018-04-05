@@ -56,14 +56,10 @@ namespace RCM.Infra.Data.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var config = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
-                .Build();
-
             optionsBuilder
-                .UseLazyLoadingProxies()
-                .UseSqlServer(config.GetConnectionString("RCMDatabase"));
+                .UseLazyLoadingProxies();
+
+            base.OnConfiguring(optionsBuilder);
         }
     }
 }

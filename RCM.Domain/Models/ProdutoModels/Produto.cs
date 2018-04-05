@@ -1,5 +1,6 @@
 ﻿using RCM.Domain.Core.Models;
 using RCM.Domain.Models.FornecedorModels;
+using System;
 using System.Collections.Generic;
 
 namespace RCM.Domain.Models.ProdutoModels
@@ -21,6 +22,17 @@ namespace RCM.Domain.Models.ProdutoModels
         }
 
         protected Produto() { }
+
+        public Produto(Guid id, string nome, string aplicacao, int quantidade, decimal precoVenda)
+        {
+            Id = id;
+            Nome = nome;
+            Aplicacao = aplicacao;
+            Quantidade = quantidade;
+            PrecoVenda = precoVenda;
+
+            _fornecedores = new List<Fornecedor>();
+        }
 
         public Produto(string nome, string aplicacao, int quantidade, decimal precoVenda)
         {

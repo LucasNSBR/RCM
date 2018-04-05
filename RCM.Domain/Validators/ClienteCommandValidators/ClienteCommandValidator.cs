@@ -7,14 +7,14 @@ namespace RCM.Domain.Validators.ClienteCommandValidators
     {
         protected void ValidateId()
         {
-            RuleFor(c => c.Cliente.Id)
+            RuleFor(c => c.Id)
                 .NotEmpty()
                 .WithMessage("O Id do cliente não deve estar vazio.");
         }
 
         protected void ValidateNome()
         {
-            RuleFor(c => c.Cliente.Nome)
+            RuleFor(c => c.Nome)
                 .NotEmpty()
                 .MinimumLength(10)
                 .MaximumLength(100)
@@ -23,9 +23,9 @@ namespace RCM.Domain.Validators.ClienteCommandValidators
 
         protected void ValidateDescricao()
         {
-            RuleFor(c => c.Cliente.Nome)
-                .MaximumLength(100)
-                .WithMessage("O nome do cliente deve ter entre 10 e 100 caracteres e não deve estar vazio.");
+            RuleFor(c => c.Descricao)
+                .MaximumLength(1000)
+                .WithMessage("A descrição do cliente deve ter até 1000 caracteres.");
         }
     }
 }

@@ -1,12 +1,13 @@
-﻿using RCM.Domain.Models.ChequeModels;
-using RCM.Domain.Validators.ChequeCommandValidators;
+﻿using RCM.Domain.Validators.ChequeCommandValidators;
+using System;
 
 namespace RCM.Domain.Commands.ChequeCommands
 {
     public class RemoveChequeCommand : ChequeCommand
     {
-        public RemoveChequeCommand(Cheque cheque) : base(cheque)
+        public RemoveChequeCommand(Guid id)
         {
+            Id = id;
         }
 
         public override bool IsValid()

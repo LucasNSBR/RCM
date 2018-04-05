@@ -1,12 +1,13 @@
-﻿using RCM.Domain.Models.BancoModels;
-using RCM.Domain.Validators.BancoCommandValidators;
+﻿using RCM.Domain.Validators.BancoCommandValidators;
+using System;
 
 namespace RCM.Domain.Commands.BancoCommands
 {
     public class RemoveBancoCommand : BancoCommand
     {
-        public RemoveBancoCommand(Banco banco) : base(banco)
+        public RemoveBancoCommand(Guid id) 
         {
+            Id = id;
         }
 
         public override bool IsValid()

@@ -1,12 +1,13 @@
-﻿using RCM.Domain.Models.FornecedorModels;
-using RCM.Domain.Validators.FornecedorCommandValidators;
+﻿using RCM.Domain.Validators.FornecedorCommandValidators;
 
 namespace RCM.Domain.Commands.FornecedorCommands
 {
     public class AddFornecedorCommand : FornecedorCommand
     {
-        public AddFornecedorCommand(Fornecedor fornecedor) : base(fornecedor)
+        public AddFornecedorCommand(string nome, string observacao)
         {
+            Nome = nome;
+            Observacao = observacao;
         }
 
         public override bool IsValid()

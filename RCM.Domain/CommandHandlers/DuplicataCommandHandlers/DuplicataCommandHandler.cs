@@ -5,9 +5,9 @@ using RCM.Domain.DomainNotificationHandlers;
 using RCM.Domain.Events.DuplicataEvents;
 using RCM.Domain.Models;
 using RCM.Domain.Models.DuplicataModels;
+using RCM.Domain.Models.FornecedorModels;
 using RCM.Domain.Repositories;
 using RCM.Domain.UnitOfWork;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -20,18 +20,21 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
                                            INotificationHandler<PagarDuplicataCommand>,
                                            INotificationHandler<EstornarDuplicataCommand>
     {
-        public DuplicataCommandHandler(IMediatorHandler mediator, IDuplicataRepository duplicataRepository, IUnitOfWork unitOfWork, IDomainNotificationHandler domainNotificationHandler) : 
+        private readonly IFornecedorRepository _fornecedorRepository;
+
+        public DuplicataCommandHandler(IFornecedorRepository fornecedorRepository, IDuplicataRepository duplicataRepository, IMediatorHandler mediator, IUnitOfWork unitOfWork, IDomainNotificationHandler domainNotificationHandler) : 
                                                                                                                 base(mediator, duplicataRepository, unitOfWork, domainNotificationHandler)
         {
+            _fornecedorRepository = fornecedorRepository;
         }
 
         public Task Handle(AddDuplicataCommand command, CancellationToken cancellationToken)
-        {
-            Duplicata duplicata = new Duplicata(command.NumeroDocumento, command.DataEmissao, command.DataVencimento, command.FornecedorId, command.Valor, command.Observacao);
-            
+        {            
             if (NotifyCommandErrors(command))
                 return Task.CompletedTask;
 
+            Fornecedor fornecedor = _fornecedorRepository.GetById(command.FornecedorId);
+            Duplicata duplicata = new Duplicata(command.NumeroDocumento, command.DataEmissao, command.DataVencimento, fornecedor, command.Valor, command.Observacao);
             _baseRepository.Add(duplicata);
 
             if (Commit())
@@ -42,11 +45,11 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
 
         public Task Handle(UpdateDuplicataCommand command, CancellationToken cancellationToken)
         {
-            Duplicata duplicata = new Duplicata(command.Id, command.NumeroDocumento, command.DataEmissao, command.DataVencimento, command.FornecedorId, command.Valor, command.Observacao);
-
             if (NotifyCommandErrors(command))
                 return Task.CompletedTask;
 
+            Fornecedor fornecedor = _fornecedorRepository.GetById(command.FornecedorId);
+            Duplicata duplicata = new Duplicata(command.Id, command.NumeroDocumento, command.DataEmissao, command.DataVencimento, fornecedor, command.Valor, command.Observacao);
             _baseRepository.Update(duplicata);
 
             if (Commit())
@@ -57,11 +60,10 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
 
         public Task Handle(RemoveDuplicataCommand command, CancellationToken cancellationToken)
         {
-            Duplicata duplicata = _baseRepository.GetById(command.Id);
-
             if (NotifyCommandErrors(command))
                 return Task.CompletedTask;
 
+            Duplicata duplicata = _baseRepository.GetById(command.Id);
             _baseRepository.Remove(duplicata);
 
             if (Commit())

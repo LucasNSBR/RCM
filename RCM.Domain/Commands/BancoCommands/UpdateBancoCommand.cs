@@ -1,12 +1,15 @@
-﻿using RCM.Domain.Models.BancoModels;
-using RCM.Domain.Validators.BancoCommandValidators;
+﻿using RCM.Domain.Validators.BancoCommandValidators;
+using System;
 
 namespace RCM.Domain.Commands.BancoCommands
 {
     public class UpdateBancoCommand : BancoCommand
     {
-        public UpdateBancoCommand(Banco banco) : base(banco)
+        public UpdateBancoCommand(Guid id, string nome, int codigoCompensacao)
         {
+            Id = id;
+            Nome = nome;
+            CodigoCompensacao = codigoCompensacao;
         }
 
         public override bool IsValid()

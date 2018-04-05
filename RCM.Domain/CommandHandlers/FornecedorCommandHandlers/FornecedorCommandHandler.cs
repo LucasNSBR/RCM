@@ -21,12 +21,13 @@ namespace RCM.Domain.CommandHandlers.FornecedorCommandHandlers
         {
         }
 
-        public Task Handle(AddFornecedorCommand notification, CancellationToken cancellationToken)
+        public Task Handle(AddFornecedorCommand command, CancellationToken cancellationToken)
         {
-            if (NotifyCommandErrors(notification))
+            if (NotifyCommandErrors(command))
                 return Task.CompletedTask;
 
-            _baseRepository.Add(notification.Fornecedor);
+            Fornecedor fornecedor = new Fornecedor(command.Nome, command.Observacao);
+            _baseRepository.Add(fornecedor);
       
             if (Commit())
                 _mediator.Publish(new AddedFornecedorEvent());
@@ -34,12 +35,13 @@ namespace RCM.Domain.CommandHandlers.FornecedorCommandHandlers
             return Task.CompletedTask;
         }
 
-        public Task Handle(UpdateFornecedorCommand notification, CancellationToken cancellationToken)
+        public Task Handle(UpdateFornecedorCommand command, CancellationToken cancellationToken)
         {
-            if (NotifyCommandErrors(notification))
+            if (NotifyCommandErrors(command))
                 return Task.CompletedTask;
 
-            _baseRepository.Add(notification.Fornecedor);
+            Fornecedor fornecedor = new Fornecedor(command.Id, command.Nome, command.Observacao);
+            _baseRepository.Update(fornecedor);
 
             if (Commit())
                 _mediator.Publish(new UpdatedFornecedorEvent());
@@ -47,12 +49,13 @@ namespace RCM.Domain.CommandHandlers.FornecedorCommandHandlers
             return Task.CompletedTask;
         }
 
-        public Task Handle(RemoveFornecedorCommand notification, CancellationToken cancellationToken)
+        public Task Handle(RemoveFornecedorCommand command, CancellationToken cancellationToken)
         {
-            if (NotifyCommandErrors(notification))
+            if (NotifyCommandErrors(command))
                 return Task.CompletedTask;
 
-            _baseRepository.Add(notification.Fornecedor);
+            Fornecedor fornecedor = _baseRepository.GetById(command.Id);
+            _baseRepository.Remove(fornecedor);
 
             if (Commit())
                 _mediator.Publish(new RemovedFornecedorEvent());

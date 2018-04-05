@@ -16,17 +16,17 @@ namespace RCM.Application.ApplicationServices
 
         public override void Add(NotaFiscalViewModel viewModel)
         {
-            _mediator.SendCommand(new AddNotaFiscalCommand(ProjectToModel(viewModel)));
+            _mediator.SendCommand(new AddNotaFiscalCommand(viewModel.NumeroDocumento, viewModel.DataEmissao, viewModel.Valor));
         }
 
         public override void Update(NotaFiscalViewModel viewModel)
         {
-            _mediator.SendCommand(new UpdateNotaFiscalCommand(ProjectToModel(viewModel)));
+            _mediator.SendCommand(new UpdateNotaFiscalCommand(viewModel.Id, viewModel.NumeroDocumento, viewModel.DataEmissao, viewModel.Valor));
         }
 
         public override void Remove(NotaFiscalViewModel viewModel)
         {
-            _mediator.SendCommand(new RemoveNotaFiscalCommand(ProjectToModel(viewModel)));
+            _mediator.SendCommand(new RemoveNotaFiscalCommand(viewModel.Id));
         }
     }
 }

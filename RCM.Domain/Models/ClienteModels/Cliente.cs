@@ -1,5 +1,6 @@
 ﻿using RCM.Domain.Core.Models;
 using RCM.Domain.Models.ChequeModels;
+using System;
 using System.Collections.Generic;
 
 namespace RCM.Domain.Models.ClienteModels
@@ -38,13 +39,26 @@ namespace RCM.Domain.Models.ClienteModels
 
         protected Cliente() { }
 
-        public Cliente(string nome)
+        public Cliente(Guid id, string nome, string descricao = null)
         {
+            Id = id;
+            Nome = nome;
+            Descricao = descricao;
+ 
             _contatos = new List<Contato>();
             _enderecos = new List<Endereco>();
             _cheques = new List<Cheque>();
 
+        }
+
+        public Cliente(string nome, string descricao = null)
+        {
             Nome = nome;
+            Descricao = descricao;
+
+            _contatos = new List<Contato>();
+            _enderecos = new List<Endereco>();
+            _cheques = new List<Cheque>();
         }
     }
 }

@@ -26,7 +26,8 @@ namespace RCM.Domain.CommandHandlers.ClienteCommandHandlers
             if (NotifyCommandErrors(command))
                 return Task.CompletedTask;
 
-            _baseRepository.Add(command.Cliente);
+            Cliente cliente = new Cliente(command.Nome, command.Descricao);
+            _baseRepository.Add(cliente);
 
             if (Commit())
                 _mediator.Publish(new AddedClienteEvent());
@@ -39,7 +40,8 @@ namespace RCM.Domain.CommandHandlers.ClienteCommandHandlers
             if (NotifyCommandErrors(command))
                 return Task.CompletedTask;
 
-            _baseRepository.Update(command.Cliente);
+            Cliente cliente = new Cliente(command.Id, command.Nome, command.Descricao);
+            _baseRepository.Update(cliente);
 
             if (Commit())
                 _mediator.Publish(new UpdatedClienteEvent());
@@ -52,7 +54,8 @@ namespace RCM.Domain.CommandHandlers.ClienteCommandHandlers
             if (NotifyCommandErrors(command))
                 return Task.CompletedTask;
 
-            _baseRepository.Remove(command.Cliente);
+            Cliente cliente = _baseRepository.GetById(command.Id);
+            _baseRepository.Remove(cliente);
 
             if (Commit())
                 _mediator.Publish(new RemovedClienteEvent());

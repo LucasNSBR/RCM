@@ -18,6 +18,11 @@ namespace RCM.CrossCutting.MediatorServices
             await _mediator.Publish(command);
         }
 
+        public async Task<string> SendRequest<T>(T request) where T : IRequest<string>
+        {
+            return await _mediator.Send(request);
+        }
+
         public async Task Publish<T>(T notification) where T : INotification
         {
             await _mediator.Publish(notification);

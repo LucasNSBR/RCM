@@ -7,14 +7,14 @@ namespace RCM.Domain.Validators.FornecedorCommandValidators
     {
         protected void ValidateId()
         {
-            RuleFor(f => f.Fornecedor.Id)
+            RuleFor(f => f.Id)
                 .NotEmpty()
                 .WithMessage("O Id do fornecedor não deve estar vazio.");
         }
 
         protected void ValidateNome()
         {
-            RuleFor(f => f.Fornecedor.Nome)
+            RuleFor(f => f.Nome)
                .NotEmpty()
                .MinimumLength(10)
                .MaximumLength(100)
@@ -23,7 +23,7 @@ namespace RCM.Domain.Validators.FornecedorCommandValidators
 
         protected void ValidateObservacao()
         {
-            RuleFor(f => f.Fornecedor.Observacao)
+            RuleFor(f => f.Observacao)
                 .MaximumLength(1000)
                 .WithMessage("O campo observação deve ter até 1000 caracteres.");
         }

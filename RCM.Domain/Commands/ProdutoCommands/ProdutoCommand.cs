@@ -1,15 +1,14 @@
 ﻿using RCM.Domain.Core.Commands;
-using RCM.Domain.Models.ProdutoModels;
+using System;
 
 namespace RCM.Domain.Commands.ProdutoCommands
 {
     public abstract class ProdutoCommand : Command
     {
-        public Produto Produto { get; }
-
-        public ProdutoCommand(Produto produto)
-        {
-            Produto = produto;
-        }
+        public Guid Id { get; set; }
+        public string Nome { get; set; }
+        public string Aplicacao { get; set; }
+        public int Quantidade { get; set; }
+        public decimal PrecoVenda { get; set; }
     }
 }

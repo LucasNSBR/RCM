@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
+using RCM.Domain.Models.OrdemServicoModels;
 using RCM.Infra.Data.Context;
 using System;
 
@@ -263,6 +264,12 @@ namespace RCM.Infra.Data.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<Guid>("ClienteId");
+
+                    b.Property<DateTime>("DataEntrada");
+
+                    b.Property<DateTime?>("DataSaida");
+
+                    b.Property<int>("Status");
 
                     b.Property<decimal>("Total");
 

@@ -16,17 +16,17 @@ namespace RCM.Application.ApplicationServices
 
         public override void Add(ProdutoViewModel viewModel)
         {
-            _mediator.SendCommand(new AddProdutoCommand(ProjectToModel(viewModel)));
+            _mediator.SendCommand(new AddProdutoCommand(viewModel.Nome, viewModel.Aplicacao, viewModel.Quantidade, viewModel.PrecoVenda));
         }
 
         public override void Update(ProdutoViewModel viewModel)
         {
-            _mediator.SendCommand(new UpdateProdutoCommand(ProjectToModel(viewModel)));
+            _mediator.SendCommand(new UpdateProdutoCommand(viewModel.Id, viewModel.Nome, viewModel.Aplicacao, viewModel.Quantidade, viewModel.PrecoVenda));
         }
 
         public override void Remove(ProdutoViewModel viewModel)
         {
-            _mediator.SendCommand(new RemoveProdutoCommand(ProjectToModel(viewModel)));
+            _mediator.SendCommand(new RemoveProdutoCommand(viewModel.Id));
         }
     }
 }

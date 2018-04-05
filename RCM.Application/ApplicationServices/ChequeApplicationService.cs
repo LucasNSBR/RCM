@@ -16,17 +16,17 @@ namespace RCM.Application.ApplicationServices
 
         public override void Add(ChequeViewModel viewModel)
         {
-            _mediator.SendCommand(new AddChequeCommand(ProjectToModel(viewModel)));
+            _mediator.SendCommand(new AddChequeCommand(viewModel.BancoId, viewModel.Agencia, viewModel.Conta, viewModel.NumeroCheque, viewModel.Observacao, viewModel.ClienteId, viewModel.DataEmissao, viewModel.DataVencimento, viewModel.Valor));
         }
 
         public override void Update(ChequeViewModel viewModel)
         {
-            _mediator.SendCommand(new UpdateChequeCommand(ProjectToModel(viewModel)));
+            _mediator.SendCommand(new UpdateChequeCommand(viewModel.Id, viewModel.BancoId, viewModel.Agencia, viewModel.Conta, viewModel.NumeroCheque, viewModel.Observacao, viewModel.ClienteId, viewModel.DataEmissao, viewModel.DataVencimento, viewModel.Valor));
         }
 
         public override void Remove(ChequeViewModel viewModel)
         {
-            _mediator.SendCommand(new RemoveChequeCommand(ProjectToModel(viewModel)));
+            _mediator.SendCommand(new RemoveChequeCommand(viewModel.Id));
         }
     }
 }

@@ -10,7 +10,7 @@ namespace RCM.Domain.Models.NotaFiscalModels
     {
         public string NumeroDocumento { get; private set; }
         public DateTime DataEmissao { get; private set; }
-        public DateTime DataChegada { get; private set; }
+        public DateTime? DataChegada { get; private set; }
         public decimal Valor { get; private set; }
 
         private List<Duplicata> _duplicatas; 
@@ -33,7 +33,19 @@ namespace RCM.Domain.Models.NotaFiscalModels
 
         protected NotaFiscal() { }
 
-        public NotaFiscal(string numeroDocumento, DateTime dataEmissao, DateTime dataChegada, decimal valor, List<Produto> produtos)
+        public NotaFiscal(Guid id, string numeroDocumento, DateTime dataEmissao, decimal valor, DateTime? dataChegada = null)
+        {
+            Id = id;
+            NumeroDocumento = numeroDocumento;
+            DataEmissao = dataEmissao;
+            DataChegada = dataChegada;
+            Valor = valor;
+
+            _duplicatas = new List<Duplicata>();
+            _produtos = new List<Produto>();
+        }
+
+        public NotaFiscal(string numeroDocumento, DateTime dataEmissao, decimal valor, DateTime? dataChegada = null)
         {
             NumeroDocumento = numeroDocumento;
             DataEmissao = dataEmissao;

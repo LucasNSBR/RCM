@@ -2,6 +2,7 @@
 using RCM.Domain.Models.DuplicataModels;
 using RCM.Domain.Models.NotaFiscalModels;
 using RCM.Domain.Models.ProdutoModels;
+using System;
 using System.Collections.Generic;
 
 namespace RCM.Domain.Models.FornecedorModels
@@ -40,9 +41,21 @@ namespace RCM.Domain.Models.FornecedorModels
 
         protected Fornecedor() { }
 
-        public Fornecedor(string nome)
+        public Fornecedor(Guid id, string nome, string observacao = null)
+        {
+            Id = id;
+            Nome = nome;
+            Observacao = observacao;
+
+            _duplicatas = new List<Duplicata>();
+            _notasFiscais = new List<NotaFiscal>();
+            _produtos = new List<Produto>();
+        }
+
+        public Fornecedor(string nome, string observacao = null)
         {
             Nome = nome;
+            Observacao = observacao;
 
             _duplicatas = new List<Duplicata>();
             _notasFiscais = new List<NotaFiscal>();

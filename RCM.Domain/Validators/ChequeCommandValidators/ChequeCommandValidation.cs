@@ -8,21 +8,21 @@ namespace RCM.Domain.Validators.ChequeCommandValidators
     {
         protected void ValidateId()
         {
-            RuleFor(ch => ch.Cheque.Id)
+            RuleFor(ch => ch.Id)
                 .NotEmpty()
                 .WithMessage("O Id do cheque não pode estar vazio.");
         }
 
         protected void ValidateBancoId()
         {
-            RuleFor(ch => ch.Cheque.BancoId)
+            RuleFor(ch => ch.BancoId)
                 .NotEmpty()
                 .WithMessage("O cheque deve estar relacionado a um banco.");
         }
 
         protected void ValidateAgencia()
         {
-            RuleFor(ch => ch.Cheque.Agencia)
+            RuleFor(ch => ch.Agencia)
                 .NotEmpty()
                 .MinimumLength(4)
                 .MaximumLength(5)
@@ -31,7 +31,7 @@ namespace RCM.Domain.Validators.ChequeCommandValidators
 
         protected void ValidateConta()
         {
-            RuleFor(ch => ch.Cheque.Conta)
+            RuleFor(ch => ch.Conta)
                 .NotEmpty()
                 .MinimumLength(4)
                 .MaximumLength(12)
@@ -40,7 +40,7 @@ namespace RCM.Domain.Validators.ChequeCommandValidators
 
         protected void ValidateNumeroCheque()
         {
-            RuleFor(ch => ch.Cheque.NumeroCheque)
+            RuleFor(ch => ch.NumeroCheque)
                 .NotEmpty()
                 .MinimumLength(6)
                 .MaximumLength(8)
@@ -49,21 +49,21 @@ namespace RCM.Domain.Validators.ChequeCommandValidators
 
         protected void ValidateObservacao()
         {
-            RuleFor(d => d.Cheque.Observacao)
+            RuleFor(d => d.Observacao)
                 .MaximumLength(1000)
                 .WithMessage("O campo observação deve ter até 1000 caracteres.");
         }
 
         protected void ValidateClienteId()
         {
-            RuleFor(ch => ch.Cheque.ClienteId)
+            RuleFor(ch => ch.ClienteId)
                 .NotEmpty()
                 .WithMessage("O cheque deve estar relacionado a um cliente.");
         }
 
         protected void ValidateDataEmissao()
         {
-            RuleFor(ch => ch.Cheque.DataEmissao)
+            RuleFor(ch => ch.DataEmissao)
                 .NotEmpty()
                 .LessThanOrEqualTo(DateTime.Now)
                 .WithMessage("A data de emissão deve estar em um formato válido.");
@@ -71,15 +71,15 @@ namespace RCM.Domain.Validators.ChequeCommandValidators
 
         protected void ValidateDataVencimento()
         {
-            RuleFor(ch => ch.Cheque.DataVencimento)
+            RuleFor(ch => ch.DataVencimento)
                 .NotEmpty()
-                .GreaterThanOrEqualTo(DateTime.Now)
+                .GreaterThanOrEqualTo(d => d.DataEmissao)
                 .WithMessage("A data de vencimento deve estar em um formato válido.");
         }
 
         protected void ValidateValor()
         {
-            RuleFor(ch => ch.Cheque.Valor)
+            RuleFor(ch => ch.Valor)
                 .NotEmpty()
                 .GreaterThanOrEqualTo(0)
                 .WithMessage("O valor do cheque deve ser maior que 0.");

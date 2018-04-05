@@ -1,12 +1,15 @@
-﻿using RCM.Domain.Models.ProdutoModels;
-using RCM.Domain.Validators.ProdutoCommandValidators;
+﻿using RCM.Domain.Validators.ProdutoCommandValidators;
 
 namespace RCM.Domain.Commands.ProdutoCommands
 {
     public class AddProdutoCommand : ProdutoCommand
     {
-        public AddProdutoCommand(Produto produto) : base(produto)
+        public AddProdutoCommand(string nome, string aplicacao, int quantidade, decimal precoVenda)
         {
+            Nome = nome;
+            Aplicacao = aplicacao;
+            Quantidade = quantidade;
+            PrecoVenda = precoVenda;
         }
 
         public override bool IsValid()
