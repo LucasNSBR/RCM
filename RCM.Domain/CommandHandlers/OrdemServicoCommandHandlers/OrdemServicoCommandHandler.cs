@@ -1,44 +1,91 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
 using RCM.Domain.Commands.OrdemServicoCommands;
+using RCM.Domain.Core.Commands;
+using RCM.Domain.Core.Errors;
 using RCM.Domain.Core.MediatorServices;
-using RCM.Domain.DomainNotificationHandlers;
+using RCM.Domain.Events.OrdemServico;
+using RCM.Domain.Models.ClienteModels;
 using RCM.Domain.Models.OrdemServicoModels;
 using RCM.Domain.Repositories;
 using RCM.Domain.UnitOfWork;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace RCM.Domain.CommandHandlers.OrdemServicoCommandHandlers
 {
     public class OrdemServicoCommandHandler : CommandHandler<OrdemServico>,
-                                              IRequestHandler<AddOrdemServicoCommand, string>,
-                                              IRequestHandler<UpdateOrdemServicoCommand, string>
+                                              IRequestHandler<AddOrdemServicoCommand, RequestResponse>,
+                                              IRequestHandler<UpdateOrdemServicoCommand, RequestResponse>,
+                                              IRequestHandler<RemoveOrdemServicoCommand, RequestResponse>
     {
         private readonly IClienteRepository _clienteRepository;
 
-        public OrdemServicoCommandHandler(IOrdemServicoRepository baseRepository, IClienteRepository clienteRepository, IMediatorHandler mediator, IUnitOfWork unitOfWork, IDomainNotificationHandler domainNotificationHandler) : base(mediator, baseRepository, unitOfWork, domainNotificationHandler)
+        public OrdemServicoCommandHandler(IOrdemServicoRepository baseRepository, IClienteRepository clienteRepository, IMediatorHandler mediator, IUnitOfWork unitOfWork) :
+                                                                                                                                                    base(mediator, baseRepository, unitOfWork)
         {
             _clienteRepository = clienteRepository;
+            _commandResponse = new RequestResponse();
         }
 
-        public Task<string> Handle(AddOrdemServicoCommand message, CancellationToken cancellationToken)
+        public Task<RequestResponse> Handle(AddOrdemServicoCommand request, CancellationToken cancellationToken)
         {
-            var cliente = _clienteRepository.GetById(message.ClienteId);
-            if (cliente == null)
-                return Task.FromResult("Erradissímo");
+            if (!request.IsValid())
+            {
+                NotifyRequestErrors(request);
+                return Response();
+            }
 
-            var ordemServico = new OrdemServico(cliente, message.Produtos);
+            Cliente cliente = _clienteRepository.GetById(request.ClienteId);
+            if (cliente == null)
+            {
+                _commandResponse.AddError(new RequestError("Erro de repositório", "Cliente não encontrado"));
+                return Response();
+            }
+
+            OrdemServico ordemServico = new OrdemServico(cliente, request.Produtos);
             _baseRepository.Add(ordemServico);
 
             if (Commit())
-                return Task.FromResult("Deu certo");
+                _mediator.Publish(new AddedOrdemServicoEvent());
 
-            return Task.FromResult("Deu merda");
+            return Response();
         }
 
-        public Task<string> Handle(UpdateOrdemServicoCommand request, CancellationToken cancellationToken)
+        public Task<RequestResponse> Handle(UpdateOrdemServicoCommand request, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            var cliente = _clienteRepository.GetById(request.ClienteId);
+
+            if (cliente == null)
+            {
+                _commandResponse.AddError(new RequestError("Erro de repositório", "Cliente não encontrado"));
+                return Task.FromResult(_commandResponse);
+            }
+
+            var ordemServico = new OrdemServico(cliente, request.Produtos);
+            _baseRepository.Update(ordemServico);
+
+            if (Commit())
+                _mediator.Publish(new UpdatedOrdemServicoEvent());
+
+            return Response();
+        }
+
+        public Task<RequestResponse> Handle(RemoveOrdemServicoCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.IsValid())
+            {
+                NotifyRequestErrors(request);
+                return Response();
+            }
+
+            OrdemServico ordemServico = _baseRepository.GetById(request.Id);
+
+            _baseRepository.Remove(ordemServico);
+
+            if (Commit())
+                _mediator.Publish(new RemovedOrdemServicoEvent());
+
+            return Response();
         }
     }
 }

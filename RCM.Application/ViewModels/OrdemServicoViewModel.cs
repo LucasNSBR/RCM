@@ -36,5 +36,10 @@ namespace RCM.Application.ViewModels
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo total é requerido.")]
         [Range(0, 99999, ErrorMessage = "O campo valor deve ser estar entre 0 e 99999.")]
         public decimal Total { get; set; }
+
+        public OrdemServicoViewModel()
+        {
+            Produtos = new List<ProdutoViewModel>();
+        }
     }
 }

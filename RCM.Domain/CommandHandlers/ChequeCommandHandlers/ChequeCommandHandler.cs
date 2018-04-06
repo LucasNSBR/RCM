@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using RCM.Domain.Commands.ChequeCommands;
+using RCM.Domain.Core.Commands;
 using RCM.Domain.Core.MediatorServices;
-using RCM.Domain.DomainNotificationHandlers;
 using RCM.Domain.Events.ChequeEvents;
 using RCM.Domain.Models.BancoModels;
 using RCM.Domain.Models.ChequeModels;
@@ -14,24 +14,27 @@ using System.Threading.Tasks;
 namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
 {
     public class ChequeCommandHandler : CommandHandler<Cheque>,
-                                        INotificationHandler<AddChequeCommand>,
-                                        INotificationHandler<UpdateChequeCommand>,
-                                        INotificationHandler<RemoveChequeCommand>
+                                        IRequestHandler<AddChequeCommand, RequestResponse>,
+                                        IRequestHandler<UpdateChequeCommand, RequestResponse>,
+                                        IRequestHandler<RemoveChequeCommand, RequestResponse>
     {
         private readonly IBancoRepository _bancoRepository;
         private readonly IClienteRepository _clienteRepository;
 
-        public ChequeCommandHandler(IChequeRepository chequeRepository, IBancoRepository bancoRepository, IClienteRepository clienteRepository, IMediatorHandler mediator, IUnitOfWork unitOfWork, IDomainNotificationHandler domainNotificationHandler) : 
-                                                                                                    base(mediator, chequeRepository, unitOfWork, domainNotificationHandler)
+        public ChequeCommandHandler(IChequeRepository chequeRepository, IBancoRepository bancoRepository, IClienteRepository clienteRepository, IMediatorHandler mediator, IUnitOfWork unitOfWork) : 
+                                                                                                    base(mediator, chequeRepository, unitOfWork)
         {
             _bancoRepository = bancoRepository;
             _clienteRepository = clienteRepository;
         }
 
-        public Task Handle(AddChequeCommand command, CancellationToken cancellationToken)
+        public Task<RequestResponse> Handle(AddChequeCommand command, CancellationToken cancellationToken)
         {
-            if (NotifyCommandErrors(command))
-                return Task.CompletedTask;
+            if (!command.IsValid())
+            {
+                NotifyRequestErrors(command);
+                return Response();
+            }
 
             Banco banco = _bancoRepository.GetById(command.BancoId);
             Cliente cliente = _clienteRepository.GetById(command.ClienteId);
@@ -41,13 +44,16 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
             if (Commit())
                 _mediator.Publish(new AddedChequeEvent());
 
-            return Task.CompletedTask;
+            return Response();
         }
 
-        public Task Handle(UpdateChequeCommand command, CancellationToken cancellationToken)
+        public Task<RequestResponse> Handle(UpdateChequeCommand command, CancellationToken cancellationToken)
         {
-            if (NotifyCommandErrors(command))
-                return Task.CompletedTask;
+            if (!command.IsValid())
+            {
+                NotifyRequestErrors(command);
+                return Response();
+            }
 
             Banco banco = _bancoRepository.GetById(command.BancoId);
             Cliente cliente = _clienteRepository.GetById(command.ClienteId);
@@ -57,13 +63,16 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
             if (Commit())
                 _mediator.Publish(new UpdatedChequeEvent());
 
-            return Task.CompletedTask;
+            return Response();
         }
 
-        public Task Handle(RemoveChequeCommand command, CancellationToken cancellationToken)
+        public Task<RequestResponse> Handle(RemoveChequeCommand command, CancellationToken cancellationToken)
         {
-            if (NotifyCommandErrors(command))
-                return Task.CompletedTask;
+            if (!command.IsValid())
+            {
+                NotifyRequestErrors(command);
+                return Response();
+            }
 
             Cheque cheque = _baseRepository.GetById(command.Id);
             _baseRepository.Remove(cheque);
@@ -71,7 +80,7 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
             if (Commit())
                 _mediator.Publish(new RemovedChequeEvent());
 
-            return Task.CompletedTask;
+            return Response();
         }
     }
 }

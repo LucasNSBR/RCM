@@ -2,9 +2,11 @@
 using RCM.Application.ApplicationInterfaces;
 using RCM.Application.ViewModels;
 using RCM.Domain.Commands.ClienteCommands;
+using RCM.Domain.Core.Commands;
 using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.Models.ClienteModels;
 using RCM.Domain.Repositories;
+using System.Threading.Tasks;
 
 namespace RCM.Application.ApplicationServices
 {
@@ -14,19 +16,19 @@ namespace RCM.Application.ApplicationServices
         {
         }
 
-        public override void Add(ClienteViewModel viewModel)
+        public override Task<RequestResponse> Add(ClienteViewModel viewModel)
         {
-            _mediator.SendCommand(new AddClienteCommand(viewModel.Nome, viewModel.Descricao));
+            return _mediator.SendRequest(new AddClienteCommand(viewModel.Nome, viewModel.Descricao));
         }
 
-        public override void Update(ClienteViewModel viewModel)
+        public override Task<RequestResponse> Update(ClienteViewModel viewModel)
         {
-            _mediator.SendCommand(new UpdateClienteCommand(viewModel.Id, viewModel.Nome, viewModel.Descricao));
+            return _mediator.SendRequest(new UpdateClienteCommand(viewModel.Id, viewModel.Nome, viewModel.Descricao));
         }
 
-        public override void Remove(ClienteViewModel viewModel)
+        public override Task<RequestResponse> Remove(ClienteViewModel viewModel)
         {
-            _mediator.SendCommand(new RemoveClienteCommand(viewModel.Id));
+            return _mediator.SendRequest(new RemoveClienteCommand(viewModel.Id));
         }
     }
 }

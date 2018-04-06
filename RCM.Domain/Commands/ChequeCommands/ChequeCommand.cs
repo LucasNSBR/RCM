@@ -3,7 +3,7 @@ using System;
 
 namespace RCM.Domain.Commands.ChequeCommands
 {
-    public abstract class ChequeCommand : Command
+    public abstract class ChequeCommand : Request
     {
         public Guid Id { get; set; }
         public Guid BancoId { get; set; }

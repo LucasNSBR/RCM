@@ -3,9 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using RCM.Application.ApplicationInterfaces;
 using RCM.Application.ViewModels;
 using RCM.Domain.DomainNotificationHandlers;
+using RCM.Domain.DomainNotifications;
 using RCM.Domain.Models.BancoModels;
 using RCM.Presentation.Web.Controllers;
 using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace RCM.Presentation.Web.Areas.Platform.Controllers
 {
@@ -52,7 +55,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(BancoViewModel banco)
+        public async Task<IActionResult> Create(BancoViewModel banco)
         {
             if (!ModelState.IsValid)
             {
@@ -60,12 +63,15 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 return View(banco);
             }
 
-            _bancoApplicationService.Add(banco);
+            var commandResult = await _bancoApplicationService.Add(banco);
 
-            if (Success())
+            if (commandResult.Success)
                 return RedirectToAction(nameof(Index));
             else
+            {
+                commandResult.Errors.ToList().ForEach(e => _domainNotificationHandler.AddNotification(new CommandValidationErrorNotification(e.Description)));
                 return View(banco);
+            }
         }
 
         [Authorize(Policy = "ActiveUser")]
@@ -81,7 +87,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Guid id, BancoViewModel banco)
+        public async Task<IActionResult> Edit(Guid id, BancoViewModel banco)
         {
             if (!ModelState.IsValid)
             {
@@ -89,9 +95,9 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 return View(banco);
             }
 
-            _bancoApplicationService.Update(banco);
+            var commandResult = await _bancoApplicationService.Update(banco);
 
-            if (Success())
+            if (commandResult.Success)
                 return RedirectToAction(nameof(Index));
             else
                 return View(banco);
@@ -110,11 +116,11 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(Guid id, BancoViewModel banco)
+        public async Task<IActionResult> Delete(Guid id, BancoViewModel banco)
         {
-            _bancoApplicationService.Remove(banco);
+            var commandResult = await _bancoApplicationService.Remove(banco);
 
-            if (Success())
+            if (commandResult.Success)
                 return RedirectToAction(nameof(Index));
             else
                 return View(banco);

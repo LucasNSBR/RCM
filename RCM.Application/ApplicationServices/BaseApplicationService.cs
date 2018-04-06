@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using RCM.Application.ApplicationInterfaces;
+using RCM.Domain.Core.Commands;
 using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.Repositories;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace RCM.Application.ApplicationServices
 {
@@ -36,35 +38,17 @@ namespace RCM.Application.ApplicationServices
 
         public TViewModel GetById(Guid id)
         {
-            var model = ProjectToViewModel(_baseRepository.GetById(id));
+            var model = _mapper.Map<TViewModel>(_baseRepository.GetById(id));
             return model;
         }
 
-        public virtual void Add(TViewModel viewModel)
-        {
-        }
-
-        public virtual void Remove(TViewModel viewModel)
-        {
-        }
-
-        public virtual void Update(TViewModel viewModel)
-        {
-        }
+        public virtual Task<RequestResponse> Add(TViewModel viewModel) { throw new ArgumentException("Direct base calling is not allowed. You need to override this method."); }
+        public virtual Task<RequestResponse> Remove(TViewModel viewModel){ throw new ArgumentException("Direct base calling is not allowed. You need to override this method."); }
+        public virtual Task<RequestResponse> Update(TViewModel viewModel) { throw new ArgumentException("Direct base calling is not allowed. You need to override this method."); }
 
         public void Dispose()
         {
             _baseRepository.Dispose();
-        }
-
-        protected TModel ProjectToModel(TViewModel viewModel)
-        {
-            return _mapper.Map<TModel>(viewModel);
-        }
-
-        protected TViewModel ProjectToViewModel(TModel model)
-        {
-            return _mapper.Map<TViewModel>(model);
         }
     }
 }

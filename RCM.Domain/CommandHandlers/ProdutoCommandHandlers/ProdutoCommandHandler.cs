@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using MediatR;
 using RCM.Domain.Commands.ProdutoCommands;
+using RCM.Domain.Core.Commands;
 using RCM.Domain.Core.MediatorServices;
-using RCM.Domain.DomainNotificationHandlers;
 using RCM.Domain.Events.ProdutoEvents;
 using RCM.Domain.Models.ProdutoModels;
 using RCM.Domain.Repositories;
@@ -12,18 +12,22 @@ using RCM.Domain.UnitOfWork;
 namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
 {
     public class ProdutoCommandHandler : CommandHandler<Produto>,
-                                         INotificationHandler<AddProdutoCommand>,
-                                         INotificationHandler<UpdateProdutoCommand>,
-                                         INotificationHandler<RemoveProdutoCommand>
+                                         IRequestHandler<AddProdutoCommand, RequestResponse>,
+                                         IRequestHandler<UpdateProdutoCommand, RequestResponse>,
+                                         IRequestHandler<RemoveProdutoCommand, RequestResponse>
     {
-        public ProdutoCommandHandler(IMediatorHandler mediator, IProdutoRepository produtoRepository, IUnitOfWork unitOfWork, IDomainNotificationHandler domainNotificationHandler) : base(mediator, produtoRepository, unitOfWork, domainNotificationHandler)
+        public ProdutoCommandHandler(IMediatorHandler mediator, IProdutoRepository produtoRepository, IUnitOfWork unitOfWork) : 
+                                                                                                        base(mediator, produtoRepository, unitOfWork)
         {
         }
 
-        public Task Handle(AddProdutoCommand command, CancellationToken cancellationToken)
+        public Task<RequestResponse> Handle(AddProdutoCommand command, CancellationToken cancellationToken)
         {
-            if (NotifyCommandErrors(command))
-                return Task.CompletedTask;
+            if (!command.IsValid())
+            {
+                NotifyRequestErrors(command);
+                return Response();
+            }
 
             Produto produto = new Produto(command.Nome, command.Aplicacao, command.Quantidade, command.PrecoVenda);
             _baseRepository.Add(produto);
@@ -31,13 +35,16 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
             if (Commit())
                 _mediator.Publish(new AddedProdutoEvent());
             
-            return Task.CompletedTask;
+            return Response();
         }
 
-        public Task Handle(UpdateProdutoCommand command, CancellationToken cancellationToken)
+        public Task<RequestResponse> Handle(UpdateProdutoCommand command, CancellationToken cancellationToken)
         {
-            if (NotifyCommandErrors(command))
-                return Task.CompletedTask;
+            if (!command.IsValid())
+            {
+                NotifyRequestErrors(command);
+                return Response();
+            }
 
             Produto produto = new Produto(command.Id, command.Nome, command.Aplicacao, command.Quantidade, command.PrecoVenda);
             _baseRepository.Update(produto);
@@ -45,13 +52,16 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
             if (Commit())
                 _mediator.Publish(new UpdatedProdutoEvent());
 
-            return Task.CompletedTask;
+            return Response();
         }
 
-        public Task Handle(RemoveProdutoCommand command, CancellationToken cancellationToken)
+        public Task<RequestResponse> Handle(RemoveProdutoCommand command, CancellationToken cancellationToken)
         {
-            if (NotifyCommandErrors(command))
-                return Task.CompletedTask;
+            if (!command.IsValid())
+            {
+                NotifyRequestErrors(command);
+                return Response();
+            }
 
             Produto produto = _baseRepository.GetById(command.Id);
             _baseRepository.Remove(produto);
@@ -59,7 +69,7 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
             if (Commit())
                 _mediator.Publish(new RemovedProdutoEvent());
 
-            return Task.CompletedTask;
+            return Response();
         }
     }
 }

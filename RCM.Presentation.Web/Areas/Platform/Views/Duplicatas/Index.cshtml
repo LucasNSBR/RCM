@@ -70,33 +70,33 @@
         </div>
     </form>
 
-    @if (Model.Duplicatas.Any())
+    @if (Model.Duplicatas.List.Any())
     {
         <table class="highlight centered">
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.Duplicatas.FirstOrDefault().NumeroDocumento)
+                        @Html.DisplayNameFor(model => model.Duplicatas.List.FirstOrDefault().NumeroDocumento)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Duplicatas.FirstOrDefault().DataEmissao)
+                        @Html.DisplayNameFor(model => model.Duplicatas.List.FirstOrDefault().DataEmissao)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Duplicatas.FirstOrDefault().DataVencimento)
+                        @Html.DisplayNameFor(model => model.Duplicatas.List.FirstOrDefault().DataVencimento)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Duplicatas.FirstOrDefault().Pagamento)
+                        @Html.DisplayNameFor(model => model.Duplicatas.List.FirstOrDefault().Pagamento)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Duplicatas.FirstOrDefault().Fornecedor)
+                        @Html.DisplayNameFor(model => model.Duplicatas.List.FirstOrDefault().Fornecedor)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Duplicatas.FirstOrDefault().Valor)
+                        @Html.DisplayNameFor(model => model.Duplicatas.List.FirstOrDefault().Valor)
                     </th>
                 </tr>
             </thead>
             <tbody class="table-body">
-                @foreach (var item in Model.Duplicatas)
+                @foreach (var item in Model.Duplicatas.List)
                 {
                     <tr>
                         <td class="d-hidden">
@@ -131,6 +131,48 @@
                 }
             </tbody>
         </table>
+
+        <div class="col s12 m12">
+            <ul class="pagination center pt-2">
+                @if (Model.Duplicatas.IsFirstPage)
+                {
+                    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+                }
+                else
+                {
+                    <li>
+                        <a asp-route-pageNumber="@(Model.Duplicatas.PageNumber - 1)" asp-route-pageSize="@Model.Duplicatas.PageSize"><i class="material-icons">chevron_left</i></a>
+                    </li>
+                }
+
+                @for (int i = 1; i <= Model.Duplicatas.TotalPages; i++)
+                {
+                    if (Model.Duplicatas.PageNumber == i)
+                    {
+                        <li class="waves-effect active">
+                            <a asp-route-pageNumber="@i" asp-route-pageSize="@Model.Duplicatas.PageSize">@i</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="waves-effect">
+                            <a asp-route-pageNumber="@i" asp-route-pageSize="@Model.Duplicatas.PageSize">@i</a>
+                        </li>
+                    }
+                }
+
+                @if (Model.Duplicatas.IsLastPage)
+                {
+                    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+                }
+                else
+                {
+                    <li>
+                        <a asp-route-pageNumber="@(Model.Duplicatas.PageNumber + 1)" asp-route-pageSize="@Model.Duplicatas.PageSize"><i class="material-icons">chevron_right</i></a>
+                    </li>
+                }
+            </ul>
+        </div>
     }
     else
     {

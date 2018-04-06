@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using RCM.Domain.Core.Commands;
 using RCM.Domain.Core.MediatorServices;
 using System.Threading.Tasks;
 
@@ -18,7 +19,7 @@ namespace RCM.CrossCutting.MediatorServices
             await _mediator.Publish(command);
         }
 
-        public async Task<string> SendRequest<T>(T request) where T : IRequest<string>
+        public async Task<RequestResponse> SendRequest<T>(T request) where T : IRequest<RequestResponse>
         {
             return await _mediator.Send(request);
         }

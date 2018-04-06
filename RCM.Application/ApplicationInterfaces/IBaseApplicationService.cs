@@ -1,6 +1,8 @@
-﻿using System;
+﻿using RCM.Domain.Core.Commands;
+using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace RCM.Application.ApplicationInterfaces
 {
@@ -12,8 +14,8 @@ namespace RCM.Application.ApplicationInterfaces
         IQueryable<TViewModel> Get(Expression<Func<TModel, bool>> expression);
         TViewModel GetById(Guid id);
 
-        void Add(TViewModel viewModel);
-        void Update(TViewModel viewModel);
-        void Remove(TViewModel viewModel);
+        Task<RequestResponse> Add(TViewModel viewModel);
+        Task<RequestResponse> Update(TViewModel viewModel);
+        Task<RequestResponse> Remove(TViewModel viewModel);
     }
 }

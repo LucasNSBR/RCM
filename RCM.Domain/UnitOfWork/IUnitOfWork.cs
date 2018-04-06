@@ -4,6 +4,6 @@ namespace RCM.Domain.UnitOfWork
 {
     public interface IUnitOfWork
     {
-        CommandResult Commit();
+        CommitResult Commit();
     }
 }

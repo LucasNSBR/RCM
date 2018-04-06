@@ -22,6 +22,7 @@ using RCM.Domain.Commands.FornecedorCommands;
 using RCM.Domain.Commands.NotaFiscalCommands;
 using RCM.Domain.Commands.OrdemServicoCommands;
 using RCM.Domain.Commands.ProdutoCommands;
+using RCM.Domain.Core.Commands;
 using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.DomainNotificationHandlers;
 using RCM.Domain.EventHandlers.ChequeEventHandlers;
@@ -93,38 +94,39 @@ namespace RCM.CrossCutting.IoC
 
         private static void RegisterMediatrCommands(IServiceCollection services)
         {
-            services.AddScoped<INotificationHandler<AddBancoCommand>, BancoCommandHandler>();
-            services.AddScoped<INotificationHandler<UpdateBancoCommand>, BancoCommandHandler>();
-            services.AddScoped<INotificationHandler<RemoveBancoCommand>, BancoCommandHandler>();
+            services.AddScoped<IRequestHandler<AddBancoCommand, RequestResponse>, BancoCommandHandler>();
+            services.AddScoped<IRequestHandler<UpdateBancoCommand, RequestResponse>, BancoCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoveBancoCommand, RequestResponse>, BancoCommandHandler>();
 
-            services.AddScoped<INotificationHandler<AddChequeCommand>, ChequeCommandHandler>();
-            services.AddScoped<INotificationHandler<UpdateChequeCommand>, ChequeCommandHandler>();
-            services.AddScoped<INotificationHandler<RemoveChequeCommand>, ChequeCommandHandler>();
+            services.AddScoped<IRequestHandler<AddChequeCommand, RequestResponse>, ChequeCommandHandler>();
+            services.AddScoped<IRequestHandler<UpdateChequeCommand, RequestResponse>, ChequeCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoveChequeCommand, RequestResponse>, ChequeCommandHandler>();
 
-            services.AddScoped<INotificationHandler<AddClienteCommand>, ClienteCommandHandler>();
-            services.AddScoped<INotificationHandler<UpdateClienteCommand>, ClienteCommandHandler>();
-            services.AddScoped<INotificationHandler<RemoveClienteCommand>, ClienteCommandHandler>();
+            services.AddScoped<IRequestHandler<AddClienteCommand, RequestResponse>, ClienteCommandHandler>();
+            services.AddScoped<IRequestHandler<UpdateClienteCommand, RequestResponse>, ClienteCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoveClienteCommand, RequestResponse>, ClienteCommandHandler>();
 
-            services.AddScoped<INotificationHandler<AddDuplicataCommand>, DuplicataCommandHandler>();
-            services.AddScoped<INotificationHandler<UpdateDuplicataCommand>, DuplicataCommandHandler>();
-            services.AddScoped<INotificationHandler<RemoveDuplicataCommand>, DuplicataCommandHandler>();
-            services.AddScoped<INotificationHandler<PagarDuplicataCommand>, DuplicataCommandHandler>();
-            services.AddScoped<INotificationHandler<EstornarDuplicataCommand>, DuplicataCommandHandler>();
+            services.AddScoped<IRequestHandler<AddDuplicataCommand, RequestResponse>, DuplicataCommandHandler>();
+            services.AddScoped<IRequestHandler<UpdateDuplicataCommand, RequestResponse>, DuplicataCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoveDuplicataCommand, RequestResponse>, DuplicataCommandHandler>();
+            services.AddScoped<IRequestHandler<PagarDuplicataCommand, RequestResponse>, DuplicataCommandHandler>();
+            services.AddScoped<IRequestHandler<EstornarDuplicataCommand, RequestResponse>, DuplicataCommandHandler>();
 
-            services.AddScoped<INotificationHandler<AddFornecedorCommand>, FornecedorCommandHandler>();
-            services.AddScoped<INotificationHandler<UpdateFornecedorCommand>, FornecedorCommandHandler>();
-            services.AddScoped<INotificationHandler<RemoveFornecedorCommand>, FornecedorCommandHandler>();
+            services.AddScoped<IRequestHandler<AddFornecedorCommand, RequestResponse>, FornecedorCommandHandler>();
+            services.AddScoped<IRequestHandler<UpdateFornecedorCommand, RequestResponse>, FornecedorCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoveFornecedorCommand, RequestResponse>, FornecedorCommandHandler>();
 
-            services.AddScoped<INotificationHandler<AddNotaFiscalCommand>, NotaFiscalCommandHandler>();
-            services.AddScoped<INotificationHandler<UpdateNotaFiscalCommand>, NotaFiscalCommandHandler>();
-            services.AddScoped<INotificationHandler<RemoveNotaFiscalCommand>, NotaFiscalCommandHandler>();
+            services.AddScoped<IRequestHandler<AddNotaFiscalCommand, RequestResponse>, NotaFiscalCommandHandler>();
+            services.AddScoped<IRequestHandler<UpdateNotaFiscalCommand, RequestResponse>, NotaFiscalCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoveNotaFiscalCommand, RequestResponse>, NotaFiscalCommandHandler>();
 
-            services.AddScoped<INotificationHandler<AddProdutoCommand>, ProdutoCommandHandler>();
-            services.AddScoped<INotificationHandler<UpdateProdutoCommand>, ProdutoCommandHandler>();
-            services.AddScoped<INotificationHandler<RemoveProdutoCommand>, ProdutoCommandHandler>();
+            services.AddScoped<IRequestHandler<AddProdutoCommand, RequestResponse>, ProdutoCommandHandler>();
+            services.AddScoped<IRequestHandler<UpdateProdutoCommand, RequestResponse>, ProdutoCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoveProdutoCommand, RequestResponse>, ProdutoCommandHandler>();
 
-            services.AddScoped<IRequestHandler<AddOrdemServicoCommand, string>, OrdemServicoCommandHandler>();
-            services.AddScoped<IRequestHandler<UpdateOrdemServicoCommand, string>, OrdemServicoCommandHandler>();
+            services.AddScoped<IRequestHandler<AddOrdemServicoCommand, RequestResponse>, OrdemServicoCommandHandler>();
+            services.AddScoped<IRequestHandler<UpdateOrdemServicoCommand, RequestResponse>, OrdemServicoCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoveOrdemServicoCommand, RequestResponse>, OrdemServicoCommandHandler>();
         }
 
         private static void RegisterMediatrEvents(IServiceCollection services)

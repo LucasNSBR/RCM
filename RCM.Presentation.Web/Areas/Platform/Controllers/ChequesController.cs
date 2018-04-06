@@ -9,6 +9,7 @@ using RCM.Presentation.Web.Controllers;
 using RCM.Presentation.Web.ViewModels;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace RCM.Presentation.Web.Areas.Platform.Controllers
 {
@@ -69,7 +70,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(ChequeViewModel cheque)
+        public async Task<IActionResult> Create(ChequeViewModel cheque)
         {
             if (!ModelState.IsValid)
             {
@@ -77,9 +78,9 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 return View(cheque);
             }
 
-            _chequeApplicationService.Add(cheque);
+            var commandResult = await _chequeApplicationService.Add(cheque);
 
-            if (Success())
+            if (commandResult.Success) 
                 return RedirectToAction(nameof(Index));
 
             cheque = PopulateSelectLists(cheque);
@@ -100,7 +101,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Guid id, ChequeViewModel cheque)
+        public async Task<IActionResult> Edit(Guid id, ChequeViewModel cheque)
         {
             if (!ModelState.IsValid)
             {
@@ -108,9 +109,9 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 return View(cheque);
             }
 
-            _chequeApplicationService.Update(cheque);
+            var commandResult = await _chequeApplicationService.Update(cheque);
 
-            if (Success())
+            if (commandResult.Success)
                 return RedirectToAction(nameof(Index));
 
             cheque = PopulateSelectLists(cheque);
@@ -130,11 +131,11 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(Guid id, ChequeViewModel cheque)
+        public async Task<IActionResult> Delete(Guid id, ChequeViewModel cheque)
         {
-            _chequeApplicationService.Remove(cheque);
+            var commandResult = await _chequeApplicationService.Remove(cheque);
 
-            if (Success())
+            if (commandResult.Success)
                 return RedirectToAction(nameof(Index));
             else
                 return View(cheque);

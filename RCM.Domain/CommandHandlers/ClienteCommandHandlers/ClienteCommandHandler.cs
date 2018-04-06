@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using RCM.Domain.Commands.ClienteCommands;
+using RCM.Domain.Core.Commands;
 using RCM.Domain.Core.MediatorServices;
-using RCM.Domain.DomainNotificationHandlers;
 using RCM.Domain.Events.ClienteEvents;
 using RCM.Domain.Models.ClienteModels;
 using RCM.Domain.Repositories;
@@ -12,19 +12,22 @@ using System.Threading.Tasks;
 namespace RCM.Domain.CommandHandlers.ClienteCommandHandlers
 {
     public class ClienteCommandHandler : CommandHandler<Cliente>,
-                                         INotificationHandler<AddClienteCommand>,
-                                         INotificationHandler<UpdateClienteCommand>,
-                                         INotificationHandler<RemoveClienteCommand>
+                                         IRequestHandler<AddClienteCommand, RequestResponse>,
+                                         IRequestHandler<UpdateClienteCommand, RequestResponse>,
+                                         IRequestHandler<RemoveClienteCommand, RequestResponse>
     {
-        public ClienteCommandHandler(IMediatorHandler mediator, IClienteRepository clienteRepository, IUnitOfWork unitOfWork, IDomainNotificationHandler domainNotificationHandler) : 
-                                                                                                        base(mediator, clienteRepository, unitOfWork, domainNotificationHandler)
+        public ClienteCommandHandler(IMediatorHandler mediator, IClienteRepository clienteRepository, IUnitOfWork unitOfWork) : 
+                                                                                                        base(mediator, clienteRepository, unitOfWork)
         {
         }
 
-        public Task Handle(AddClienteCommand command, CancellationToken cancellationToken)
+        public Task<RequestResponse> Handle(AddClienteCommand command, CancellationToken cancellationToken)
         {
-            if (NotifyCommandErrors(command))
-                return Task.CompletedTask;
+            if (!command.IsValid())
+            {
+                NotifyRequestErrors(command);
+                return Response();
+            }
 
             Cliente cliente = new Cliente(command.Nome, command.Descricao);
             _baseRepository.Add(cliente);
@@ -32,13 +35,16 @@ namespace RCM.Domain.CommandHandlers.ClienteCommandHandlers
             if (Commit())
                 _mediator.Publish(new AddedClienteEvent());
             
-            return Task.CompletedTask;
+            return Response();
         }
 
-        public Task Handle(UpdateClienteCommand command, CancellationToken cancellationToken)
+        public Task<RequestResponse> Handle(UpdateClienteCommand command, CancellationToken cancellationToken)
         {
-            if (NotifyCommandErrors(command))
-                return Task.CompletedTask;
+            if (!command.IsValid())
+            {
+                NotifyRequestErrors(command);
+                return Response();
+            }
 
             Cliente cliente = new Cliente(command.Id, command.Nome, command.Descricao);
             _baseRepository.Update(cliente);
@@ -46,13 +52,16 @@ namespace RCM.Domain.CommandHandlers.ClienteCommandHandlers
             if (Commit())
                 _mediator.Publish(new UpdatedClienteEvent());
 
-            return Task.CompletedTask;
+            return Response();
         }
 
-        public Task Handle(RemoveClienteCommand command, CancellationToken cancellationToken)
+        public Task<RequestResponse> Handle(RemoveClienteCommand command, CancellationToken cancellationToken)
         {
-            if (NotifyCommandErrors(command))
-                return Task.CompletedTask;
+            if (!command.IsValid())
+            {
+                NotifyRequestErrors(command);
+                return Response();
+            }
 
             Cliente cliente = _baseRepository.GetById(command.Id);
             _baseRepository.Remove(cliente);
@@ -60,7 +69,7 @@ namespace RCM.Domain.CommandHandlers.ClienteCommandHandlers
             if (Commit())
                 _mediator.Publish(new RemovedClienteEvent());
 
-            return Task.CompletedTask;
+            return Response();
         }
     }
 }

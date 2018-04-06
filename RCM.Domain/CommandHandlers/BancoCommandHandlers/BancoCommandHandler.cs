@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using RCM.Domain.Commands.BancoCommands;
+using RCM.Domain.Core.Commands;
 using RCM.Domain.Core.MediatorServices;
-using RCM.Domain.DomainNotificationHandlers;
 using RCM.Domain.Events.BancoEvents;
 using RCM.Domain.Models.BancoModels;
 using RCM.Domain.Repositories;
@@ -12,19 +12,22 @@ using System.Threading.Tasks;
 namespace RCM.Domain.CommandHandlers.BancoCommandHandlers
 {
     public class BancoCommandHandler : CommandHandler<Banco>,
-                                       INotificationHandler<AddBancoCommand>,
-                                       INotificationHandler<UpdateBancoCommand>,
-                                       INotificationHandler<RemoveBancoCommand>
+                                       IRequestHandler<AddBancoCommand, RequestResponse>,
+                                       IRequestHandler<UpdateBancoCommand, RequestResponse>,
+                                       IRequestHandler<RemoveBancoCommand, RequestResponse>
     {
-        public BancoCommandHandler(IMediatorHandler mediator, IBancoRepository baseRepository, IUnitOfWork unitOfWork, IDomainNotificationHandler domainNotificationHandler) : 
-                                                                                                base(mediator, baseRepository, unitOfWork, domainNotificationHandler)
+        public BancoCommandHandler(IMediatorHandler mediator, IBancoRepository baseRepository, IUnitOfWork unitOfWork) : 
+                                                                                                base(mediator, baseRepository, unitOfWork)
         {
         }
 
-        public Task Handle(AddBancoCommand command, CancellationToken cancellationToken)
+        public Task<RequestResponse> Handle(AddBancoCommand command, CancellationToken cancellationToken)
         {
-            if (NotifyCommandErrors(command))
-                return Task.CompletedTask;
+            if (!command.IsValid())
+            {
+                NotifyRequestErrors(command);
+                return Response();
+            }
 
             Banco banco = new Banco(command.Nome, command.CodigoCompensacao);
             _baseRepository.Add(banco);
@@ -32,28 +35,33 @@ namespace RCM.Domain.CommandHandlers.BancoCommandHandlers
             if (Commit())
                 _mediator.Publish(new AddedBancoEvent());
 
-            return Task.CompletedTask;
+            return Response();
         }
 
-        public Task Handle(UpdateBancoCommand command, CancellationToken cancellationToken)
+        public Task<RequestResponse> Handle(UpdateBancoCommand command, CancellationToken cancellationToken)
         {
-            if (NotifyCommandErrors(command))
-                return Task.CompletedTask;
+            if (!command.IsValid())
+            {
+                NotifyRequestErrors(command);
+                return Response();
+            }
 
             Banco banco = new Banco(command.Id, command.Nome, command.CodigoCompensacao);
-
             _baseRepository.Update(banco);
 
             if (Commit())
                 _mediator.Publish(new UpdatedBancoEvent());
 
-            return Task.CompletedTask;
+            return Response();
         }
 
-        public Task Handle(RemoveBancoCommand command, CancellationToken cancellationToken)
+        public Task<RequestResponse> Handle(RemoveBancoCommand command, CancellationToken cancellationToken)
         {
-            if (NotifyCommandErrors(command))
-                return Task.CompletedTask;
+            if (!command.IsValid())
+            {
+                NotifyRequestErrors(command);
+                return Response();
+            }
 
             Banco banco = _baseRepository.GetById(command.Id);
             _baseRepository.Remove(banco);
@@ -61,7 +69,7 @@ namespace RCM.Domain.CommandHandlers.BancoCommandHandlers
             if (Commit())
                 _mediator.Publish(new RemovedBancoEvent());
 
-            return Task.CompletedTask;
+            return Response();
         }
     }
 }

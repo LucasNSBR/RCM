@@ -6,6 +6,7 @@ using RCM.Domain.Core.Extensions;
 using RCM.Domain.DomainNotificationHandlers;
 using RCM.Domain.Models.DuplicataModels;
 using RCM.Presentation.Web.Controllers;
+using RCM.Presentation.Web.Extensions;
 using RCM.Presentation.Web.ViewModels;
 using System;
 using System.Linq;
@@ -27,7 +28,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             _fornecedorApplicationService = fornecedorApplicationService;
         }
 
-        public IActionResult Index(bool? apenasNaoPagas, bool? apenasVencidas, decimal? minValor, decimal? maxValor, Guid? fornecedorId, string numeroDocumento = null, string dataEmissao = null, string dataVencimento = null)
+        public IActionResult Index(bool? apenasNaoPagas, bool? apenasVencidas, decimal? minValor, decimal? maxValor, Guid? fornecedorId, string numeroDocumento = null, string dataEmissao = null, string dataVencimento = null, int pageNumber = 1, int pageSize = 25)
         {
             var pagaSpecification = new DuplicataNaoPagaSpecification(apenasNaoPagas);
             var vencidaSpecification = new DuplicataVencidaSpecification(apenasVencidas);
@@ -44,7 +45,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 .And(dataSpecification)
                 .ToExpression());
 
-            var viewModel = new DuplicataIndexViewModel { Duplicatas = list, Fornecedores = _fornecedorApplicationService.Get() };
+            var viewModel = new DuplicataIndexViewModel { Duplicatas = list.ToPagedList(pageNumber, pageSize), Fornecedores = _fornecedorApplicationService.Get() };
             return View(viewModel);
         }
         

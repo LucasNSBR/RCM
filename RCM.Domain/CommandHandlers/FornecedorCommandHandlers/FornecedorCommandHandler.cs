@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using RCM.Domain.Commands.FornecedorCommands;
+using RCM.Domain.Core.Commands;
 using RCM.Domain.Core.MediatorServices;
-using RCM.Domain.DomainNotificationHandlers;
 using RCM.Domain.Events.FornecedorEvents;
 using RCM.Domain.Models.FornecedorModels;
 using RCM.Domain.Repositories;
@@ -12,19 +12,22 @@ using System.Threading.Tasks;
 namespace RCM.Domain.CommandHandlers.FornecedorCommandHandlers
 {
     public class FornecedorCommandHandler : CommandHandler<Fornecedor>,
-                                            INotificationHandler<AddFornecedorCommand>,
-                                            INotificationHandler<UpdateFornecedorCommand>,
-                                            INotificationHandler<RemoveFornecedorCommand>
+                                            IRequestHandler<AddFornecedorCommand, RequestResponse>,
+                                            IRequestHandler<UpdateFornecedorCommand, RequestResponse>,
+                                            IRequestHandler<RemoveFornecedorCommand, RequestResponse>
     {
-        public FornecedorCommandHandler(IMediatorHandler mediator, IFornecedorRepository fornecedorRepository, IUnitOfWork unitOfWork, IDomainNotificationHandler domainNotificationHandler) :
-                                                                                                                base(mediator, fornecedorRepository, unitOfWork, domainNotificationHandler)
+        public FornecedorCommandHandler(IMediatorHandler mediator, IFornecedorRepository fornecedorRepository, IUnitOfWork unitOfWork) :
+                                                                                                                base(mediator, fornecedorRepository, unitOfWork)
         {
         }
 
-        public Task Handle(AddFornecedorCommand command, CancellationToken cancellationToken)
+        public Task<RequestResponse> Handle(AddFornecedorCommand command, CancellationToken cancellationToken)
         {
-            if (NotifyCommandErrors(command))
-                return Task.CompletedTask;
+            if (!command.IsValid())
+            {
+                NotifyRequestErrors(command);
+                return Response();
+            }
 
             Fornecedor fornecedor = new Fornecedor(command.Nome, command.Observacao);
             _baseRepository.Add(fornecedor);
@@ -32,13 +35,16 @@ namespace RCM.Domain.CommandHandlers.FornecedorCommandHandlers
             if (Commit())
                 _mediator.Publish(new AddedFornecedorEvent());
 
-            return Task.CompletedTask;
+            return Response();
         }
 
-        public Task Handle(UpdateFornecedorCommand command, CancellationToken cancellationToken)
+        public Task<RequestResponse> Handle(UpdateFornecedorCommand command, CancellationToken cancellationToken)
         {
-            if (NotifyCommandErrors(command))
-                return Task.CompletedTask;
+            if (!command.IsValid())
+            {
+                NotifyRequestErrors(command);
+                return Response();
+            }
 
             Fornecedor fornecedor = new Fornecedor(command.Id, command.Nome, command.Observacao);
             _baseRepository.Update(fornecedor);
@@ -46,13 +52,16 @@ namespace RCM.Domain.CommandHandlers.FornecedorCommandHandlers
             if (Commit())
                 _mediator.Publish(new UpdatedFornecedorEvent());
 
-            return Task.CompletedTask;
+            return Response();
         }
 
-        public Task Handle(RemoveFornecedorCommand command, CancellationToken cancellationToken)
+        public Task<RequestResponse> Handle(RemoveFornecedorCommand command, CancellationToken cancellationToken)
         {
-            if (NotifyCommandErrors(command))
-                return Task.CompletedTask;
+            if (!command.IsValid())
+            {
+                NotifyRequestErrors(command);
+                return Response();
+            }
 
             Fornecedor fornecedor = _baseRepository.GetById(command.Id);
             _baseRepository.Remove(fornecedor);
@@ -60,7 +69,7 @@ namespace RCM.Domain.CommandHandlers.FornecedorCommandHandlers
             if (Commit())
                 _mediator.Publish(new RemovedFornecedorEvent());
 
-            return Task.CompletedTask;
+            return Response();
         }
     }
 }

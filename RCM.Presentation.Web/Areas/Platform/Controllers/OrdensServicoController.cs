@@ -33,10 +33,6 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             var ordemServico = new OrdemServicoViewModel
             {
                 ClienteId = id,
-                Produtos = new List<ProdutoViewModel>()
-                {
-                    prod
-                }
             };
 
             _ordemServicoApplicationService.Add(ordemServico);

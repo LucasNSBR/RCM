@@ -2,9 +2,11 @@
 using RCM.Application.ApplicationInterfaces;
 using RCM.Application.ViewModels;
 using RCM.Domain.Commands.DuplicataCommands;
+using RCM.Domain.Core.Commands;
 using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.Models.DuplicataModels;
 using RCM.Domain.Repositories;
+using System.Threading.Tasks;
 
 namespace RCM.Application.ApplicationServices
 {
@@ -14,29 +16,29 @@ namespace RCM.Application.ApplicationServices
         {
         }
 
-        public override void Add(DuplicataViewModel viewModel)
+        public override Task<RequestResponse> Add(DuplicataViewModel viewModel)
         {
-            _mediator.SendCommand(new AddDuplicataCommand(viewModel.NumeroDocumento, viewModel.Observacao, viewModel.DataEmissao, viewModel.DataVencimento, viewModel.Valor, viewModel.FornecedorId, viewModel.NotaFiscalId));
+            return _mediator.SendRequest(new AddDuplicataCommand(viewModel.NumeroDocumento, viewModel.Observacao, viewModel.DataEmissao, viewModel.DataVencimento, viewModel.Valor, viewModel.FornecedorId, viewModel.NotaFiscalId));
         }
 
-        public override void Update(DuplicataViewModel viewModel)
+        public override Task<RequestResponse> Update(DuplicataViewModel viewModel)
         {
-            _mediator.SendCommand(new UpdateDuplicataCommand(viewModel.Id, viewModel.NumeroDocumento, viewModel.Observacao, viewModel.DataEmissao, viewModel.DataVencimento, viewModel.Valor, viewModel.FornecedorId, viewModel.NotaFiscalId));
+            return _mediator.SendRequest(new UpdateDuplicataCommand(viewModel.Id, viewModel.NumeroDocumento, viewModel.Observacao, viewModel.DataEmissao, viewModel.DataVencimento, viewModel.Valor, viewModel.FornecedorId, viewModel.NotaFiscalId));
         }
 
-        public override void Remove(DuplicataViewModel viewModel)
+        public override Task<RequestResponse> Remove(DuplicataViewModel viewModel)
         {
-            _mediator.SendCommand(new RemoveDuplicataCommand(viewModel.Id));
+            return _mediator.SendRequest(new RemoveDuplicataCommand(viewModel.Id));
         }
 
-        public void Pagar(DuplicataViewModel viewModel, PagamentoViewModel pagamentoViewModel)
+        public Task<RequestResponse> Pagar(DuplicataViewModel viewModel, PagamentoViewModel pagamentoViewModel)
         {
-            _mediator.SendCommand(new PagarDuplicataCommand(viewModel.Id, pagamentoViewModel.DataPagamento, pagamentoViewModel.ValorPago));
+            return _mediator.SendRequest(new PagarDuplicataCommand(viewModel.Id, pagamentoViewModel.DataPagamento, pagamentoViewModel.ValorPago));
         }
 
-        public void Estornar(DuplicataViewModel viewModel)
+        public Task<RequestResponse> Estornar(DuplicataViewModel viewModel)
         {
-            _mediator.SendCommand(new EstornarDuplicataCommand(viewModel.Id));
+            return _mediator.SendRequest(new EstornarDuplicataCommand(viewModel.Id));
         }
     }
 }

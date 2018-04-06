@@ -3,7 +3,7 @@ using System;
 
 namespace RCM.Domain.Commands.FornecedorCommands
 {
-    public abstract class FornecedorCommand : Command
+    public abstract class FornecedorCommand : Request
     {
         public Guid Id { get; set; }
         public string Nome { get; set; }

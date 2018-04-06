@@ -1,4 +1,5 @@
-﻿using RCM.Domain.Core.Commands;
+﻿using Microsoft.EntityFrameworkCore;
+using RCM.Domain.Core.Commands;
 using RCM.Domain.Exceptions;
 using RCM.Domain.UnitOfWork;
 using RCM.Infra.Data.Context;
@@ -15,20 +16,24 @@ namespace RCM.Infra.Data.UnitOfWork
             _RCMDbContext = dbContext;
         }
 
-        public CommandResult Commit()
+        public CommitResult Commit()
         {
-            CommandResult result = new CommandResult();
+            CommitResult result = new CommitResult();
 
             try
             {
                 if (_RCMDbContext.SaveChanges() > 0)
-                    return new CommandResult(success: true);
+                    return new CommitResult(success: true);
                 else
-                    result.Errors.Add(new DataNotModifiedException());
+                    result.AddError(new DataNotModifiedException());
+            }
+            catch(DbUpdateException ex)
+            {
+                result.AddError(ex);
             }
             catch (Exception ex)
             {
-                result.Errors.Add(ex);
+                result.AddError(ex);
             }
 
             return result;

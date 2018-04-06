@@ -1,60 +1,57 @@
 ﻿using RCM.Domain.Core.Commands;
+using RCM.Domain.Core.Errors;
 using RCM.Domain.Core.MediatorServices;
-using RCM.Domain.DomainNotificationHandlers;
-using RCM.Domain.DomainNotifications;
+using RCM.Domain.Core.Models;
 using RCM.Domain.Repositories;
 using RCM.Domain.UnitOfWork;
+using System.Threading.Tasks;
 
 namespace RCM.Domain.CommandHandlers
 {
-    public abstract class CommandHandler<TModel> where TModel : class
+    public abstract class CommandHandler<TModel> where TModel : Entity<TModel>
     {
         protected readonly IMediatorHandler _mediator;
         protected readonly IBaseRepository<TModel> _baseRepository;
         protected readonly IUnitOfWork _unitOfWork;
-        protected readonly IDomainNotificationHandler _domainNotificationHandler;
+        protected RequestResponse _commandResponse;
 
-        public CommandHandler(IMediatorHandler mediator, IBaseRepository<TModel> baseRepository, IUnitOfWork unitOfWork, IDomainNotificationHandler domainNotificationHandler)
+        public CommandHandler(IMediatorHandler mediator, IBaseRepository<TModel> baseRepository, IUnitOfWork unitOfWork)
         {
             _mediator = mediator;
             _baseRepository = baseRepository;
             _unitOfWork = unitOfWork;
-            _domainNotificationHandler = domainNotificationHandler;
+
+            _commandResponse = new RequestResponse();
         }
 
         protected bool Commit()
         {
-            var commandResult = _unitOfWork.Commit();
+            var commitResult = _unitOfWork.Commit();
             
-            if (commandResult.Success)
+            if (commitResult.Success)
                 return true;
             else
             {
-                foreach (var error in commandResult.Errors)
+                foreach (var error in commitResult.Errors)
                 {
-                    _domainNotificationHandler.AddNotification(new CommitErrorNotification(error.InnerException.Message));
+                    _commandResponse.AddError(new RequestError("Commit Error", error.Message ?? error.InnerException.Message));
                 }
             }
 
             return false;
         }
-
-        protected bool NotifyCommandErrors(Command command)
+        
+        protected void NotifyRequestErrors(Request request)
         {
-            if (!_domainNotificationHandler.IsEmpty())
-                return true;
-            
-            if (!command.IsValid())
+            foreach (var error in request.ValidationResult.Errors)
             {
-                foreach (var error in command.ValidationResult.Errors)
-                {
-                    _domainNotificationHandler.AddNotification(new CommandValidationErrorNotification(error.ErrorMessage));
-                }
-
-                return true;
+                _commandResponse.AddError(new RequestError(error.ErrorCode, error.ErrorMessage));
             }
+        }
 
-            return false;
+        protected Task<RequestResponse> Response()
+        {
+            return Task.FromResult(_commandResponse);
         }
     }
 }

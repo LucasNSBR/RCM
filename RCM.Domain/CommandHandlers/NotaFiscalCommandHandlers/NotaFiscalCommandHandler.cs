@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using RCM.Domain.Commands.NotaFiscalCommands;
+using RCM.Domain.Core.Commands;
 using RCM.Domain.Core.MediatorServices;
-using RCM.Domain.DomainNotificationHandlers;
 using RCM.Domain.Events.NotaFiscalEvents;
 using RCM.Domain.Models.NotaFiscalModels;
 using RCM.Domain.Repositories;
@@ -12,19 +12,22 @@ using System.Threading.Tasks;
 namespace RCM.Domain.CommandHandlers.NotaFiscalCommandHandlers
 {
     public class NotaFiscalCommandHandler : CommandHandler<NotaFiscal>,
-                                            INotificationHandler<AddNotaFiscalCommand>,
-                                            INotificationHandler<UpdateNotaFiscalCommand>,
-                                            INotificationHandler<RemoveNotaFiscalCommand>
+                                            IRequestHandler<AddNotaFiscalCommand, RequestResponse>,
+                                            IRequestHandler<UpdateNotaFiscalCommand, RequestResponse>,
+                                            IRequestHandler<RemoveNotaFiscalCommand, RequestResponse>
     {
-        public NotaFiscalCommandHandler(IMediatorHandler mediator, INotaFiscalRepository notaFiscalRepository, IUnitOfWork unitOfWork, IDomainNotificationHandler domainNotificationHandler) : 
-                                                                                                                base(mediator, notaFiscalRepository, unitOfWork, domainNotificationHandler)
+        public NotaFiscalCommandHandler(IMediatorHandler mediator, INotaFiscalRepository notaFiscalRepository, IUnitOfWork unitOfWork) : 
+                                                                                                                base(mediator, notaFiscalRepository, unitOfWork)
         {
         }
 
-        public Task Handle(AddNotaFiscalCommand command, CancellationToken cancellationToken)
+        public Task<RequestResponse> Handle(AddNotaFiscalCommand command, CancellationToken cancellationToken)
         {
-            if (NotifyCommandErrors(command))
-                return Task.CompletedTask;
+            if (!command.IsValid())
+            {
+                NotifyRequestErrors(command);
+                return Response();
+            }
 
             NotaFiscal notaFiscal = new NotaFiscal(command.NumeroDocumento, command.DataEmissao, command.Valor);
             _baseRepository.Add(notaFiscal);
@@ -32,13 +35,16 @@ namespace RCM.Domain.CommandHandlers.NotaFiscalCommandHandlers
             if (Commit())
                 _mediator.Publish(new AddedNotaFiscalEvent());
 
-            return Task.CompletedTask;
+            return Response();
         }
 
-        public Task Handle(UpdateNotaFiscalCommand command, CancellationToken cancellationToken)
+        public Task<RequestResponse> Handle(UpdateNotaFiscalCommand command, CancellationToken cancellationToken)
         {
-            if (NotifyCommandErrors(command))
-                return Task.CompletedTask;
+            if (!command.IsValid())
+            {
+                NotifyRequestErrors(command);
+                return Response();
+            }
 
             NotaFiscal notaFiscal = new NotaFiscal(command.Id, command.NumeroDocumento, command.DataEmissao, command.Valor);
             _baseRepository.Update(notaFiscal);
@@ -46,13 +52,16 @@ namespace RCM.Domain.CommandHandlers.NotaFiscalCommandHandlers
             if (Commit())
                 _mediator.Publish(new UpdatedNotaFiscalEvent());
 
-            return Task.CompletedTask;
+            return Response();
         }
 
-        public Task Handle(RemoveNotaFiscalCommand command, CancellationToken cancellationToken)
+        public Task<RequestResponse> Handle(RemoveNotaFiscalCommand command, CancellationToken cancellationToken)
         {
-            if (NotifyCommandErrors(command))
-                return Task.CompletedTask;
+            if (!command.IsValid())
+            {
+                NotifyRequestErrors(command);
+                return Response();
+            }
 
             NotaFiscal notaFiscal = _baseRepository.GetById(command.Id);
             _baseRepository.Remove(notaFiscal);
@@ -60,7 +69,7 @@ namespace RCM.Domain.CommandHandlers.NotaFiscalCommandHandlers
             if (Commit())
                 _mediator.Publish(new RemovedNotaFiscalEvent());
 
-            return Task.CompletedTask;
+            return Response();
         }
     }
 }

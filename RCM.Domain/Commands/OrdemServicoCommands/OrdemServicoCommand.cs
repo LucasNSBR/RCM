@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using RCM.Domain.Core.Commands;
 using RCM.Domain.Models.ClienteModels;
 using RCM.Domain.Models.OrdemServicoModels;
 using RCM.Domain.Models.ProdutoModels;
@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace RCM.Domain.Commands.OrdemServicoCommands
 {
-    public class OrdemServicoCommand : IRequest<string>
+    public abstract class OrdemServicoCommand : Request
     {
         public Guid Id { get; set; }
         public OrdemServicoStatus Status { get; set; }
