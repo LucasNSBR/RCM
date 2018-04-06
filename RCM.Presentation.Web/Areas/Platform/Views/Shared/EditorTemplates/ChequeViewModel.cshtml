@@ -90,6 +90,7 @@
                 <select asp-for="ClienteId" asp-items="@(new SelectList(Model.Clientes, "Id", "Nome"))" id="clienteId"></select>
                 <label asp-for="ClienteId"></label>
                 <span asp-validation-for="ClienteId" class="text-danger"></span>
+                <a asp-action="Create" asp-controller="Fornecedores" target="_blank">Adicionar novo Fornecedor</a>
             </div>
         </div>
     </div>

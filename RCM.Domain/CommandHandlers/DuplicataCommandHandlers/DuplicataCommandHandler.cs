@@ -1,6 +1,8 @@
 ﻿using MediatR;
 using RCM.Domain.Commands.DuplicataCommands;
+using RCM.Domain.Constants;
 using RCM.Domain.Core.Commands;
+using RCM.Domain.Core.Errors;
 using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.Events.DuplicataEvents;
 using RCM.Domain.Models;
@@ -8,6 +10,8 @@ using RCM.Domain.Models.DuplicataModels;
 using RCM.Domain.Models.FornecedorModels;
 using RCM.Domain.Repositories;
 using RCM.Domain.UnitOfWork;
+using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -36,6 +40,12 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
                 return Response();
             }
 
+            if(CheckExists(command.NumeroDocumento, command.FornecedorId))
+            {
+                _commandResponse.AddError(new RequestError(RequestErrorsMessageConstants.DuplicataAlreadyExists));
+                return Response();
+            }
+
             Fornecedor fornecedor = _fornecedorRepository.GetById(command.FornecedorId);
             Duplicata duplicata = new Duplicata(command.NumeroDocumento, command.DataEmissao, command.DataVencimento, fornecedor, command.Valor, command.Observacao);
             _baseRepository.Add(duplicata);
@@ -51,6 +61,12 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
             if (!command.IsValid())
             {
                 NotifyRequestErrors(command);
+                return Response();
+            }
+
+            if (CheckExists(command.NumeroDocumento, command.FornecedorId))
+            {
+                _commandResponse.AddError(new RequestError(RequestErrorsMessageConstants.DuplicataAlreadyExists));
                 return Response();
             }
 
@@ -116,6 +132,19 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
                 _mediator.Publish(new UpdatedDuplicataEvent());
 
             return Response();
+        }
+
+        private bool CheckExists(string numeroDocumento, Guid fornecedorId)
+        {
+            var numeroDocumentoSpecification = new DuplicataNumeroDocumentoSpecification(numeroDocumento);
+            var fornecedorSpecification = new DuplicataFornecedorIdSpecification(fornecedorId);
+
+            bool exists = _baseRepository.Get(numeroDocumentoSpecification
+                .And(fornecedorSpecification)
+                .ToExpression())
+                .Any();
+
+            return exists;
         }
     }
 }

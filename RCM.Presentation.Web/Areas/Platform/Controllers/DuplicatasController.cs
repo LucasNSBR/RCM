@@ -28,7 +28,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             _fornecedorApplicationService = fornecedorApplicationService;
         }
 
-        public IActionResult Index(bool? apenasNaoPagas, bool? apenasVencidas, decimal? minValor, decimal? maxValor, Guid? fornecedorId, string numeroDocumento = null, string dataEmissao = null, string dataVencimento = null, int pageNumber = 1, int pageSize = 25)
+        public IActionResult Index(bool? apenasNaoPagas, bool? apenasVencidas, decimal? minValor, decimal? maxValor, Guid? fornecedorId, string numeroDocumento = null, string dataEmissao = null, string dataVencimento = null, int pageNumber = 1, int pageSize = 10)
         {
             var pagaSpecification = new DuplicataNaoPagaSpecification(apenasNaoPagas);
             var vencidaSpecification = new DuplicataVencidaSpecification(apenasVencidas);
@@ -36,14 +36,17 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             var fornecedorIdSpecification = new DuplicataFornecedorIdSpecification(fornecedorId);
             var numeroDocumentoSpecification = new DuplicataNumeroDocumentoSpecification(numeroDocumento);
             var dataSpecification = new DuplicataDataSpecification(dataEmissao.ToDateTime(), dataVencimento.ToDateTime());
-            
+
             var list = _duplicataApplicationService.Get(pagaSpecification
                 .And(vencidaSpecification)
                 .And(valorSpecification)
                 .And(fornecedorIdSpecification)
                 .And(numeroDocumentoSpecification)
                 .And(dataSpecification)
-                .ToExpression());
+                .ToExpression())
+                .OrderBy(d => d.DataVencimento)
+                .ThenBy(d => d.FornecedorId)
+                .ThenBy(d => d.NumeroDocumento);
 
             var viewModel = new DuplicataIndexViewModel { Duplicatas = list.ToPagedList(pageNumber, pageSize), Fornecedores = _fornecedorApplicationService.Get() };
             return View(viewModel);

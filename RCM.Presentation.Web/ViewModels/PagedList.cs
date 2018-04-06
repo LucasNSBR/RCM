@@ -44,12 +44,14 @@ namespace RCM.Presentation.Web.ViewModels
 
         public PagedList(IEnumerable<T> list, int pageNumber, int pageSize)
         {
-            _list = list;
+            _list = list ?? new List<T>();
             PageNumber = pageNumber;
             PageSize = pageSize;
 
             if (PageNumber > TotalPages)
                 PageNumber = TotalPages;
+            if (PageNumber < 1)
+                PageNumber = 1;
         }
     }
 }
