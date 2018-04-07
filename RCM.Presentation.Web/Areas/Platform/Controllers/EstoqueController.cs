@@ -6,6 +6,7 @@ using RCM.Domain.DomainNotificationHandlers;
 using RCM.Domain.Models.ProdutoModels;
 using RCM.Presentation.Web.Controllers;
 using System;
+using System.Threading.Tasks;
 
 namespace RCM.Presentation.Web.Areas.Platform.Controllers
 {
@@ -55,7 +56,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(ProdutoViewModel produto)
+        public async Task<IActionResult> Create(ProdutoViewModel produto)
         {
             if (!ModelState.IsValid)
             {
@@ -63,9 +64,9 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 return View(produto);
             }
 
-            _produtoApplicationService.Add(produto);
+            var commandResult = await _produtoApplicationService.Add(produto);
 
-            if (Success())
+            if (commandResult.Success)
                 return RedirectToAction(nameof(Index));
 
             return View(produto);
@@ -85,7 +86,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Guid id, ProdutoViewModel produto)
+        public async Task<IActionResult> Edit(Guid id, ProdutoViewModel produto)
         {
             if (!ModelState.IsValid)
             {
@@ -93,9 +94,9 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 return View(produto);
             }
 
-            _produtoApplicationService.Update(produto);
+            var commandResult = await _produtoApplicationService.Update(produto);
 
-            if (Success())
+            if (commandResult.Success)
                 return RedirectToAction(nameof(Index));
 
             return View(produto);
@@ -114,11 +115,11 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(Guid id, ProdutoViewModel produto)
+        public async Task<IActionResult> Delete(Guid id, ProdutoViewModel produto)
         {
-            _produtoApplicationService.Remove(produto);
+            var commandResult = await _produtoApplicationService.Remove(produto);
 
-            if (Success())
+            if (commandResult.Success)
                 return RedirectToAction(nameof(Index));
 
             return View(produto);

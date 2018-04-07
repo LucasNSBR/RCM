@@ -6,6 +6,7 @@ using RCM.Domain.DomainNotificationHandlers;
 using RCM.Domain.Models.ClienteModels;
 using RCM.Presentation.Web.Controllers;
 using System;
+using System.Threading.Tasks;
 
 namespace RCM.Presentation.Web.Areas.Platform.Controllers
 {
@@ -49,7 +50,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(ClienteViewModel cliente)
+        public async Task<IActionResult> Create(ClienteViewModel cliente)
         {
             if (!ModelState.IsValid)
             {
@@ -57,9 +58,9 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 return View(cliente);
             }
 
-            _clienteApplicationService.Add(cliente);
+            var commandResult = await _clienteApplicationService.Add(cliente);
 
-            if (Success())
+            if (commandResult.Success)
                 return RedirectToAction(nameof(Index));
             else
                 return View(cliente);
@@ -78,7 +79,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Guid id, ClienteViewModel cliente)
+        public async Task<IActionResult> Edit(Guid id, ClienteViewModel cliente)
         {
             if (!ModelState.IsValid)
             {
@@ -86,9 +87,9 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 return View(cliente);
             }
 
-            _clienteApplicationService.Update(cliente);
+            var commandResult = await _clienteApplicationService.Update(cliente);
 
-            if (Success())
+            if (commandResult.Success)
                 return RedirectToAction(nameof(Index));
             else
                 return View(cliente);
@@ -107,11 +108,11 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(Guid id, ClienteViewModel cliente)
+        public async Task<IActionResult> Delete(Guid id, ClienteViewModel cliente)
         {
-            _clienteApplicationService.Remove(cliente);
+            var commandResult = await _clienteApplicationService.Remove(cliente);
 
-            if (Success())
+            if (commandResult.Success)
                 return RedirectToAction(nameof(Index));
             else
                 return View(cliente);

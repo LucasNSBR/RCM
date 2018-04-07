@@ -6,6 +6,7 @@ using RCM.Domain.DomainNotificationHandlers;
 using RCM.Domain.Models.FornecedorModels;
 using RCM.Presentation.Web.Controllers;
 using System;
+using System.Threading.Tasks;
 
 namespace RCM.Presentation.Web.Areas.Platform.Controllers
 {
@@ -49,7 +50,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(FornecedorViewModel fornecedor)
+        public async Task<IActionResult> Create(FornecedorViewModel fornecedor)
         {
             if (!ModelState.IsValid)
             {
@@ -57,9 +58,9 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 return View(fornecedor);
             }
 
-            _fornecedorApplicationService.Add(fornecedor);
+            var commandResult = await _fornecedorApplicationService.Add(fornecedor);
 
-            if (Success())
+            if (commandResult.Success)
                 return RedirectToAction(nameof(Index));
             else
                 return View(fornecedor);
@@ -78,7 +79,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Guid id, FornecedorViewModel fornecedor)
+        public async Task<IActionResult> Edit(Guid id, FornecedorViewModel fornecedor)
         {
             if (!ModelState.IsValid)
             {
@@ -86,9 +87,9 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 return View(fornecedor);
             }
 
-            _fornecedorApplicationService.Update(fornecedor);
+            var commandResult = await _fornecedorApplicationService.Update(fornecedor);
 
-            if (Success())
+            if (commandResult.Success)
                 return RedirectToAction(nameof(Index));
             else
                 return View(fornecedor);
@@ -107,11 +108,11 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(Guid id, FornecedorViewModel fornecedor)
+        public async Task<IActionResult> Delete(Guid id, FornecedorViewModel fornecedor)
         {
-            _fornecedorApplicationService.Remove(fornecedor);
+            var commandResult = await _fornecedorApplicationService.Remove(fornecedor);
 
-            if (Success())
+            if (commandResult.Success)
                 return RedirectToAction(nameof(Index));
 
             return View(fornecedor);

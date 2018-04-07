@@ -6,6 +6,7 @@ using RCM.Domain.DomainNotificationHandlers;
 using RCM.Domain.Models.NotaFiscalModels;
 using RCM.Presentation.Web.Controllers;
 using System;
+using System.Threading.Tasks;
 
 namespace RCM.Presentation.Web.Areas.Platform.Controllers
 {
@@ -51,7 +52,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(NotaFiscalViewModel notaFiscal)
+        public async Task<IActionResult> Create(NotaFiscalViewModel notaFiscal)
         {
             if (!ModelState.IsValid)
             {
@@ -59,9 +60,9 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 return View(notaFiscal);
             }
 
-            _notaFiscalApplicationService.Add(notaFiscal);
+            var commandResult = await _notaFiscalApplicationService.Add(notaFiscal);
 
-            if (Success())
+            if (commandResult.Success)
                 return RedirectToAction(nameof(Index));
             else
                 return View(notaFiscal);
@@ -80,7 +81,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Guid id, NotaFiscalViewModel notaFiscal)
+        public async Task<IActionResult> Edit(Guid id, NotaFiscalViewModel notaFiscal)
         {
             if (!ModelState.IsValid)
             {
@@ -88,9 +89,9 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 return View(notaFiscal);
             }
 
-            _notaFiscalApplicationService.Update(notaFiscal);
+            var commandResult = await _notaFiscalApplicationService.Update(notaFiscal);
 
-            if (Success())
+            if (commandResult.Success)
                 return RedirectToAction(nameof(notaFiscal));
             else
                 return View(notaFiscal);
@@ -109,11 +110,11 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(Guid id, NotaFiscalViewModel notaFiscal)
+        public async Task<IActionResult> Delete(Guid id, NotaFiscalViewModel notaFiscal)
         {
-            _notaFiscalApplicationService.Remove(notaFiscal);
+            var commandResult = await _notaFiscalApplicationService.Remove(notaFiscal);
 
-            if (Success())
+            if (commandResult.Success)
                 return RedirectToAction(nameof(Index));
             else
                 return View(notaFiscal);

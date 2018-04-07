@@ -10,6 +10,7 @@ using RCM.Presentation.Web.Extensions;
 using RCM.Presentation.Web.ViewModels;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace RCM.Presentation.Web.Areas.Platform.Controllers
 {
@@ -71,7 +72,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(DuplicataViewModel duplicata)
+        public async Task<IActionResult> Create(DuplicataViewModel duplicata)
         {
             if (!ModelState.IsValid)
             {
@@ -79,9 +80,9 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 return View(duplicata);
             }
             
-            _duplicataApplicationService.Add(duplicata);
+            var commandResult = await _duplicataApplicationService.Add(duplicata);
 
-            if (Success())
+            if (commandResult.Success)
                 return RedirectToAction(nameof(Index));
 
             duplicata = PopulateSelectLists(duplicata);
@@ -102,7 +103,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Guid id, DuplicataViewModel duplicata)
+        public async Task<IActionResult> Edit(Guid id, DuplicataViewModel duplicata)
         {
             if (!ModelState.IsValid)
             {
@@ -110,9 +111,9 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 return View(duplicata);
             }
 
-            _duplicataApplicationService.Update(duplicata);
+            var commandResult = await _duplicataApplicationService.Update(duplicata);
 
-            if (Success())
+            if(commandResult.Success)
                 return RedirectToAction(nameof(Index));
 
             duplicata = PopulateSelectLists(duplicata);
@@ -132,11 +133,11 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(Guid id, DuplicataViewModel duplicata)
+        public async Task<IActionResult> Delete(Guid id, DuplicataViewModel duplicata)
         {
-            _duplicataApplicationService.Remove(duplicata);
+            var commandResult = await _duplicataApplicationService.Remove(duplicata);
 
-            if (Success())
+            if (commandResult.Success)
                 return RedirectToAction(nameof(Index));
 
             return View(duplicata);
@@ -151,7 +152,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Payment(Guid id, PagamentoViewModel pagamento)
+        public async Task<IActionResult> Payment(Guid id, PagamentoViewModel pagamento)
         {
             var duplicata = _duplicataApplicationService.GetById(id);
             if (duplicata == null || !duplicata.Pagamento.IsEmpty)
@@ -163,24 +164,24 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 return View(pagamento);
             }
             
-            _duplicataApplicationService.Pagar(duplicata, pagamento);
+            var commandResult = await _duplicataApplicationService.Pagar(duplicata, pagamento);
 
-            if (Success())
+            if (commandResult.Success)
                 return RedirectToAction(nameof(Details), new { id });
 
             return View(pagamento);
         }
 
         [Authorize(Policy = "ActiveUser")]
-        public IActionResult CancelPayment(Guid id)
+        public async Task<IActionResult> CancelPayment(Guid id)
         {
             var duplicata = _duplicataApplicationService.GetById(id);
             if (duplicata == null || duplicata.Pagamento.IsEmpty)
                 return NotFound();
 
-            _duplicataApplicationService.Estornar(duplicata);
+            var commandResult = await _duplicataApplicationService.Estornar(duplicata);
 
-            if (Success())
+            if (commandResult.Success)
                 return RedirectToAction(nameof(Details), new { duplicata.Id });
 
             return View();
