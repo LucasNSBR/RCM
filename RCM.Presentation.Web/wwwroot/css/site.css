@@ -80,6 +80,7 @@ tbody tr {
     cursor: pointer;
 }
 
+
 /* QR code generator */
 #qrCode {
     margin: 15px;
@@ -317,6 +318,19 @@ tbody tr {
 .text-info {
     color: #3cb05e;
 }
+
+.bg-success {
+    background-color: #b8fac9;
+}
+
+.bg-warning {
+    background-color: #cb9535;
+}
+
+.bg-danger {
+    background-color: #faa9a9;
+}
+
 
 /* Remove the input number spinner */
 input[type='number'] {

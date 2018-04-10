@@ -8,7 +8,27 @@
 
 <div class="form-container col s12 m12">
     <form>
-        @await Component.InvokeAsync("SearchBar", new Dictionary<string, string>() { { "Número do Documento", "numeroDocumento" } })
+        <div class="col s12 m12">
+            <div class="row my-0 py-0">
+                <div class="input-field col s5 m5">
+                    <label for="numeroDocumento">Número do Documento</label>
+                    <input asp-for="NumeroDocumento" name="numeroDocumento" type="text" id="numeroDocumento" />
+                </div>
+                <div class="input-field col s4 m3">
+                    <select>
+                        <option value="numeroDocumento">Número do Documento</option>
+                    </select>
+                </div>
+                <div class="col s4 m4 pt-2 px-0 mx-0 max-percent-width">
+                    <a class="btn waves-effect purple left no-border col s1 m2" id="advancedSearchToggler">
+                        <i class="material-icons center">keyboard_arrow_down</i>
+                    </a><button type="submit" class="btn waves-effect purple no-border col s11 m10">
+                        <i class="material-icons right">search</i>
+                        Pesquisar
+                    </button>
+                </div>
+            </div>
+        </div>
 
         <div id="advancedSearch" class="col s12 m12">
             <div class="row">
@@ -90,7 +110,7 @@
             <tbody class="table-body">
                 @foreach (var item in Model.Duplicatas.List)
                 {
-                    <tr>
+                    <tr class="@(item.Vencido ? "bg-danger" : "")@(item.Pago ? "bg-success" : "")">
                         <td class="d-hidden">
                             @Html.DisplayFor(modelItem => item.Id)
                         </td>
@@ -128,17 +148,17 @@
             <ul class="pagination center pt-2">
                 @{
                     var queryStringHelper = new Dictionary<string, string>
-                            {
-                                { "apenasNaoPagas", Model.ApenasNaoPagas?.ToString() },
-                                { "apenasVencidas", Model.ApenasVencidas?.ToString() },
-                                { "minValor", Model.MinValor?.ToString() },
-                                { "maxValor", Model.MaxValor?.ToString() },
-                                { "fornecedorId", Model.FornecedorId?.ToString() },
-                                { "numeroDocumento", Model.NumeroDocumento?.ToString() },
-                                { "dataEmissao", Model.DataEmissao?.ToString() },
-                                { "dataVencimento", Model.DataVencimento?.ToString() },
-                                { "pageSize", Model.Duplicatas.PageSize.ToString() },
-                            };
+                                        {
+                                            { "apenasNaoPagas", Model.ApenasNaoPagas?.ToString() },
+                                            { "apenasVencidas", Model.ApenasVencidas?.ToString() },
+                                            { "minValor", Model.MinValor?.ToString() },
+                                            { "maxValor", Model.MaxValor?.ToString() },
+                                            { "fornecedorId", Model.FornecedorId?.ToString() },
+                                            { "numeroDocumento", Model.NumeroDocumento?.ToString() },
+                                            { "dataEmissao", Model.DataEmissao?.ToString() },
+                                            { "dataVencimento", Model.DataVencimento?.ToString() },
+                                            { "pageSize", Model.Duplicatas.PageSize.ToString() },
+                                        };
 
                 }
 
@@ -155,18 +175,9 @@
 
                 @for (int i = 1; i <= Model.Duplicatas.TotalPages; i++)
                 {
-                    if (Model.Duplicatas.PageNumber == i)
-                    {
-                        <li class="waves-effect active">
-                            <a asp-all-route-data="queryStringHelper" asp-route-pageNumber="@i" asp-route-pageSize="@Model.Duplicatas.PageSize">@i</a>
-                        </li>
-                    }
-                    else
-                    {
-                        <li class="waves-effect">
-                            <a asp-all-route-data="queryStringHelper" asp-route-pageNumber="@i" asp-route-pageSize="@Model.Duplicatas.PageSize">@i</a>
-                        </li>
-                    }
+                    <li class="waves-effect @(Model.Duplicatas.PageNumber == i ? "active" : "")">
+                        <a asp-all-route-data="queryStringHelper" asp-route-pageNumber="@i" asp-route-pageSize="@Model.Duplicatas.PageSize">@i</a>
+                    </li>
                 }
 
                 @if (Model.Duplicatas.IsLastPage)

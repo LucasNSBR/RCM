@@ -8,7 +8,27 @@
 
 <div class="form-container col s12 m12">
     <form>
-        @await Component.InvokeAsync("SearchBar", new Dictionary<string, string>() { { "Número do Cheque", "numeroCheque" }, { "Nome do Cliente", "nomeCliente" } })
+        <div class="col s12 m12">
+            <div class="row my-0 py-0">
+                <div class="input-field col s5 m5">
+                    <label for="numeroDocumento">Número do Cheque</label>
+                    <input asp-for="NumeroCheque" name="numeroCheque" type="text" id="numeroCheque" />
+                </div>
+                <div class="input-field col s4 m3">
+                    <select>
+                        <option value="numeroCheque">Número do Cheque</option>
+                    </select>
+                </div>
+                <div class="col s4 m4 pt-2 px-0 mx-0 max-percent-width">
+                    <a class="btn waves-effect purple left no-border col s1 m2" id="advancedSearchToggler">
+                        <i class="material-icons center">keyboard_arrow_down</i>
+                    </a><button type="submit" class="btn waves-effect purple no-border col s11 m10">
+                        <i class="material-icons right">search</i>
+                        Pesquisar
+                    </button>
+                </div>
+            </div>
+        </div>
 
         <div id="advancedSearch" class="col s12 m12">
             <div class="row">
@@ -125,17 +145,17 @@
             <ul class="pagination center pt-2">
                 @{
                     var queryStringHelper = new Dictionary<string, string>
-                                    {
-                                        { "minValor", Model.MinValor?.ToString() },
-                                        { "maxValor", Model.MaxValor?.ToString() },
-                                        { "clienteId", Model.ClienteId?.ToString() },
-                                        { "agencia", Model.Agencia?.ToString() },
-                                        { "conta", Model.Conta?.ToString() },
-                                        { "numeroCheque", Model.NumeroCheque?.ToString() },
-                                        { "dataEmissao", Model.DataEmissao?.ToString() },
-                                        { "dataVencimento", Model.DataVencimento?.ToString() },
-                                        { "pageSize", Model.Cheques.PageSize.ToString() },
-                                    };
+                                {
+                                    { "minValor", Model.MinValor?.ToString() },
+                                    { "maxValor", Model.MaxValor?.ToString() },
+                                    { "clienteId", Model.ClienteId?.ToString() },
+                                    { "agencia", Model.Agencia?.ToString() },
+                                    { "conta", Model.Conta?.ToString() },
+                                    { "numeroCheque", Model.NumeroCheque?.ToString() },
+                                    { "dataEmissao", Model.DataEmissao?.ToString() },
+                                    { "dataVencimento", Model.DataVencimento?.ToString() },
+                                    { "pageSize", Model.Cheques.PageSize.ToString() },
+                                };
 
                 }
 
@@ -152,15 +172,9 @@
 
                 @for (int i = 1; i <= Model.Cheques.TotalPages; i++)
                 {
-                    if (Model.Cheques.PageNumber == i)
+                    @for (int i = 1; i <= Model.Cheques.TotalPages; i++)
                     {
-                        <li class="waves-effect active">
-                            <a asp-all-route-data="queryStringHelper" asp-route-pageNumber="@i" asp-route-pageSize="@Model.Cheques.PageSize">@i</a>
-                        </li>
-                    }
-                    else
-                    {
-                        <li class="waves-effect">
+                        <li class="waves-effect @(Model.Cheques.PageNumber == i ? "active" : "")">
                             <a asp-all-route-data="queryStringHelper" asp-route-pageNumber="@i" asp-route-pageSize="@Model.Cheques.PageSize">@i</a>
                         </li>
                     }

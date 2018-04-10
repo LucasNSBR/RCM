@@ -48,5 +48,21 @@ namespace RCM.Application.ViewModels
         [DisplayFormat(ApplyFormatInEditMode = false, ConvertEmptyStringToNull = true, DataFormatString = "{0:c}")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo valor é requerido.")]
         public decimal Valor { get; set; }
+
+        public bool Vencido
+        {
+            get
+            {
+                return Pagamento.IsEmpty && DataVencimento < DateTime.Now;
+            }
+        }
+
+        public bool Pago
+        {
+            get
+            {
+                return !Pagamento.IsEmpty;
+            }
+        }
     }
 }
