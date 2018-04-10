@@ -18,12 +18,12 @@ namespace RCM.Domain.Models.DuplicataModels
         public override Expression<Func<Duplicata, bool>> ToExpression()
         {
             if (_minValor != null && _maxValor != null)
-                return d => d.Valor >= _minValor && d.Valor <= _maxValor;
+                return d => d.Valor >= _minValor.Value && d.Valor <= _maxValor.Value;
 
             if (_minValor != null)
-                return d => d.Valor >= _minValor;
+                return d => d.Valor >= _minValor.Value;
             if (_maxValor != null)
-                return d => d.Valor <= _maxValor;
+                return d => d.Valor <= _maxValor.Value;
 
             return d => true;
         }

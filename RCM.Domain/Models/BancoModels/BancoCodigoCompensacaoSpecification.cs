@@ -16,7 +16,7 @@ namespace RCM.Domain.Models.BancoModels
         public override Expression<Func<Banco, bool>> ToExpression()
         {
             if (_codigoCompensacao != null)
-                return b => b.CodigoCompensacao == _codigoCompensacao;
+                return b => b.CodigoCompensacao == _codigoCompensacao.Value;
 
             return b => true;
         }

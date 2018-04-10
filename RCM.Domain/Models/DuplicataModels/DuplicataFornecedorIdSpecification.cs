@@ -16,7 +16,7 @@ namespace RCM.Domain.Models.DuplicataModels
         public override Expression<Func<Duplicata, bool>> ToExpression()
         {
             if (_fornecedorId != null)
-                return d => d.FornecedorId == _fornecedorId;
+                return d => d.FornecedorId == _fornecedorId.Value;
 
             return d => true;
         }

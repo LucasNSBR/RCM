@@ -17,14 +17,14 @@ namespace RCM.Domain.Models.NotaFiscalModels
 
         public override Expression<Func<NotaFiscal, bool>> ToExpression()
         {
+            if (_minValor != null && _maxValor != null)
+                return nf => nf.Valor >= _minValor.Value && nf.Valor <= _maxValor.Value;
+
             if (_minValor != null)
-                return nf => nf.Valor >= _minValor;
+                return nf => nf.Valor >= _minValor.Value;
 
             if (_maxValor != null)
-                return nf => nf.Valor <= _maxValor;
-
-            if (_minValor != null && _maxValor != null)
-                return nf => nf.Valor >= _minValor && nf.Valor <= _maxValor;
+                return nf => nf.Valor <= _maxValor.Value;
 
             return nf => true;
         }

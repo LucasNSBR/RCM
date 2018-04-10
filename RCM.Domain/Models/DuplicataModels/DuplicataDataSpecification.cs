@@ -18,12 +18,12 @@ namespace RCM.Domain.Models.DuplicataModels
         public override Expression<Func<Duplicata, bool>> ToExpression()
         {
             if (_dataEmissao != null && _dataVencimento != null)
-                return d => d.DataEmissao >= _dataEmissao && d.DataVencimento <= _dataVencimento;
+                return d => d.DataEmissao >= _dataEmissao.Value && d.DataVencimento <= _dataVencimento.Value;
 
             if (_dataEmissao != null)
-                return d => d.DataEmissao >= _dataEmissao;
+                return d => d.DataEmissao >= _dataEmissao.Value;
             if (_dataVencimento != null)
-                return d => d.DataVencimento <= _dataVencimento;
+                return d => d.DataVencimento <= _dataVencimento.Value;
 
             return d => true;
         }

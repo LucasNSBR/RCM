@@ -6,7 +6,7 @@ namespace RCM.Domain.Models.ChequeModels
 {
     public class ChequeBancoIdSpecification : BaseSpecification<Cheque>, ISpecification<Cheque>
     {
-        private readonly Guid _bancoId;
+        private readonly Guid? _bancoId;
 
         public ChequeBancoIdSpecification(Guid bancoId)
         {
@@ -16,7 +16,7 @@ namespace RCM.Domain.Models.ChequeModels
         public override Expression<Func<Cheque, bool>> ToExpression()
         {
             if (_bancoId != null)
-                return c => c.BancoId == _bancoId;
+                return c => c.BancoId == _bancoId.Value;
 
             return c => true;
         }

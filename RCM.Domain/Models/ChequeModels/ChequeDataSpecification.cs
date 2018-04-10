@@ -18,12 +18,12 @@ namespace RCM.Domain.Models.ChequeModels
         public override Expression<Func<Cheque, bool>> ToExpression()
         {
             if (_dataEmissao != null && _dataVencimento != null)
-                return c => c.DataEmissao >= _dataEmissao && c.DataVencimento <= _dataVencimento;
+                return c => c.DataEmissao >= _dataEmissao.Value && c.DataVencimento <= _dataVencimento.Value;
 
             if (_dataEmissao != null)
-                return c => c.DataEmissao >= _dataEmissao;
+                return c => c.DataEmissao >= _dataEmissao.Value;
             if (_dataVencimento != null)
-                return c => c.DataVencimento <= _dataVencimento;
+                return c => c.DataVencimento <= _dataVencimento.Value;
 
             return c => true;
         }

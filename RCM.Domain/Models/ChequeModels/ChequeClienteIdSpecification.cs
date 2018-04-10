@@ -16,7 +16,7 @@ namespace RCM.Domain.Models.ChequeModels
         public override Expression<Func<Cheque, bool>> ToExpression()
         {
             if (_clienteId != null)
-                return c => c.ClienteId == _clienteId;
+                return c => c.ClienteId == _clienteId.Value;
 
             return c => true;
         }

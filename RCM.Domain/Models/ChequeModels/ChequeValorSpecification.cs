@@ -18,12 +18,12 @@ namespace RCM.Domain.Models.ChequeModels
         public override Expression<Func<Cheque, bool>> ToExpression()
         {
             if (_minValor != null && _maxValor != null)
-                return c => c.Valor >= _minValor & c.Valor <= _maxValor;
+                return c => c.Valor >= _minValor.Value & c.Valor <= _maxValor.Value;
 
             if (_minValor != null)
-                return c => c.Valor >= _minValor;
+                return c => c.Valor >= _minValor.Value;
             if (_maxValor != null)
-                return c => c.Valor <= _maxValor;
+                return c => c.Valor <= _maxValor.Value;
 
             return c => true;
         }
