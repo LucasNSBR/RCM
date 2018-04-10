@@ -23,4 +23,55 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+<script>
+        var clientesUrl = '@Url.Action("GetClientes", "Cheques")';
+        var bancosUrl = '@Url.Action("GetBancos", "Cheques")';
+
+        function reloadSelect(dropdownName, url, inputId) {
+            var dropdown = $(dropdownName);
+
+            $.ajax({
+                method: "GET",
+                url: url,
+            }).done(function (data) {
+                dropdown.empty();
+
+                $.each(data, function (index, item) {
+                    dropdown.append($("<option />").text(item.nome).val(item.id));
+                })
+
+                $(dropdown.find('option').each(function (index, item) {
+                    var fornecedorId = $(inputId).val();
+
+                    if (item.value === fornecedorId) {
+                        dropdown.prop('selectedIndex', index);
+                    }
+                }));
+
+                dropdown.material_select();
+            });
+        }
+
+        reloadSelect('#clienteSelect', clientesUrl, '#clienteId');
+        reloadSelect('#bancoSelect', bancosUrl, '#bancoId');
+
+        $('#reload-clientes-button').click(function () {
+            reloadSelect('#clienteSelect', clientesUrl, '#clienteId');
+        });
+
+        $('#reload-bancos-button').click(function () {
+            reloadSelect('#bancoSelect', bancosUrl, '#bancoId');
+        });
+
+        $('#bancoSelect').change(function () {
+            var optionId = $('#bancoSelect option:selected')[0].value;
+            $('#bancoId').val(optionId);
+        })
+
+        $('#clienteSelect').change(function () {
+            var optionId = $('#clienteSelect option:selected')[0].value;
+            $('#clienteId').val(optionId);
+        })
+</script>
 }

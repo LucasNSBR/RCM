@@ -15,7 +15,7 @@
 <div class="row">
     <div class="input-field col s12 m6">
         <label asp-for="ValorPago"></label>
-        <input asp-for="ValorPago" class="input-field" id="valorPago" />
+        <input asp-for="ValorPago" class="input-field" id="valorPago" data-val-number="O valor deve estar em um formato válido."/>
         <span asp-validation-for="ValorPago" class="text-danger"></span>
     </div>
 </div>

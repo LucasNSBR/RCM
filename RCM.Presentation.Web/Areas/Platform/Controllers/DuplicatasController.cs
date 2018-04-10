@@ -29,7 +29,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             _fornecedorApplicationService = fornecedorApplicationService;
         }
 
-        public IActionResult Index(bool? apenasNaoPagas, bool? apenasVencidas, decimal? minValor, decimal? maxValor, Guid? fornecedorId, string numeroDocumento = null, string dataEmissao = null, string dataVencimento = null, int pageNumber = 1, int pageSize = 10)
+        public IActionResult Index(bool? apenasNaoPagas, bool? apenasVencidas, decimal? minValor, decimal? maxValor, Guid? fornecedorId, string numeroDocumento = null, string dataEmissao = null, string dataVencimento = null, int pageNumber = 1, int pageSize = 20)
         {
             var pagaSpecification = new DuplicataNaoPagaSpecification(apenasNaoPagas);
             var vencidaSpecification = new DuplicataVencidaSpecification(apenasVencidas);
@@ -49,7 +49,19 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 .ThenBy(d => d.FornecedorId)
                 .ThenBy(d => d.NumeroDocumento);
 
-            var viewModel = new DuplicataIndexViewModel { Duplicatas = list.ToPagedList(pageNumber, pageSize), Fornecedores = _fornecedorApplicationService.Get() };
+            var viewModel = new DuplicataIndexViewModel {
+                Duplicatas = list.ToPagedList(pageNumber, pageSize),
+                Fornecedores = _fornecedorApplicationService.Get(),
+                ApenasNaoPagas = apenasNaoPagas,
+                ApenasVencidas = apenasVencidas,
+                MinValor = minValor,
+                MaxValor = maxValor,
+                FornecedorId = fornecedorId,
+                NumeroDocumento = numeroDocumento,
+                DataEmissao = dataEmissao,
+                DataVencimento = dataVencimento
+            };
+
             return View(viewModel);
         }
         
@@ -65,8 +77,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         public IActionResult Create()
         {
-            var duplicata = PopulateSelectLists(new DuplicataViewModel());
-            return View(duplicata);
+            return View();
         }
 
         [Authorize(Policy = "ActiveUser")]
@@ -85,7 +96,6 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             if (commandResult.Success)
                 return RedirectToAction(nameof(Index));
 
-            duplicata = PopulateSelectLists(duplicata);
             return View(duplicata);
         }
 
@@ -96,7 +106,6 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             if (duplicata == null)
                 return NotFound();
 
-            duplicata = PopulateSelectLists(duplicata);
             return View(duplicata);
         }
 
@@ -116,7 +125,6 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             if(commandResult.Success)
                 return RedirectToAction(nameof(Index));
 
-            duplicata = PopulateSelectLists(duplicata);
             return View(duplicata);
         }
 
@@ -187,10 +195,9 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             return View();
         }
 
-        public DuplicataViewModel PopulateSelectLists(DuplicataViewModel viewModel)
+        public JsonResult GetFornecedores()
         {
-            viewModel.Fornecedores = _fornecedorApplicationService.Get().ToList();
-            return viewModel;
+            return Json(_fornecedorApplicationService.Get().ToList());
         }
     }
 }

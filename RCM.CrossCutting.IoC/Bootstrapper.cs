@@ -44,9 +44,9 @@ namespace RCM.CrossCutting.IoC
             RegisterMiscellaneous(services);
             RegisterRepositories(services);
             RegisterApplicationServices(services);
-            RegisterMediatrCommands(services);
-            RegisterMediatrEvents(services);
-            RegisterMediatrNotifications(services);
+            RegisterCommands(services);
+            RegisterEvents(services);
+            RegisterNotifications(services);
             RegisterIdentityServices(services);
         }
 
@@ -92,7 +92,7 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<IProdutoApplicationService, ProdutoApplicationService>();
         }
 
-        private static void RegisterMediatrCommands(IServiceCollection services)
+        private static void RegisterCommands(IServiceCollection services)
         {
             services.AddScoped<IRequestHandler<AddBancoCommand, RequestResponse>, BancoCommandHandler>();
             services.AddScoped<IRequestHandler<UpdateBancoCommand, RequestResponse>, BancoCommandHandler>();
@@ -129,16 +129,16 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<IRequestHandler<RemoveOrdemServicoCommand, RequestResponse>, OrdemServicoCommandHandler>();
         }
 
-        private static void RegisterMediatrEvents(IServiceCollection services)
+        private static void RegisterEvents(IServiceCollection services)
         {
             services.AddScoped<INotificationHandler<AddedChequeEvent>, ChequeEventHandler>();
             services.AddScoped<INotificationHandler<UpdatedChequeEvent>, ChequeEventHandler>();
             services.AddScoped<INotificationHandler<RemovedChequeEvent>, ChequeEventHandler>();
         }
 
-        private static void RegisterMediatrNotifications(IServiceCollection services)
+        private static void RegisterNotifications(IServiceCollection services)
         {
-            services.AddScoped<IDomainNotificationHandler, DomainNotificationHandler>();
+            services.AddSingleton<IDomainNotificationHandler, DomainNotificationHandler>();
         }
 
         private static void RegisterIdentityServices(IServiceCollection services)

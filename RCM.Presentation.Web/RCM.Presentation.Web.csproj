@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Platform\Views\OrdensServico\" />
     <Folder Include="Middlewares\" />
   </ItemGroup>
 

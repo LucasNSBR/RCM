@@ -40,7 +40,7 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
                 return Response();
             }
 
-            if(CheckExists(command.NumeroDocumento, command.FornecedorId))
+            if (CheckNumeroExists(command.NumeroDocumento, command.FornecedorId, command.Id))
             {
                 _commandResponse.AddError(new RequestError(RequestErrorsMessageConstants.DuplicataAlreadyExists));
                 return Response();
@@ -48,6 +48,7 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
 
             Fornecedor fornecedor = _fornecedorRepository.GetById(command.FornecedorId);
             Duplicata duplicata = new Duplicata(command.NumeroDocumento, command.DataEmissao, command.DataVencimento, fornecedor, command.Valor, command.Observacao);
+
             _baseRepository.Add(duplicata);
 
             if (Commit())
@@ -64,7 +65,7 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
                 return Response();
             }
 
-            if (CheckExists(command.NumeroDocumento, command.FornecedorId))
+            if (CheckNumeroExists(command.NumeroDocumento, command.FornecedorId, command.Id))
             {
                 _commandResponse.AddError(new RequestError(RequestErrorsMessageConstants.DuplicataAlreadyExists));
                 return Response();
@@ -72,6 +73,7 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
 
             Fornecedor fornecedor = _fornecedorRepository.GetById(command.FornecedorId);
             Duplicata duplicata = new Duplicata(command.Id, command.NumeroDocumento, command.DataEmissao, command.DataVencimento, fornecedor, command.Valor, command.Observacao);
+
             _baseRepository.Update(duplicata);
 
             if (Commit())
@@ -134,17 +136,20 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
             return Response();
         }
 
-        private bool CheckExists(string numeroDocumento, Guid fornecedorId)
+        private bool CheckNumeroExists(string numeroDocumento, Guid fornecedorId, Guid novaDuplicataId)
         {
             var numeroDocumentoSpecification = new DuplicataNumeroDocumentoSpecification(numeroDocumento);
             var fornecedorSpecification = new DuplicataFornecedorIdSpecification(fornecedorId);
 
-            bool exists = _baseRepository.Get(numeroDocumentoSpecification
+            Duplicata duplicata = _baseRepository.Get(numeroDocumentoSpecification
                 .And(fornecedorSpecification)
                 .ToExpression())
-                .Any();
+                .FirstOrDefault();
 
-            return exists;
+            if (duplicata == null || novaDuplicataId == duplicata.Id)
+                return false;
+            
+            return true;
         }
     }
 }

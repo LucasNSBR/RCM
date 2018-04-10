@@ -1,6 +1,8 @@
 ﻿using MediatR;
 using RCM.Domain.Commands.ChequeCommands;
+using RCM.Domain.Constants;
 using RCM.Domain.Core.Commands;
+using RCM.Domain.Core.Errors;
 using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.Events.ChequeEvents;
 using RCM.Domain.Models.BancoModels;
@@ -8,6 +10,8 @@ using RCM.Domain.Models.ChequeModels;
 using RCM.Domain.Models.ClienteModels;
 using RCM.Domain.Repositories;
 using RCM.Domain.UnitOfWork;
+using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -36,6 +40,12 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
                 return Response();
             }
 
+            if (CheckNumeroChequeExists(command.NumeroCheque, command.ClienteId, command.BancoId, command.Id))
+            {
+                _commandResponse.AddError(new RequestError(RequestErrorsMessageConstants.DuplicataAlreadyExists));
+                return Response();
+            }
+
             Banco banco = _bancoRepository.GetById(command.BancoId);
             Cliente cliente = _clienteRepository.GetById(command.ClienteId);
             Cheque cheque = new Cheque(banco, command.Agencia, command.Conta, command.NumeroCheque, cliente, command.DataEmissao, command.DataVencimento, command.Valor);
@@ -52,6 +62,12 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
             if (!command.IsValid())
             {
                 NotifyRequestErrors(command);
+                return Response();
+            }
+
+            if (CheckNumeroChequeExists(command.NumeroCheque, command.ClienteId, command.BancoId, command.Id))
+            {
+                _commandResponse.AddError(new RequestError(RequestErrorsMessageConstants.ChequeAlreadyExists));
                 return Response();
             }
 
@@ -81,6 +97,24 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
                 _mediator.Publish(new RemovedChequeEvent());
 
             return Response();
+        }
+
+        public bool CheckNumeroChequeExists(string numeroDocumento, Guid clienteId, Guid bancoId, Guid novoChequeId)
+        {
+            var numeroDocumentoSpecification = new ChequeNumeroSpecification(numeroDocumento);
+            var clienteIdSpecification = new ChequeClienteIdSpecification(clienteId);
+            var bancoIdSpecification = new ChequeBancoIdSpecification(bancoId);
+
+            Cheque cheque = _baseRepository.Get(numeroDocumentoSpecification
+                .And(bancoIdSpecification)
+                .And(clienteIdSpecification)
+                .ToExpression())
+                .FirstOrDefault();
+
+            if (cheque == null || novoChequeId == cheque.Id)
+                return false;
+
+            return true;
         }
     }
 }

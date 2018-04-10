@@ -1,5 +1,4 @@
-﻿using RCM.Application.Validators;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -49,8 +48,5 @@ namespace RCM.Application.ViewModels
         [DisplayFormat(ApplyFormatInEditMode = false, ConvertEmptyStringToNull = true, DataFormatString = "{0:c}")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo valor é requerido.")]
         public decimal Valor { get; set; }
-
-        [Display(Name = "Fornecedores")]
-        public List<FornecedorViewModel> Fornecedores { get; set; }
     }
 }

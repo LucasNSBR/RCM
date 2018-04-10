@@ -25,19 +25,9 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             _produtoApplicationService = produtoApplicationService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string name, string description)
         {
-            var id = _clienteApplicationService.Get().ToList().First().Id;
-            var prod = _produtoApplicationService.Get().ToList().First();
-
-            var ordemServico = new OrdemServicoViewModel
-            {
-                ClienteId = id,
-            };
-
-            _ordemServicoApplicationService.Add(ordemServico);
-
-            return Content("");
+            return View();
         }
 
         public IActionResult Details(Guid id)

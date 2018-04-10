@@ -68,10 +68,9 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             if (commandResult.Success)
                 return RedirectToAction(nameof(Index));
             else
-            {
-                commandResult.Errors.ToList().ForEach(e => _domainNotificationHandler.AddNotification(new CommandValidationErrorNotification(e.Description)));
-                return View(banco);
-            }
+                NotifyCommandResultErrors(commandResult.Errors);
+
+            return View(banco);
         }
 
         [Authorize(Policy = "ActiveUser")]

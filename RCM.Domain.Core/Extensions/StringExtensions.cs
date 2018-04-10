@@ -15,5 +15,15 @@ namespace RCM.Domain.Core.Extensions
 
             return date;
         }
+
+        public static DateTime? ToDate(this string dateString)
+        {
+            if (dateString == null) return null;
+
+            DateTime date;
+            DateTime.TryParse(dateString, out date);
+
+            return DateTime.Parse(date.ToShortDateString());
+        }
     }
 }

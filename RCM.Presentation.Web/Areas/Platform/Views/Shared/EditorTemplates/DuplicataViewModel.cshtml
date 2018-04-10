@@ -73,10 +73,16 @@
         </p>
         <div class="row">
             <div class="input-field col s12 m6">
-                <select asp-for="FornecedorId" asp-items="@(new SelectList(Model.Fornecedores, "Id", "Nome"))" id="fornecedorId"></select>
+                <input type="hidden" asp-for="FornecedorId" id="fornecedorId" />
+                <select id="fornecedorSelect"></select>
                 <label asp-for="FornecedorId"></label>
                 <span asp-validation-for="FornecedorId" class="text-danger"></span>
                 <a asp-action="Create" asp-controller="Fornecedores" target="_blank">Adicionar novo Fornecedor</a>
+            </div>
+            <div class="input-field col s12 m6 pt-1">
+                <button class="btn-flat mx-0 small" id="reload-fornecedores-button" type="button">
+                    Recarregar lista
+                </button>
             </div>
         </div>
     </div>

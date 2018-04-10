@@ -23,4 +23,43 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        var dropdown = $('#fornecedorSelect');
+        var fornecedoresUrl = '@Url.Action("GetFornecedores", "Duplicatas")';
+
+        function reloadSelect() {
+            $.ajax({
+                method: "GET",
+                url: fornecedoresUrl,
+            }).done(function (data) {
+                dropdown.empty();
+
+                $.each(data, function (index, item) {
+                    dropdown.append($("<option />").text(item.nome).val(item.id));
+                })
+
+                $(dropdown.find('option').each(function (index, item) {
+                    var fornecedorId = $('#fornecedorId').val();
+
+                    if (item.value === fornecedorId) {
+                        dropdown.prop('selectedIndex', index);
+                    }
+                }));
+
+                dropdown.material_select();
+            });
+        }
+
+        reloadSelect();
+
+        $('#reload-fornecedores-button').click(function () {
+            reloadSelect();
+        });
+
+        $('#fornecedorSelect').change(function () {
+            var optionId = $('#fornecedorSelect option:selected')[0].value;
+            $('#fornecedorId').val(optionId);
+        })
+    </script>
 }

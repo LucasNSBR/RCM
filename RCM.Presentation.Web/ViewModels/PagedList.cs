@@ -45,6 +45,7 @@ namespace RCM.Presentation.Web.ViewModels
         public PagedList(IEnumerable<T> list, int pageNumber, int pageSize)
         {
             _list = list ?? new List<T>();
+
             PageNumber = pageNumber;
             PageSize = pageSize;
 

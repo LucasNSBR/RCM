@@ -6,6 +6,7 @@ using RCM.Domain.Core.Extensions;
 using RCM.Domain.DomainNotificationHandlers;
 using RCM.Domain.Models.ChequeModels;
 using RCM.Presentation.Web.Controllers;
+using RCM.Presentation.Web.Extensions;
 using RCM.Presentation.Web.ViewModels;
 using System;
 using System.Linq;
@@ -30,7 +31,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             _clienteApplicationService = clienteApplicationService;
         }
 
-        public IActionResult Index(decimal? minValor, decimal? maxValor, Guid? clienteId, string agencia = null, string conta = null, string numeroCheque = null, string dataEmissao = null, string dataVencimento = null)
+        public IActionResult Index(decimal? minValor, decimal? maxValor, Guid? clienteId, string agencia = null, string conta = null, string numeroCheque = null, string dataEmissao = null, string dataVencimento = null, int pageNumber = 1, int pageSize = 20)
         {
             var valorSpecification = new ChequeValorSpecification(minValor, maxValor);
             var clienteIdSpecification = new ChequeClienteIdSpecification(clienteId);
@@ -47,7 +48,20 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 .And(dataSpecification)
                 .ToExpression());
 
-            var viewModel = new ChequesIndexViewModel { Cheques = list, Clientes = _clienteApplicationService.Get() };
+            var viewModel = new ChequesIndexViewModel
+            {
+                Cheques = list.ToPagedList(pageNumber, pageSize),
+                Clientes = _clienteApplicationService.Get(),
+                MinValor = minValor,
+                MaxValor = maxValor,
+                ClienteId = clienteId,
+                Agencia = agencia,
+                Conta = conta,
+                NumeroCheque = numeroCheque,
+                DataEmissao = dataEmissao,
+                DataVencimento = dataVencimento,
+            };
+
             return View(viewModel);
         }
 
@@ -63,8 +77,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         public IActionResult Create()
         {
-            var cheque = PopulateSelectLists(new ChequeViewModel());
-            return View(cheque);
+            return View();
         }
 
         [Authorize(Policy = "ActiveUser")]
@@ -82,8 +95,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
 
             if (commandResult.Success) 
                 return RedirectToAction(nameof(Index));
-
-            cheque = PopulateSelectLists(cheque);
+            
             return View(cheque);
         }
 
@@ -93,8 +105,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             var cheque = _chequeApplicationService.GetById(id);
             if (cheque == null)
                 return NotFound();
-
-            cheque = PopulateSelectLists(cheque);
+            
             return View(cheque);
         }
 
@@ -113,8 +124,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
 
             if (commandResult.Success)
                 return RedirectToAction(nameof(Index));
-
-            cheque = PopulateSelectLists(cheque);
+            
             return View(cheque);
         }
 
@@ -141,11 +151,14 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 return View(cheque);
         }
 
-        private ChequeViewModel PopulateSelectLists(ChequeViewModel chequeViewModel)
+        public JsonResult GetClientes()
         {
-            chequeViewModel.Clientes = _clienteApplicationService.Get().ToList();
-            chequeViewModel.Bancos = _bancoApplicationService.Get().ToList();
-            return chequeViewModel;
+            return Json(_clienteApplicationService.Get().ToList());
+        }
+
+        public JsonResult GetBancos()
+        {
+            return Json(_bancoApplicationService.Get().ToList());
         }
     }
 }

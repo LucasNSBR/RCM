@@ -59,13 +59,6 @@ namespace RCM.Application.ViewModels
         [Display(Name = "Valor")]
         [DisplayFormat(ApplyFormatInEditMode = false, ConvertEmptyStringToNull = true, DataFormatString = "{0:c}")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo valor é requerido.")]
-        [Range(0, 99999, ErrorMessage = "O campo valor deve ser estar entre 0 e 99999.")]
         public decimal Valor { get; set; }
-
-        [Display(Name = "Bancos")]
-        public List<BancoViewModel> Bancos { get; set; }
-
-        [Display(Name = "Clientes")]
-        public List<ClienteViewModel> Clientes { get; set; }
     }
 }
