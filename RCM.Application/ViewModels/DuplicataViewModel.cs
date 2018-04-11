@@ -53,7 +53,7 @@ namespace RCM.Application.ViewModels
         {
             get
             {
-                return Pagamento.IsEmpty && DataVencimento < DateTime.Now;
+                return (Pagamento == null || Pagamento.IsEmpty) && DataVencimento < DateTime.Now;
             }
         }
 
@@ -61,7 +61,7 @@ namespace RCM.Application.ViewModels
         {
             get
             {
-                return !Pagamento.IsEmpty;
+                return (Pagamento == null || !Pagamento.IsEmpty);
             }
         }
     }

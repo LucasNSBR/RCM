@@ -30,7 +30,8 @@
 
         function reloadSelect(dropdownName, url, inputId) {
             var dropdown = $(dropdownName);
-
+            var fieldId = $(inputId).val();
+            
             $.ajax({
                 method: "GET",
                 url: url,
@@ -42,12 +43,15 @@
                 })
 
                 $(dropdown.find('option').each(function (index, item) {
-                    var fornecedorId = $(inputId).val();
-
-                    if (item.value === fornecedorId) {
+                    
+                    if (item.value === fieldId) {
                         dropdown.prop('selectedIndex', index);
                     }
                 }));
+
+                if (fieldId == "") 
+                    $(inputId).val(dropdown.find('option').first().val());
+                
 
                 dropdown.material_select();
             });

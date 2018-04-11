@@ -61,9 +61,9 @@ namespace RCM.CrossCutting.IoC
             AutoMapperInitializer.Initialize();
 
             services.AddSingleton(typeof(IMapper), provider => Mapper.Instance);
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IMediatorHandler, MediatorHandler>();
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         private static void RegisterRepositories(IServiceCollection services)
@@ -138,7 +138,7 @@ namespace RCM.CrossCutting.IoC
 
         private static void RegisterNotifications(IServiceCollection services)
         {
-            services.AddSingleton<IDomainNotificationHandler, DomainNotificationHandler>();
+            services.AddScoped<IDomainNotificationHandler, DomainNotificationHandler>();
         }
 
         private static void RegisterIdentityServices(IServiceCollection services)

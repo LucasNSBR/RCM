@@ -27,6 +27,7 @@
     <script>
         var dropdown = $('#fornecedorSelect');
         var fornecedoresUrl = '@Url.Action("GetFornecedores", "Duplicatas")';
+        var fornecedorId = $('#fornecedorId').val();
 
         function reloadSelect() {
             $.ajax({
@@ -40,12 +41,13 @@
                 })
 
                 $(dropdown.find('option').each(function (index, item) {
-                    var fornecedorId = $('#fornecedorId').val();
-
                     if (item.value === fornecedorId) {
                         dropdown.prop('selectedIndex', index);
                     }
                 }));
+
+                if (fornecedorId == "")
+                    $('#fornecedorId').val(dropdown.find('option').first().val());
 
                 dropdown.material_select();
             });
