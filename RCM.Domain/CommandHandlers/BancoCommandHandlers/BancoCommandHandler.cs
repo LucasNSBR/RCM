@@ -16,9 +16,12 @@ namespace RCM.Domain.CommandHandlers.BancoCommandHandlers
                                        IRequestHandler<UpdateBancoCommand, CommandResult>,
                                        IRequestHandler<RemoveBancoCommand, CommandResult>
     {
-        public BancoCommandHandler(IMediatorHandler mediator, IBancoRepository baseRepository, IUnitOfWork unitOfWork) : 
-                                                                                                base(mediator, baseRepository, unitOfWork)
+        private readonly IBancoRepository _bancoRepository;
+
+        public BancoCommandHandler(IMediatorHandler mediator, IBancoRepository bancoRepository, IUnitOfWork unitOfWork) : 
+                                                                                                base(mediator, unitOfWork)
         {
+            _bancoRepository = bancoRepository;
         }
 
         public Task<CommandResult> Handle(AddBancoCommand command, CancellationToken cancellationToken)
@@ -30,7 +33,7 @@ namespace RCM.Domain.CommandHandlers.BancoCommandHandlers
             }
 
             Banco banco = new Banco(command.Nome, command.CodigoCompensacao);
-            _baseRepository.Add(banco);
+            _bancoRepository.Add(banco);
 
             if (Commit())
                 _mediator.Publish(new AddedBancoEvent());
@@ -47,7 +50,7 @@ namespace RCM.Domain.CommandHandlers.BancoCommandHandlers
             }
 
             Banco banco = new Banco(command.Id, command.Nome, command.CodigoCompensacao);
-            _baseRepository.Update(banco);
+            _bancoRepository.Update(banco);
 
             if (Commit())
                 _mediator.Publish(new UpdatedBancoEvent());
@@ -63,8 +66,8 @@ namespace RCM.Domain.CommandHandlers.BancoCommandHandlers
                 return Response();
             }
 
-            Banco banco = _baseRepository.GetById(command.Id);
-            _baseRepository.Remove(banco);
+            Banco banco = _bancoRepository.GetById(command.Id);
+            _bancoRepository.Remove(banco);
 
             if (Commit())
                 _mediator.Publish(new RemovedBancoEvent());

@@ -16,9 +16,12 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
                                          IRequestHandler<UpdateProdutoCommand, CommandResult>,
                                          IRequestHandler<RemoveProdutoCommand, CommandResult>
     {
+        private readonly IProdutoRepository _produtoRepository;
+
         public ProdutoCommandHandler(IMediatorHandler mediator, IProdutoRepository produtoRepository, IUnitOfWork unitOfWork) : 
-                                                                                                        base(mediator, produtoRepository, unitOfWork)
+                                                                                                        base(mediator, unitOfWork)
         {
+            _produtoRepository = produtoRepository;
         }
 
         public Task<CommandResult> Handle(AddProdutoCommand command, CancellationToken cancellationToken)
@@ -30,7 +33,7 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
             }
 
             Produto produto = new Produto(command.Nome, command.Aplicacao, command.Quantidade, command.PrecoVenda);
-            _baseRepository.Add(produto);
+            _produtoRepository.Add(produto);
 
             if (Commit())
                 _mediator.Publish(new AddedProdutoEvent());
@@ -47,7 +50,7 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
             }
 
             Produto produto = new Produto(command.Id, command.Nome, command.Aplicacao, command.Quantidade, command.PrecoVenda);
-            _baseRepository.Update(produto);
+            _produtoRepository.Update(produto);
 
             if (Commit())
                 _mediator.Publish(new UpdatedProdutoEvent());
@@ -63,8 +66,8 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
                 return Response();
             }
 
-            Produto produto = _baseRepository.GetById(command.Id);
-            _baseRepository.Remove(produto);
+            Produto produto = _produtoRepository.GetById(command.Id);
+            _produtoRepository.Remove(produto);
 
             if (Commit())
                 _mediator.Publish(new RemovedProdutoEvent());

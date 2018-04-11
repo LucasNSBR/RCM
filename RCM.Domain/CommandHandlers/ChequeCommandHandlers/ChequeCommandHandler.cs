@@ -22,12 +22,14 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
                                         IRequestHandler<UpdateChequeCommand, CommandResult>,
                                         IRequestHandler<RemoveChequeCommand, CommandResult>
     {
+        private readonly IChequeRepository _chequeRepository;
         private readonly IBancoRepository _bancoRepository;
         private readonly IClienteRepository _clienteRepository;
 
         public ChequeCommandHandler(IChequeRepository chequeRepository, IBancoRepository bancoRepository, IClienteRepository clienteRepository, IMediatorHandler mediator, IUnitOfWork unitOfWork) : 
-                                                                                                    base(mediator, chequeRepository, unitOfWork)
+                                                                                                    base(mediator, unitOfWork)
         {
+            _chequeRepository = chequeRepository;
             _bancoRepository = bancoRepository;
             _clienteRepository = clienteRepository;
         }
@@ -49,7 +51,7 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
             Banco banco = _bancoRepository.GetById(command.BancoId);
             Cliente cliente = _clienteRepository.GetById(command.ClienteId);
             Cheque cheque = new Cheque(banco, command.Agencia, command.Conta, command.NumeroCheque, cliente, command.DataEmissao, command.DataVencimento, command.Valor);
-            _baseRepository.Add(cheque);
+            _chequeRepository.Add(cheque);
 
             if (Commit())
                 _mediator.Publish(new AddedChequeEvent());
@@ -74,7 +76,7 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
             Banco banco = _bancoRepository.GetById(command.BancoId);
             Cliente cliente = _clienteRepository.GetById(command.ClienteId);
             Cheque cheque = new Cheque(command.Id, banco, command.Agencia, command.Conta, command.NumeroCheque, cliente, command.DataEmissao, command.DataVencimento, command.Valor);
-            _baseRepository.Update(cheque);
+            _chequeRepository.Update(cheque);
 
             if (Commit())
                 _mediator.Publish(new UpdatedChequeEvent());
@@ -90,8 +92,8 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
                 return Response();
             }
 
-            Cheque cheque = _baseRepository.GetById(command.Id);
-            _baseRepository.Remove(cheque);
+            Cheque cheque = _chequeRepository.GetById(command.Id);
+            _chequeRepository.Remove(cheque);
 
             if (Commit())
                 _mediator.Publish(new RemovedChequeEvent());
@@ -105,7 +107,7 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
             var clienteIdSpecification = new ChequeClienteIdSpecification(clienteId);
             var bancoIdSpecification = new ChequeBancoIdSpecification(bancoId);
 
-            Cheque cheque = _baseRepository.Get(numeroDocumentoSpecification
+            Cheque cheque = _chequeRepository.Get(numeroDocumentoSpecification
                 .And(bancoIdSpecification)
                 .And(clienteIdSpecification)
                 .ToExpression())

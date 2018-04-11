@@ -16,9 +16,12 @@ namespace RCM.Domain.CommandHandlers.NotaFiscalCommandHandlers
                                             IRequestHandler<UpdateNotaFiscalCommand, CommandResult>,
                                             IRequestHandler<RemoveNotaFiscalCommand, CommandResult>
     {
+        private readonly INotaFiscalRepository _notaFiscalRepository;
+
         public NotaFiscalCommandHandler(IMediatorHandler mediator, INotaFiscalRepository notaFiscalRepository, IUnitOfWork unitOfWork) : 
-                                                                                                                base(mediator, notaFiscalRepository, unitOfWork)
+                                                                                                                base(mediator, unitOfWork)
         {
+            _notaFiscalRepository = notaFiscalRepository;
         }
 
         public Task<CommandResult> Handle(AddNotaFiscalCommand command, CancellationToken cancellationToken)
@@ -30,7 +33,7 @@ namespace RCM.Domain.CommandHandlers.NotaFiscalCommandHandlers
             }
 
             NotaFiscal notaFiscal = new NotaFiscal(command.NumeroDocumento, command.DataEmissao, command.Valor);
-            _baseRepository.Add(notaFiscal);
+            _notaFiscalRepository.Add(notaFiscal);
 
             if (Commit())
                 _mediator.Publish(new AddedNotaFiscalEvent());
@@ -47,7 +50,7 @@ namespace RCM.Domain.CommandHandlers.NotaFiscalCommandHandlers
             }
 
             NotaFiscal notaFiscal = new NotaFiscal(command.Id, command.NumeroDocumento, command.DataEmissao, command.Valor);
-            _baseRepository.Update(notaFiscal);
+            _notaFiscalRepository.Update(notaFiscal);
 
             if (Commit())
                 _mediator.Publish(new UpdatedNotaFiscalEvent());
@@ -63,8 +66,8 @@ namespace RCM.Domain.CommandHandlers.NotaFiscalCommandHandlers
                 return Response();
             }
 
-            NotaFiscal notaFiscal = _baseRepository.GetById(command.Id);
-            _baseRepository.Remove(notaFiscal);
+            NotaFiscal notaFiscal = _notaFiscalRepository.GetById(command.Id);
+            _notaFiscalRepository.Remove(notaFiscal);
 
             if (Commit())
                 _mediator.Publish(new RemovedNotaFiscalEvent());

@@ -2,7 +2,6 @@
 using RCM.Domain.Core.Errors;
 using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.Core.Models;
-using RCM.Domain.Repositories;
 using RCM.Domain.UnitOfWork;
 using System.Threading.Tasks;
 
@@ -11,14 +10,12 @@ namespace RCM.Domain.CommandHandlers
     public abstract class CommandHandler<TModel> where TModel : Entity<TModel>
     {
         protected readonly IMediatorHandler _mediator;
-        protected readonly IBaseRepository<TModel> _baseRepository;
         protected readonly IUnitOfWork _unitOfWork;
         protected CommandResult _commandResponse;
 
-        public CommandHandler(IMediatorHandler mediator, IBaseRepository<TModel> baseRepository, IUnitOfWork unitOfWork)
+        public CommandHandler(IMediatorHandler mediator, IUnitOfWork unitOfWork)
         {
             _mediator = mediator;
-            _baseRepository = baseRepository;
             _unitOfWork = unitOfWork;
 
             _commandResponse = new CommandResult();

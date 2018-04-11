@@ -18,13 +18,14 @@ namespace RCM.Domain.CommandHandlers.OrdemServicoCommandHandlers
                                               IRequestHandler<UpdateOrdemServicoCommand, CommandResult>,
                                               IRequestHandler<RemoveOrdemServicoCommand, CommandResult>
     {
+        private readonly IOrdemServicoRepository _ordemServicoRepository;
         private readonly IClienteRepository _clienteRepository;
 
-        public OrdemServicoCommandHandler(IOrdemServicoRepository baseRepository, IClienteRepository clienteRepository, IMediatorHandler mediator, IUnitOfWork unitOfWork) :
-                                                                                                                                                    base(mediator, baseRepository, unitOfWork)
+        public OrdemServicoCommandHandler(IOrdemServicoRepository ordemServicoRepository, IClienteRepository clienteRepository, IMediatorHandler mediator, IUnitOfWork unitOfWork) :
+                                                                                                                                                    base(mediator, unitOfWork)
         {
+            _ordemServicoRepository = ordemServicoRepository;
             _clienteRepository = clienteRepository;
-            _commandResponse = new CommandResult();
         }
 
         public Task<CommandResult> Handle(AddOrdemServicoCommand command, CancellationToken cancellationToken)
@@ -43,7 +44,7 @@ namespace RCM.Domain.CommandHandlers.OrdemServicoCommandHandlers
             }
 
             OrdemServico ordemServico = new OrdemServico(cliente, command.Produtos);
-            _baseRepository.Add(ordemServico);
+            _ordemServicoRepository.Add(ordemServico);
 
             if (Commit())
                 _mediator.Publish(new AddedOrdemServicoEvent());
@@ -62,7 +63,7 @@ namespace RCM.Domain.CommandHandlers.OrdemServicoCommandHandlers
             }
 
             var ordemServico = new OrdemServico(cliente, command.Produtos);
-            _baseRepository.Update(ordemServico);
+            _ordemServicoRepository.Update(ordemServico);
 
             if (Commit())
                 _mediator.Publish(new UpdatedOrdemServicoEvent());
@@ -78,9 +79,9 @@ namespace RCM.Domain.CommandHandlers.OrdemServicoCommandHandlers
                 return Response();
             }
 
-            OrdemServico ordemServico = _baseRepository.GetById(command.Id);
+            OrdemServico ordemServico = _ordemServicoRepository.GetById(command.Id);
 
-            _baseRepository.Remove(ordemServico);
+            _ordemServicoRepository.Remove(ordemServico);
 
             if (Commit())
                 _mediator.Publish(new RemovedOrdemServicoEvent());

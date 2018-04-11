@@ -16,9 +16,12 @@ namespace RCM.Domain.CommandHandlers.ClienteCommandHandlers
                                          IRequestHandler<UpdateClienteCommand, CommandResult>,
                                          IRequestHandler<RemoveClienteCommand, CommandResult>
     {
+        private readonly IClienteRepository _clienteRepository;
+
         public ClienteCommandHandler(IMediatorHandler mediator, IClienteRepository clienteRepository, IUnitOfWork unitOfWork) : 
-                                                                                                        base(mediator, clienteRepository, unitOfWork)
+                                                                                                        base(mediator, unitOfWork)
         {
+            _clienteRepository = clienteRepository;
         }
 
         public Task<CommandResult> Handle(AddClienteCommand command, CancellationToken cancellationToken)
@@ -30,7 +33,7 @@ namespace RCM.Domain.CommandHandlers.ClienteCommandHandlers
             }
 
             Cliente cliente = new Cliente(command.Nome, command.Descricao);
-            _baseRepository.Add(cliente);
+            _clienteRepository.Add(cliente);
 
             if (Commit())
                 _mediator.Publish(new AddedClienteEvent());
@@ -47,7 +50,7 @@ namespace RCM.Domain.CommandHandlers.ClienteCommandHandlers
             }
 
             Cliente cliente = new Cliente(command.Id, command.Nome, command.Descricao);
-            _baseRepository.Update(cliente);
+            _clienteRepository.Update(cliente);
 
             if (Commit())
                 _mediator.Publish(new UpdatedClienteEvent());
@@ -63,8 +66,8 @@ namespace RCM.Domain.CommandHandlers.ClienteCommandHandlers
                 return Response();
             }
 
-            Cliente cliente = _baseRepository.GetById(command.Id);
-            _baseRepository.Remove(cliente);
+            Cliente cliente = _clienteRepository.GetById(command.Id);
+            _clienteRepository.Remove(cliente);
 
             if (Commit())
                 _mediator.Publish(new RemovedClienteEvent());

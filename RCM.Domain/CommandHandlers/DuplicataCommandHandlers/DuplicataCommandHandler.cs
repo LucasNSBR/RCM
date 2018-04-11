@@ -24,11 +24,13 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
                                            IRequestHandler<PagarDuplicataCommand, CommandResult>,
                                            IRequestHandler<EstornarDuplicataCommand, CommandResult>
     {
+        private readonly IDuplicataRepository _duplicataRepository;
         private readonly IFornecedorRepository _fornecedorRepository;
 
         public DuplicataCommandHandler(IFornecedorRepository fornecedorRepository, IDuplicataRepository duplicataRepository, IMediatorHandler mediator, IUnitOfWork unitOfWork) : 
-                                                                                                                base(mediator, duplicataRepository, unitOfWork)
+                                                                                                                base(mediator, unitOfWork)
         {
+            _duplicataRepository = duplicataRepository;
             _fornecedorRepository = fornecedorRepository;
         }
 
@@ -49,7 +51,7 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
             Fornecedor fornecedor = _fornecedorRepository.GetById(command.FornecedorId);
             Duplicata duplicata = new Duplicata(command.NumeroDocumento, command.DataEmissao, command.DataVencimento, fornecedor, command.Valor, command.Observacao);
 
-            _baseRepository.Add(duplicata);
+            _duplicataRepository.Add(duplicata);
 
             if (Commit())
                 _mediator.Publish(new AddedDuplicataEvent());
@@ -74,7 +76,7 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
             Fornecedor fornecedor = _fornecedorRepository.GetById(command.FornecedorId);
             Duplicata duplicata = new Duplicata(command.Id, command.NumeroDocumento, command.DataEmissao, command.DataVencimento, fornecedor, command.Valor, command.Observacao);
 
-            _baseRepository.Update(duplicata);
+            _duplicataRepository.Update(duplicata);
 
             if (Commit())
                 _mediator.Publish(new UpdatedDuplicataEvent());
@@ -90,8 +92,8 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
                 return Response();
             }
 
-            Duplicata duplicata = _baseRepository.GetById(command.Id);
-            _baseRepository.Remove(duplicata);
+            Duplicata duplicata = _duplicataRepository.GetById(command.Id);
+            _duplicataRepository.Remove(duplicata);
 
             if (Commit())
                 _mediator.Publish(new RemovedDuplicataEvent());
@@ -107,10 +109,10 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
                 return Response();
             }
 
-            Duplicata duplicata = _baseRepository.GetById(command.Id);
+            Duplicata duplicata = _duplicataRepository.GetById(command.Id);
             Pagamento pagamento = new Pagamento(command.DataPagamento, command.ValorPago);
             duplicata.Pagar(pagamento);
-            _baseRepository.Update(duplicata);
+            _duplicataRepository.Update(duplicata);
 
             if (Commit()) 
                 _mediator.Publish(new UpdatedDuplicataEvent());
@@ -126,9 +128,9 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
                 return Response();
             }
 
-            Duplicata duplicata = _baseRepository.GetById(command.Id);
+            Duplicata duplicata = _duplicataRepository.GetById(command.Id);
             duplicata.EstornarPagamento();
-            _baseRepository.Update(duplicata);
+            _duplicataRepository.Update(duplicata);
 
             if (Commit())
                 _mediator.Publish(new UpdatedDuplicataEvent());
@@ -141,7 +143,7 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
             var numeroDocumentoSpecification = new DuplicataNumeroDocumentoSpecification(numeroDocumento);
             var fornecedorSpecification = new DuplicataFornecedorIdSpecification(fornecedorId);
 
-            Duplicata duplicata = _baseRepository.Get(numeroDocumentoSpecification
+            Duplicata duplicata = _duplicataRepository.Get(numeroDocumentoSpecification
                 .And(fornecedorSpecification)
                 .ToExpression())
                 .FirstOrDefault();
