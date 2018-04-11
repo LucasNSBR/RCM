@@ -16,19 +16,19 @@ namespace RCM.Application.ApplicationServices
         {
         }
 
-        public override Task<RequestResponse> Add(NotaFiscalViewModel viewModel)
+        public override Task<CommandResult> Add(NotaFiscalViewModel viewModel)
         {
-            return _mediator.SendRequest(new AddNotaFiscalCommand(viewModel.NumeroDocumento, viewModel.DataEmissao, viewModel.Valor));
+            return _mediator.SendCommand(new AddNotaFiscalCommand(viewModel.NumeroDocumento, viewModel.DataEmissao, viewModel.Valor));
         }
 
-        public override Task<RequestResponse> Update(NotaFiscalViewModel viewModel)
+        public override Task<CommandResult> Update(NotaFiscalViewModel viewModel)
         {
-            return _mediator.SendRequest(new UpdateNotaFiscalCommand(viewModel.Id, viewModel.NumeroDocumento, viewModel.DataEmissao, viewModel.Valor));
+            return _mediator.SendCommand(new UpdateNotaFiscalCommand(viewModel.Id, viewModel.NumeroDocumento, viewModel.DataEmissao, viewModel.Valor));
         }
 
-        public override Task<RequestResponse> Remove(NotaFiscalViewModel viewModel)
+        public override Task<CommandResult> Remove(NotaFiscalViewModel viewModel)
         {
-            return _mediator.SendRequest(new RemoveNotaFiscalCommand(viewModel.Id));
+            return _mediator.SendCommand(new RemoveNotaFiscalCommand(viewModel.Id));
         }
     }
 }

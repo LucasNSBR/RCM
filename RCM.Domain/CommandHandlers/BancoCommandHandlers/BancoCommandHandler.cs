@@ -12,16 +12,16 @@ using System.Threading.Tasks;
 namespace RCM.Domain.CommandHandlers.BancoCommandHandlers
 {
     public class BancoCommandHandler : CommandHandler<Banco>,
-                                       IRequestHandler<AddBancoCommand, RequestResponse>,
-                                       IRequestHandler<UpdateBancoCommand, RequestResponse>,
-                                       IRequestHandler<RemoveBancoCommand, RequestResponse>
+                                       IRequestHandler<AddBancoCommand, CommandResult>,
+                                       IRequestHandler<UpdateBancoCommand, CommandResult>,
+                                       IRequestHandler<RemoveBancoCommand, CommandResult>
     {
         public BancoCommandHandler(IMediatorHandler mediator, IBancoRepository baseRepository, IUnitOfWork unitOfWork) : 
                                                                                                 base(mediator, baseRepository, unitOfWork)
         {
         }
 
-        public Task<RequestResponse> Handle(AddBancoCommand command, CancellationToken cancellationToken)
+        public Task<CommandResult> Handle(AddBancoCommand command, CancellationToken cancellationToken)
         {
             if (!command.IsValid())
             {
@@ -38,7 +38,7 @@ namespace RCM.Domain.CommandHandlers.BancoCommandHandlers
             return Response();
         }
 
-        public Task<RequestResponse> Handle(UpdateBancoCommand command, CancellationToken cancellationToken)
+        public Task<CommandResult> Handle(UpdateBancoCommand command, CancellationToken cancellationToken)
         {
             if (!command.IsValid())
             {
@@ -55,7 +55,7 @@ namespace RCM.Domain.CommandHandlers.BancoCommandHandlers
             return Response();
         }
 
-        public Task<RequestResponse> Handle(RemoveBancoCommand command, CancellationToken cancellationToken)
+        public Task<CommandResult> Handle(RemoveBancoCommand command, CancellationToken cancellationToken)
         {
             if (!command.IsValid())
             {

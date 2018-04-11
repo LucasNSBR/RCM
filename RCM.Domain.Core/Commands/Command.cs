@@ -1,9 +1,9 @@
 ﻿using FluentValidation.Results;
-using RCM.Domain.Core.Models;
+using MediatR;
 
 namespace RCM.Domain.Core.Commands
 {
-    public abstract class Command : Message
+    public abstract class Command : IRequest<CommandResult>
     {
         public ValidationResult ValidationResult { get; protected set; }
         public abstract bool IsValid();

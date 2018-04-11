@@ -3,7 +3,7 @@ using System;
 
 namespace RCM.Domain.Commands.ClienteCommands
 {
-    public abstract class ClienteCommand : Request
+    public abstract class ClienteCommand : Command
     {
         public Guid Id { get; set; }
         public string Nome { get; set; }

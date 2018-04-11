@@ -7,7 +7,7 @@ namespace RCM.Application.ApplicationInterfaces
 {
     public interface IDuplicataApplicationService : IBaseApplicationService<Duplicata, DuplicataViewModel>
     {
-        Task<RequestResponse> Pagar(DuplicataViewModel viewModel, PagamentoViewModel pagamentoViewModel);
-        Task<RequestResponse> Estornar(DuplicataViewModel viewModel);
+        Task<CommandResult> Pagar(DuplicataViewModel viewModel, PagamentoViewModel pagamentoViewModel);
+        Task<CommandResult> Estornar(DuplicataViewModel viewModel);
     }
 }

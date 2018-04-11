@@ -14,9 +14,9 @@ using System.Threading.Tasks;
 namespace RCM.Domain.CommandHandlers.OrdemServicoCommandHandlers
 {
     public class OrdemServicoCommandHandler : CommandHandler<OrdemServico>,
-                                              IRequestHandler<AddOrdemServicoCommand, RequestResponse>,
-                                              IRequestHandler<UpdateOrdemServicoCommand, RequestResponse>,
-                                              IRequestHandler<RemoveOrdemServicoCommand, RequestResponse>
+                                              IRequestHandler<AddOrdemServicoCommand, CommandResult>,
+                                              IRequestHandler<UpdateOrdemServicoCommand, CommandResult>,
+                                              IRequestHandler<RemoveOrdemServicoCommand, CommandResult>
     {
         private readonly IClienteRepository _clienteRepository;
 
@@ -24,25 +24,25 @@ namespace RCM.Domain.CommandHandlers.OrdemServicoCommandHandlers
                                                                                                                                                     base(mediator, baseRepository, unitOfWork)
         {
             _clienteRepository = clienteRepository;
-            _commandResponse = new RequestResponse();
+            _commandResponse = new CommandResult();
         }
 
-        public Task<RequestResponse> Handle(AddOrdemServicoCommand request, CancellationToken cancellationToken)
+        public Task<CommandResult> Handle(AddOrdemServicoCommand command, CancellationToken cancellationToken)
         {
-            if (!request.IsValid())
+            if (!command.IsValid())
             {
-                NotifyRequestErrors(request);
+                NotifyRequestErrors(command);
                 return Response();
             }
 
-            Cliente cliente = _clienteRepository.GetById(request.ClienteId);
+            Cliente cliente = _clienteRepository.GetById(command.ClienteId);
             if (cliente == null)
             {
-                _commandResponse.AddError(new RequestError("Erro de repositório", "Cliente não encontrado"));
+                _commandResponse.AddError(new CommandError("Erro de repositório", "Cliente não encontrado"));
                 return Response();
             }
 
-            OrdemServico ordemServico = new OrdemServico(cliente, request.Produtos);
+            OrdemServico ordemServico = new OrdemServico(cliente, command.Produtos);
             _baseRepository.Add(ordemServico);
 
             if (Commit())
@@ -51,17 +51,17 @@ namespace RCM.Domain.CommandHandlers.OrdemServicoCommandHandlers
             return Response();
         }
 
-        public Task<RequestResponse> Handle(UpdateOrdemServicoCommand request, CancellationToken cancellationToken)
+        public Task<CommandResult> Handle(UpdateOrdemServicoCommand command, CancellationToken cancellationToken)
         {
-            var cliente = _clienteRepository.GetById(request.ClienteId);
+            var cliente = _clienteRepository.GetById(command.ClienteId);
 
             if (cliente == null)
             {
-                _commandResponse.AddError(new RequestError("Erro de repositório", "Cliente não encontrado"));
+                _commandResponse.AddError(new CommandError("Erro de repositório", "Cliente não encontrado"));
                 return Task.FromResult(_commandResponse);
             }
 
-            var ordemServico = new OrdemServico(cliente, request.Produtos);
+            var ordemServico = new OrdemServico(cliente, command.Produtos);
             _baseRepository.Update(ordemServico);
 
             if (Commit())
@@ -70,15 +70,15 @@ namespace RCM.Domain.CommandHandlers.OrdemServicoCommandHandlers
             return Response();
         }
 
-        public Task<RequestResponse> Handle(RemoveOrdemServicoCommand request, CancellationToken cancellationToken)
+        public Task<CommandResult> Handle(RemoveOrdemServicoCommand command, CancellationToken cancellationToken)
         {
-            if (!request.IsValid())
+            if (!command.IsValid())
             {
-                NotifyRequestErrors(request);
+                NotifyRequestErrors(command);
                 return Response();
             }
 
-            OrdemServico ordemServico = _baseRepository.GetById(request.Id);
+            OrdemServico ordemServico = _baseRepository.GetById(command.Id);
 
             _baseRepository.Remove(ordemServico);
 

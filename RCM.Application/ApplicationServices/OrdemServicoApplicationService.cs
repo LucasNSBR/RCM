@@ -19,21 +19,21 @@ namespace RCM.Application.ApplicationServices
         {
         }
 
-        public override Task<RequestResponse> Add(OrdemServicoViewModel viewModel)
+        public override Task<CommandResult> Add(OrdemServicoViewModel viewModel)
         {
             var produtos = viewModel.Produtos.AsQueryable().ProjectTo<Produto>();
-            return _mediator.SendRequest(new AddOrdemServicoCommand(viewModel.ClienteId, produtos.ToList()));
+            return _mediator.SendCommand(new AddOrdemServicoCommand(viewModel.ClienteId, produtos.ToList()));
         }
 
-        public override Task<RequestResponse> Remove(OrdemServicoViewModel viewModel)
+        public override Task<CommandResult> Remove(OrdemServicoViewModel viewModel)
         {
             var produtos = viewModel.Produtos.AsQueryable().ProjectTo<Produto>();
-            return _mediator.SendRequest(new UpdateOrdemServicoCommand(viewModel.Id, viewModel.ClienteId, produtos.ToList()));
+            return _mediator.SendCommand(new UpdateOrdemServicoCommand(viewModel.Id, viewModel.ClienteId, produtos.ToList()));
         }
 
-        public override Task<RequestResponse> Update(OrdemServicoViewModel viewModel)
+        public override Task<CommandResult> Update(OrdemServicoViewModel viewModel)
         {
-            return _mediator.SendRequest(new RemoveOrdemServicoCommand(viewModel.Id));
+            return _mediator.SendCommand(new RemoveOrdemServicoCommand(viewModel.Id));
         }
     }
 }

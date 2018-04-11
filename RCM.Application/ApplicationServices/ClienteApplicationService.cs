@@ -16,19 +16,19 @@ namespace RCM.Application.ApplicationServices
         {
         }
 
-        public override Task<RequestResponse> Add(ClienteViewModel viewModel)
+        public override Task<CommandResult> Add(ClienteViewModel viewModel)
         {
-            return _mediator.SendRequest(new AddClienteCommand(viewModel.Nome, viewModel.Descricao));
+            return _mediator.SendCommand(new AddClienteCommand(viewModel.Nome, viewModel.Descricao));
         }
 
-        public override Task<RequestResponse> Update(ClienteViewModel viewModel)
+        public override Task<CommandResult> Update(ClienteViewModel viewModel)
         {
-            return _mediator.SendRequest(new UpdateClienteCommand(viewModel.Id, viewModel.Nome, viewModel.Descricao));
+            return _mediator.SendCommand(new UpdateClienteCommand(viewModel.Id, viewModel.Nome, viewModel.Descricao));
         }
 
-        public override Task<RequestResponse> Remove(ClienteViewModel viewModel)
+        public override Task<CommandResult> Remove(ClienteViewModel viewModel)
         {
-            return _mediator.SendRequest(new RemoveClienteCommand(viewModel.Id));
+            return _mediator.SendCommand(new RemoveClienteCommand(viewModel.Id));
         }
     }
 }

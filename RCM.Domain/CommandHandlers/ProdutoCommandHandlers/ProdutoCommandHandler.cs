@@ -12,16 +12,16 @@ using RCM.Domain.UnitOfWork;
 namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
 {
     public class ProdutoCommandHandler : CommandHandler<Produto>,
-                                         IRequestHandler<AddProdutoCommand, RequestResponse>,
-                                         IRequestHandler<UpdateProdutoCommand, RequestResponse>,
-                                         IRequestHandler<RemoveProdutoCommand, RequestResponse>
+                                         IRequestHandler<AddProdutoCommand, CommandResult>,
+                                         IRequestHandler<UpdateProdutoCommand, CommandResult>,
+                                         IRequestHandler<RemoveProdutoCommand, CommandResult>
     {
         public ProdutoCommandHandler(IMediatorHandler mediator, IProdutoRepository produtoRepository, IUnitOfWork unitOfWork) : 
                                                                                                         base(mediator, produtoRepository, unitOfWork)
         {
         }
 
-        public Task<RequestResponse> Handle(AddProdutoCommand command, CancellationToken cancellationToken)
+        public Task<CommandResult> Handle(AddProdutoCommand command, CancellationToken cancellationToken)
         {
             if (!command.IsValid())
             {
@@ -38,7 +38,7 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
             return Response();
         }
 
-        public Task<RequestResponse> Handle(UpdateProdutoCommand command, CancellationToken cancellationToken)
+        public Task<CommandResult> Handle(UpdateProdutoCommand command, CancellationToken cancellationToken)
         {
             if (!command.IsValid())
             {
@@ -55,7 +55,7 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
             return Response();
         }
 
-        public Task<RequestResponse> Handle(RemoveProdutoCommand command, CancellationToken cancellationToken)
+        public Task<CommandResult> Handle(RemoveProdutoCommand command, CancellationToken cancellationToken)
         {
             if (!command.IsValid())
             {

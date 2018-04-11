@@ -12,16 +12,16 @@ using System.Threading.Tasks;
 namespace RCM.Domain.CommandHandlers.ClienteCommandHandlers
 {
     public class ClienteCommandHandler : CommandHandler<Cliente>,
-                                         IRequestHandler<AddClienteCommand, RequestResponse>,
-                                         IRequestHandler<UpdateClienteCommand, RequestResponse>,
-                                         IRequestHandler<RemoveClienteCommand, RequestResponse>
+                                         IRequestHandler<AddClienteCommand, CommandResult>,
+                                         IRequestHandler<UpdateClienteCommand, CommandResult>,
+                                         IRequestHandler<RemoveClienteCommand, CommandResult>
     {
         public ClienteCommandHandler(IMediatorHandler mediator, IClienteRepository clienteRepository, IUnitOfWork unitOfWork) : 
                                                                                                         base(mediator, clienteRepository, unitOfWork)
         {
         }
 
-        public Task<RequestResponse> Handle(AddClienteCommand command, CancellationToken cancellationToken)
+        public Task<CommandResult> Handle(AddClienteCommand command, CancellationToken cancellationToken)
         {
             if (!command.IsValid())
             {
@@ -38,7 +38,7 @@ namespace RCM.Domain.CommandHandlers.ClienteCommandHandlers
             return Response();
         }
 
-        public Task<RequestResponse> Handle(UpdateClienteCommand command, CancellationToken cancellationToken)
+        public Task<CommandResult> Handle(UpdateClienteCommand command, CancellationToken cancellationToken)
         {
             if (!command.IsValid())
             {
@@ -55,7 +55,7 @@ namespace RCM.Domain.CommandHandlers.ClienteCommandHandlers
             return Response();
         }
 
-        public Task<RequestResponse> Handle(RemoveClienteCommand command, CancellationToken cancellationToken)
+        public Task<CommandResult> Handle(RemoveClienteCommand command, CancellationToken cancellationToken)
         {
             if (!command.IsValid())
             {

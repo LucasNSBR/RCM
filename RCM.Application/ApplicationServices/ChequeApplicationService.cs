@@ -16,19 +16,19 @@ namespace RCM.Application.ApplicationServices
         {
         }
 
-        public override Task<RequestResponse> Add(ChequeViewModel viewModel)
+        public override Task<CommandResult> Add(ChequeViewModel viewModel)
         {
-            return _mediator.SendRequest(new AddChequeCommand(viewModel.BancoId, viewModel.Agencia, viewModel.Conta, viewModel.NumeroCheque, viewModel.Observacao, viewModel.ClienteId, viewModel.DataEmissao, viewModel.DataVencimento, viewModel.Valor));
+            return _mediator.SendCommand(new AddChequeCommand(viewModel.BancoId, viewModel.Agencia, viewModel.Conta, viewModel.NumeroCheque, viewModel.Observacao, viewModel.ClienteId, viewModel.DataEmissao, viewModel.DataVencimento, viewModel.Valor));
         }
 
-        public override Task<RequestResponse> Update(ChequeViewModel viewModel)
+        public override Task<CommandResult> Update(ChequeViewModel viewModel)
         {
-            return _mediator.SendRequest(new UpdateChequeCommand(viewModel.Id, viewModel.BancoId, viewModel.Agencia, viewModel.Conta, viewModel.NumeroCheque, viewModel.Observacao, viewModel.ClienteId, viewModel.DataEmissao, viewModel.DataVencimento, viewModel.Valor));
+            return _mediator.SendCommand(new UpdateChequeCommand(viewModel.Id, viewModel.BancoId, viewModel.Agencia, viewModel.Conta, viewModel.NumeroCheque, viewModel.Observacao, viewModel.ClienteId, viewModel.DataEmissao, viewModel.DataVencimento, viewModel.Valor));
         }
 
-        public override Task<RequestResponse> Remove(ChequeViewModel viewModel)
+        public override Task<CommandResult> Remove(ChequeViewModel viewModel)
         {
-            return _mediator.SendRequest(new RemoveChequeCommand(viewModel.Id));
+            return _mediator.SendCommand(new RemoveChequeCommand(viewModel.Id));
         }
     }
 }

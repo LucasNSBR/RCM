@@ -14,8 +14,8 @@ namespace RCM.Application.ApplicationInterfaces
         IQueryable<TViewModel> Get(Expression<Func<TModel, bool>> expression);
         TViewModel GetById(Guid id);
 
-        Task<RequestResponse> Add(TViewModel viewModel);
-        Task<RequestResponse> Update(TViewModel viewModel);
-        Task<RequestResponse> Remove(TViewModel viewModel);
+        Task<CommandResult> Add(TViewModel viewModel);
+        Task<CommandResult> Update(TViewModel viewModel);
+        Task<CommandResult> Remove(TViewModel viewModel);
     }
 }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace RCM.Domain.Commands.NotaFiscalCommands
 {
-    public abstract class NotaFiscalCommand : Request
+    public abstract class NotaFiscalCommand : Command
     {
         public Guid Id { get; set; }
         public string NumeroDocumento { get; set; }

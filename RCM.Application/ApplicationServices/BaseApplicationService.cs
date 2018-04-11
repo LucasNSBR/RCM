@@ -42,9 +42,9 @@ namespace RCM.Application.ApplicationServices
             return model;
         }
 
-        public virtual Task<RequestResponse> Add(TViewModel viewModel) { throw new ArgumentException("Direct base calling is not allowed. You need to override this method."); }
-        public virtual Task<RequestResponse> Remove(TViewModel viewModel){ throw new ArgumentException("Direct base calling is not allowed. You need to override this method."); }
-        public virtual Task<RequestResponse> Update(TViewModel viewModel) { throw new ArgumentException("Direct base calling is not allowed. You need to override this method."); }
+        public virtual Task<CommandResult> Add(TViewModel viewModel) { throw new ArgumentException("Direct base calling is not allowed. You need to override this method."); }
+        public virtual Task<CommandResult> Remove(TViewModel viewModel){ throw new ArgumentException("Direct base calling is not allowed. You need to override this method."); }
+        public virtual Task<CommandResult> Update(TViewModel viewModel) { throw new ArgumentException("Direct base calling is not allowed. You need to override this method."); }
 
         public void Dispose()
         {

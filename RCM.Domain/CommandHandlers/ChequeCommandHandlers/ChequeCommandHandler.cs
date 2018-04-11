@@ -18,9 +18,9 @@ using System.Threading.Tasks;
 namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
 {
     public class ChequeCommandHandler : CommandHandler<Cheque>,
-                                        IRequestHandler<AddChequeCommand, RequestResponse>,
-                                        IRequestHandler<UpdateChequeCommand, RequestResponse>,
-                                        IRequestHandler<RemoveChequeCommand, RequestResponse>
+                                        IRequestHandler<AddChequeCommand, CommandResult>,
+                                        IRequestHandler<UpdateChequeCommand, CommandResult>,
+                                        IRequestHandler<RemoveChequeCommand, CommandResult>
     {
         private readonly IBancoRepository _bancoRepository;
         private readonly IClienteRepository _clienteRepository;
@@ -32,7 +32,7 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
             _clienteRepository = clienteRepository;
         }
 
-        public Task<RequestResponse> Handle(AddChequeCommand command, CancellationToken cancellationToken)
+        public Task<CommandResult> Handle(AddChequeCommand command, CancellationToken cancellationToken)
         {
             if (!command.IsValid())
             {
@@ -42,7 +42,7 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
 
             if (CheckNumeroChequeExists(command.NumeroCheque, command.ClienteId, command.BancoId, command.Id))
             {
-                _commandResponse.AddError(new RequestError(RequestErrorsMessageConstants.DuplicataAlreadyExists));
+                _commandResponse.AddError(new CommandError(RequestErrorsMessageConstants.DuplicataAlreadyExists));
                 return Response();
             }
 
@@ -57,7 +57,7 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
             return Response();
         }
 
-        public Task<RequestResponse> Handle(UpdateChequeCommand command, CancellationToken cancellationToken)
+        public Task<CommandResult> Handle(UpdateChequeCommand command, CancellationToken cancellationToken)
         {
             if (!command.IsValid())
             {
@@ -67,7 +67,7 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
 
             if (CheckNumeroChequeExists(command.NumeroCheque, command.ClienteId, command.BancoId, command.Id))
             {
-                _commandResponse.AddError(new RequestError(RequestErrorsMessageConstants.ChequeAlreadyExists));
+                _commandResponse.AddError(new CommandError(RequestErrorsMessageConstants.ChequeAlreadyExists));
                 return Response();
             }
 
@@ -82,7 +82,7 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
             return Response();
         }
 
-        public Task<RequestResponse> Handle(RemoveChequeCommand command, CancellationToken cancellationToken)
+        public Task<CommandResult> Handle(RemoveChequeCommand command, CancellationToken cancellationToken)
         {
             if (!command.IsValid())
             {

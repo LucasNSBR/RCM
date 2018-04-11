@@ -12,16 +12,16 @@ using System.Threading.Tasks;
 namespace RCM.Domain.CommandHandlers.FornecedorCommandHandlers
 {
     public class FornecedorCommandHandler : CommandHandler<Fornecedor>,
-                                            IRequestHandler<AddFornecedorCommand, RequestResponse>,
-                                            IRequestHandler<UpdateFornecedorCommand, RequestResponse>,
-                                            IRequestHandler<RemoveFornecedorCommand, RequestResponse>
+                                            IRequestHandler<AddFornecedorCommand, CommandResult>,
+                                            IRequestHandler<UpdateFornecedorCommand, CommandResult>,
+                                            IRequestHandler<RemoveFornecedorCommand, CommandResult>
     {
         public FornecedorCommandHandler(IMediatorHandler mediator, IFornecedorRepository fornecedorRepository, IUnitOfWork unitOfWork) :
                                                                                                                 base(mediator, fornecedorRepository, unitOfWork)
         {
         }
 
-        public Task<RequestResponse> Handle(AddFornecedorCommand command, CancellationToken cancellationToken)
+        public Task<CommandResult> Handle(AddFornecedorCommand command, CancellationToken cancellationToken)
         {
             if (!command.IsValid())
             {
@@ -38,7 +38,7 @@ namespace RCM.Domain.CommandHandlers.FornecedorCommandHandlers
             return Response();
         }
 
-        public Task<RequestResponse> Handle(UpdateFornecedorCommand command, CancellationToken cancellationToken)
+        public Task<CommandResult> Handle(UpdateFornecedorCommand command, CancellationToken cancellationToken)
         {
             if (!command.IsValid())
             {
@@ -55,7 +55,7 @@ namespace RCM.Domain.CommandHandlers.FornecedorCommandHandlers
             return Response();
         }
 
-        public Task<RequestResponse> Handle(RemoveFornecedorCommand command, CancellationToken cancellationToken)
+        public Task<CommandResult> Handle(RemoveFornecedorCommand command, CancellationToken cancellationToken)
         {
             if (!command.IsValid())
             {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace RCM.Domain.Core.Commands
 {
-    public class RequestResponse
+    public class CommandResult
     {
         public bool Success
         {
@@ -13,8 +13,8 @@ namespace RCM.Domain.Core.Commands
             }
         }
 
-        private List<RequestError> _errors;
-        public IReadOnlyList<RequestError> Errors
+        private List<CommandError> _errors;
+        public IReadOnlyList<CommandError> Errors
         {
             get
             {
@@ -22,12 +22,12 @@ namespace RCM.Domain.Core.Commands
             }
         }
 
-        public RequestResponse()
+        public CommandResult()
         {
-            _errors = new List<RequestError>();
+            _errors = new List<CommandError>();
         }
 
-        public void AddError(RequestError error)
+        public void AddError(CommandError error)
         {
             _errors.Add(error);
         }

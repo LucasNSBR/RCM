@@ -30,7 +30,7 @@ namespace RCM.Presentation.Web.Controllers
             }
         }
 
-        protected void NotifyCommandResultErrors(IReadOnlyList<RequestError> errors)
+        protected void NotifyCommandResultErrors(IReadOnlyList<CommandError> errors)
         {
             foreach (var error in errors)
             {

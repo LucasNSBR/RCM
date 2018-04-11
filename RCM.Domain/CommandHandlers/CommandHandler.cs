@@ -13,7 +13,7 @@ namespace RCM.Domain.CommandHandlers
         protected readonly IMediatorHandler _mediator;
         protected readonly IBaseRepository<TModel> _baseRepository;
         protected readonly IUnitOfWork _unitOfWork;
-        protected RequestResponse _commandResponse;
+        protected CommandResult _commandResponse;
 
         public CommandHandler(IMediatorHandler mediator, IBaseRepository<TModel> baseRepository, IUnitOfWork unitOfWork)
         {
@@ -21,7 +21,7 @@ namespace RCM.Domain.CommandHandlers
             _baseRepository = baseRepository;
             _unitOfWork = unitOfWork;
 
-            _commandResponse = new RequestResponse();
+            _commandResponse = new CommandResult();
         }
 
         protected bool Commit()
@@ -34,22 +34,22 @@ namespace RCM.Domain.CommandHandlers
             {
                 foreach (var error in commitResult.Errors)
                 {
-                    _commandResponse.AddError(new RequestError("Commit Error", error.Message ?? error.InnerException.Message));
+                    _commandResponse.AddError(new CommandError("Commit Error", error.Message ?? error.InnerException.Message));
                 }
             }
 
             return false;
         }
         
-        protected void NotifyRequestErrors(Request request)
+        protected void NotifyRequestErrors(Command command)
         {
-            foreach (var error in request.ValidationResult.Errors)
+            foreach (var error in command.ValidationResult.Errors)
             {
-                _commandResponse.AddError(new RequestError(error.ErrorCode, error.ErrorMessage));
+                _commandResponse.AddError(new CommandError(error.ErrorCode, error.ErrorMessage));
             }
         }
 
-        protected Task<RequestResponse> Response()
+        protected Task<CommandResult> Response()
         {
             return Task.FromResult(_commandResponse);
         }

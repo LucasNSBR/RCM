@@ -12,16 +12,16 @@ using System.Threading.Tasks;
 namespace RCM.Domain.CommandHandlers.NotaFiscalCommandHandlers
 {
     public class NotaFiscalCommandHandler : CommandHandler<NotaFiscal>,
-                                            IRequestHandler<AddNotaFiscalCommand, RequestResponse>,
-                                            IRequestHandler<UpdateNotaFiscalCommand, RequestResponse>,
-                                            IRequestHandler<RemoveNotaFiscalCommand, RequestResponse>
+                                            IRequestHandler<AddNotaFiscalCommand, CommandResult>,
+                                            IRequestHandler<UpdateNotaFiscalCommand, CommandResult>,
+                                            IRequestHandler<RemoveNotaFiscalCommand, CommandResult>
     {
         public NotaFiscalCommandHandler(IMediatorHandler mediator, INotaFiscalRepository notaFiscalRepository, IUnitOfWork unitOfWork) : 
                                                                                                                 base(mediator, notaFiscalRepository, unitOfWork)
         {
         }
 
-        public Task<RequestResponse> Handle(AddNotaFiscalCommand command, CancellationToken cancellationToken)
+        public Task<CommandResult> Handle(AddNotaFiscalCommand command, CancellationToken cancellationToken)
         {
             if (!command.IsValid())
             {
@@ -38,7 +38,7 @@ namespace RCM.Domain.CommandHandlers.NotaFiscalCommandHandlers
             return Response();
         }
 
-        public Task<RequestResponse> Handle(UpdateNotaFiscalCommand command, CancellationToken cancellationToken)
+        public Task<CommandResult> Handle(UpdateNotaFiscalCommand command, CancellationToken cancellationToken)
         {
             if (!command.IsValid())
             {
@@ -55,7 +55,7 @@ namespace RCM.Domain.CommandHandlers.NotaFiscalCommandHandlers
             return Response();
         }
 
-        public Task<RequestResponse> Handle(RemoveNotaFiscalCommand command, CancellationToken cancellationToken)
+        public Task<CommandResult> Handle(RemoveNotaFiscalCommand command, CancellationToken cancellationToken)
         {
             if (!command.IsValid())
             {

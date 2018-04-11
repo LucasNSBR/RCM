@@ -3,7 +3,7 @@ using System;
 
 namespace RCM.Domain.Commands.DuplicataCommands
 {
-    public abstract class DuplicataCommand : Request
+    public abstract class DuplicataCommand : Command
     {
         public Guid Id { get; set; }
         public string NumeroDocumento { get; set; }

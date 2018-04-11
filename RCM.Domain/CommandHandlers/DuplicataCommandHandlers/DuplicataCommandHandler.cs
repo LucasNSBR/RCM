@@ -18,11 +18,11 @@ using System.Threading.Tasks;
 namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
 {
     public class DuplicataCommandHandler : CommandHandler<Duplicata>,
-                                           IRequestHandler<AddDuplicataCommand, RequestResponse>,
-                                           IRequestHandler<UpdateDuplicataCommand, RequestResponse>,
-                                           IRequestHandler<RemoveDuplicataCommand, RequestResponse>,
-                                           IRequestHandler<PagarDuplicataCommand, RequestResponse>,
-                                           IRequestHandler<EstornarDuplicataCommand, RequestResponse>
+                                           IRequestHandler<AddDuplicataCommand, CommandResult>,
+                                           IRequestHandler<UpdateDuplicataCommand, CommandResult>,
+                                           IRequestHandler<RemoveDuplicataCommand, CommandResult>,
+                                           IRequestHandler<PagarDuplicataCommand, CommandResult>,
+                                           IRequestHandler<EstornarDuplicataCommand, CommandResult>
     {
         private readonly IFornecedorRepository _fornecedorRepository;
 
@@ -32,7 +32,7 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
             _fornecedorRepository = fornecedorRepository;
         }
 
-        public Task<RequestResponse> Handle(AddDuplicataCommand command, CancellationToken cancellationToken)
+        public Task<CommandResult> Handle(AddDuplicataCommand command, CancellationToken cancellationToken)
         {
             if (!command.IsValid())
             {
@@ -42,7 +42,7 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
 
             if (CheckNumeroExists(command.NumeroDocumento, command.FornecedorId, command.Id))
             {
-                _commandResponse.AddError(new RequestError(RequestErrorsMessageConstants.DuplicataAlreadyExists));
+                _commandResponse.AddError(new CommandError(RequestErrorsMessageConstants.DuplicataAlreadyExists));
                 return Response();
             }
 
@@ -57,7 +57,7 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
             return Response();
         }
 
-        public Task<RequestResponse> Handle(UpdateDuplicataCommand command, CancellationToken cancellationToken)
+        public Task<CommandResult> Handle(UpdateDuplicataCommand command, CancellationToken cancellationToken)
         {
             if (!command.IsValid())
             {
@@ -67,7 +67,7 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
 
             if (CheckNumeroExists(command.NumeroDocumento, command.FornecedorId, command.Id))
             {
-                _commandResponse.AddError(new RequestError(RequestErrorsMessageConstants.DuplicataAlreadyExists));
+                _commandResponse.AddError(new CommandError(RequestErrorsMessageConstants.DuplicataAlreadyExists));
                 return Response();
             }
 
@@ -82,7 +82,7 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
             return Response();
         }
 
-        public Task<RequestResponse> Handle(RemoveDuplicataCommand command, CancellationToken cancellationToken)
+        public Task<CommandResult> Handle(RemoveDuplicataCommand command, CancellationToken cancellationToken)
         {
             if (!command.IsValid())
             {
@@ -99,7 +99,7 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
             return Response();
         }
 
-        public Task<RequestResponse> Handle(PagarDuplicataCommand command, CancellationToken cancellationToken)
+        public Task<CommandResult> Handle(PagarDuplicataCommand command, CancellationToken cancellationToken)
         {
             if (!command.IsValid())
             {
@@ -118,7 +118,7 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
             return Response();
         }
 
-        public Task<RequestResponse> Handle(EstornarDuplicataCommand command, CancellationToken cancellationToken)
+        public Task<CommandResult> Handle(EstornarDuplicataCommand command, CancellationToken cancellationToken)
         {
             if (!command.IsValid())
             {

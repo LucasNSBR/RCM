@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace RCM.Domain.Commands.OrdemServicoCommands
 {
-    public abstract class OrdemServicoCommand : Request
+    public abstract class OrdemServicoCommand : Command
     {
         public Guid Id { get; set; }
         public OrdemServicoStatus Status { get; set; }

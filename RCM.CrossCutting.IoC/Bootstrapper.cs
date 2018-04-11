@@ -94,39 +94,39 @@ namespace RCM.CrossCutting.IoC
 
         private static void RegisterCommands(IServiceCollection services)
         {
-            services.AddScoped<IRequestHandler<AddBancoCommand, RequestResponse>, BancoCommandHandler>();
-            services.AddScoped<IRequestHandler<UpdateBancoCommand, RequestResponse>, BancoCommandHandler>();
-            services.AddScoped<IRequestHandler<RemoveBancoCommand, RequestResponse>, BancoCommandHandler>();
+            services.AddScoped<IRequestHandler<AddBancoCommand, CommandResult>, BancoCommandHandler>();
+            services.AddScoped<IRequestHandler<UpdateBancoCommand, CommandResult>, BancoCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoveBancoCommand, CommandResult>, BancoCommandHandler>();
 
-            services.AddScoped<IRequestHandler<AddChequeCommand, RequestResponse>, ChequeCommandHandler>();
-            services.AddScoped<IRequestHandler<UpdateChequeCommand, RequestResponse>, ChequeCommandHandler>();
-            services.AddScoped<IRequestHandler<RemoveChequeCommand, RequestResponse>, ChequeCommandHandler>();
+            services.AddScoped<IRequestHandler<AddChequeCommand, CommandResult>, ChequeCommandHandler>();
+            services.AddScoped<IRequestHandler<UpdateChequeCommand, CommandResult>, ChequeCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoveChequeCommand, CommandResult>, ChequeCommandHandler>();
 
-            services.AddScoped<IRequestHandler<AddClienteCommand, RequestResponse>, ClienteCommandHandler>();
-            services.AddScoped<IRequestHandler<UpdateClienteCommand, RequestResponse>, ClienteCommandHandler>();
-            services.AddScoped<IRequestHandler<RemoveClienteCommand, RequestResponse>, ClienteCommandHandler>();
+            services.AddScoped<IRequestHandler<AddClienteCommand, CommandResult>, ClienteCommandHandler>();
+            services.AddScoped<IRequestHandler<UpdateClienteCommand, CommandResult>, ClienteCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoveClienteCommand, CommandResult>, ClienteCommandHandler>();
 
-            services.AddScoped<IRequestHandler<AddDuplicataCommand, RequestResponse>, DuplicataCommandHandler>();
-            services.AddScoped<IRequestHandler<UpdateDuplicataCommand, RequestResponse>, DuplicataCommandHandler>();
-            services.AddScoped<IRequestHandler<RemoveDuplicataCommand, RequestResponse>, DuplicataCommandHandler>();
-            services.AddScoped<IRequestHandler<PagarDuplicataCommand, RequestResponse>, DuplicataCommandHandler>();
-            services.AddScoped<IRequestHandler<EstornarDuplicataCommand, RequestResponse>, DuplicataCommandHandler>();
+            services.AddScoped<IRequestHandler<AddDuplicataCommand, CommandResult>, DuplicataCommandHandler>();
+            services.AddScoped<IRequestHandler<UpdateDuplicataCommand, CommandResult>, DuplicataCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoveDuplicataCommand, CommandResult>, DuplicataCommandHandler>();
+            services.AddScoped<IRequestHandler<PagarDuplicataCommand, CommandResult>, DuplicataCommandHandler>();
+            services.AddScoped<IRequestHandler<EstornarDuplicataCommand, CommandResult>, DuplicataCommandHandler>();
 
-            services.AddScoped<IRequestHandler<AddFornecedorCommand, RequestResponse>, FornecedorCommandHandler>();
-            services.AddScoped<IRequestHandler<UpdateFornecedorCommand, RequestResponse>, FornecedorCommandHandler>();
-            services.AddScoped<IRequestHandler<RemoveFornecedorCommand, RequestResponse>, FornecedorCommandHandler>();
+            services.AddScoped<IRequestHandler<AddFornecedorCommand, CommandResult>, FornecedorCommandHandler>();
+            services.AddScoped<IRequestHandler<UpdateFornecedorCommand, CommandResult>, FornecedorCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoveFornecedorCommand, CommandResult>, FornecedorCommandHandler>();
 
-            services.AddScoped<IRequestHandler<AddNotaFiscalCommand, RequestResponse>, NotaFiscalCommandHandler>();
-            services.AddScoped<IRequestHandler<UpdateNotaFiscalCommand, RequestResponse>, NotaFiscalCommandHandler>();
-            services.AddScoped<IRequestHandler<RemoveNotaFiscalCommand, RequestResponse>, NotaFiscalCommandHandler>();
+            services.AddScoped<IRequestHandler<AddNotaFiscalCommand, CommandResult>, NotaFiscalCommandHandler>();
+            services.AddScoped<IRequestHandler<UpdateNotaFiscalCommand, CommandResult>, NotaFiscalCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoveNotaFiscalCommand, CommandResult>, NotaFiscalCommandHandler>();
 
-            services.AddScoped<IRequestHandler<AddProdutoCommand, RequestResponse>, ProdutoCommandHandler>();
-            services.AddScoped<IRequestHandler<UpdateProdutoCommand, RequestResponse>, ProdutoCommandHandler>();
-            services.AddScoped<IRequestHandler<RemoveProdutoCommand, RequestResponse>, ProdutoCommandHandler>();
+            services.AddScoped<IRequestHandler<AddProdutoCommand, CommandResult>, ProdutoCommandHandler>();
+            services.AddScoped<IRequestHandler<UpdateProdutoCommand, CommandResult>, ProdutoCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoveProdutoCommand, CommandResult>, ProdutoCommandHandler>();
 
-            services.AddScoped<IRequestHandler<AddOrdemServicoCommand, RequestResponse>, OrdemServicoCommandHandler>();
-            services.AddScoped<IRequestHandler<UpdateOrdemServicoCommand, RequestResponse>, OrdemServicoCommandHandler>();
-            services.AddScoped<IRequestHandler<RemoveOrdemServicoCommand, RequestResponse>, OrdemServicoCommandHandler>();
+            services.AddScoped<IRequestHandler<AddOrdemServicoCommand, CommandResult>, OrdemServicoCommandHandler>();
+            services.AddScoped<IRequestHandler<UpdateOrdemServicoCommand, CommandResult>, OrdemServicoCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoveOrdemServicoCommand, CommandResult>, OrdemServicoCommandHandler>();
         }
 
         private static void RegisterEvents(IServiceCollection services)

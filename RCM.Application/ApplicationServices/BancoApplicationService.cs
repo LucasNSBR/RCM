@@ -16,19 +16,19 @@ namespace RCM.Application.ApplicationServices
         {
         }
 
-        public override Task<RequestResponse> Add(BancoViewModel viewModel)
+        public override Task<CommandResult> Add(BancoViewModel viewModel)
         {
-            return _mediator.SendRequest(new AddBancoCommand(viewModel.Nome, viewModel.CodigoCompensacao));
+            return _mediator.SendCommand(new AddBancoCommand(viewModel.Nome, viewModel.CodigoCompensacao));
         }
 
-        public override Task<RequestResponse> Update(BancoViewModel viewModel)
+        public override Task<CommandResult> Update(BancoViewModel viewModel)
         {
-            return _mediator.SendRequest(new UpdateBancoCommand(viewModel.Id, viewModel.Nome, viewModel.CodigoCompensacao));
+            return _mediator.SendCommand(new UpdateBancoCommand(viewModel.Id, viewModel.Nome, viewModel.CodigoCompensacao));
         }
 
-        public override Task<RequestResponse> Remove(BancoViewModel viewModel)
+        public override Task<CommandResult> Remove(BancoViewModel viewModel)
         {
-            return _mediator.SendRequest(new RemoveBancoCommand(viewModel.Id));
+            return _mediator.SendCommand(new RemoveBancoCommand(viewModel.Id));
         }
     }
 }
