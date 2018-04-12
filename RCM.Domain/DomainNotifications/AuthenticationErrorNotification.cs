@@ -5,11 +5,11 @@ namespace RCM.Domain.DomainNotifications
 {
     public class AuthenticationErrorNotification : DomainNotification
     {
-        public AuthenticationErrorNotification(string body) : base(NotificationMessageContants.AuthenticationError, body)
+        public AuthenticationErrorNotification(string body) : base(NotificationMessageConstants.AuthenticationError, body, DomainNotificationType.Error)
         {
         }
 
-        public AuthenticationErrorNotification(string title, string body) : base(title, body)
+        public AuthenticationErrorNotification(string title, string body) : base(title, body, DomainNotificationType.Error)
         {
         }
     }

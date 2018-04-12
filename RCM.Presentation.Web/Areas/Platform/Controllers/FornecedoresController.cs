@@ -61,9 +61,14 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             var commandResult = await _fornecedorApplicationService.Add(fornecedor);
 
             if (commandResult.Success)
+            {
+                NotifyCommandResultSuccess();
                 return RedirectToAction(nameof(Index));
+            }
             else
-                return View(fornecedor);
+                NotifyCommandResultErrors(commandResult.Errors);
+
+            return View(fornecedor);
         }
 
         [Authorize(Policy = "ActiveUser")]
@@ -90,9 +95,14 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             var commandResult = await _fornecedorApplicationService.Update(fornecedor);
 
             if (commandResult.Success)
+            {
+                NotifyCommandResultSuccess();
                 return RedirectToAction(nameof(Index));
+            }
             else
-                return View(fornecedor);
+                NotifyCommandResultErrors(commandResult.Errors);
+
+            return View(fornecedor);
         }
 
         [Authorize(Policy = "ActiveUser")]
@@ -113,7 +123,12 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             var commandResult = await _fornecedorApplicationService.Remove(fornecedor);
 
             if (commandResult.Success)
+            {
+                NotifyCommandResultSuccess();
                 return RedirectToAction(nameof(Index));
+            }
+            else
+                NotifyCommandResultErrors(commandResult.Errors);
 
             return View(fornecedor);
         }

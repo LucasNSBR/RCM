@@ -22,6 +22,7 @@ namespace RCM.Domain.Models.OrdemServicoModels
             }
         }
 
+       // public virtual Carro Carro { get; private set; }
         public DateTime DataEntrada { get; private set; }
         public DateTime? DataSaida { get; private set; }
         public decimal Total { get; private set; }

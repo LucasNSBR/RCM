@@ -66,7 +66,10 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             var commandResult = await _bancoApplicationService.Add(banco);
 
             if (commandResult.Success)
+            {
+                NotifyCommandResultSuccess();
                 return RedirectToAction(nameof(Index));
+            }
             else
                 NotifyCommandResultErrors(commandResult.Errors);
 
@@ -97,7 +100,10 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             var commandResult = await _bancoApplicationService.Update(banco);
 
             if (commandResult.Success)
+            {
+                NotifyCommandResultSuccess();
                 return RedirectToAction(nameof(Index));
+            }
             else
                 return View(banco);
         }
@@ -120,7 +126,10 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             var commandResult = await _bancoApplicationService.Remove(banco);
 
             if (commandResult.Success)
+            {
+                NotifyCommandResultSuccess();
                 return RedirectToAction(nameof(Index));
+            }
             else
                 return View(banco);
         }

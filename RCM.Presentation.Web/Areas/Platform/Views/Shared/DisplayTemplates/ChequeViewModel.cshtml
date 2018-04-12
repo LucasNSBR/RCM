@@ -8,6 +8,7 @@
             <li class="tab col s3"><a href="#vencimento">Emissão/Vencimento</a></li>
             <li class="tab col s3"><a href="#cliente">Cliente</a></li>
             <li class="tab col s3"><a href="#pagamento">Pagamento</a></li>
+            <li class="tab col s3"><a href="#funcoes">Funções</a></li>
         </ul>
     </div>
 
@@ -127,7 +128,7 @@
     <div id="cliente" class="col s12 m12">
         <div>
             <p class="px-1 font-bold lead">
-                Informação sobre Responsável pelo Cheque 
+                Informação sobre Responsável pelo Cheque
             </p>
             <dl class="detail-list">
                 <dt>
@@ -137,6 +138,26 @@
                     <a asp-action="Details" asp-controller="Clientes" asp-route-id="@Model.ClienteId">
                         @Model.Cliente.Nome
                     </a>
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    <div id="funcoes" class="col s12 m12">
+        <div>
+            <p class="px-1 font-bold lead">
+                Funções básicas
+            </p>
+            <dl class="detail-list">
+                <dt>
+                    <label>Pagamento</label>
+                </dt>
+                <dd>
+                    <a asp-action="BloquearCheque" asp-route-id="@Model.Id">Bloquear</a><br />
+                    <a asp-action="CompensarCheque" asp-route-id="@Model.Id">Compensar</a><br />
+                    <a asp-action="RepassarCheque" asp-route-id="@Model.Id">Repassar</a><br />
+                    <a asp-action="DevolverCheque" asp-route-id="@Model.Id">Devolver</a><br />
+                    <a asp-action="SustarCheque" asp-route-id="@Model.Id">Sustar</a><br />
                 </dd>
             </dl>
         </div>

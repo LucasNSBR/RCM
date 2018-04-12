@@ -5,11 +5,11 @@ namespace RCM.Domain.DomainNotifications
 {
     public class CommitErrorNotification : DomainNotification
     {
-        public CommitErrorNotification(string body) : base(NotificationMessageContants.CommitError, body)
+        public CommitErrorNotification(string body) : base(NotificationMessageConstants.CommitError, body, DomainNotificationType.Error)
         {
         }
 
-        public CommitErrorNotification(string title, string body) : base(title, body)
+        public CommitErrorNotification(string title, string body) : base(title, body, DomainNotificationType.Success)
         {
         }
     }

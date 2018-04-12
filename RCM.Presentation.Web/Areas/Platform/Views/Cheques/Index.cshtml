@@ -146,9 +146,9 @@
                 @{
                     var queryStringHelper = new Dictionary<string, string>
                                     {
+                                        { "clienteId", Model.ClienteId?.ToString() },
                                         { "minValor", Model.MinValor?.ToString() },
                                         { "maxValor", Model.MaxValor?.ToString() },
-                                        { "clienteId", Model.ClienteId?.ToString() },
                                         { "agencia", Model.Agencia?.ToString() },
                                         { "conta", Model.Conta?.ToString() },
                                         { "numeroCheque", Model.NumeroCheque?.ToString() },

@@ -10,8 +10,6 @@ using RCM.Domain.Models.ChequeModels;
 using RCM.Domain.Models.ClienteModels;
 using RCM.Domain.Repositories;
 using RCM.Domain.UnitOfWork;
-using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -20,7 +18,12 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
     public class ChequeCommandHandler : CommandHandler<Cheque>,
                                         IRequestHandler<AddChequeCommand, CommandResult>,
                                         IRequestHandler<UpdateChequeCommand, CommandResult>,
-                                        IRequestHandler<RemoveChequeCommand, CommandResult>
+                                        IRequestHandler<RemoveChequeCommand, CommandResult>,
+                                        IRequestHandler<BloquearChequeCommand, CommandResult>,
+                                        IRequestHandler<RepassarChequeCommand, CommandResult>,
+                                        IRequestHandler<CompensarChequeCommand, CommandResult>,
+                                        IRequestHandler<DevolverChequeCommand, CommandResult>,
+                                        IRequestHandler<SustarChequeCommand, CommandResult>
     {
         private readonly IChequeRepository _chequeRepository;
         private readonly IBancoRepository _bancoRepository;
@@ -42,9 +45,9 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
                 return Response();
             }
 
-            if (CheckNumeroChequeExists(command.NumeroCheque, command.ClienteId, command.BancoId, command.Id))
+            if (_chequeRepository.CheckNumeroChequeExists(command.NumeroCheque, command.ClienteId, command.BancoId, command.Id))
             {
-                _commandResponse.AddError(new CommandError(RequestErrorsMessageConstants.DuplicataAlreadyExists));
+                _commandResponse.AddError(new CommandError(RequestErrorsMessageConstants.ChequeAlreadyExists));
                 return Response();
             }
 
@@ -67,7 +70,7 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
                 return Response();
             }
 
-            if (CheckNumeroChequeExists(command.NumeroCheque, command.ClienteId, command.BancoId, command.Id))
+            if (_chequeRepository.CheckNumeroChequeExists(command.NumeroCheque, command.ClienteId, command.BancoId, command.Id))
             {
                 _commandResponse.AddError(new CommandError(RequestErrorsMessageConstants.ChequeAlreadyExists));
                 return Response();
@@ -101,22 +104,29 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
             return Response();
         }
 
-        public bool CheckNumeroChequeExists(string numeroDocumento, Guid clienteId, Guid bancoId, Guid novoChequeId)
+        public Task<CommandResult> Handle(BloquearChequeCommand request, CancellationToken cancellationToken)
         {
-            var numeroDocumentoSpecification = new ChequeNumeroSpecification(numeroDocumento);
-            var clienteIdSpecification = new ChequeClienteIdSpecification(clienteId);
-            var bancoIdSpecification = new ChequeBancoIdSpecification(bancoId);
+            throw new System.NotImplementedException();
+        }
 
-            Cheque cheque = _chequeRepository.Get(numeroDocumentoSpecification
-                .And(bancoIdSpecification)
-                .And(clienteIdSpecification)
-                .ToExpression())
-                .FirstOrDefault();
+        public Task<CommandResult> Handle(RepassarChequeCommand request, CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
+        }
 
-            if (cheque == null || novoChequeId == cheque.Id)
-                return false;
+        public Task<CommandResult> Handle(CompensarChequeCommand request, CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
+        }
 
-            return true;
+        public Task<CommandResult> Handle(DevolverChequeCommand request, CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<CommandResult> Handle(SustarChequeCommand request, CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

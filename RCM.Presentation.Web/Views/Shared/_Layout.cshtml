@@ -53,7 +53,6 @@
                 </nav>
             </div>
             <div class="body-content">
-                @await Component.InvokeAsync("Notifications")
                 @RenderBody()
             </div>
         </div>
@@ -97,6 +96,9 @@
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
 
+    <script>
+        var notifications = '@(Json.Serialize(TempData["Notifications"]))'
+    </script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

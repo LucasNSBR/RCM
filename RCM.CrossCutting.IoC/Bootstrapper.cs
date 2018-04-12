@@ -101,6 +101,11 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<IRequestHandler<AddChequeCommand, CommandResult>, ChequeCommandHandler>();
             services.AddScoped<IRequestHandler<UpdateChequeCommand, CommandResult>, ChequeCommandHandler>();
             services.AddScoped<IRequestHandler<RemoveChequeCommand, CommandResult>, ChequeCommandHandler>();
+            services.AddScoped<IRequestHandler<BloquearChequeCommand, CommandResult>, ChequeCommandHandler>();
+            services.AddScoped<IRequestHandler<RepassarChequeCommand, CommandResult>, ChequeCommandHandler>();
+            services.AddScoped<IRequestHandler<CompensarChequeCommand, CommandResult>, ChequeCommandHandler>();
+            services.AddScoped<IRequestHandler<DevolverChequeCommand, CommandResult>, ChequeCommandHandler>();
+            services.AddScoped<IRequestHandler<SustarChequeCommand, CommandResult>, ChequeCommandHandler>();
 
             services.AddScoped<IRequestHandler<AddClienteCommand, CommandResult>, ClienteCommandHandler>();
             services.AddScoped<IRequestHandler<UpdateClienteCommand, CommandResult>, ClienteCommandHandler>();

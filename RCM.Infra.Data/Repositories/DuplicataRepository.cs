@@ -1,4 +1,7 @@
-﻿using RCM.Domain.Models.DuplicataModels;
+﻿using System;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using RCM.Domain.Models.DuplicataModels;
 using RCM.Domain.Repositories;
 using RCM.Infra.Data.Context;
 
@@ -8,6 +11,23 @@ namespace RCM.Infra.Data.Repositories
     {
         public DuplicataRepository(RCMDbContext dbContext) : base(dbContext)
         {
+        }
+
+        public bool CheckNumeroDocumentoExists(string numeroDocumento, Guid fornecedorId, Guid novaDuplicataId)
+        {
+            var numeroDocumentoSpecification = new DuplicataNumeroDocumentoSpecification(numeroDocumento);
+            var fornecedorSpecification = new DuplicataFornecedorIdSpecification(fornecedorId);
+
+            Duplicata duplicata = _dbSet.AsNoTracking()
+                .Where(numeroDocumentoSpecification
+                .And(fornecedorSpecification)
+                .ToExpression())
+                .FirstOrDefault();
+
+            if (duplicata == null || novaDuplicataId == duplicata.Id)
+                return false;
+
+            return true;
         }
     }
 }

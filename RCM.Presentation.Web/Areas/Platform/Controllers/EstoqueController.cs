@@ -67,7 +67,12 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             var commandResult = await _produtoApplicationService.Add(produto);
 
             if (commandResult.Success)
+            {
+                NotifyCommandResultSuccess();
                 return RedirectToAction(nameof(Index));
+            }
+            else
+                NotifyCommandResultErrors(commandResult.Errors);
 
             return View(produto);
         }
@@ -97,7 +102,12 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             var commandResult = await _produtoApplicationService.Update(produto);
 
             if (commandResult.Success)
+            {
+                NotifyCommandResultSuccess();
                 return RedirectToAction(nameof(Index));
+            }
+            else
+                NotifyCommandResultErrors(commandResult.Errors);
 
             return View(produto);
         }
@@ -120,7 +130,12 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             var commandResult = await _produtoApplicationService.Remove(produto);
 
             if (commandResult.Success)
+            {
+                NotifyCommandResultSuccess();
                 return RedirectToAction(nameof(Index));
+            }
+            else
+                NotifyCommandResultErrors(commandResult.Errors);
 
             return View(produto);
         }

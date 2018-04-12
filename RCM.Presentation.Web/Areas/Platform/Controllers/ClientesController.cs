@@ -61,9 +61,14 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             var commandResult = await _clienteApplicationService.Add(cliente);
 
             if (commandResult.Success)
+            {
+                NotifyCommandResultSuccess();
                 return RedirectToAction(nameof(Index));
+            }
             else
-                return View(cliente);
+                NotifyCommandResultErrors(commandResult.Errors);
+
+            return View(cliente);
         }
 
         [Authorize(Policy = "ActiveUser")]
@@ -90,9 +95,14 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             var commandResult = await _clienteApplicationService.Update(cliente);
 
             if (commandResult.Success)
+            {
+                NotifyCommandResultSuccess();
                 return RedirectToAction(nameof(Index));
+            }
             else
-                return View(cliente);
+                NotifyCommandResultErrors(commandResult.Errors);
+
+            return View(cliente);
         }
 
         [Authorize(Policy = "ActiveUser")]
@@ -113,9 +123,14 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             var commandResult = await _clienteApplicationService.Remove(cliente);
 
             if (commandResult.Success)
+            {
+                NotifyCommandResultSuccess();
                 return RedirectToAction(nameof(Index));
+            }
             else
-                return View(cliente);
+                NotifyCommandResultErrors(commandResult.Errors);
+
+            return View(cliente);
         }
     }
 }

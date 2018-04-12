@@ -382,8 +382,7 @@ dt {
 }
 
 .notification {
-    background-color: #ef4046;
-    color: white;
+    color: black;
     display: block;
     width: 100%;
     padding: 10px;

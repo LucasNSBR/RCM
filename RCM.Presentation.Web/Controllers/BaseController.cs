@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using RCM.Domain.Core.Errors;
 using RCM.Domain.DomainNotificationHandlers;
 using RCM.Domain.DomainNotifications;
@@ -17,16 +18,11 @@ namespace RCM.Presentation.Web.Controllers
             _domainNotificationHandler = domainNotificationHandler;
         }
 
-        protected bool Success()
-        {
-            return _domainNotificationHandler.IsEmpty();
-        }
-
         protected void NotifyModelStateErrors()
         {
             foreach (var error in ModelState.Values.SelectMany(e => e.Errors))
             {
-                _domainNotificationHandler.AddNotification(new ModelStateErrorNotification(error.ErrorMessage));
+                _domainNotificationHandler.AddNotification(new ModelErrorNotification(error.ErrorMessage));
             }
         }
 
@@ -34,8 +30,16 @@ namespace RCM.Presentation.Web.Controllers
         {
             foreach (var error in errors)
             {
-                _domainNotificationHandler.AddNotification(new CommandValidationErrorNotification(error.Code, error.Description));
+               _domainNotificationHandler.AddNotification(new CommandErrorNotification(error.Code, error.Description));
             }
+
+            TempData["Notifications"] = JsonConvert.SerializeObject(_domainNotificationHandler.GetNotifications());
+        }
+
+        protected void NotifyCommandResultSuccess(string message = null)
+        {
+            _domainNotificationHandler.AddNotification(new CommandSuccessNotification(message ?? "Comando executado com sucesso."));
+            TempData["Notifications"] = JsonConvert.SerializeObject(_domainNotificationHandler.GetNotifications());
         }
 
         public RedirectToActionResult RedirectToPlatform()

@@ -10,8 +10,6 @@ using RCM.Domain.Models.DuplicataModels;
 using RCM.Domain.Models.FornecedorModels;
 using RCM.Domain.Repositories;
 using RCM.Domain.UnitOfWork;
-using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -42,7 +40,7 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
                 return Response();
             }
 
-            if (CheckNumeroExists(command.NumeroDocumento, command.FornecedorId, command.Id))
+            if (_duplicataRepository.CheckNumeroDocumentoExists(command.NumeroDocumento, command.FornecedorId, command.Id))
             {
                 _commandResponse.AddError(new CommandError(RequestErrorsMessageConstants.DuplicataAlreadyExists));
                 return Response();
@@ -67,7 +65,7 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
                 return Response();
             }
 
-            if (CheckNumeroExists(command.NumeroDocumento, command.FornecedorId, command.Id))
+            if (_duplicataRepository.CheckNumeroDocumentoExists(command.NumeroDocumento, command.FornecedorId, command.Id))
             {
                 _commandResponse.AddError(new CommandError(RequestErrorsMessageConstants.DuplicataAlreadyExists));
                 return Response();
@@ -136,22 +134,6 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
                 _mediator.Publish(new UpdatedDuplicataEvent());
 
             return Response();
-        }
-
-        private bool CheckNumeroExists(string numeroDocumento, Guid fornecedorId, Guid novaDuplicataId)
-        {
-            var numeroDocumentoSpecification = new DuplicataNumeroDocumentoSpecification(numeroDocumento);
-            var fornecedorSpecification = new DuplicataFornecedorIdSpecification(fornecedorId);
-
-            Duplicata duplicata = _duplicataRepository.Get(numeroDocumentoSpecification
-                .And(fornecedorSpecification)
-                .ToExpression())
-                .FirstOrDefault();
-
-            if (duplicata == null || novaDuplicataId == duplicata.Id)
-                return false;
-            
-            return true;
         }
     }
 }

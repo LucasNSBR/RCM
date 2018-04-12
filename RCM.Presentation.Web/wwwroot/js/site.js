@@ -24,6 +24,19 @@
         closeOnSelect: false,
         format: 'dd/mm/yyyy'
     });
+    
+    if (notifications != 'null') {
+        var notificationsArray = JSON.parse(notifications.substring(1, notifications.length - 1));
+
+        $(notificationsArray).each(function (index, element) {
+            var title = element.Title + ' - ';
+            var body = element.Body;
+            var type = element.Type;
+            var text = title.toUpperCase() + body;
+
+            Materialize.toast(text, 5000, 'notification '.concat(type === 0 ? 'bg-success' : 'bg-danger'));
+        });
+    }
 
     $(".table-body").click(function (handler) {
         var itemId = handler.target.parentElement.firstElementChild.innerHTML;
@@ -33,10 +46,12 @@
     })
 
     $("#notifications-div").children().each(function (index, element) {
-        var title = element.firstElementChild.value + ' - ';
-        var body = element.lastElementChild.value;
+        var title = element.children[0].value + ' - ';
+        var body = element.children[1].value;
 
-        Materialize.toast(title.toUpperCase() + body, 5000, 'notification');
+        var text = title.toUpperCase() + body;
+
+        Materialize.toast(text, 5000, 'notification '.concat(title.includes('SUCCESS') ? 'bg-success' : 'bg-danger'));
     });
 
     $('#propertyInput').change(function (handler) {

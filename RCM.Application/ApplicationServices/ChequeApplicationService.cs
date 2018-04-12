@@ -6,6 +6,7 @@ using RCM.Domain.Core.Commands;
 using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.Models.ChequeModels;
 using RCM.Domain.Repositories;
+using System;
 using System.Threading.Tasks;
 
 namespace RCM.Application.ApplicationServices
@@ -29,6 +30,31 @@ namespace RCM.Application.ApplicationServices
         public override Task<CommandResult> Remove(ChequeViewModel viewModel)
         {
             return _mediator.SendCommand(new RemoveChequeCommand(viewModel.Id));
+        }
+
+        public Task<CommandResult> BloquearCheque(Guid id)
+        {
+            return _mediator.SendCommand(new BloquearChequeCommand(id));
+        }
+
+        public Task<CommandResult> CompensarCheque(Guid id)
+        {
+            return _mediator.SendCommand(new CompensarChequeCommand(id));
+        }
+
+        public Task<CommandResult> RepassarCheque(Guid id)
+        {
+            return _mediator.SendCommand(new RepassarChequeCommand(id));
+        }
+
+        public Task<CommandResult> DevolverCheque(Guid id)
+        {
+            return _mediator.SendCommand(new DevolverChequeCommand(id));
+        }
+
+        public Task<CommandResult> SustarCheque(Guid id)
+        {
+            return _mediator.SendCommand(new SustarChequeCommand(id));
         }
     }
 }

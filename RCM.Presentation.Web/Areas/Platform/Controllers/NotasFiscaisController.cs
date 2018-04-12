@@ -16,7 +16,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
     {
         private readonly INotaFiscalApplicationService _notaFiscalApplicationService;
 
-        public NotasFiscaisController(INotaFiscalApplicationService notaFiscalApplicationService, IDomainNotificationHandler domainNotificationHandler) : 
+        public NotasFiscaisController(INotaFiscalApplicationService notaFiscalApplicationService, IDomainNotificationHandler domainNotificationHandler) :
                                                                                                                                 base(domainNotificationHandler)
         {
             _notaFiscalApplicationService = notaFiscalApplicationService;
@@ -63,9 +63,14 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             var commandResult = await _notaFiscalApplicationService.Add(notaFiscal);
 
             if (commandResult.Success)
+            {
+                NotifyCommandResultSuccess();
                 return RedirectToAction(nameof(Index));
+            }
             else
-                return View(notaFiscal);
+                NotifyCommandResultErrors(commandResult.Errors);
+
+            return View(notaFiscal);
         }
 
         [Authorize(Policy = "ActiveUser")]
@@ -92,9 +97,14 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             var commandResult = await _notaFiscalApplicationService.Update(notaFiscal);
 
             if (commandResult.Success)
-                return RedirectToAction(nameof(notaFiscal));
+            {
+                NotifyCommandResultSuccess();
+                return RedirectToAction(nameof(Index));
+            }
             else
-                return View(notaFiscal);
+                NotifyCommandResultErrors(commandResult.Errors);
+
+            return View(notaFiscal);
         }
 
         [Authorize(Policy = "ActiveUser")]
@@ -115,9 +125,14 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             var commandResult = await _notaFiscalApplicationService.Remove(notaFiscal);
 
             if (commandResult.Success)
+            {
+                NotifyCommandResultSuccess();
                 return RedirectToAction(nameof(Index));
+            }
             else
-                return View(notaFiscal);
+                NotifyCommandResultErrors(commandResult.Errors);
+
+            return View(notaFiscal);
         }
     }
 }

@@ -31,10 +31,10 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             _clienteApplicationService = clienteApplicationService;
         }
 
-        public IActionResult Index(decimal? minValor, decimal? maxValor, Guid? clienteId, string agencia = null, string conta = null, string numeroCheque = null, string dataEmissao = null, string dataVencimento = null, int pageNumber = 1, int pageSize = 20)
+        public IActionResult Index(Guid? clienteId, string minValor, string maxValor, string agencia = null, string conta = null, string numeroCheque = null, string dataEmissao = null, string dataVencimento = null, int pageNumber = 1, int pageSize = 20)
         {
-            var valorSpecification = new ChequeValorSpecification(minValor, maxValor);
             var clienteIdSpecification = new ChequeClienteIdSpecification(clienteId);
+            var valorSpecification = new ChequeValorSpecification(minValor.ToDecimal(), maxValor.ToDecimal());
             var agenciaSpecification = new ChequeAgenciaSpecification(agencia);
             var contaSpecification = new ChequeContaCorrenteSpecification(conta);
             var numeroSpecification = new ChequeNumeroSpecification(numeroCheque);
@@ -93,9 +93,14 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
 
             var commandResult = await _chequeApplicationService.Add(cheque);
 
-            if (commandResult.Success) 
+            if (commandResult.Success)
+            {
+                NotifyCommandResultSuccess();
                 return RedirectToAction(nameof(Index));
-            
+            }
+            else
+                NotifyCommandResultErrors(commandResult.Errors);
+
             return View(cheque);
         }
 
@@ -123,8 +128,13 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             var commandResult = await _chequeApplicationService.Update(cheque);
 
             if (commandResult.Success)
+            {
+                NotifyCommandResultSuccess();
                 return RedirectToAction(nameof(Index));
-            
+            }
+            else
+                NotifyCommandResultErrors(commandResult.Errors);
+
             return View(cheque);
         }
 
@@ -146,10 +156,81 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             var commandResult = await _chequeApplicationService.Remove(cheque);
 
             if (commandResult.Success)
+            {
+                NotifyCommandResultSuccess();
                 return RedirectToAction(nameof(Index));
+            }
             else
-                return View(cheque);
+                NotifyCommandResultErrors(commandResult.Errors);
+            
+            return View(cheque);
         }
+
+        [Authorize(Policy = "ActiveUser")]
+        public async Task<IActionResult> BloquearCheque(Guid id)
+        {
+            var commandResult = await _chequeApplicationService.BloquearCheque(id);
+
+            if (!commandResult.Success)
+            {
+
+            }
+
+            return RedirectToAction(nameof(Details), new { id });
+        }
+
+        [Authorize(Policy = "ActiveUser")]
+        public async Task<IActionResult> CompensarCheque(Guid id)
+        {
+            var commandResult = await _chequeApplicationService.CompensarCheque(id);
+
+            if (!commandResult.Success)
+            {
+
+            }
+
+            return RedirectToAction(nameof(Details), new { id });
+        }
+
+        [Authorize(Policy = "ActiveUser")]
+        public async Task<IActionResult> RepassarCheque(Guid id)
+        {
+            var commandResult = await _chequeApplicationService.RepassarCheque(id);
+
+            if (!commandResult.Success)
+            {
+
+            }
+
+            return RedirectToAction(nameof(Details), new { id });
+        }
+
+        [Authorize(Policy = "ActiveUser")]
+        public async Task<IActionResult> DevolverCheque(Guid id)
+        {
+            var commandResult = await _chequeApplicationService.DevolverCheque(id);
+
+            if (!commandResult.Success)
+            {
+
+            }
+
+            return RedirectToAction(nameof(Details), new { id });
+        }
+
+        [Authorize(Policy = "ActiveUser")]
+        public async Task<IActionResult> SustarCheque(Guid id)
+        {
+            var commandResult = await _chequeApplicationService.SustarCheque(id);
+
+            if (!commandResult.Success)
+            {
+
+            }
+
+            return RedirectToAction(nameof(Details), new { id });
+        }
+
 
         public JsonResult GetClientes()
         {

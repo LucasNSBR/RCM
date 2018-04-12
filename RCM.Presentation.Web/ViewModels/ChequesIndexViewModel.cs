@@ -9,9 +9,9 @@ namespace RCM.Presentation.Web.ViewModels
         public PagedList<ChequeViewModel> Cheques { get; set; }
         public IEnumerable<ClienteViewModel> Clientes { get; set; }
 
-        public decimal? MinValor { get; set; }
-        public decimal? MaxValor { get; set; }
         public Guid? ClienteId { get; set; }
+        public string MinValor { get; set; }
+        public string MaxValor { get; set; }
         public string Agencia { get; set; }
         public string Conta { get; set; }
         public string NumeroCheque { get; set; }

@@ -68,7 +68,6 @@
                 </nav>
             </div>
             <div class="platform-content">
-                @await Component.InvokeAsync("Notifications")
                 @RenderBody()
             </div>
         </div>
@@ -78,11 +77,6 @@
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/materialize/js/materialize.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
-        <script>
-            var currentUrl = '@Context.Request.Scheme' + '://' + '@Context.Request.Host' + '@Context.Request.Path';
-            if ('@Context.Request.Path' == '/Platform')
-                currentUrl = currentUrl.concat('/Clientes')
-        </script>
     </environment>
     <environment exclude="Development">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
@@ -95,13 +89,14 @@
                 asp-fallback-src="~/lib/materialize/js/materialize.js"
                 asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
         </script>
-        <script>
+        <script src="~/js/site.min.js"></script>
+    </environment>
+    <script>
+            var notifications = '@(Json.Serialize(TempData["Notifications"]))'
             var currentUrl = '@Context.Request.Scheme' + '://' + '@Context.Request.Host' + '@Context.Request.Path';
             if ('@Context.Request.Path' == '/Platform')
                 currentUrl = currentUrl.concat('/Clientes')
-        </script>
-        <script src="~/js/site.js"></script>
-    </environment>
+    </script>
 
     @RenderSection("Scripts", required: false)
 </body>

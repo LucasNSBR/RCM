@@ -29,13 +29,13 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             _fornecedorApplicationService = fornecedorApplicationService;
         }
 
-        public IActionResult Index(bool? apenasNaoPagas, bool? apenasVencidas, decimal? minValor, decimal? maxValor, Guid? fornecedorId, string numeroDocumento = null, string dataEmissao = null, string dataVencimento = null, int pageNumber = 1, int pageSize = 20)
+        public IActionResult Index(bool? apenasNaoPagas, bool? apenasVencidas, Guid? fornecedorId, string numeroDocumento = null, string minValor = null, string maxValor = null, string dataEmissao = null, string dataVencimento = null, int pageNumber = 1, int pageSize = 20)
         {
             var pagaSpecification = new DuplicataNaoPagaSpecification(apenasNaoPagas);
             var vencidaSpecification = new DuplicataVencidaSpecification(apenasVencidas);
-            var valorSpecification = new DuplicataValorSpecification(minValor, maxValor);
             var fornecedorIdSpecification = new DuplicataFornecedorIdSpecification(fornecedorId);
             var numeroDocumentoSpecification = new DuplicataNumeroDocumentoSpecification(numeroDocumento);
+            var valorSpecification = new DuplicataValorSpecification(minValor.ToDecimal(), maxValor.ToDecimal());
             var dataSpecification = new DuplicataDataSpecification(dataEmissao.ToDateTime(), dataVencimento.ToDateTime());
 
             var list = _duplicataApplicationService.Get(pagaSpecification
@@ -94,7 +94,12 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             var commandResult = await _duplicataApplicationService.Add(duplicata);
 
             if (commandResult.Success)
+            {
+                NotifyCommandResultSuccess();
                 return RedirectToAction(nameof(Index));
+            }
+            else
+                NotifyCommandResultErrors(commandResult.Errors);
 
             return View(duplicata);
         }
@@ -122,8 +127,13 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
 
             var commandResult = await _duplicataApplicationService.Update(duplicata);
 
-            if(commandResult.Success)
+            if (commandResult.Success)
+            {
+                NotifyCommandResultSuccess();
                 return RedirectToAction(nameof(Index));
+            }
+            else
+                NotifyCommandResultErrors(commandResult.Errors);
 
             return View(duplicata);
         }
@@ -146,7 +156,12 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             var commandResult = await _duplicataApplicationService.Remove(duplicata);
 
             if (commandResult.Success)
+            {
+                NotifyCommandResultSuccess();
                 return RedirectToAction(nameof(Index));
+            }
+            else
+                NotifyCommandResultErrors(commandResult.Errors);
 
             return View(duplicata);
         }
@@ -175,8 +190,13 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             var commandResult = await _duplicataApplicationService.Pagar(duplicata, pagamento);
 
             if (commandResult.Success)
+            {
+                NotifyCommandResultSuccess();
                 return RedirectToAction(nameof(Details), new { id });
-
+            }
+            else
+                NotifyCommandResultErrors(commandResult.Errors);
+            
             return View(pagamento);
         }
 
@@ -189,10 +209,12 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
 
             var commandResult = await _duplicataApplicationService.Estornar(duplicata);
 
-            if (commandResult.Success)
-                return RedirectToAction(nameof(Details), new { duplicata.Id });
+            if (!commandResult.Success)
+                NotifyCommandResultErrors(commandResult.Errors);
+            else
+                NotifyCommandResultSuccess();
 
-            return View();
+            return RedirectToAction(nameof(Details), new { duplicata.Id });
         }
 
         public JsonResult GetFornecedores()

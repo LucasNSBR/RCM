@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using RCM.CrossCutting.Identity.Models;
 using RCM.CrossCutting.Identity.ViewModels;
 using RCM.Domain.DomainNotificationHandlers;
@@ -69,6 +70,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         private void NotifyIdentityError(string description)
         {
             _domainNotificationHandler.AddNotification(new AuthenticationErrorNotification(description));
+            TempData["Notifications"] = JsonConvert.SerializeObject(_domainNotificationHandler.GetNotifications());
         }
         #endregion
     }

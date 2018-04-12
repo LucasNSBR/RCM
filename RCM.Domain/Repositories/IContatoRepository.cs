@@ -4,8 +4,8 @@ using System.Linq;
 
 namespace RCM.Domain.Repositories
 {
-    public interface IContatoRepository : IBaseRepository<Contato>
+    public interface IContatoRepository 
     {
-        IQueryable<Endereco> GetContatosById(Guid id);
+        IQueryable<Contato> GetContatosById(Guid id);
     }
 }

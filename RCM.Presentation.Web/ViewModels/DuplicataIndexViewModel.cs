@@ -11,10 +11,10 @@ namespace RCM.Presentation.Web.ViewModels
 
         public bool? ApenasNaoPagas { get; set; }
         public bool? ApenasVencidas { get; set; }
-        public decimal? MinValor { get; set; }
-        public decimal? MaxValor { get; set; }
         public Guid? FornecedorId { get; set; }
         public string NumeroDocumento { get; set; }
+        public string MinValor { get; set; }
+        public string MaxValor { get; set; }
         public string DataEmissao { get; set; }
         public string DataVencimento { get; set; }
     }
