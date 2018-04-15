@@ -17,5 +17,6 @@ namespace RCM.Presentation.Web.ViewModels
         public string NumeroCheque { get; set; }
         public string DataEmissao { get; set; }
         public string DataVencimento { get; set; }
+        public string Situacao { get; set; }
     }
 }

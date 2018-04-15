@@ -62,6 +62,17 @@
                     <input asp-for="Conta" name="conta" type="text" class="input-field" id="conta" />
                     <label for="conta">Número da Conta Corrente</label>
                 </div>
+                <div class="input-field col s12 m6">
+                    <select asp-for="Situacao" name="situacao" class="input-field" id="situacao">
+                        <option value="">Todas</option>
+                        <option value="Bloqueado">Bloqueado</option>
+                        <option value="Compensado">Compensado</option>
+                        <option value="Repassado">Repassado</option>
+                        <option value="Sustado">Sustado</option>
+                        <option value="Devolvido">Devolvido</option>
+                    </select>
+                    <label for="situacao">Situação do Cheque</label>
+                </div>
             </div>
         </div>
     </form>

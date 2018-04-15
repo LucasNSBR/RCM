@@ -31,7 +31,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             _clienteApplicationService = clienteApplicationService;
         }
 
-        public IActionResult Index(Guid? clienteId, string minValor, string maxValor, string agencia = null, string conta = null, string numeroCheque = null, string dataEmissao = null, string dataVencimento = null, int pageNumber = 1, int pageSize = 20)
+        public IActionResult Index(Guid? clienteId, string minValor, string maxValor, string agencia = null, string conta = null, string numeroCheque = null, string dataEmissao = null, string dataVencimento = null, string situacao = null, int pageNumber = 1, int pageSize = 20)
         {
             var clienteIdSpecification = new ChequeClienteIdSpecification(clienteId);
             var valorSpecification = new ChequeValorSpecification(minValor.ToDecimal(), maxValor.ToDecimal());
@@ -39,6 +39,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             var contaSpecification = new ChequeContaCorrenteSpecification(conta);
             var numeroSpecification = new ChequeNumeroSpecification(numeroCheque);
             var dataSpecification = new ChequeDataSpecification(dataEmissao.ToDateTime(), dataVencimento.ToDateTime());
+            var situacaoSpecification = new ChequeEstadoSpecification(situacao);
 
             var list = _chequeApplicationService.Get(valorSpecification
                 .And(clienteIdSpecification)
@@ -46,6 +47,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 .And(contaSpecification)
                 .And(numeroSpecification)
                 .And(dataSpecification)
+                .And(situacaoSpecification)
                 .ToExpression());
 
             var viewModel = new ChequesIndexViewModel
@@ -60,6 +62,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 NumeroCheque = numeroCheque,
                 DataEmissao = dataEmissao,
                 DataVencimento = dataVencimento,
+                Situacao = situacao
             };
 
             return View(viewModel);
