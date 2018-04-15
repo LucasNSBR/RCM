@@ -1,0 +1,85 @@
+﻿@model RCM.Application.ViewModels.EstadoChequeViewModel
+
+@{
+    ViewData["Title"] = $"Repassar Cheque";
+}
+
+<h5>Repassar o Cheque</h5>
+
+<div class="form-container col s12 m12">
+    <form asp-action="Repassar">
+        @Html.EditorForModel()
+
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <input asp-for="ClienteId" type="hidden" id="clienteId" />
+                <select id="clienteSelect"></select>
+                <label asp-for="ClienteId"></label>
+                <span asp-validation-for="ClienteId" class="text-danger"></span>
+                <a asp-action="Create" asp-controller="Fornecedores" target="_blank">Adicionar novo Cliente</a>
+            </div>
+            <div class="input-field col s12 m6 pt-1">
+                <button class="btn-flat mx-0 small" id="reload-clientes-button" type="button">
+                    Recarregar lista
+                </button>
+            </div>
+        </div>
+
+        <div class="row pt-2 px-1">
+            <post-button>Confirmar</post-button>
+        </div>
+    </form>
+</div>
+
+<div>
+    <a asp-action="Details" asp-route-id="@Model.ChequeId">Voltar para Detalhes</a>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        var clientesUrl = '@Url.Action("GetClientes", "Cheques")';
+
+        function reloadSelect(dropdownName, url, inputId) {
+            var dropdown = $(dropdownName);
+            var fieldId = $(inputId).val();
+
+            $.ajax({
+                method: "GET",
+                url: url,
+            }).done(function (data) {
+                dropdown.empty();
+
+                $.each(data, function (index, item) {
+                    dropdown.append($("<option />").text(item.nome).val(item.id));
+                })
+
+                $(dropdown.find('option').each(function (index, item) {
+
+                    if (item.value === fieldId) {
+                        dropdown.prop('selectedIndex', index);
+                    }
+                }));
+
+                if (fieldId == '' || fieldId == '00000000-0000-0000-0000-000000000000')
+                    $(inputId).val(dropdown.find('option').first().val());
+
+
+                dropdown.material_select();
+            });
+        }
+
+        reloadSelect('#clienteSelect', clientesUrl, '#clienteId');
+
+        $('#reload-clientes-button').click(function () {
+            reloadSelect('#clienteSelect', clientesUrl, '#clienteId');
+        });
+
+        $('#clienteSelect').change(function () {
+            var optionId = $('#clienteSelect option:selected')[0].value;
+            $('#clienteId').val(optionId);
+        })
+    </script>
+}

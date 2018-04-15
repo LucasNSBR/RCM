@@ -7,6 +7,7 @@ namespace RCM.Domain.Validators.ChequeCommandValidators
         public CompensarChequeCommandValidator()
         {
             ValidateId();
+            ValidateDataCompensacao();
         }
     }
 }

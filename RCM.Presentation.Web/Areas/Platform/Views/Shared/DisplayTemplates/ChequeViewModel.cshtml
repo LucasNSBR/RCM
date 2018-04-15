@@ -6,8 +6,8 @@
             <li class="tab col s3"><a href="#geral" class="active">Geral</a></li>
             <li class="tab col s3"><a href="#banco">Dados Bancários</a></li>
             <li class="tab col s3"><a href="#vencimento">Emissão/Vencimento</a></li>
+            <li class="tab col s3"><a href="#situacao">Situação</a></li>
             <li class="tab col s3"><a href="#cliente">Cliente</a></li>
-            <li class="tab col s3"><a href="#pagamento">Pagamento</a></li>
             <li class="tab col s3"><a href="#funcoes">Funções</a></li>
         </ul>
     </div>
@@ -100,31 +100,6 @@
         </dl>
     </div>
 
-    <div id="pagamento" class="col s12 m12">
-        <div>
-            <p class="px-1 font-bold lead">
-                Informação sobre Pagamento do Cheque
-            </p>
-            <dl class="detail-list">
-                <dt>
-                    <label asp-for="@Model.DataPagamento"></label>
-                </dt>
-                <dd>
-                    @if (Model.DataPagamento != null)
-                    {
-                        @Model.DataPagamento?.ToShortDateString() <span class="font-italic small text-muted">(@Model.DataPagamento?.ToLongDateString())</span>
-                    }
-                    else
-                    {
-                        <span class="font-italic text-warning">
-                            <i class="material-icons left">warning</i>Pagamento ainda não foi efetuado.
-                        </span>
-                    }
-                </dd>
-            </dl>
-        </div>
-    </div>
-
     <div id="cliente" class="col s12 m12">
         <div>
             <p class="px-1 font-bold lead">
@@ -143,6 +118,63 @@
         </div>
     </div>
 
+    <div id="situacao" class="col s12 m12">
+        <div>
+            <p class="px-1 font-bold lead">
+                Informação sobre Situação do Cheque
+            </p>
+            <dl class="detail-list">
+                <dt>
+                    <label asp-for="EstadoCheque"></label>
+                </dt>
+                <dd>
+                    @{
+                        if (Model.EstadoCheque != null)
+                        {
+                            var dataEvento = Model.EstadoCheque.DataEvento.ToShortDateString();
+
+                            switch (Model.EstadoCheque.Estado)
+                            {
+                                case "Bloqueado":
+                                    <span>Bloqueado desde o dia @dataEvento</span>
+                                    break;
+                                case "Compensado":
+                                    <span>Compensado no dia @dataEvento</span>
+                                    break;
+                                case "Repassado":
+                                    var clienteRepassado = Model.EstadoCheque.Cliente;
+                                    <span>Repassado no dia @dataEvento</span><br />
+                                    <span>Cliente: </span><a asp-action="Details" asp-controller="Clientes" asp-route-id="@clienteRepassado.Id">@clienteRepassado.Nome</a>
+                                    break;
+                                case "Sustado":
+                                    var motivoSustado = Model.EstadoCheque.Motivo;
+                                    <span>
+                                        Sustado no dia @dataEvento <br />
+                                        Motivo: @motivoSustado
+                                    </span>
+                                    break;
+                                case "Devolvido":
+                                    var motivoDevolucao = Model.EstadoCheque.Motivo;
+                                    <span>
+                                        Devolvido no dia @dataEvento <br />
+                                        Motivo: @motivoDevolucao
+                                    </span>
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            <span class="font-italic text-danger">
+                                <i class="material-icons left">warning</i>Nenhum estado, evento ou situação foi encontrado para o cheque.
+                            </span>
+                            <a class="modal-trigger" href="#bloqueioModal" id="bloquearCheque">Clique aqui para resolver</a>
+                        }
+                    }
+                </dd>
+            </dl>
+        </div>
+    </div>
+
     <div id="funcoes" class="col s12 m12">
         <div>
             <p class="px-1 font-bold lead">
@@ -153,13 +185,24 @@
                     <label>Pagamento</label>
                 </dt>
                 <dd>
-                    <a asp-action="BloquearCheque" asp-route-id="@Model.Id">Bloquear</a><br />
-                    <a asp-action="CompensarCheque" asp-route-id="@Model.Id">Compensar</a><br />
-                    <a asp-action="RepassarCheque" asp-route-id="@Model.Id">Repassar</a><br />
-                    <a asp-action="DevolverCheque" asp-route-id="@Model.Id">Devolver</a><br />
-                    <a asp-action="SustarCheque" asp-route-id="@Model.Id">Sustar</a><br />
+                    <a class="modal-trigger" href="#bloqueioModal" id="bloquearCheque">Bloquear</a><br />
+                    <a asp-action="Compensar" asp-route-id="@Model.Id">Compensar</a><br />
+                    <a asp-action="Repassar" asp-route-id="@Model.Id">Repassar</a><br />
+                    <a asp-action="Devolver" asp-route-id="@Model.Id">Devolver</a><br />
+                    <a asp-action="Sustar" asp-route-id="@Model.Id">Sustar</a><br />
                 </dd>
             </dl>
         </div>
+    </div>
+</div>
+
+<div id="bloqueioModal" class="modal">
+    <div class="modal-content">
+        <h4>Confirmar Bloqueio de Cheque</h4>
+        <p>O estado atual do cheque irá voltar para bloqueado. Tem certeza que deseja continuar com a operação?</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+        <a asp-action="Bloquear" asp-route-id="@Model.Id" class="modal-action modal-close waves-effect waves-green btn-flat">Confirmar</a>
     </div>
 </div>

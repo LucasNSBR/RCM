@@ -5,9 +5,13 @@ namespace RCM.Domain.Commands.ChequeCommands
 {
     public class RepassarChequeCommand : ChequeCommand
     {
-        public RepassarChequeCommand(Guid id)
+        public Guid ClienteRepassadoId { get; set; }
+
+        public RepassarChequeCommand(Guid id, DateTime dataEvento, Guid clienteRepassadoId)
         {
             Id = id;
+            ClienteRepassadoId = clienteRepassadoId;
+            DataEvento = dataEvento;
         }
 
         public override bool IsValid()

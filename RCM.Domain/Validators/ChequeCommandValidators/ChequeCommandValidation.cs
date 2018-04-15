@@ -84,5 +84,45 @@ namespace RCM.Domain.Validators.ChequeCommandValidators
                 .GreaterThanOrEqualTo(0)
                 .WithMessage("O valor do cheque deve ser maior que 0.");
         }
+        
+        protected void ValidateDataCompensacao()
+        {
+            RuleFor(ch => ch.DataEvento)
+                .NotEmpty()
+                .GreaterThanOrEqualTo(d => d.DataVencimento)
+                .WithMessage("A data da compensação deve ser maior que a data de vencimento.");
+        }
+
+        protected void ValidateDataRepasse()
+        {
+            RuleFor(ch => ch.DataEvento)
+                .NotEmpty()
+                .GreaterThanOrEqualTo(d => d.DataEmissao)
+                .WithMessage("A data do repasse deve ser maior que a data de emissão.");
+        }
+
+        protected void ValidateDataSusto()
+        {
+            RuleFor(ch => ch.DataEvento)
+                .NotEmpty()
+                .GreaterThanOrEqualTo(d => d.DataEmissao)
+                .WithMessage("A data do susto deve ser maior que a data de emissao.");
+        }
+
+        protected void ValidateDataDevolucao()
+        {
+            RuleFor(ch => ch.DataEvento)
+                .NotEmpty()
+                .GreaterThanOrEqualTo(d => d.DataVencimento)
+                .WithMessage("A data de devolução deve ser maior que a data de vencimento.");
+        }
+
+        protected void ValidateMotivo()
+        {
+            RuleFor(ch => ch.Motivo)
+                .NotEmpty()
+                .MaximumLength(100)
+                .WithMessage("O campo motivo deve ter até 100 caracteres e não deve estar em branco.");
+        }
     }
 }

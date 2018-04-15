@@ -2,6 +2,7 @@
 using RCM.Domain.Core.Errors;
 using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.Core.Models;
+using RCM.Domain.Helpers;
 using RCM.Domain.UnitOfWork;
 using System.Threading.Tasks;
 
@@ -31,7 +32,7 @@ namespace RCM.Domain.CommandHandlers
             {
                 foreach (var error in commitResult.Errors)
                 {
-                    _commandResponse.AddError(new CommandError("Commit Error", error.Message ?? error.InnerException.Message));
+                    _commandResponse.AddError(new CommandError("Commit Error", error?.InnerException?.Message ?? error.Message));
                 }
             }
 
@@ -44,6 +45,11 @@ namespace RCM.Domain.CommandHandlers
             {
                 _commandResponse.AddError(new CommandError(error.ErrorCode, error.ErrorMessage));
             }
+        }
+
+        protected void NotifyRequestError(string errorMessage, string errorCode = null)
+        {
+            _commandResponse.AddError(new CommandError(errorCode ?? NotificationMessageConstants.UndefinedError, errorMessage));
         }
 
         protected Task<CommandResult> Response()

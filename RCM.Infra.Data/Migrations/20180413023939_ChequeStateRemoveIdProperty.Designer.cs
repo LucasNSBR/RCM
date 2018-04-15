@@ -13,9 +13,10 @@ using System;
 namespace RCM.Infra.Data.Migrations
 {
     [DbContext(typeof(RCMDbContext))]
-    partial class RCMDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180413023939_ChequeStateRemoveIdProperty")]
+    partial class ChequeStateRemoveIdProperty
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -389,7 +390,7 @@ namespace RCM.Infra.Data.Migrations
                 {
                     b.HasBaseType("RCM.Domain.Models.ChequeModels.ChequeStates.EstadoCheque");
 
-                    b.Property<Guid?>("ClienteId");
+                    b.Property<Guid>("ClienteId");
 
                     b.HasIndex("ClienteId");
 
@@ -533,7 +534,8 @@ namespace RCM.Infra.Data.Migrations
                 {
                     b.HasOne("RCM.Domain.Models.ClienteModels.Cliente", "Cliente")
                         .WithMany()
-                        .HasForeignKey("ClienteId");
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

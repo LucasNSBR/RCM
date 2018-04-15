@@ -19,32 +19,32 @@ namespace RCM.Infra.Data.Repositories
             _dbSet = _dbContext.Set<TModel>();
         }
 
-        public void Add(TModel model)
+        public virtual void Add(TModel model)
         {
             _dbSet.Add(model);
         }
 
-        public void Remove(TModel model)
+        public virtual void Remove(TModel model)
         {
             _dbSet.Remove(model);
         }
 
-        public IQueryable<TModel> Get()
+        public virtual IQueryable<TModel> Get()
         {
             return _dbSet.AsNoTracking();
         }
 
-        public IQueryable<TModel> Get(Expression<Func<TModel, bool>> expression)
+        public virtual IQueryable<TModel> Get(Expression<Func<TModel, bool>> expression)
         {
             return _dbSet.Where(expression).AsNoTracking();
         }
 
-        public TModel GetById(Guid id)
+        public virtual TModel GetById(Guid id)
         {
             return _dbSet.Find(id);
         }
 
-        public void Update(TModel model)
+        public virtual void Update(TModel model)
         {
             _dbContext.Entry(model).State = EntityState.Modified;
         }

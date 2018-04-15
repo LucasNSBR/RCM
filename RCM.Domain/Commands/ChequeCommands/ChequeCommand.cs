@@ -16,5 +16,8 @@ namespace RCM.Domain.Commands.ChequeCommands
         public DateTime DataVencimento { get; set; }
         public DateTime? DataPagamento { get; set; }
         public decimal Valor { get; set; }
+
+        public DateTime DataEvento { get; set; }
+        public string Motivo { get; set; }
     }
 }

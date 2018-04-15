@@ -90,7 +90,7 @@
                         @Html.DisplayNameFor(model => model.Cheques.List.FirstOrDefault().DataVencimento)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Cheques.List.FirstOrDefault().DataPagamento)
+                        @Html.DisplayNameFor(model => model.Cheques.List.FirstOrDefault().EstadoCheque)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Cheques.List.FirstOrDefault().Valor)
@@ -105,7 +105,7 @@
                             @Html.DisplayFor(modelItem => item.Id)
                         </td>
                         <td>
-                            @item.Banco.Nome.Substring(0, 10).Insert(10, "...")
+                            @Html.DisplayFor(modelItem => item.Banco.Nome)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Conta)
@@ -123,13 +123,13 @@
                             @Html.DisplayFor(modelItem => item.DataVencimento)
                         </td>
                         <td>
-                            @if (item.DataPagamento == null)
+                            @if (item.EstadoCheque == null)
                             {
-                                <span class="font-italic">Não pago</span>
+                                <span class="font-italic">Indefinido</span>
                             }
                             else
                             {
-                                @Html.DisplayFor(modelItem => item.DataPagamento)
+                                @Html.DisplayFor(modelItem => item.EstadoCheque.Estado)
                             }
                         </td>
                         <td>

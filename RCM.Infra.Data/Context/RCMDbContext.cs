@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using RCM.Domain.Models;
 using RCM.Domain.Models.BancoModels;
 using RCM.Domain.Models.ChequeModels;
+using RCM.Domain.Models.ChequeModels.ChequeStates;
 using RCM.Domain.Models.CidadeModels;
 using RCM.Domain.Models.ClienteModels;
 using RCM.Domain.Models.DuplicataModels;
@@ -13,7 +13,6 @@ using RCM.Domain.Models.OrdemServicoModels;
 using RCM.Domain.Models.ProdutoModels;
 using RCM.Domain.Models.VendaModels;
 using RCM.Infra.Data.EntityTypeConfig;
-using System.IO;
 
 namespace RCM.Infra.Data.Context
 {
@@ -32,6 +31,8 @@ namespace RCM.Infra.Data.Context
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<OrdemServico> OrdensServico { get; set; }
         public DbSet<Venda> Vendas { get; set; }
+
+        public DbSet<EstadoCheque> EstadosCheques { get; set; }
 
         public RCMDbContext(DbContextOptions<RCMDbContext> options) : base(options)
         {
@@ -52,7 +53,25 @@ namespace RCM.Infra.Data.Context
             modelBuilder.ApplyConfiguration(new OrdemServicoEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new ProdutoEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new VendaEntityTypeConfig());
+
+            ConfigureChequeEstado(modelBuilder);
         }
+
+        private void ConfigureChequeEstado(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new EstadoChequeEntityTypeConfig());
+
+            modelBuilder.Entity<ChequeBloqueado>().HasBaseType<EstadoCheque>();
+            modelBuilder.Entity<ChequeCompensado>().HasBaseType<EstadoCheque>();
+            modelBuilder.Entity<ChequeRepassado>().HasBaseType<EstadoCheque>();
+            modelBuilder.Entity<ChequeSustado>().HasBaseType<EstadoCheque>();
+
+            modelBuilder.Entity<ChequeSustado>().Property(m => m.Motivo).HasMaxLength(100).HasColumnName("Motivo");
+            modelBuilder.Entity<ChequeDevolvido>().Property(m => m.Motivo).HasMaxLength(100).HasColumnName("Motivo");
+
+            modelBuilder.Entity<ChequeDevolvido>().HasBaseType<EstadoCheque>();
+        }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

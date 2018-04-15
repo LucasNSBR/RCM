@@ -37,24 +37,24 @@ namespace RCM.Application.ApplicationServices
             return _mediator.SendCommand(new BloquearChequeCommand(id));
         }
 
-        public Task<CommandResult> CompensarCheque(Guid id)
+        public Task<CommandResult> CompensarCheque(Guid id, EstadoChequeViewModel viewModel)
         {
-            return _mediator.SendCommand(new CompensarChequeCommand(id));
+            return _mediator.SendCommand(new CompensarChequeCommand(id, viewModel.DataEvento));
         }
 
-        public Task<CommandResult> RepassarCheque(Guid id)
+        public Task<CommandResult> RepassarCheque(Guid id, EstadoChequeViewModel viewModel)
         {
-            return _mediator.SendCommand(new RepassarChequeCommand(id));
+            return _mediator.SendCommand(new RepassarChequeCommand(id, viewModel.DataEvento, viewModel.ClienteId));
         }
 
-        public Task<CommandResult> DevolverCheque(Guid id)
+        public Task<CommandResult> DevolverCheque(Guid id, EstadoChequeViewModel viewModel)
         {
-            return _mediator.SendCommand(new DevolverChequeCommand(id));
+            return _mediator.SendCommand(new DevolverChequeCommand(id, viewModel.DataEvento, viewModel.Motivo));
         }
 
-        public Task<CommandResult> SustarCheque(Guid id)
+        public Task<CommandResult> SustarCheque(Guid id, EstadoChequeViewModel viewModel)
         {
-            return _mediator.SendCommand(new SustarChequeCommand(id));
+            return _mediator.SendCommand(new SustarChequeCommand(id, viewModel.DataEvento, viewModel.Motivo));
         }
     }
 }

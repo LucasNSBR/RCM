@@ -7,9 +7,11 @@ using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.Events.ChequeEvents;
 using RCM.Domain.Models.BancoModels;
 using RCM.Domain.Models.ChequeModels;
+using RCM.Domain.Models.ChequeModels.ChequeStates;
 using RCM.Domain.Models.ClienteModels;
 using RCM.Domain.Repositories;
 using RCM.Domain.UnitOfWork;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -104,29 +106,112 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
             return Response();
         }
 
-        public Task<CommandResult> Handle(BloquearChequeCommand request, CancellationToken cancellationToken)
+        public Task<CommandResult> Handle(BloquearChequeCommand command, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            if (!command.IsValid())
+            {
+                NotifyRequestErrors(command);
+                return Response();
+            }
+
+            Cheque cheque = _chequeRepository.GetById(command.Id);
+            
+            if (!NotifyNullCheckState(cheque))
+                cheque.Bloquear();
+
+            if (Commit())
+                _mediator.Publish(new UpdatedChequeEvent());
+
+            return Response();
         }
 
-        public Task<CommandResult> Handle(RepassarChequeCommand request, CancellationToken cancellationToken)
+        public Task<CommandResult> Handle(RepassarChequeCommand command, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            if (!command.IsValid())
+            {
+                NotifyRequestErrors(command);
+                return Response();
+            }
+
+            Cheque cheque = _chequeRepository.GetById(command.Id);
+            Cliente cliente = _clienteRepository.GetById(command.ClienteRepassadoId);
+
+            if (!NotifyNullCheckState(cheque))
+                cheque.Repassar(command.DataEvento, cliente);
+            
+            if (Commit())
+                _mediator.Publish(new UpdatedChequeEvent());
+
+            return Response();
         }
 
-        public Task<CommandResult> Handle(CompensarChequeCommand request, CancellationToken cancellationToken)
+        public Task<CommandResult> Handle(CompensarChequeCommand command, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            if (!command.IsValid())
+            {
+                NotifyRequestErrors(command);
+                return Response();
+            }
+
+            Cheque cheque = _chequeRepository.GetById(command.Id);
+            if (!NotifyNullCheckState(cheque))
+                cheque.Compensar(command.DataEvento);
+
+            if (Commit())
+                _mediator.Publish(new UpdatedChequeEvent());
+
+            return Response();
         }
 
-        public Task<CommandResult> Handle(DevolverChequeCommand request, CancellationToken cancellationToken)
+        public Task<CommandResult> Handle(DevolverChequeCommand command, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            if (!command.IsValid())
+            {
+                NotifyRequestErrors(command);
+                return Response();
+            }
+
+            Cheque cheque = _chequeRepository.GetById(command.Id);
+
+            if (!NotifyNullCheckState(cheque))
+                cheque.Devolver(command.DataEvento, command.Motivo);
+
+            if (Commit())
+                _mediator.Publish(new UpdatedChequeEvent());
+
+            return Response();
         }
 
-        public Task<CommandResult> Handle(SustarChequeCommand request, CancellationToken cancellationToken)
+        public Task<CommandResult> Handle(SustarChequeCommand command, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            if (!command.IsValid())
+            {
+                NotifyRequestErrors(command);
+                return Response();
+            }
+
+            Cheque cheque = _chequeRepository.GetById(command.Id);
+
+            if (!NotifyNullCheckState(cheque))
+                cheque.Sustar(command.DataEvento, command.Motivo);
+            
+            if (Commit())
+                _mediator.Publish(new UpdatedChequeEvent());
+
+            return Response();
+        }
+
+        private bool NotifyNullCheckState(Cheque cheque)
+        {
+            if (cheque.EstadoCheque != null)
+                return false;
+            else
+            {
+                NotifyRequestError(RequestErrorsMessageConstants.ChequeStateNull);
+                cheque.MudarEstado(new ChequeBloqueado());
+            }
+
+            return true;
         }
     }
 }

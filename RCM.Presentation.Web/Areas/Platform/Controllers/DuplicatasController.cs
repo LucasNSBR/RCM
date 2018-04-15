@@ -169,7 +169,12 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         public IActionResult Payment(Guid id)
         {
-            return View();
+            var pagamentoViewModel = new PagamentoViewModel()
+            {
+                DuplicataId = id
+            };
+
+            return View(pagamentoViewModel);
         }
 
         [Authorize(Policy = "ActiveUser")]

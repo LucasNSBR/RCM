@@ -1,0 +1,29 @@
+﻿@model RCM.Application.ViewModels.EstadoChequeViewModel
+
+@{
+    ViewData["Title"] = "Sustar Cheque";
+}
+
+<h5>Sustar o Cheque</h5>
+
+<div class="form-container col s12 m12">
+    <form asp-action="Sustar">
+        @Html.EditorForModel()
+
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="Motivo"></label>
+                <input asp-for="Motivo" class="input-field" id="motivo" />
+                <span asp-validation-for="Motivo" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row pt-2 px-1">
+            <post-button>Confirmar</post-button>
+        </div>
+    </form>
+</div>
+
+<div>
+    <a asp-action="Details" asp-route-id="@Model.ChequeId">Voltar para Detalhes</a>
+</div>

@@ -5,9 +5,10 @@ namespace RCM.Domain.Commands.ChequeCommands
 {
     public class CompensarChequeCommand : ChequeCommand
     {
-        public CompensarChequeCommand(Guid id)
+        public CompensarChequeCommand(Guid id, DateTime dataEvento)
         {
             Id = id;
+            DataEvento = dataEvento;
         }
 
         public override bool IsValid()

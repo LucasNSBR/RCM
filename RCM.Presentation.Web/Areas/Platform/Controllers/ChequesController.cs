@@ -167,68 +167,158 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         }
 
         [Authorize(Policy = "ActiveUser")]
-        public async Task<IActionResult> BloquearCheque(Guid id)
+        public async Task<IActionResult> Bloquear(Guid id)
         {
             var commandResult = await _chequeApplicationService.BloquearCheque(id);
 
-            if (!commandResult.Success)
+            if (commandResult.Success)
             {
-
+                NotifyCommandResultSuccess();
+                return RedirectToAction(nameof(Details), new { id });
             }
+            else
+                NotifyCommandResultErrors(commandResult.Errors);
 
             return RedirectToAction(nameof(Details), new { id });
         }
 
         [Authorize(Policy = "ActiveUser")]
-        public async Task<IActionResult> CompensarCheque(Guid id)
+        public IActionResult Compensar(Guid id)
         {
-            var commandResult = await _chequeApplicationService.CompensarCheque(id);
-
-            if (!commandResult.Success)
+            var estadoChequeViewModel = new EstadoChequeViewModel()
             {
+                ChequeId = id
+            };
 
-            }
-
-            return RedirectToAction(nameof(Details), new { id });
+            return View(estadoChequeViewModel);
         }
 
         [Authorize(Policy = "ActiveUser")]
-        public async Task<IActionResult> RepassarCheque(Guid id)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Compensar(Guid id, EstadoChequeViewModel estadoCheque)
         {
-            var commandResult = await _chequeApplicationService.RepassarCheque(id);
-
-            if (!commandResult.Success)
+            if (!ModelState.IsValid)
             {
-
+                NotifyModelStateErrors();
+                return View(estadoCheque);
             }
 
-            return RedirectToAction(nameof(Details), new { id });
+            var commandResult = await _chequeApplicationService.CompensarCheque(id, estadoCheque);
+
+            if (commandResult.Success)
+            {
+                NotifyCommandResultSuccess();
+                return RedirectToAction(nameof(Details), new { id });
+            }
+            else
+                NotifyCommandResultErrors(commandResult.Errors);
+
+            return View(estadoCheque);
+        }
+
+        public IActionResult Repassar(Guid id)
+        {
+            var estadoChequeViewModel = new EstadoChequeViewModel()
+            {
+                ChequeId = id
+            };
+
+            return View(estadoChequeViewModel);
         }
 
         [Authorize(Policy = "ActiveUser")]
-        public async Task<IActionResult> DevolverCheque(Guid id)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Repassar(Guid id, EstadoChequeViewModel estadoCheque)
         {
-            var commandResult = await _chequeApplicationService.DevolverCheque(id);
-
-            if (!commandResult.Success)
+            if (!ModelState.IsValid)
             {
-
+                NotifyModelStateErrors();
+                return View(estadoCheque);
             }
 
-            return RedirectToAction(nameof(Details), new { id });
+            var commandResult = await _chequeApplicationService.RepassarCheque(id, estadoCheque);
+
+            if (commandResult.Success)
+            {
+                NotifyCommandResultSuccess();
+                return RedirectToAction(nameof(Details), new { id });
+            }
+            else
+                NotifyCommandResultErrors(commandResult.Errors);
+
+            return View(estadoCheque);
         }
 
         [Authorize(Policy = "ActiveUser")]
-        public async Task<IActionResult> SustarCheque(Guid id)
+        public IActionResult Devolver(Guid id)
         {
-            var commandResult = await _chequeApplicationService.SustarCheque(id);
-
-            if (!commandResult.Success)
+            var estadoChequeViewModel = new EstadoChequeViewModel()
             {
+                ChequeId = id
+            };
 
+            return View(estadoChequeViewModel);
+        }
+
+        [Authorize(Policy = "ActiveUser")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Devolver(Guid id, EstadoChequeViewModel estadoCheque)
+        {
+            if (!ModelState.IsValid)
+            {
+                NotifyModelStateErrors();
+                return View(estadoCheque);
             }
 
-            return RedirectToAction(nameof(Details), new { id });
+            var commandResult = await _chequeApplicationService.DevolverCheque(id, estadoCheque);
+
+            if (commandResult.Success)
+            {
+                NotifyCommandResultSuccess();
+                return RedirectToAction(nameof(Details), new { id });
+            }
+            else
+                NotifyCommandResultErrors(commandResult.Errors);
+
+            return View(estadoCheque);
+        }
+
+        [Authorize(Policy = "ActiveUser")]
+        public IActionResult Sustar(Guid id)
+        {
+            var estadoChequeViewModel = new EstadoChequeViewModel()
+            {
+                ChequeId = id
+            };
+
+            return View(estadoChequeViewModel);
+        }
+
+        [Authorize(Policy = "ActiveUser")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Sustar(Guid id, EstadoChequeViewModel estadoCheque)
+        {
+            if (!ModelState.IsValid)
+            {
+                NotifyModelStateErrors();
+                return View(estadoCheque);
+            }
+
+            var commandResult = await _chequeApplicationService.SustarCheque(id, estadoCheque);
+
+            if (commandResult.Success)
+            {
+                NotifyCommandResultSuccess();
+                return RedirectToAction(nameof(Details), new { id });
+            }
+            else
+                NotifyCommandResultErrors(commandResult.Errors);
+
+            return View(estadoCheque);
         }
 
 

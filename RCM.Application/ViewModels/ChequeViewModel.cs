@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace RCM.Application.ViewModels
@@ -51,14 +50,13 @@ namespace RCM.Application.ViewModels
         [DisplayFormat(ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true, DataFormatString = "{0:dd/MM/yyyy}")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo data de vencimento é requerido.")]
         public DateTime DataVencimento { get; set; }
-
-        [Display(Name = "Pagamento")]
-        [DisplayFormat(ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true, DataFormatString = "{0:dd/MM/yyyy}")]
-        public DateTime? DataPagamento { get; set; }
-
+        
         [Display(Name = "Valor")]
         [DisplayFormat(ApplyFormatInEditMode = false, ConvertEmptyStringToNull = true, DataFormatString = "{0:c}")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo valor é requerido.")]
         public decimal Valor { get; set; }
+
+        [Display(Name = "Situação")]
+        public EstadoChequeViewModel EstadoCheque { get; set; }
     }
 }

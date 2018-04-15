@@ -7,6 +7,8 @@ namespace RCM.Domain.Validators.ChequeCommandValidators
         public DevolverChequeCommandValidator()
         {
             ValidateId();
+            ValidateDataDevolucao();
+            ValidateMotivo();
         }
     }
 }

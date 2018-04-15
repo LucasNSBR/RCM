@@ -22,9 +22,9 @@ namespace RCM.Domain.Models.ChequeModels
         public DateTime DataVencimento { get; private set; }
         public DateTime? DataPagamento { get; private set; }
         public decimal Valor { get; private set; }
-
+        
         private EstadoCheque _estadoCheque;
-        public EstadoCheque EstadoCheque
+        public virtual EstadoCheque EstadoCheque
         {
             get
             {
@@ -50,7 +50,7 @@ namespace RCM.Domain.Models.ChequeModels
             DataVencimento = dataVencimento;
             Valor = valor;
 
-            _estadoCheque = new ChequeBloqueado();
+            _estadoCheque = _estadoCheque ?? new ChequeBloqueado();
         }
 
         public Cheque(Banco banco, string agencia, string conta, string numeroCheque, Cliente cliente, DateTime dataEmissao, DateTime dataVencimento, decimal valor)
@@ -67,7 +67,7 @@ namespace RCM.Domain.Models.ChequeModels
             DataVencimento = dataVencimento;
             Valor = valor;
 
-            _estadoCheque = new ChequeBloqueado();
+            _estadoCheque = _estadoCheque ?? new ChequeBloqueado();
         }
 
         public void MudarEstado(EstadoCheque state)
@@ -75,29 +75,29 @@ namespace RCM.Domain.Models.ChequeModels
             _estadoCheque = state;
         }
 
-        public void Compensar()
-        {
-            _estadoCheque.Compensar(this);
-        }
-
-        public void Sustar()
-        {
-            _estadoCheque.Sustar(this);
-        }
-
-        public void Repassar()
-        {
-            _estadoCheque.Repassar(this);
-        }
-
         public void Bloquear()
         {
             _estadoCheque.Bloquear(this);
         }
 
-        public void Devolver()
+        public void Compensar(DateTime data)
         {
-            _estadoCheque.Devolvido(this);
+            _estadoCheque.Compensar(this, data);
+        }
+
+        public void Repassar(DateTime data, Cliente cliente)
+        {
+            _estadoCheque.Repassar(this, data, cliente);
+        }
+
+        public void Sustar(DateTime data, string motivo)
+        {
+            _estadoCheque.Sustar(this, data, motivo);
+        }
+
+        public void Devolver(DateTime data, string motivo)
+        {
+            _estadoCheque.Devolver(this, data, motivo);
         }
     }
 }

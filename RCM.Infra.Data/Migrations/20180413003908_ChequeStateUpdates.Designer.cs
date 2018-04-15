@@ -13,9 +13,10 @@ using System;
 namespace RCM.Infra.Data.Migrations
 {
     [DbContext(typeof(RCMDbContext))]
-    partial class RCMDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180413003908_ChequeStateUpdates")]
+    partial class ChequeStateUpdates
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,6 +90,8 @@ namespace RCM.Infra.Data.Migrations
 
                     b.Property<string>("Discriminator")
                         .IsRequired();
+
+                    b.Property<Guid>("Id");
 
                     b.HasKey("ChequeId");
 
@@ -377,8 +380,7 @@ namespace RCM.Infra.Data.Migrations
                     b.HasBaseType("RCM.Domain.Models.ChequeModels.ChequeStates.EstadoCheque");
 
                     b.Property<string>("Motivo")
-                        .HasColumnName("Motivo")
-                        .HasMaxLength(100);
+                        .HasColumnName("Motivo");
 
                     b.ToTable("ChequeDevolvido");
 
@@ -389,7 +391,7 @@ namespace RCM.Infra.Data.Migrations
                 {
                     b.HasBaseType("RCM.Domain.Models.ChequeModels.ChequeStates.EstadoCheque");
 
-                    b.Property<Guid?>("ClienteId");
+                    b.Property<Guid>("ClienteId");
 
                     b.HasIndex("ClienteId");
 
@@ -403,8 +405,7 @@ namespace RCM.Infra.Data.Migrations
                     b.HasBaseType("RCM.Domain.Models.ChequeModels.ChequeStates.EstadoCheque");
 
                     b.Property<string>("Motivo")
-                        .HasColumnName("Motivo")
-                        .HasMaxLength(100);
+                        .HasColumnName("Motivo");
 
                     b.ToTable("ChequeSustado");
 
@@ -533,7 +534,8 @@ namespace RCM.Infra.Data.Migrations
                 {
                     b.HasOne("RCM.Domain.Models.ClienteModels.Cliente", "Cliente")
                         .WithMany()
-                        .HasForeignKey("ClienteId");
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

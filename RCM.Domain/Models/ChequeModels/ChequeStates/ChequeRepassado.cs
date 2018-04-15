@@ -1,29 +1,50 @@
-﻿namespace RCM.Domain.Models.ChequeModels.ChequeStates
+﻿using RCM.Domain.Models.ClienteModels;
+using System;
+
+namespace RCM.Domain.Models.ChequeModels.ChequeStates
 {
     public class ChequeRepassado : EstadoCheque
     {
+        public Guid? ClienteId { get; private set; }
+        public virtual Cliente Cliente { get; private set; }
+        public override string Estado
+        {
+            get
+            {
+                return "Repassado";
+            }
+        }
+
+        protected ChequeRepassado() { }
+
+        public ChequeRepassado(DateTime dataEvento, Cliente cliente) : base(dataEvento)
+        {
+            Cliente = cliente;
+        }
+
         public override void Bloquear(Cheque cheque)
         {
             cheque.MudarEstado(new ChequeBloqueado());
         }
 
-        public override void Compensar(Cheque cheque)
+        public override void Compensar(Cheque cheque, DateTime dataEvento)
         {
-            cheque.MudarEstado(new ChequeRepassado());
+            cheque.MudarEstado(new ChequeCompensado(dataEvento));
         }
 
-        public override void Devolvido(Cheque cheque)
+        public override void Repassar(Cheque cheque, DateTime dataEvento, Cliente cliente)
         {
-            cheque.MudarEstado(new ChequeDevolvido());
+            cheque.MudarEstado(new ChequeRepassado(dataEvento, cliente));
         }
 
-        public override void Repassar(Cheque cheque)
+        public override void Sustar(Cheque cheque, DateTime dataEvento, string motivo)
         {
+            cheque.MudarEstado(new ChequeSustado(dataEvento, motivo));
         }
 
-        public override void Sustar(Cheque cheque)
+        public override void Devolver(Cheque cheque, DateTime dataEvento, string motivo)
         {
-            cheque.MudarEstado(new ChequeSustado());
+            cheque.MudarEstado(new ChequeDevolvido(dataEvento, motivo));
         }
     }
 }
