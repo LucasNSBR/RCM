@@ -111,7 +111,21 @@
             <tbody class="table-body">
                 @foreach (var item in Model.Cheques.List)
                 {
-                    <tr>
+                    var danger = DateTime.Now > item.DataVencimento &&
+                        (item.EstadoCheque == null ||
+                        item.EstadoCheque?.Estado == "Devolvido" ||
+                        item.EstadoCheque?.Estado == "Sustado");
+
+                    var warning = DateTime.Now > item.DataVencimento &&
+                        (item.EstadoCheque == null || 
+                        item.EstadoCheque?.Estado == "Bloqueado");
+
+                    var ok = DateTime.Now > item.DataVencimento  &&
+                        (item.EstadoCheque != null && 
+                        item.EstadoCheque.Estado == "Repassado" ||
+                        item.EstadoCheque.Estado == "Compensado");
+
+                    <tr class="@(warning ? "bg-warning" : "")@(danger ? "bg-danger" : "")@(ok ? "bg-success" : "")">
                         <td class="d-hidden">
                             @Html.DisplayFor(modelItem => item.Id)
                         </td>
@@ -156,17 +170,17 @@
             <ul class="pagination center pt-2">
                 @{
                     var queryStringHelper = new Dictionary<string, string>
-                                    {
-                                        { "clienteId", Model.ClienteId?.ToString() },
-                                        { "minValor", Model.MinValor?.ToString() },
-                                        { "maxValor", Model.MaxValor?.ToString() },
-                                        { "agencia", Model.Agencia?.ToString() },
-                                        { "conta", Model.Conta?.ToString() },
-                                        { "numeroCheque", Model.NumeroCheque?.ToString() },
-                                        { "dataEmissao", Model.DataEmissao?.ToString() },
-                                        { "dataVencimento", Model.DataVencimento?.ToString() },
-                                        { "pageSize", Model.Cheques.PageSize.ToString() },
-                                    };
+                                        {
+                                            { "clienteId", Model.ClienteId?.ToString() },
+                                            { "minValor", Model.MinValor?.ToString() },
+                                            { "maxValor", Model.MaxValor?.ToString() },
+                                            { "agencia", Model.Agencia?.ToString() },
+                                            { "conta", Model.Conta?.ToString() },
+                                            { "numeroCheque", Model.NumeroCheque?.ToString() },
+                                            { "dataEmissao", Model.DataEmissao?.ToString() },
+                                            { "dataVencimento", Model.DataVencimento?.ToString() },
+                                            { "pageSize", Model.Cheques.PageSize.ToString() },
+                                        };
 
                 }
 
