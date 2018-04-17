@@ -9,7 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="CommandHandlers\MarcaCommandHandlers\" />
     <Folder Include="Commands\FornecedorCommands\" />
     <Folder Include="Commands\ClienteCommands\" />
   </ItemGroup>
