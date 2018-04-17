@@ -1,4 +1,6 @@
-﻿namespace RCM.Domain.Commands.MarcaCommands
+﻿using RCM.Domain.Validators.MarcaCommandValidators;
+
+namespace RCM.Domain.Commands.MarcaCommands
 {
     public class AddMarcaCommand : MarcaCommand
     {
@@ -10,7 +12,8 @@
 
         public override bool IsValid()
         {
-            throw new System.NotImplementedException();
+            ValidationResult = new AddMarcaCommandValidator().Validate(this);
+            return ValidationResult.IsValid;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RCM.Domain.Validators.MarcaCommandValidators;
+using System;
 
 namespace RCM.Domain.Commands.MarcaCommands
 {
@@ -11,7 +12,8 @@ namespace RCM.Domain.Commands.MarcaCommands
 
         public override bool IsValid()
         {
-            throw new NotImplementedException();
+            ValidationResult = new RemoveMarcaCommandValidator().Validate(this);
+            return ValidationResult.IsValid;
         }
     }
 }
