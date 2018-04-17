@@ -26,6 +26,10 @@ namespace RCM.Infra.Data.EntityTypeConfig
             builder.Property(p => p.PrecoVenda)
                 .IsRequired()
                 .HasMaxLength(4);
+
+            builder.HasOne(p => p.Marca)
+                .WithMany(m => m.Produtos)
+                .HasForeignKey(p => p.MarcaId);
         }
     }
 }

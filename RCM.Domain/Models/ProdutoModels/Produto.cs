@@ -21,6 +21,9 @@ namespace RCM.Domain.Models.ProdutoModels
             }
         }
 
+        public Guid MarcaId { get; set; }
+        public virtual Marca Marca { get; set; }
+
         protected Produto() { }
 
         public Produto(Guid id, string nome, string aplicacao, int quantidade, decimal precoVenda)
@@ -30,7 +33,7 @@ namespace RCM.Domain.Models.ProdutoModels
             Aplicacao = aplicacao;
             Quantidade = quantidade;
             PrecoVenda = precoVenda;
-
+            
             _fornecedores = new List<Fornecedor>();
         }
 

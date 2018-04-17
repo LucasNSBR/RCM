@@ -1,4 +1,4 @@
-﻿using RCM.Domain.Models.FornecedorModels;
+﻿using RCM.Domain.Models.ProdutoModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -29,7 +29,10 @@ namespace RCM.Application.ViewModels
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo preço de venda é requerido.")]
         public decimal PrecoVenda { get; set; }
 
-        [Display(Name = "Fornecedores")]
-        public List<Fornecedor> Fornecedores { get; set; }
+        //[Display(Name = "Fornecedores")]
+        //public List<FornecedorViewModel> Fornecedores { get; set; }
+
+        [Display(Name = "Marcas")]
+        public MarcaViewModel Marca { get; set; }
     }
 }

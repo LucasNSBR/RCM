@@ -13,9 +13,10 @@ using System;
 namespace RCM.Infra.Data.Migrations
 {
     [DbContext(typeof(RCMDbContext))]
-    partial class RCMDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180417030335_Marcas")]
+    partial class Marcas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -324,8 +325,6 @@ namespace RCM.Infra.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(1000);
 
-                    b.Property<Guid>("MarcaId");
-
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(100);
@@ -344,8 +343,6 @@ namespace RCM.Infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MarcaId");
-
                     b.HasIndex("NotaFiscalId");
 
                     b.HasIndex("OrdemServicoId");
@@ -353,6 +350,19 @@ namespace RCM.Infra.Data.Migrations
                     b.HasIndex("VendaId");
 
                     b.ToTable("Produtos");
+                });
+
+            modelBuilder.Entity("RCM.Domain.Models.ProdutoModels.ProdutoMarca", b =>
+                {
+                    b.Property<Guid>("MarcaId");
+
+                    b.Property<Guid>("ProdutoId");
+
+                    b.HasKey("MarcaId", "ProdutoId");
+
+                    b.HasIndex("ProdutoId");
+
+                    b.ToTable("ProdutoMarca");
                 });
 
             modelBuilder.Entity("RCM.Domain.Models.VendaModels.Venda", b =>
@@ -529,11 +539,6 @@ namespace RCM.Infra.Data.Migrations
 
             modelBuilder.Entity("RCM.Domain.Models.ProdutoModels.Produto", b =>
                 {
-                    b.HasOne("RCM.Domain.Models.ProdutoModels.Marca", "Marca")
-                        .WithMany("Produtos")
-                        .HasForeignKey("MarcaId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("RCM.Domain.Models.NotaFiscalModels.NotaFiscal")
                         .WithMany("Produtos")
                         .HasForeignKey("NotaFiscalId");
@@ -545,6 +550,19 @@ namespace RCM.Infra.Data.Migrations
                     b.HasOne("RCM.Domain.Models.VendaModels.Venda")
                         .WithMany("Produtos")
                         .HasForeignKey("VendaId");
+                });
+
+            modelBuilder.Entity("RCM.Domain.Models.ProdutoModels.ProdutoMarca", b =>
+                {
+                    b.HasOne("RCM.Domain.Models.ProdutoModels.Produto", "Produto")
+                        .WithMany("ProdutoMarcas")
+                        .HasForeignKey("MarcaId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("RCM.Domain.Models.ProdutoModels.Marca", "Marca")
+                        .WithMany("ProdutoMarcas")
+                        .HasForeignKey("ProdutoId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("RCM.Domain.Models.VendaModels.Venda", b =>

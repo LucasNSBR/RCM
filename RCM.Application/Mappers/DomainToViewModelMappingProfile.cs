@@ -11,6 +11,8 @@ using RCM.Domain.Models.EstadoModels;
 using RCM.Domain.Models.FornecedorModels;
 using RCM.Domain.Models.NotaFiscalModels;
 using RCM.Domain.Models.OrdemServicoModels;
+using RCM.Domain.Models.ProdutoModels;
+using System.Linq;
 
 namespace RCM.Application.Mappers
 {
@@ -36,6 +38,8 @@ namespace RCM.Application.Mappers
             CreateMap<Banco, BancoViewModel>();
             CreateMap<Pagamento, PagamentoViewModel>();
             CreateMap<OrdemServico, OrdemServicoViewModel>();
+            CreateMap<Marca, MarcaViewModel>();
+            CreateMap<Produto, ProdutoViewModel>();
         }
     }
 }

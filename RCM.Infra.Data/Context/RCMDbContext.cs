@@ -31,6 +31,7 @@ namespace RCM.Infra.Data.Context
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<OrdemServico> OrdensServico { get; set; }
         public DbSet<Venda> Vendas { get; set; }
+        public DbSet<Marca> Marcas { get; set; }
 
         public DbSet<EstadoCheque> EstadosCheques { get; set; }
 
@@ -49,6 +50,7 @@ namespace RCM.Infra.Data.Context
             modelBuilder.ApplyConfiguration(new EnderecoEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new EstadoEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new FornecedorEntityTypeConfig());
+            modelBuilder.ApplyConfiguration(new MarcaEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new NotaFiscalEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new OrdemServicoEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new ProdutoEntityTypeConfig());
@@ -72,11 +74,10 @@ namespace RCM.Infra.Data.Context
             modelBuilder.Entity<ChequeDevolvido>().HasBaseType<EstadoCheque>();
         }
 
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder
-                .UseLazyLoadingProxies();
+            //optionsBuilder
+            //    .UseLazyLoadingProxies();
 
             base.OnConfiguring(optionsBuilder);
         }
