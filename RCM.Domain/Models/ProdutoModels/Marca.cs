@@ -23,6 +23,8 @@ namespace RCM.Domain.Models.ProdutoModels
         {
             Nome = nome;
             Observacao = observacao;
+
+            _produtos = new List<Produto>();
         }
     }
 }

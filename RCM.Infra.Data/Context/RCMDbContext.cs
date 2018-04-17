@@ -76,8 +76,8 @@ namespace RCM.Infra.Data.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //optionsBuilder
-            //    .UseLazyLoadingProxies();
+            optionsBuilder
+                .UseLazyLoadingProxies();
 
             base.OnConfiguring(optionsBuilder);
         }
