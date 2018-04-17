@@ -26,23 +26,25 @@ namespace RCM.Domain.Models.ProdutoModels
 
         protected Produto() { }
 
-        public Produto(Guid id, string nome, string aplicacao, int quantidade, decimal precoVenda)
+        public Produto(Guid id, string nome, string aplicacao, int quantidade, decimal precoVenda, Marca marca)
         {
             Id = id;
             Nome = nome;
             Aplicacao = aplicacao;
             Quantidade = quantidade;
             PrecoVenda = precoVenda;
+            Marca = marca;
             
             _fornecedores = new List<Fornecedor>();
         }
 
-        public Produto(string nome, string aplicacao, int quantidade, decimal precoVenda)
+        public Produto(string nome, string aplicacao, int quantidade, decimal precoVenda, Marca marca)
         {
             Nome = nome;
             Aplicacao = aplicacao;
             Quantidade = quantidade;
             PrecoVenda = precoVenda;
+            Marca = marca;
 
             _fornecedores = new List<Fornecedor>();
         }

@@ -5,13 +5,14 @@ namespace RCM.Domain.Commands.ProdutoCommands
 {
     public class UpdateProdutoCommand : ProdutoCommand
     {
-        public UpdateProdutoCommand(Guid id, string nome, string aplicacao, int quantidade, decimal precoVenda)
+        public UpdateProdutoCommand(Guid id, string nome, string aplicacao, int quantidade, decimal precoVenda, Guid marcaId)
         {
             Id = id;
             Nome = nome;
             Aplicacao = aplicacao;
             Quantidade = quantidade;
             PrecoVenda = precoVenda;
+            MarcaId = marcaId;
         }
         
         public override bool IsValid()
