@@ -13,6 +13,8 @@ namespace RCM.Infra.Data.EntityTypeConfig
             builder.HasOne(c => c.Cheque)
               .WithOne(ec => ec.EstadoCheque)
               .HasForeignKey<EstadoCheque>(c => c.ChequeId);
+
+            builder.Ignore(c => c.Estado);
         }
     }
 }

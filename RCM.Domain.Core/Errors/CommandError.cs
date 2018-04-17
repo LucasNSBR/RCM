@@ -2,20 +2,13 @@
 {
     public class CommandError
     {
-        private string errorMessage;
-
         public string Code { get; }
         public string Description { get; }
 
-        public CommandError(string code, string description)
+        public CommandError(string description, string code = "Erro")
         {
             Code = code;
             Description = description;
-        }
-
-        public CommandError(string errorMessage)
-        {
-            this.errorMessage = errorMessage;
         }
     }
 }

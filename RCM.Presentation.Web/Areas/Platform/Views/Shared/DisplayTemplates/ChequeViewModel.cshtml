@@ -1,4 +1,6 @@
-﻿@model RCM.Application.ViewModels.ChequeViewModel
+﻿@using RCM.Domain.Models.ChequeModels.ChequeStates;
+
+@model RCM.Application.ViewModels.ChequeViewModel
 
 <div class="row">
     <div class="col s12">
@@ -135,25 +137,25 @@
 
                             switch (Model.EstadoCheque.Estado)
                             {
-                                case "Bloqueado":
+                                case EstadoChequeEnum.Bloqueado:
                                     <span>Bloqueado desde o dia @dataEvento</span>
                                     break;
-                                case "Compensado":
+                                case EstadoChequeEnum.Compensado:
                                     <span>Compensado no dia @dataEvento</span>
                                     break;
-                                case "Repassado":
+                                case EstadoChequeEnum.Repassado:
                                     var clienteRepassado = Model.EstadoCheque.Cliente;
                                     <span>Repassado no dia @dataEvento</span><br />
                                     <span>Cliente: </span><a asp-action="Details" asp-controller="Clientes" asp-route-id="@clienteRepassado.Id">@clienteRepassado.Nome</a>
                                     break;
-                                case "Sustado":
+                                case EstadoChequeEnum.Sustado:
                                     var motivoSustado = Model.EstadoCheque.Motivo;
                                     <span>
                                         Sustado no dia @dataEvento <br />
                                         Motivo: @motivoSustado
                                     </span>
                                     break;
-                                case "Devolvido":
+                                case EstadoChequeEnum.Devolvido:
                                     var motivoDevolucao = Model.EstadoCheque.Motivo;
                                     <span>
                                         Devolvido no dia @dataEvento <br />

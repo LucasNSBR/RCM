@@ -9,7 +9,7 @@ namespace RCM.Domain.Models.ChequeModels.ChequeStates
         public virtual Cheque Cheque { get; private set; }
         public DateTime DataEvento { get; private set; }
 
-        public abstract string Estado { get; }
+        public abstract EstadoChequeEnum Estado { get; }
 
         protected EstadoCheque() { }
 

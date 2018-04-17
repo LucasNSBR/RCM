@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RCM.Domain.Models.ChequeModels.ChequeStates;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace RCM.Application.ViewModels
@@ -50,7 +51,7 @@ namespace RCM.Application.ViewModels
         [DisplayFormat(ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true, DataFormatString = "{0:dd/MM/yyyy}")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo data de vencimento é requerido.")]
         public DateTime DataVencimento { get; set; }
-        
+
         [Display(Name = "Valor")]
         [DisplayFormat(ApplyFormatInEditMode = false, ConvertEmptyStringToNull = true, DataFormatString = "{0:c}")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo valor é requerido.")]
@@ -58,5 +59,39 @@ namespace RCM.Application.ViewModels
 
         [Display(Name = "Situação")]
         public EstadoChequeViewModel EstadoCheque { get; set; }
+
+        #region Index View Helpers
+        public bool ItemRequerAtencao
+        {
+            get
+            {
+                return DateTime.Now > DataVencimento &&
+                    (EstadoCheque == null ||
+                    EstadoCheque?.Estado == EstadoChequeEnum.Bloqueado);
+            }
+        }
+
+        public bool ItemProblema
+        {
+            get
+            {
+                return DateTime.Now > DataVencimento &&
+                    (EstadoCheque == null ||
+                    EstadoCheque?.Estado == EstadoChequeEnum.Devolvido ||
+                    EstadoCheque?.Estado == EstadoChequeEnum.Sustado);
+            }
+        }
+
+        public bool ItemBom
+        {
+            get
+            {
+                return DateTime.Now > DataVencimento &&
+                    (EstadoCheque != null &&
+                    EstadoCheque.Estado == EstadoChequeEnum.Repassado ||
+                    EstadoCheque.Estado == EstadoChequeEnum.Compensado);
+            }
+        }
+        #endregion
     }
 }

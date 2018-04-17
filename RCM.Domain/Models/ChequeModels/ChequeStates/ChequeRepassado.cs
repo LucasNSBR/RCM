@@ -7,11 +7,11 @@ namespace RCM.Domain.Models.ChequeModels.ChequeStates
     {
         public Guid? ClienteId { get; private set; }
         public virtual Cliente Cliente { get; private set; }
-        public override string Estado
+        public override EstadoChequeEnum Estado
         {
             get
             {
-                return "Repassado";
+                return EstadoChequeEnum.Repassado;
             }
         }
 

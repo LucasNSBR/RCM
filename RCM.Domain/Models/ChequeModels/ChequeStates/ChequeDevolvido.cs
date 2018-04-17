@@ -6,11 +6,11 @@ namespace RCM.Domain.Models.ChequeModels.ChequeStates
     public class ChequeDevolvido : EstadoCheque
     {
         public string Motivo { get; private set; }
-        public override string Estado
+        public override EstadoChequeEnum Estado
         {
             get
             {
-                return "Devolvido";
+                return EstadoChequeEnum.Devolvido;
             }
         }
 

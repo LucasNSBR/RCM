@@ -15,8 +15,8 @@ namespace RCM.Domain.Models.ChequeModels
 
         public override Expression<Func<Cheque, bool>> ToExpression()
         {
-            if(_estadoCheque != null)
-                return c => c.EstadoCheque.Estado == _estadoCheque;
+            if (_estadoCheque != null)
+                return c => _estadoCheque == c.EstadoCheque.Estado.ToString();
 
             return c => true;
         }

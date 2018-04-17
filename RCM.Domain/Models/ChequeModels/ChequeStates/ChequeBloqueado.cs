@@ -5,11 +5,11 @@ namespace RCM.Domain.Models.ChequeModels.ChequeStates
 {
     public class ChequeBloqueado : EstadoCheque
     {
-        public override string Estado
+        public override EstadoChequeEnum Estado
         {
             get
             {
-                return "Bloqueado";
+                return EstadoChequeEnum.Bloqueado;
             }
         }
 

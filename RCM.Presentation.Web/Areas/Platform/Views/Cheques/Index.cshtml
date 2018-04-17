@@ -1,4 +1,7 @@
-﻿@model RCM.Presentation.Web.ViewModels.ChequesIndexViewModel
+﻿@using RCM.Domain.Models.ChequeModels.ChequeStates;
+
+
+@model RCM.Presentation.Web.ViewModels.ChequesIndexViewModel
 
 @{
     ViewData["Title"] = "Cheques - Índice";
@@ -63,13 +66,8 @@
                     <label for="conta">Número da Conta Corrente</label>
                 </div>
                 <div class="input-field col s12 m6">
-                    <select asp-for="Situacao" name="situacao" class="input-field" id="situacao">
+                    <select asp-for="Situacao" asp-items="@(new SelectList(Enum.GetNames(typeof(EstadoChequeEnum)).ToList()))" name="situacao" class="input-field" id="situacao">
                         <option value="">Todas</option>
-                        <option value="Bloqueado">Bloqueado</option>
-                        <option value="Compensado">Compensado</option>
-                        <option value="Repassado">Repassado</option>
-                        <option value="Sustado">Sustado</option>
-                        <option value="Devolvido">Devolvido</option>
                     </select>
                     <label for="situacao">Situação do Cheque</label>
                 </div>
@@ -111,21 +109,7 @@
             <tbody class="table-body">
                 @foreach (var item in Model.Cheques.List)
                 {
-                    var danger = DateTime.Now > item.DataVencimento &&
-                        (item.EstadoCheque == null ||
-                        item.EstadoCheque?.Estado == "Devolvido" ||
-                        item.EstadoCheque?.Estado == "Sustado");
-
-                    var warning = DateTime.Now > item.DataVencimento &&
-                        (item.EstadoCheque == null || 
-                        item.EstadoCheque?.Estado == "Bloqueado");
-
-                    var ok = DateTime.Now > item.DataVencimento  &&
-                        (item.EstadoCheque != null && 
-                        item.EstadoCheque.Estado == "Repassado" ||
-                        item.EstadoCheque.Estado == "Compensado");
-
-                    <tr class="@(warning ? "bg-warning" : "")@(danger ? "bg-danger" : "")@(ok ? "bg-success" : "")">
+                    <tr class="@(item.ItemRequerAtencao ? "bg-warning" : "")@(item.ItemProblema ? "bg-danger" : "")@(item.ItemBom ? "bg-success" : "")">
                         <td class="d-hidden">
                             @Html.DisplayFor(modelItem => item.Id)
                         </td>

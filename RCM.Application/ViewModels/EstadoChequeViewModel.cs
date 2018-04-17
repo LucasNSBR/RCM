@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RCM.Domain.Models.ChequeModels.ChequeStates;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace RCM.Application.ViewModels
@@ -25,6 +26,6 @@ namespace RCM.Application.ViewModels
         public ClienteViewModel Cliente { get; set; }
 
         [Display(Name = "Situação Atual")]
-        public string Estado { get; set; }
+        public EstadoChequeEnum Estado { get; set; }
     }
 }
