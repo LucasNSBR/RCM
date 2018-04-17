@@ -32,6 +32,9 @@ namespace RCM.Application.ViewModels
         //[Display(Name = "Fornecedores")]
         //public List<FornecedorViewModel> Fornecedores { get; set; }
 
+        [Display(Name = "Id da Marca")]
+        public Guid MarcaId { get; set; }
+
         [Display(Name = "Marcas")]
         public MarcaViewModel Marca { get; set; }
     }

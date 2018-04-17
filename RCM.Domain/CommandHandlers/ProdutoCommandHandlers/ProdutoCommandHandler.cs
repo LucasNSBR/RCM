@@ -17,11 +17,13 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
                                          IRequestHandler<RemoveProdutoCommand, CommandResult>
     {
         private readonly IProdutoRepository _produtoRepository;
+        private readonly IMarcaRepository _marcaRepository;
 
-        public ProdutoCommandHandler(IMediatorHandler mediator, IProdutoRepository produtoRepository, IUnitOfWork unitOfWork) : 
+        public ProdutoCommandHandler(IMediatorHandler mediator, IProdutoRepository produtoRepository, IMarcaRepository marcaRepository, IUnitOfWork unitOfWork) : 
                                                                                                         base(mediator, unitOfWork)
         {
             _produtoRepository = produtoRepository;
+            _marcaRepository = marcaRepository;
         }
 
         public Task<CommandResult> Handle(AddProdutoCommand command, CancellationToken cancellationToken)
@@ -32,7 +34,8 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
                 return Response();
             }
 
-            Produto produto = new Produto(command.Nome, command.Aplicacao, command.Quantidade, command.PrecoVenda);
+            Marca marca = _marcaRepository.GetById(command.MarcaId);
+            Produto produto = new Produto(command.Nome, command.Aplicacao, command.Quantidade, command.PrecoVenda, marca);
             _produtoRepository.Add(produto);
 
             if (Commit())
@@ -49,7 +52,8 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
                 return Response();
             }
 
-            Produto produto = new Produto(command.Id, command.Nome, command.Aplicacao, command.Quantidade, command.PrecoVenda);
+            Marca marca = _marcaRepository.GetById(command.MarcaId);
+            Produto produto = new Produto(command.Id, command.Nome, command.Aplicacao, command.Quantidade, command.PrecoVenda, marca);
             _produtoRepository.Update(produto);
 
             if (Commit())
