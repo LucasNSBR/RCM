@@ -18,6 +18,6 @@ namespace RCM.Application.ViewModels
         [StringLength(1000, ErrorMessage = "O campo observação deve ter até 1000 caracteres.")]
         public string Observacao { get; set; }
 
-        private List<ProdutoViewModel> Produtos { get; set; }
+        public List<ProdutoViewModel> Produtos { get; set; }
     }
 }

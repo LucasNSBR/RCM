@@ -1,4 +1,5 @@
 ﻿using RCM.Domain.Core.Models;
+using System;
 using System.Collections.Generic;
 
 namespace RCM.Domain.Models.ProdutoModels
@@ -18,6 +19,15 @@ namespace RCM.Domain.Models.ProdutoModels
         }
 
         protected Marca() { }
+
+        public Marca(Guid id, string nome, string observacao = null)
+        {
+            Id = id;
+            Nome = nome;
+            Observacao = observacao;
+
+            _produtos = new List<Produto>();
+        }
 
         public Marca(string nome, string observacao = null)
         {

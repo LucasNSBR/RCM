@@ -21,8 +21,8 @@ namespace RCM.Domain.Models.ProdutoModels
             }
         }
 
-        public Guid MarcaId { get; set; }
-        public virtual Marca Marca { get; set; }
+        public Guid MarcaId { get; private set; }
+        public virtual Marca Marca { get; private set; }
 
         protected Produto() { }
 
