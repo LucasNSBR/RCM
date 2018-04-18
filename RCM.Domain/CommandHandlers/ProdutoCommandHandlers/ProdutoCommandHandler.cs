@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using MediatR;
 using RCM.Domain.Commands.ProdutoCommands;
+using RCM.Domain.Constants;
 using RCM.Domain.Core.Commands;
 using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.Events.ProdutoEvents;
@@ -53,6 +54,7 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
             }
 
             Marca marca = _marcaRepository.GetById(command.MarcaId);
+
             Produto produto = new Produto(command.Id, command.Nome, command.Aplicacao, command.Quantidade, command.PrecoVenda, marca);
             _produtoRepository.Update(produto);
 
