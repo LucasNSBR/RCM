@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using RCM.Application.ApplicationInterfaces;
 using RCM.Application.ViewModels;
 using RCM.Domain.DomainNotificationHandlers;
+using RCM.Domain.Models.MarcaModels;
 using RCM.Presentation.Web.Controllers;
 using System;
 using System.Threading.Tasks;
@@ -18,6 +19,16 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         public MarcasController(IMarcaApplicationService marcaApplicationService, IDomainNotificationHandler domainNotificationHandler) : base(domainNotificationHandler)
         {
             _marcaApplicationService = marcaApplicationService;
+        }
+
+        public IActionResult Index(string nome = null)
+        {
+            var nomeSpecification = new MarcaNomeSpecification(nome);
+
+            var list = _marcaApplicationService.Get(nomeSpecification
+                .ToExpression());
+
+            return View(list);
         }
 
         public IActionResult Details(Guid id)
