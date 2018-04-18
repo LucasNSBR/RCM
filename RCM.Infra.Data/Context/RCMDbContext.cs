@@ -18,6 +18,7 @@ namespace RCM.Infra.Data.Context
 {
     public class RCMDbContext : DbContext
     {
+        public DbSet<Aplicacao> Aplicacoes { get; set; }
         public DbSet<Cheque> Cheques { get; set; }
         public DbSet<Duplicata> Duplicatas { get; set; }
         public DbSet<Cliente> Clientes { get; set; }
@@ -41,6 +42,7 @@ namespace RCM.Infra.Data.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new AplicacaoEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new BancoEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new ChequeEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new CidadeEntityTypeConfig());
@@ -54,6 +56,7 @@ namespace RCM.Infra.Data.Context
             modelBuilder.ApplyConfiguration(new NotaFiscalEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new OrdemServicoEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new ProdutoEntityTypeConfig());
+            modelBuilder.ApplyConfiguration(new ProdutoAplicacaoEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new VendaEntityTypeConfig());
 
             ConfigureChequeEstado(modelBuilder);

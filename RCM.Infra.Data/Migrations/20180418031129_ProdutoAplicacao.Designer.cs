@@ -13,9 +13,10 @@ using System;
 namespace RCM.Infra.Data.Migrations
 {
     [DbContext(typeof(RCMDbContext))]
-    partial class RCMDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180418031129_ProdutoAplicacao")]
+    partial class ProdutoAplicacao
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -552,24 +553,15 @@ namespace RCM.Infra.Data.Migrations
                         {
                             b1.Property<Guid>("AplicacaoId");
 
-                            b1.Property<int>("Ano")
-                                .HasColumnName("Ano");
+                            b1.Property<int>("Ano");
 
-                            b1.Property<string>("Marca")
-                                .IsRequired()
-                                .HasColumnName("Marca")
-                                .HasMaxLength(100);
+                            b1.Property<string>("Marca");
 
-                            b1.Property<string>("Modelo")
-                                .IsRequired()
-                                .HasColumnName("Modelo")
-                                .HasMaxLength(250);
+                            b1.Property<string>("Modelo");
 
-                            b1.Property<string>("Motor")
-                                .HasColumnName("Motor");
+                            b1.Property<string>("Motor");
 
-                            b1.Property<string>("Observacao")
-                                .HasColumnName("Observacao");
+                            b1.Property<string>("Observacao");
 
                             b1.ToTable("Aplicacoes");
 

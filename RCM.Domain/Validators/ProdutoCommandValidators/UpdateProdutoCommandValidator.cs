@@ -8,7 +8,6 @@ namespace RCM.Domain.Validators.ProdutoCommandValidators
         {
             ValidateId();
             ValidateNome();
-            ValidateAplicacao();
             ValidateQuantidade();
             ValidatePrecoVenda();
         }

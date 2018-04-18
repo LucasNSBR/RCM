@@ -19,20 +19,12 @@ namespace RCM.Domain.Validators.ProdutoCommandValidators
                 .WithMessage("O nome do produto deve ter entre 5 e 100 caracteres e não deve estar em branco.");
         }
 
-        public void ValidateAplicacao()
-        {
-            RuleFor(p => p.Aplicacao)
-                .NotEmpty()
-                .WithMessage("A aplicação do produto deve entre 10 e 1000 carateres e não deve estar em branco.");
-        }
-
         public void ValidateQuantidade()
         {
             RuleFor(p => p.Quantidade)
                 .NotEmpty()
                 .WithMessage("A quantidade do produto não deve estar em branco.");
         }
-
 
         public void ValidatePrecoVenda()
         {

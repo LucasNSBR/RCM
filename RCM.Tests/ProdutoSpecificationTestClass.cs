@@ -27,23 +27,23 @@ namespace RCM.Tests
         {
             return new List<ProdutoViewModel>()
             {
-                new ProdutoViewModel()
-                {
-                    Nome = "Embreagem GM",
-                    Aplicacao = "GM"
-                },
+                //new ProdutoViewModel()
+                //{
+                //    Nome = "Embreagem GM",
+                //    Aplicacao = "GM"
+                //},
 
-                new ProdutoViewModel()
-                {
-                    Nome = "Sapata Freio Fiat",
-                    Aplicacao = "GM"
-                },
+                //new ProdutoViewModel()
+                //{
+                //    Nome = "Sapata Freio Fiat",
+                //    Aplicacao = "GM"
+                //},
 
-                new ProdutoViewModel()
-                {
-                    Nome = "Coxim Embreagem GM",
-                    Aplicacao = "GM"
-                },
+                //new ProdutoViewModel()
+                //{
+                //    Nome = "Coxim Embreagem GM",
+                //    Aplicacao = "GM"
+                //},
             }.AsQueryable();
         }
     }

@@ -8,7 +8,16 @@ namespace RCM.Domain.Models.ProdutoModels
     public class Produto : Entity<Produto>
     {
         public string Nome { get; private set; }
-        public string Aplicacao { get; private set; }
+
+        private List<ProdutoAplicacao> _aplicacoes;
+        public IReadOnlyList<ProdutoAplicacao> Aplicacoes
+        {
+            get
+            {
+                return _aplicacoes;
+            }
+        }
+
         public int Quantidade { get; private set; }
         public decimal PrecoVenda { get; private set; }
 
@@ -26,27 +35,27 @@ namespace RCM.Domain.Models.ProdutoModels
 
         protected Produto() { }
 
-        public Produto(Guid id, string nome, string aplicacao, int quantidade, decimal precoVenda, Marca marca)
+        public Produto(Guid id, string nome, int quantidade, decimal precoVenda, Marca marca)
         {
             Id = id;
             Nome = nome;
-            Aplicacao = aplicacao;
             Quantidade = quantidade;
             PrecoVenda = precoVenda;
             Marca = marca;
             
             _fornecedores = new List<Fornecedor>();
+            _aplicacoes = new List<ProdutoAplicacao>();
         }
 
-        public Produto(string nome, string aplicacao, int quantidade, decimal precoVenda, Marca marca)
+        public Produto(string nome, int quantidade, decimal precoVenda, Marca marca)
         {
             Nome = nome;
-            Aplicacao = aplicacao;
             Quantidade = quantidade;
             PrecoVenda = precoVenda;
             Marca = marca;
 
             _fornecedores = new List<Fornecedor>();
+            _aplicacoes = new List<ProdutoAplicacao>();
         }
 
         public void ReporEstoque(int quantidade)

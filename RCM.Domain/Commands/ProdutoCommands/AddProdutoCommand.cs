@@ -5,10 +5,9 @@ namespace RCM.Domain.Commands.ProdutoCommands
 {
     public class AddProdutoCommand : ProdutoCommand
     {
-        public AddProdutoCommand(string nome, string aplicacao, int quantidade, decimal precoVenda, Guid marcaId)
+        public AddProdutoCommand(string nome, int quantidade, decimal precoVenda, Guid marcaId)
         {
             Nome = nome;
-            Aplicacao = aplicacao;
             Quantidade = quantidade;
             PrecoVenda = precoVenda;
             MarcaId = marcaId;

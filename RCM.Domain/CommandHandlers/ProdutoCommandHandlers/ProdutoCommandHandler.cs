@@ -35,7 +35,7 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
             }
 
             Marca marca = _marcaRepository.GetById(command.MarcaId);
-            Produto produto = new Produto(command.Nome, command.Aplicacao, command.Quantidade, command.PrecoVenda, marca);
+            Produto produto = new Produto(command.Nome, command.Quantidade, command.PrecoVenda, marca);
             _produtoRepository.Add(produto);
 
             if (Commit())
@@ -53,7 +53,7 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
             }
 
             Marca marca = _marcaRepository.GetById(command.MarcaId);
-            Produto produto = new Produto(command.Id, command.Nome, command.Aplicacao, command.Quantidade, command.PrecoVenda, marca);
+            Produto produto = new Produto(command.Id, command.Nome, command.Quantidade, command.PrecoVenda, marca);
             _produtoRepository.Update(produto);
 
             if (Commit())

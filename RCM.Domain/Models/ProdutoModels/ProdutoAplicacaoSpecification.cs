@@ -15,8 +15,8 @@ namespace RCM.Domain.Models.ProdutoModels
         
         public override Expression<Func<Produto, bool>> ToExpression()
         {
-            if (_aplicacao != null)
-                return p => p.Aplicacao.ToLower().Contains(_aplicacao.ToLower());
+            //if (_aplicacao != null)
+            //    return p => p.Aplicacoes.ToLower().Contains(_aplicacao.ToLower());
 
             return p => true;
         }
