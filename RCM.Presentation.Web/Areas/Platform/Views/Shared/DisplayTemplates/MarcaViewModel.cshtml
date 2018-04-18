@@ -1,0 +1,26 @@
+﻿@model RCM.Application.ViewModels.MarcaViewModel
+
+<p class="px-1 font-bold lead">
+    Informação geral
+</p>
+
+<dl class="detail-list">
+    <dt>
+        <label asp-for="Id">Identificação</label>
+    </dt>
+    <dd>
+        @Model.Id
+    </dd>
+    <dt>
+        <label asp-for="Nome"></label>
+    </dt>
+    <dd>
+        @Model.Nome
+    </dd>
+    <dt>
+        <label asp-for="Observacao"></label>
+    </dt>
+    <dd>
+        @Model.Observacao
+    </dd>
+</dl>

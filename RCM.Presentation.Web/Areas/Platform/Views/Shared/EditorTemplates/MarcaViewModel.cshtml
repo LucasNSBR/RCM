@@ -1,0 +1,21 @@
+﻿@model RCM.Application.ViewModels.MarcaViewModel
+
+<p class="px-1 font-bold lead">
+    Informação geral
+</p>
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="row">
+    <div class="input-field col s12 m6">
+        <label asp-for="Nome">Código de compensação</label>
+        <input asp-for="Nome" class="input-field" />
+        <span asp-validation-for="Nome" class="text-danger"></span>
+    </div>
+</div>
+<div class="row">
+    <div class="input-field col s12 m6">
+        <label asp-for="Observacao">Nome</label>
+        <textarea asp-for="Observacao" class="materialize-textarea"></textarea>
+        <span asp-validation-for="Observacao" class="text-danger"></span>
+    </div>
+</div>

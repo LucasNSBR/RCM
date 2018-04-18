@@ -3,11 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using RCM.Application.ApplicationInterfaces;
 using RCM.Application.ViewModels;
 using RCM.Domain.DomainNotificationHandlers;
-using RCM.Domain.DomainNotifications;
 using RCM.Domain.Models.BancoModels;
 using RCM.Presentation.Web.Controllers;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace RCM.Presentation.Web.Areas.Platform.Controllers

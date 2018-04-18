@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 
 namespace RCM.Presentation.Web.Areas.Platform.Controllers
 {
+    [Area("Platform")]
+    [Authorize]
     public class MarcasController : BaseController
     {
         private readonly IMarcaApplicationService _marcaApplicationService;

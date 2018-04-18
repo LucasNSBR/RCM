@@ -1,0 +1,26 @@
+﻿@model RCM.Application.ViewModels.MarcaViewModel
+
+@{
+    ViewData["Title"] = "Adicionar nova Marca";
+}
+
+<h5>Adicionar</h5>
+
+<div class="form-container col s12 m12">
+    <form asp-action="Create">
+        @Html.EditorForModel()
+
+        <div class="row pt-2 px-1">
+            <post-button>Confirmar</post-button>
+        </div>
+    </form>
+</div>
+
+<div>
+    <a asp-action="Index">Voltar para a lista</a>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
