@@ -62,7 +62,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             if (commandResult.Success)
             {
                 NotifyCommandResultSuccess();
-                return RedirectToAction(nameof(EstoqueController.Index), "Estoque");
+                return RedirectToAction(nameof(Index));
             }
             else
                 NotifyCommandResultErrors(commandResult.Errors);
@@ -96,7 +96,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             if (commandResult.Success)
             {
                 NotifyCommandResultSuccess();
-                return RedirectToAction(nameof(EstoqueController.Index), "Estoque");
+                return RedirectToAction(nameof(Index));
             }
             else
                 NotifyCommandResultErrors(commandResult.Errors);
@@ -124,7 +124,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             if (commandResult.Success)
             {
                 NotifyCommandResultSuccess();
-                return RedirectToAction(nameof(EstoqueController.Index), "Estoque");
+                return RedirectToAction(nameof(Index));
             }
             else
                 NotifyCommandResultErrors(commandResult.Errors);
