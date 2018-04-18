@@ -5,7 +5,7 @@ using RCM.Application.ViewModels;
 using RCM.Domain.Commands.MarcaCommands;
 using RCM.Domain.Core.Commands;
 using RCM.Domain.Core.MediatorServices;
-using RCM.Domain.Models.ProdutoModels;
+using RCM.Domain.Models.MarcaModels;
 using RCM.Domain.Repositories;
 
 namespace RCM.Application.ApplicationServices

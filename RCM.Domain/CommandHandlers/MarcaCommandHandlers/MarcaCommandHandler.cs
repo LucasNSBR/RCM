@@ -4,7 +4,7 @@ using MediatR;
 using RCM.Domain.Commands.MarcaCommands;
 using RCM.Domain.Core.Commands;
 using RCM.Domain.Core.MediatorServices;
-using RCM.Domain.Models.ProdutoModels;
+using RCM.Domain.Models.MarcaModels;
 using RCM.Domain.Repositories;
 using RCM.Domain.UnitOfWork;
 

@@ -1,8 +1,9 @@
 ﻿using RCM.Domain.Core.Models;
+using RCM.Domain.Models.ProdutoModels;
 using System;
 using System.Collections.Generic;
 
-namespace RCM.Domain.Models.ProdutoModels
+namespace RCM.Domain.Models.MarcaModels
 {
     public class Marca : Entity<Marca>
     {

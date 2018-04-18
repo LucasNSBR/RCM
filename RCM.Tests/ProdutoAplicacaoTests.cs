@@ -3,6 +3,7 @@ using Moq;
 using RCM.Application.ApplicationInterfaces;
 using RCM.Application.ViewModels;
 using RCM.Domain.Models;
+using RCM.Domain.Models.MarcaModels;
 using RCM.Domain.Models.ProdutoModels;
 using RCM.Domain.Repositories;
 using System.Collections.Generic;

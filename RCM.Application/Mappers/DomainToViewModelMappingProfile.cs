@@ -9,6 +9,7 @@ using RCM.Domain.Models.ClienteModels;
 using RCM.Domain.Models.DuplicataModels;
 using RCM.Domain.Models.EstadoModels;
 using RCM.Domain.Models.FornecedorModels;
+using RCM.Domain.Models.MarcaModels;
 using RCM.Domain.Models.NotaFiscalModels;
 using RCM.Domain.Models.OrdemServicoModels;
 using RCM.Domain.Models.ProdutoModels;
@@ -37,6 +38,7 @@ namespace RCM.Application.Mappers
             CreateMap<Banco, BancoViewModel>();
             CreateMap<Pagamento, PagamentoViewModel>();
             CreateMap<OrdemServico, OrdemServicoViewModel>();
+            CreateMap<Produto, ProdutoViewModel>();
             CreateMap<Marca, MarcaViewModel>();
         }
     }

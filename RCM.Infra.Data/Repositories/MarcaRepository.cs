@@ -1,4 +1,4 @@
-﻿using RCM.Domain.Models.ProdutoModels;
+﻿using RCM.Domain.Models.MarcaModels;
 using RCM.Domain.Repositories;
 using RCM.Infra.Data.Context;
 

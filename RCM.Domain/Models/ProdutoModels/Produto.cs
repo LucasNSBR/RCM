@@ -1,5 +1,6 @@
 ﻿using RCM.Domain.Core.Models;
 using RCM.Domain.Models.FornecedorModels;
+using RCM.Domain.Models.MarcaModels;
 using System;
 using System.Collections.Generic;
 
@@ -10,7 +11,7 @@ namespace RCM.Domain.Models.ProdutoModels
         public string Nome { get; private set; }
 
         private List<ProdutoAplicacao> _aplicacoes;
-        public IReadOnlyList<ProdutoAplicacao> Aplicacoes
+        public virtual IReadOnlyList<ProdutoAplicacao> Aplicacoes
         {
             get
             {

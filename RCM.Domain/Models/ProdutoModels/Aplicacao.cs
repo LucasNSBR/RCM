@@ -9,7 +9,7 @@ namespace RCM.Domain.Models.ProdutoModels
         public virtual Carro Carro { get; set; }
 
         private List<ProdutoAplicacao> _produtos;
-        public IReadOnlyList<ProdutoAplicacao> Produtos
+        public virtual IReadOnlyList<ProdutoAplicacao> Produtos
         {
             get
             {

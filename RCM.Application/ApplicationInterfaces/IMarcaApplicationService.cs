@@ -1,5 +1,5 @@
 ﻿using RCM.Application.ViewModels;
-using RCM.Domain.Models.ProdutoModels;
+using RCM.Domain.Models.MarcaModels;
 
 namespace RCM.Application.ApplicationInterfaces
 {

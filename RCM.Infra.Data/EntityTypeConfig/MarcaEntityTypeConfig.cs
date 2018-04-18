@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using RCM.Domain.Models.ProdutoModels;
+using RCM.Domain.Models.MarcaModels;
 
 namespace RCM.Infra.Data.EntityTypeConfig
 {
