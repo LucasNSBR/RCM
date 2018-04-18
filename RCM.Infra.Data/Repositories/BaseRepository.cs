@@ -46,7 +46,7 @@ namespace RCM.Infra.Data.Repositories
 
         public virtual void Update(TModel model)
         {
-            _dbContext.Entry(model).State = EntityState.Modified;
+            _dbSet.Update(model);
         }
 
         public void Dispose()
