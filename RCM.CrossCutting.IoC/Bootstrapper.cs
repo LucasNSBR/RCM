@@ -11,6 +11,7 @@ using RCM.Domain.CommandHandlers.ChequeCommandHandlers;
 using RCM.Domain.CommandHandlers.ClienteCommandHandlers;
 using RCM.Domain.CommandHandlers.DuplicataCommandHandlers;
 using RCM.Domain.CommandHandlers.FornecedorCommandHandlers;
+using RCM.Domain.CommandHandlers.MarcaCommandHandlers;
 using RCM.Domain.CommandHandlers.NotaFiscalCommandHandlers;
 using RCM.Domain.CommandHandlers.OrdemServicoCommandHandlers;
 using RCM.Domain.CommandHandlers.ProdutoCommandHandlers;
@@ -19,6 +20,7 @@ using RCM.Domain.Commands.ChequeCommands;
 using RCM.Domain.Commands.ClienteCommands;
 using RCM.Domain.Commands.DuplicataCommands;
 using RCM.Domain.Commands.FornecedorCommands;
+using RCM.Domain.Commands.MarcaCommands;
 using RCM.Domain.Commands.NotaFiscalCommands;
 using RCM.Domain.Commands.OrdemServicoCommands;
 using RCM.Domain.Commands.ProdutoCommands;
@@ -74,6 +76,7 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<IDuplicataRepository, DuplicataRepository>();
             services.AddScoped<IFornecedorRepository, FornecedorRepository>();
+            services.AddScoped<IMarcaRepository, MarcaRepository>();
             services.AddScoped<INotaFiscalRepository, NotaFiscalRepository>();
             services.AddScoped<IOrdemServicoRepository, OrdemServicoRepository>();
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
@@ -87,6 +90,7 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<IClienteApplicationService, ClienteApplicationService>();
             services.AddScoped<IDuplicataApplicationService, DuplicataApplicationService>();
             services.AddScoped<IFornecedorApplicationService, FornecedorApplicationService>();
+            services.AddScoped<IMarcaApplicationService, MarcaApplicationService>();
             services.AddScoped<INotaFiscalApplicationService, NotaFiscalApplicationService>();
             services.AddScoped<IOrdemServicoApplicationService, OrdemServicoApplicationService>();
             services.AddScoped<IProdutoApplicationService, ProdutoApplicationService>();
@@ -120,6 +124,10 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<IRequestHandler<AddFornecedorCommand, CommandResult>, FornecedorCommandHandler>();
             services.AddScoped<IRequestHandler<UpdateFornecedorCommand, CommandResult>, FornecedorCommandHandler>();
             services.AddScoped<IRequestHandler<RemoveFornecedorCommand, CommandResult>, FornecedorCommandHandler>();
+
+            services.AddScoped<IRequestHandler<AddMarcaCommand, CommandResult>, MarcaCommandHandler>();
+            services.AddScoped<IRequestHandler<UpdateMarcaCommand, CommandResult>, MarcaCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoveMarcaCommand, CommandResult>, MarcaCommandHandler>();
 
             services.AddScoped<IRequestHandler<AddNotaFiscalCommand, CommandResult>, NotaFiscalCommandHandler>();
             services.AddScoped<IRequestHandler<UpdateNotaFiscalCommand, CommandResult>, NotaFiscalCommandHandler>();
