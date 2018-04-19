@@ -49,6 +49,12 @@
                     <input asp-for="MaxQuantidade" name="maxQuantidade" type="text" id="maxQuantidade" />
                     <label for="maxQuantidade">Quantidade máxima</label>
                 </div>
+                <div class="input-field col s12 m6">
+                    <select asp-for="MarcaId" name="marcaId" asp-items="@(new SelectList(Model.Marcas, "Id", "Nome"))" id="marcaId">
+                        <option value="">Todos as Marcas</option>
+                    </select>
+                    <label for="marcaId">Escolher Marca</label>
+                </div>
             </div>
         </div>
     </form>
@@ -101,7 +107,7 @@
                 @{
                     var queryStringHelper = new Dictionary<string, string>
                                             {
-                                                { "clienteId", Model.MarcaId?.ToString() },
+                                                { "marcaId", Model.MarcaId?.ToString() },
                                                 { "minValor", Model.MinValor?.ToString() },
                                                 { "maxValor", Model.MaxValor?.ToString() },
                                                 { "minQuantidade", Model.MinQuantidade.ToString() },

@@ -29,6 +29,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
 
         public IActionResult Index(Guid? marcaId, string minValor, string maxValor, int? minQuantidade, int? maxQuantidade, string nome, int pageNumber = 1, int pageSize = 20)
         {
+            var marcaIdSpecification = new ProdutoMarcaIdSpecification(marcaId);
             var valorSpecification = new ProdutoPrecoVendaSpecification(minValor.ToDecimal(), maxValor.ToDecimal());
             var quantidadeSpecification = new ProdutoQuantidadeSpecification(minQuantidade, maxQuantidade);
             var nomeSpecification = new ProdutoNomeSpecification(nome);
@@ -36,6 +37,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             var list = _produtoApplicationService.Get(valorSpecification
                 .And(quantidadeSpecification)
                 .And(nomeSpecification)
+                .And(marcaIdSpecification)
                 .ToExpression());
 
             var viewModel = new ProdutosIndexViewModel
