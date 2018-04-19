@@ -15,11 +15,13 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
     public class EstoqueController : BaseController
     {
         private readonly IProdutoApplicationService _produtoApplicationService;
+        private readonly IMarcaApplicationService _marcaApplicationService;
 
-        public EstoqueController(IProdutoApplicationService produtoApplicationService, IDomainNotificationHandler domainNotificationHandler) : 
+        public EstoqueController(IProdutoApplicationService produtoApplicationService, IMarcaApplicationService marcaApplicationService, IDomainNotificationHandler domainNotificationHandler) : 
                                                                                                                     base(domainNotificationHandler)
         {
             _produtoApplicationService = produtoApplicationService;
+            _marcaApplicationService = marcaApplicationService;
         }
 
         public IActionResult Index(decimal? minValor, decimal? maxValor, int? minQuantidade, int? maxQuantidade, string nome = null, string aplicacao = null)
@@ -138,6 +140,11 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 NotifyCommandResultErrors(commandResult.Errors);
 
             return View(produto);
+        }
+
+        public JsonResult GetMarcas()
+        {
+            return Json(_marcaApplicationService.Get());
         }
     }
 }

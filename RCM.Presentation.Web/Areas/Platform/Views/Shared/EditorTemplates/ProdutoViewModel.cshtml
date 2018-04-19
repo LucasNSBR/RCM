@@ -5,8 +5,9 @@
         <ul class="tabs tabs-fixed-width">
             <li class="tab col s3"><a href="#geral" class="active">Geral</a></li>
             <li class="tab col s3"><a href="#estoque">Estoque</a></li>
-            <li class="tab col s3"><a href="#preco">Preços</a></li>
-            <li class="tab col s3"><a href="#fornecedor">Fornecedores</a></li>
+            <li class="tab col s3"><a href="#preco">Preço</a></li>
+            <li class="tab col s3"><a href="#marca">Marca</a></li>
+            <li class="tab col s3"><a href="#fornecedor">Fornecedor</a></li>
         </ul>
     </div>
 
@@ -49,6 +50,26 @@
                 <label asp-for="PrecoVenda"></label>
                 <input asp-for="PrecoVenda" class="input-field" id="precoVenda" />
                 <span asp-validation-for="PrecoVenda" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div id="marca" class="col s12 m12">
+        <div>
+            <p class="px-1 font-bold lead">
+                Informação sobre Marca
+            </p>
+            <div class="input-field col s12 m6">
+                <input type="hidden" asp-for="MarcaId" id="marcaId" />
+                <select id="marcaSelect"></select>
+                <label asp-for="MarcaId"></label>
+                <span asp-validation-for="MarcaId" class="text-danger"></span>
+                <a asp-action="Create" asp-controller="Marcas" target="_blank">Adicionar nova Marca</a>
+            </div>
+            <div class="input-field col s12 m6 pt-1">
+                <button class="btn-flat mx-0 small" id="reload-marcas-button" type="button">
+                    Recarregar lista
+                </button>
             </div>
         </div>
     </div>

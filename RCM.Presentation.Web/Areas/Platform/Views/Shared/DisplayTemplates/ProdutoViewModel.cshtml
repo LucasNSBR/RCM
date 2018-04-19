@@ -5,8 +5,9 @@
         <ul class="tabs tabs-fixed-width">
             <li class="tab col s3"><a href="#geral" class="active">Geral</a></li>
             <li class="tab col s3"><a href="#estoque">Estoque</a></li>
-            <li class="tab col s3"><a href="#preco">Preços</a></li>
-            <li class="tab col s3"><a href="#fornecedor">Fornecedores</a></li>
+            <li class="tab col s3"><a href="#preco">Preço</a></li>
+            <li class="tab col s3"><a href="#marca">Marca</a></li>
+            <li class="tab col s3"><a href="#fornecedor">Fornecedor</a></li>
             <li class="tab col s3"><a href="#funcoes">Funções</a></li>
         </ul>
     </div>
@@ -73,30 +74,46 @@
         </dl>
     </div>
 
+    <div id="marca" class="col s12 m12">
+        <div>
+            <p class="px-1 font-bold lead">
+                Informação sobre Marca
+            </p>
+            <dl class="detail-list">
+                <dt>
+                    <label asp-for="@Model.Marca"></label>
+                </dt>
+                <dd>
+                    <a asp-route-id="@Model.MarcaId" asp-controller="Marcas">@Model.Marca.Nome</a>
+                </dd>
+            </dl>
+        </div>
+    </div>
+
     <div id="fornecedor" class="col s12 m12">
         <div>
             <p class="px-1 font-bold lead">
                 Informação sobre Fornecedor
             </p>
             <dl class="detail-list">
-                <dt>
-                    <label asp-for="@Model.Fornecedores"></label>
-                </dt>
-                <dd>
-                    @if (Model.Fornecedores.Any())
-                    {
-                        foreach (var fornecedor in Model.Fornecedores)
+                @*<dt>
+                        <label asp-for="@Model.Fornecedores"></label>
+                    </dt>
+                    <dd>
+                        @if (Model.Fornecedores.Any())
                         {
-                            <a asp-action="Details" asp-controller="Fornecedores" asp-route-id="@fornecedor.Nome">@fornecedor.Nome</a><br />
+                            foreach (var fornecedor in Model.Fornecedores)
+                            {
+                                <a asp-action="Details" asp-controller="Fornecedores" asp-route-id="@fornecedor.Nome">@fornecedor.Nome</a><br />
+                            }
                         }
-                    }
-                    else
-                    {
-                        <span class="font-italic text-warning">
-                            <i class="material-icons left">warning</i>Nenhum fornecedor encontrado para este produto.
-                        </span>
-                    }
-                </dd>
+                        else
+                        {
+                            <span class="font-italic text-warning">
+                                <i class="material-icons left">warning</i>Nenhum fornecedor encontrado para este produto.
+                            </span>
+                        }
+                    </dd>*@
             </dl>
         </div>
     </div>

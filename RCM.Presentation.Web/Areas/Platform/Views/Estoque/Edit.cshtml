@@ -23,4 +23,48 @@
 
 @section Scripts { 
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+<script>
+        var marcasUrl = '@Url.Action("GetMarcas", "Estoque")';
+
+        function reloadSelect(dropdownName, url, inputId) {
+            var dropdown = $(dropdownName);
+            var fieldId = $(inputId).val();
+
+            $.ajax({
+                method: "GET",
+                url: url,
+            }).done(function (data) {
+                dropdown.empty();
+
+                $.each(data, function (index, item) {
+                    dropdown.append($("<option />").text(item.nome).val(item.id));
+                })
+
+                $(dropdown.find('option').each(function (index, item) {
+
+                    if (item.value === fieldId) {
+                        dropdown.prop('selectedIndex', index);
+                    }
+                }));
+
+                if (fieldId == "")
+                    $(inputId).val(dropdown.find('option').first().val());
+
+
+                dropdown.material_select();
+            });
+        }
+
+        reloadSelect('#marcaSelect', marcasUrl, '#marcaId');
+
+        $('#reload-marcas-button').click(function () {
+            reloadSelect('#marcaSelect', marcasUrl, '#marcaId');
+        });
+
+        $('#marcaSelect').change(function () {
+            var optionId = $('#marcaSelect option:selected')[0].value;
+            $('#marcaId').val(optionId);
+        })
+</script>
 }
