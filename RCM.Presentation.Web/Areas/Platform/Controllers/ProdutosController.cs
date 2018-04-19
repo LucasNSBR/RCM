@@ -2,9 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using RCM.Application.ApplicationInterfaces;
 using RCM.Application.ViewModels;
+using RCM.Domain.Core.Extensions;
 using RCM.Domain.DomainNotificationHandlers;
 using RCM.Domain.Models.ProdutoModels;
 using RCM.Presentation.Web.Controllers;
+using RCM.Presentation.Web.Extensions;
+using RCM.Presentation.Web.ViewModels;
 using System;
 using System.Threading.Tasks;
 
@@ -24,20 +27,30 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             _marcaApplicationService = marcaApplicationService;
         }
 
-        public IActionResult Index(decimal? minValor, decimal? maxValor, int? minQuantidade, int? maxQuantidade, string nome = null, string aplicacao = null)
+        public IActionResult Index(Guid? marcaId, string minValor, string maxValor, int? minQuantidade, int? maxQuantidade, string nome, int pageNumber = 1, int pageSize = 20)
         {
-            var valorSpecification = new ProdutoPrecoVendaSpecification(minValor, maxValor);
+            var valorSpecification = new ProdutoPrecoVendaSpecification(minValor.ToDecimal(), maxValor.ToDecimal());
             var quantidadeSpecification = new ProdutoQuantidadeSpecification(minQuantidade, maxQuantidade);
             var nomeSpecification = new ProdutoNomeSpecification(nome);
-            var aplicacaoSpecification = new ProdutoAplicacaoSpecification(aplicacao);
 
             var list = _produtoApplicationService.Get(valorSpecification
                 .And(quantidadeSpecification)
                 .And(nomeSpecification)
-                .And(aplicacaoSpecification)
                 .ToExpression());
 
-            return View(list);
+            var viewModel = new ProdutosIndexViewModel
+            {
+                Produtos = list.ToPagedList(pageNumber, pageSize),
+                Marcas = _marcaApplicationService.Get(),
+                MarcaId = marcaId,
+                Nome = nome,
+                MinValor = minValor,
+                MaxValor = maxValor,
+                MinQuantidade = minQuantidade,
+                MaxQuantidade = maxQuantidade,
+            };
+
+            return View(viewModel);
         }
 
         public IActionResult Details(Guid id)

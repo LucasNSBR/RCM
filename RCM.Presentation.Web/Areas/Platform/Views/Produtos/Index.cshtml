@@ -1,0 +1,153 @@
+﻿@model RCM.Presentation.Web.ViewModels.ProdutosIndexViewModel
+
+@{
+    ViewData["Title"] = "Produtos - Índice";
+}
+
+<float-action-button controller="Produtos"></float-action-button>
+
+<div class="form-container col s12 m12">
+    <form>
+        <div class="col s12 m12">
+            <div class="row my-0 py-0">
+                <div class="input-field col s5 m5">
+                    <label for="nome">Nome do Produto</label>
+                    <input asp-for="Nome" name="nome" type="text" id="nome" />
+                </div>
+                <div class="input-field col s4 m3">
+                    <select>
+                        <option value="nome">Nome do Produto</option>
+                    </select>
+                </div>
+                <div class="col s4 m4 pt-2 px-0 mx-0 max-percent-width">
+                    <a class="btn waves-effect purple left no-border col s1 m2" id="advancedSearchToggler">
+                        <i class="material-icons center">keyboard_arrow_down</i>
+                    </a>
+                    <button type="submit" class="btn waves-effect purple no-border col s11 m10">
+                        <i class="material-icons right">search</i>
+                        Pesquisar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="advancedSearch" class="col s12 m12">
+            <div class="row">
+                <div class="input-field col s12 m3">
+                    <input asp-for="MinValor" name="minValor" type="text" class="input-field" id="minValor" />
+                    <label for="minValor">Preço mínimo</label>
+                </div>
+                <div class="input-field col s12 m3">
+                    <input asp-for="MaxValor" name="maxValor" type="text" class="input-field" id="maxValor" />
+                    <label for="maxValor">Preço máximo</label>
+                </div>
+                <div class="input-field col s12 m3">
+                    <input asp-for="MinQuantidade" name="minQuantidade" type="text" id="minQuantidade" />
+                    <label for="minQuantidade">Quantidade mínima</label>
+                </div>
+                <div class="input-field col s12 m3">
+                    <input asp-for="MaxQuantidade" name="maxQuantidade" type="text" id="maxQuantidade" />
+                    <label for="maxQuantidade">Quantidade máxima</label>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    @if (Model.Produtos.List.Any())
+    {
+        <table class="highlight centered">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Produtos.List.FirstOrDefault().Nome)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Produtos.List.FirstOrDefault().Quantidade)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Produtos.List.FirstOrDefault().PrecoVenda)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Produtos.List.FirstOrDefault().Marca.Nome)
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="table-body">
+                @foreach (var item in Model.Produtos.List)
+                {
+                    <tr>
+                        <td class="d-hidden">
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nome)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Quantidade)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PrecoVenda)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Marca.Nome)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="col s12 m12">
+            <ul class="pagination center pt-2">
+                @{
+                    var queryStringHelper = new Dictionary<string, string>
+                                            {
+                                                { "clienteId", Model.MarcaId?.ToString() },
+                                                { "minValor", Model.MinValor?.ToString() },
+                                                { "maxValor", Model.MaxValor?.ToString() },
+                                                { "minQuantidade", Model.MinQuantidade.ToString() },
+                                                { "maxQuantidade", Model.MaxQuantidade.ToString() },
+                                                { "nome", Model.Nome?.ToString() },
+                                                { "pageSize", Model.Produtos.PageSize.ToString() },
+                                            };
+
+                }
+
+                @if (Model.Produtos.IsFirstPage)
+                {
+                    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+                }
+                else
+                {
+                    <li>
+                        <a asp-all-route-data="queryStringHelper" asp-route-pageNumber="@(Model.Produtos.PageNumber - 1)"><i class="material-icons">chevron_left</i></a>
+                    </li>
+                }
+
+                @for (int i = 1; i <= Model.Produtos.TotalPages; i++)
+                {
+                    <li class="waves-effect @(Model.Produtos.PageNumber == i ? "active" : "")">
+                        <a asp-all-route-data="queryStringHelper" asp-route-pageNumber="@i" asp-route-pageSize="@Model.Produtos.PageSize">@i</a>
+                    </li>
+                }
+
+                @if (Model.Produtos.IsLastPage)
+                {
+                    <li class="disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+                }
+                else
+                {
+                    <li>
+                        <a asp-all-route-data="queryStringHelper" asp-route-pageNumber="@(Model.Produtos.PageNumber + 1)"><i class="material-icons">chevron_right</i></a>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+    else
+    {
+        <p class="px-1 col s12 m12">
+            <i class="material-icons left">warning</i>
+            Nenhum produto encontrado.
+        </p>
+    }
+</div>
