@@ -27,8 +27,17 @@ namespace RCM.Tests
         [TestMethod]
         public void TestAplicacao()
         {
+            Marca marca = new Marca("NGK");
             Aplicacao aplicacao = new Aplicacao(new Carro("Toyota", "Hilux"));
-            Assert.AreEqual("Hilux", aplicacao.Carro.Modelo);
+            Aplicacao aplicacao2 = new Aplicacao(new Carro("Toyota", "Corolla"));
+
+            Produto produto = new Produto("Vela Ignição Toyota", 12, 122, marca);
+            produto.AdicionarAplicacao(aplicacao);
+            produto.AdicionarAplicacao(aplicacao2);
+
+            //Assert.AreEqual(2, produto.Aplicacoes.Count);
+
+            Assert.AreEqual("Hilux", produto.Aplicacoes.First().Aplicacao.Carro.Modelo);
         }
 
         public IQueryable<Produto> GetProdutos()

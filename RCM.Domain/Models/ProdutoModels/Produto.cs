@@ -63,5 +63,13 @@ namespace RCM.Domain.Models.ProdutoModels
         {
             Quantidade += quantidade;
         }
+
+        public void AdicionarAplicacao(Aplicacao aplicacao)
+        {
+            ProdutoAplicacao produtoAplicacao = new ProdutoAplicacao(this, aplicacao);
+
+            if (!_aplicacoes.Contains(produtoAplicacao))
+                _aplicacoes.Add(produtoAplicacao);
+        }
     }
 }

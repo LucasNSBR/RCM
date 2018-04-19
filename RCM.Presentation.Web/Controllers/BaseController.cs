@@ -24,6 +24,8 @@ namespace RCM.Presentation.Web.Controllers
             {
                 _domainNotificationHandler.AddNotification(new ModelErrorNotification(error.ErrorMessage));
             }
+
+            TempData["Notifications"] = JsonConvert.SerializeObject(_domainNotificationHandler.GetNotifications());
         }
 
         protected void NotifyCommandResultErrors(IReadOnlyList<CommandError> errors)

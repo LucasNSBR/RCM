@@ -55,7 +55,7 @@
                     <select asp-for="ClienteId" name="clienteId" asp-items="@(new SelectList(Model.Clientes, "Id", "Nome"))" id="clienteId">
                         <option value="">Todos os Clientes</option>
                     </select>
-                    <label for="dataVencimento">Escolher Cliente</label>
+                    <label for="clienteId">Escolher Cliente</label>
                 </div>
                 <div class="input-field col s12 m3">
                     <input asp-for="Agencia" name="agencia" type="text" class="input-field" id="agencia" />
