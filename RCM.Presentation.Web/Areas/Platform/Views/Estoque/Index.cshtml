@@ -4,7 +4,7 @@
     ViewData["Title"] = "Produtos - Índice";
 }
 
-<float-action-button controller="Estoque"></float-action-button>
+<float-action-button controller="Produtos"></float-action-button>
 
 <div class="form-container col s12 m12">
     <form>
@@ -46,26 +46,31 @@
                     <th>
                         @Html.DisplayNameFor(model => model.PrecoVenda)
                     </th>
-                    <th></th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Marca.Nome)
+                    </th>
                 </tr>
             </thead>
             <tbody class="table-body">
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td class="d-hidden">
-                            @Html.DisplayFor(modelItem => item.Id)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Nome)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Quantidade)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.PrecoVenda)
-                        </td>
-                    </tr>
+                <tr>
+                    <td class="d-hidden">
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantidade)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PrecoVenda)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Marca.Nome)
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>

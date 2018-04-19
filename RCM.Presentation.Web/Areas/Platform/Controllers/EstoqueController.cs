@@ -12,12 +12,12 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
 {
     [Authorize]
     [Area("Platform")]
-    public class EstoqueController : BaseController
+    public class ProdutosController : BaseController
     {
         private readonly IProdutoApplicationService _produtoApplicationService;
         private readonly IMarcaApplicationService _marcaApplicationService;
 
-        public EstoqueController(IProdutoApplicationService produtoApplicationService, IMarcaApplicationService marcaApplicationService, IDomainNotificationHandler domainNotificationHandler) : 
+        public ProdutosController(IProdutoApplicationService produtoApplicationService, IMarcaApplicationService marcaApplicationService, IDomainNotificationHandler domainNotificationHandler) : 
                                                                                                                     base(domainNotificationHandler)
         {
             _produtoApplicationService = produtoApplicationService;

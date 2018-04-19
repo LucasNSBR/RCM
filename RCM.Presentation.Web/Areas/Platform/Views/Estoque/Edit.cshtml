@@ -25,7 +25,7 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
 <script>
-        var marcasUrl = '@Url.Action("GetMarcas", "Estoque")';
+        var marcasUrl = '@Url.Action("GetMarcas", "Produtos")';
 
         function reloadSelect(dropdownName, url, inputId) {
             var dropdown = $(dropdownName);
