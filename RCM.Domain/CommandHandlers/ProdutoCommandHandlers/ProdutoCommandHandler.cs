@@ -5,6 +5,7 @@ using RCM.Domain.Commands.ProdutoCommands;
 using RCM.Domain.Core.Commands;
 using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.Events.ProdutoEvents;
+using RCM.Domain.Models;
 using RCM.Domain.Models.MarcaModels;
 using RCM.Domain.Models.ProdutoModels;
 using RCM.Domain.Repositories;
@@ -15,16 +16,20 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
     public class ProdutoCommandHandler : CommandHandler<Produto>,
                                          IRequestHandler<AddProdutoCommand, CommandResult>,
                                          IRequestHandler<UpdateProdutoCommand, CommandResult>,
-                                         IRequestHandler<RemoveProdutoCommand, CommandResult>
+                                         IRequestHandler<RemoveProdutoCommand, CommandResult>,
+                                         IRequestHandler<AddProdutoAplicacaoCommand, CommandResult>,
+                                         IRequestHandler<RemoveProdutoAplicacaoCommand, CommandResult>
     {
         private readonly IProdutoRepository _produtoRepository;
         private readonly IMarcaRepository _marcaRepository;
+        private readonly IAplicacaoRepository _aplicacaoRepository;
 
-        public ProdutoCommandHandler(IMediatorHandler mediator, IProdutoRepository produtoRepository, IMarcaRepository marcaRepository, IUnitOfWork unitOfWork) : 
+        public ProdutoCommandHandler(IMediatorHandler mediator, IProdutoRepository produtoRepository, IMarcaRepository marcaRepository, IAplicacaoRepository aplicacaoRepository, IUnitOfWork unitOfWork) : 
                                                                                                         base(mediator, unitOfWork)
         {
             _produtoRepository = produtoRepository;
             _marcaRepository = marcaRepository;
+            _aplicacaoRepository = aplicacaoRepository;
         }
 
         public Task<CommandResult> Handle(AddProdutoCommand command, CancellationToken cancellationToken)
@@ -76,6 +81,48 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
 
             if (Commit())
                 _mediator.Publish(new RemovedProdutoEvent());
+
+            return Response();
+        }
+
+        public Task<CommandResult> Handle(AddProdutoAplicacaoCommand command, CancellationToken cancellationToken)
+        {
+            if (!command.IsValid())
+            {
+                NotifyRequestErrors(command);
+                return Response();
+            }
+
+            Carro carro = new Carro(command.MarcaAplicacao, command.ModeloAplicacao, command.AnoAplicacao, command.MotorAplicacao, command.ObservacaoAplicacao);
+            Aplicacao aplicacao = new Aplicacao(carro);
+            Produto produto = _produtoRepository.GetById(command.Id);
+            produto.AdicionarAplicacao(aplicacao);
+
+            _produtoRepository.Update(produto);
+
+            if (Commit())
+                _mediator.Publish(new UpdatedProdutoEvent());
+
+            return Response();
+        }
+
+        public Task<CommandResult> Handle(RemoveProdutoAplicacaoCommand command, CancellationToken cancellationToken)
+        {
+            if (!command.IsValid())
+            {
+                NotifyRequestErrors(command);
+                return Response();
+            }
+
+            Aplicacao aplicacao = _aplicacaoRepository.GetById(command.AplicacaoId);
+            Produto produto = _produtoRepository.GetById(command.Id);
+           // produto.RemoverAplicacao(aplicacao);
+
+            _produtoRepository.Update(produto);
+           _aplicacaoRepository.Remove(aplicacao);
+
+            if (Commit())
+                _mediator.Publish(new UpdatedProdutoEvent());
 
             return Response();
         }

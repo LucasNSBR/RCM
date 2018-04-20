@@ -80,6 +80,7 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<INotaFiscalRepository, NotaFiscalRepository>();
             services.AddScoped<IOrdemServicoRepository, OrdemServicoRepository>();
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
+            services.AddScoped<IAplicacaoRepository, AplicacaoRepository>();
         }
 
         private static void RegisterApplicationServices(IServiceCollection services)
@@ -136,6 +137,8 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<IRequestHandler<AddProdutoCommand, CommandResult>, ProdutoCommandHandler>();
             services.AddScoped<IRequestHandler<UpdateProdutoCommand, CommandResult>, ProdutoCommandHandler>();
             services.AddScoped<IRequestHandler<RemoveProdutoCommand, CommandResult>, ProdutoCommandHandler>();
+            services.AddScoped<IRequestHandler<AddProdutoAplicacaoCommand, CommandResult>, ProdutoCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoveProdutoAplicacaoCommand, CommandResult>, ProdutoCommandHandler>();
 
             services.AddScoped<IRequestHandler<AddOrdemServicoCommand, CommandResult>, OrdemServicoCommandHandler>();
             services.AddScoped<IRequestHandler<UpdateOrdemServicoCommand, CommandResult>, OrdemServicoCommandHandler>();

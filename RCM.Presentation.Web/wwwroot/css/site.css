@@ -430,3 +430,12 @@ dt {
     padding-right: 50px;
     padding-bottom: 40px;
 }
+
+#form-aplicacao {
+    display: none;
+}
+
+.collapsible-body {
+    padding: 10px;
+    background-color: #fafafa!important;
+}

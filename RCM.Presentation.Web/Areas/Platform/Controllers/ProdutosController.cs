@@ -157,6 +157,58 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             return View(produto);
         }
 
+        [Authorize(Policy = "ActiveUser")]
+        public IActionResult AdicionarAplicacao(Guid produtoId)
+        {
+            return View();
+        }
+
+        [Authorize(Policy = "ActiveUser")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AdicionarAplicacao(Guid id, AplicacaoViewModel aplicacao)
+        {
+            var produto = _produtoApplicationService.GetById(id);
+            if (produto == null)
+                return NotFound();
+
+            if (!ModelState.IsValid)
+            {
+                NotifyModelStateErrors();
+                return View(aplicacao);
+            }
+
+            var commandResult = await _produtoApplicationService.AdicionarAplicacao(produto, aplicacao);
+
+            if (commandResult.Success)
+            {
+                NotifyCommandResultSuccess();
+                return RedirectToAction(nameof(Details), new { id });
+            }
+            else
+                NotifyCommandResultErrors(commandResult.Errors);
+            
+            return View(aplicacao);
+        }
+
+        [Authorize(Policy = "ActiveUser")]
+        public async Task<IActionResult> RemoverAplicacao(Guid id, Guid AplicacaoId)
+        {
+            var commandResult = await _produtoApplicationService.RemoverAplicacao(id, AplicacaoId);
+
+            if (commandResult.Success)
+                NotifyCommandResultSuccess();
+            else
+                NotifyCommandResultErrors(commandResult.Errors);
+
+            return RedirectToAction(nameof(Details), new { id });
+        }
+
+        public JsonResult GetAplicacoes()
+        {
+            return Json(_produtoApplicationService.Get());
+        }
+
         public JsonResult GetMarcas()
         {
             return Json(_marcaApplicationService.Get());

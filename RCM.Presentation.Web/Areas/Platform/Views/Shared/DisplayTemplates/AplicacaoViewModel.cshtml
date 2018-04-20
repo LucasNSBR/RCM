@@ -1,0 +1,47 @@
+﻿@model RCM.Application.ViewModels.AplicacaoViewModel
+
+<p class="px-1 font-bold lead">
+    Informação geral
+</p>
+
+<dl class="detail-list">
+    <dt>
+        <label asp-for="Id"></label>
+    </dt>
+    <dd>
+        @Model.Id
+    </dd>
+    <dt>
+        <label asp-for="Marca"></label>
+    </dt>
+    <dd>
+        @Model.Marca
+    </dd>
+    <dt>
+        <label asp-for="Modelo"></label>
+    </dt>
+    <dd>
+        @Model.Modelo
+    </dd>
+
+    <dt>
+        <label asp-for="Ano"></label>
+    </dt>
+    <dd>
+        @Model.Ano
+    </dd>
+
+    <dt>
+        <label asp-for="Motor"></label>
+    </dt>
+    <dd>
+        @Model.Motor
+    </dd>
+
+    <dt>
+        <label asp-for="Observacao"></label>
+    </dt>
+    <dd>
+        @Model.Observacao
+    </dd>
+</dl>

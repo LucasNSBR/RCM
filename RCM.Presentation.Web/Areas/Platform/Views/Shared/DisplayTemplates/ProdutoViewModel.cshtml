@@ -7,6 +7,7 @@
             <li class="tab col s3"><a href="#estoque">Estoque</a></li>
             <li class="tab col s3"><a href="#preco">Preço</a></li>
             <li class="tab col s3"><a href="#marca">Marca</a></li>
+            <li class="tab col s3"><a href="#aplicacao">Aplicações</a></li>
             <li class="tab col s3"><a href="#fornecedor">Fornecedor</a></li>
             <li class="tab col s3"><a href="#funcoes">Funções</a></li>
         </ul>
@@ -90,6 +91,52 @@
         </div>
     </div>
 
+    <div id="aplicacao" class="col s12 m12">
+        <div>
+            <p class="px-1 font-bold lead">
+                Informação sobre Aplicação
+            </p>
+            <dl class="detail-list">
+                <dt>
+                    <label asp-for="@Model.Aplicacoes"></label>
+                </dt>
+                <dd>
+                    @if (Model.Aplicacoes.Any())
+                    {
+                        <ul class="collapsible z-depth-0" data-collapsible="accordion">
+                            @foreach (var aplicacao in Model.Aplicacoes)
+                            {
+                                <li>
+                                    @{ var title = $"{aplicacao.Marca} {aplicacao.Modelo}"; }
+                                    <div class="collapsible-header">
+                                        <div class="col s11">
+                                            @title
+                                        </div>
+                                        <div class="col s1">
+                                            <a asp-action="RemoverAplicacao" asp-controller="Produtos" asp-route-aplicacaoId="@aplicacao.Id" asp-route-id="@Model.Id">
+                                                Remover
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="collapsible-body">
+                                        <p class="font-bold">@(aplicacao?.Motor ?? "Informação do motor não encontrada")</p>
+                                        <p>@(aplicacao?.Observacao ?? "Nenhuma observação relacionada.")</p>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <span class="font-italic text-warning">
+                            <i class="material-icons left">warning</i>Nenhuma aplicação encontrada para este produto.
+                        </span>
+                    }
+                </dd>
+            </dl>
+        </div>
+    </div>
+
     <div id="fornecedor" class="col s12 m12">
         <div>
             <p class="px-1 font-bold lead">
@@ -129,6 +176,9 @@
                 </dt>
                 <dd>
                     <a asp-action="Details" asp-controller="Produtos">Repor estoque</a>
+                </dd>
+                <dd>
+                    <a asp-action="AdicionarAplicacao" asp-controller="Produtos" asp-route-id="@Model.Id">Adicionar Aplicação</a>
                 </dd>
             </dl>
         </div>

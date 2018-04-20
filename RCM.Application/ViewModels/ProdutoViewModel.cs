@@ -1,5 +1,4 @@
-﻿using RCM.Domain.Models.ProdutoModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -27,10 +26,18 @@ namespace RCM.Application.ViewModels
         //[Display(Name = "Fornecedores")]
         //public List<FornecedorViewModel> Fornecedores { get; set; }
 
+        [Display(Name = "Aplicações")]
+        public List<AplicacaoViewModel> Aplicacoes { get; set; }
+        
         [Display(Name = "Id da Marca")]
         public Guid MarcaId { get; set; }
 
         [Display(Name = "Marcas")]
         public MarcaViewModel Marca { get; set; }
+
+        public ProdutoViewModel()
+        {
+            Aplicacoes = Aplicacoes ?? new List<AplicacaoViewModel>();
+        }
     }
 }

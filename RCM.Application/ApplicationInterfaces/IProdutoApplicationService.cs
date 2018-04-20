@@ -1,9 +1,14 @@
 ﻿using RCM.Application.ViewModels;
+using RCM.Domain.Core.Commands;
 using RCM.Domain.Models.ProdutoModels;
+using System;
+using System.Threading.Tasks;
 
 namespace RCM.Application.ApplicationInterfaces
 {
     public interface IProdutoApplicationService : IBaseApplicationService<Produto, ProdutoViewModel>
     {
+        Task<CommandResult> AdicionarAplicacao(ProdutoViewModel viewModel, AplicacaoViewModel aplicacaoViewModel);
+        Task<CommandResult> RemoverAplicacao(Guid produtoId, Guid aplicacaoId);
     }
 }

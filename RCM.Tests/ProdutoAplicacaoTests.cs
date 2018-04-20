@@ -35,9 +35,9 @@ namespace RCM.Tests
             produto.AdicionarAplicacao(aplicacao);
             produto.AdicionarAplicacao(aplicacao2);
 
-            //Assert.AreEqual(2, produto.Aplicacoes.Count);
+            produto.RemoverAplicacao(aplicacao2);
 
-            Assert.AreEqual("Hilux", produto.Aplicacoes.First().Aplicacao.Carro.Modelo);
+            Assert.AreEqual(1, produto.Aplicacoes.Count);
         }
 
         public IQueryable<Produto> GetProdutos()

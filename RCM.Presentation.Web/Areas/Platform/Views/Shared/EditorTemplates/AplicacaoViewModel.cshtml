@@ -1,0 +1,38 @@
+﻿@model RCM.Application.ViewModels.AplicacaoViewModel
+         
+<p class="px-1 font-bold lead">
+    Informação geral
+</p>
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="row">
+    <div class="input-field col s12 m6">
+        <label asp-for="Ano"></label>
+        <input asp-for="Ano" class="input-field" />
+        <span asp-validation-for="Ano" class="text-danger"></span>
+    </div>
+    <div class="input-field col s12 m6">
+        <label asp-for="Marca"></label>
+        <input asp-for="Marca" data-length="100" class="input-field" />
+        <span asp-validation-for="Marca" class="text-danger"></span>
+    </div>
+</div>
+<div class="row">
+    <div class="input-field col s12 m6">
+        <label asp-for="Modelo"></label>
+        <input asp-for="Modelo" data-length="250" class="input-field" />
+        <span asp-validation-for="Modelo" class="text-danger"></span>
+    </div>
+    <div class="input-field col s12 m6">
+        <label asp-for="Motor"></label>
+        <input asp-for="Motor" data-length="100" class="input-field" />
+        <span asp-validation-for="Motor" class="text-danger"></span>
+    </div>
+</div>
+<div class="row">
+    <div class="input-field col s12 m12">
+        <label asp-for="Observacao"></label>
+        <textarea asp-for="Observacao" data-length="1000" class="materialize-textarea"></textarea>
+        <span asp-validation-for="Observacao" class="text-danger"></span>
+    </div>
+</div>

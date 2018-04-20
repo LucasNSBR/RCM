@@ -17,7 +17,8 @@ namespace RCM.Infra.Data.EntityTypeConfig
 
             builder.HasOne(ap => ap.Aplicacao)
                 .WithMany(a => a.Produtos)
-                .HasForeignKey(a => a.AplicacaoId);
+                .HasForeignKey(a => a.AplicacaoId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

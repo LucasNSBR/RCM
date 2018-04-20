@@ -13,6 +13,7 @@ using RCM.Domain.Models.MarcaModels;
 using RCM.Domain.Models.NotaFiscalModels;
 using RCM.Domain.Models.OrdemServicoModels;
 using RCM.Domain.Models.ProdutoModels;
+using System.Linq;
 
 namespace RCM.Application.Mappers
 {
@@ -38,8 +39,24 @@ namespace RCM.Application.Mappers
             CreateMap<Banco, BancoViewModel>();
             CreateMap<Pagamento, PagamentoViewModel>();
             CreateMap<OrdemServico, OrdemServicoViewModel>();
-            CreateMap<Produto, ProdutoViewModel>();
             CreateMap<Marca, MarcaViewModel>();
+
+            CreateMap<Aplicacao, AplicacaoViewModel>()
+                .ProjectUsing(a => new AplicacaoViewModel
+                {
+                    Id = a.Id,
+                    Ano = a.Carro.Ano,
+                    Marca = a.Carro.Marca,
+                    Modelo = a.Carro.Modelo,
+                    Motor = a.Carro.Motor,
+                    Observacao = a.Carro.Observacao
+                });
+
+            CreateMap<Produto, ProdutoViewModel>()
+                .ForMember(a => a.Aplicacoes, cfg =>
+                {
+                    cfg.MapFrom(p => p.Aplicacoes.Select(a => a.Aplicacao));
+                });
         }
     }
 }
