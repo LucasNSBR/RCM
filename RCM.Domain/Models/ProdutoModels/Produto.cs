@@ -78,9 +78,6 @@ namespace RCM.Domain.Models.ProdutoModels
 
         public void RemoverAplicacao(Aplicacao aplicacao)
         {
-            if (_aplicacoes == null)
-                _aplicacoes = new List<ProdutoAplicacao>();
-
             ProdutoAplicacao produtoAplicacao = new ProdutoAplicacao(this, aplicacao);
 
             if (_aplicacoes.Contains(produtoAplicacao))

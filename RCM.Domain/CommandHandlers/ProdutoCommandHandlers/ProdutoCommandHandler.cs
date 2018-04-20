@@ -116,7 +116,8 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
 
             Aplicacao aplicacao = _aplicacaoRepository.GetById(command.AplicacaoId);
             Produto produto = _produtoRepository.GetById(command.Id);
-           
+            produto.RemoverAplicacao(aplicacao);
+
             _produtoRepository.Update(produto);
             _aplicacaoRepository.Remove(aplicacao);
 
