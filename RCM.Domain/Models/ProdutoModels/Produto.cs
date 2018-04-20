@@ -85,8 +85,6 @@ namespace RCM.Domain.Models.ProdutoModels
 
             if (_aplicacoes.Contains(produtoAplicacao))
                 _aplicacoes.Remove(produtoAplicacao);
-
-            _aplicacoes.Remove(_aplicacoes.First());
         }
     }
 }
