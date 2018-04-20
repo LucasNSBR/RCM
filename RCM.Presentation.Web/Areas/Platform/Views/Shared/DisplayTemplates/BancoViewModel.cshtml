@@ -6,37 +6,37 @@
 
 <dl class="detail-list">
     <dt>
-        <label asp-for="Id">Identificação</label>
+        <label asp-for="Id"></label>
     </dt>
     <dd>
         @Model.Id
     </dd>
     <dt>
-        <label asp-for="CodigoCompensacao">Código de Compensação</label>
+        <label asp-for="CodigoCompensacao"></label>
     </dt>
     <dd>
         @Model.CodigoCompensacao
     </dd>
     <dt>
-        <label asp-for="Nome">Nome</label>
+        <label asp-for="Nome"></label>
     </dt>
     <dd>
         @Model.Nome
     </dd>
     <dt>
-        <label asp-for="Cheques">Quantidade de Cheques</label>
+        <label asp-for="QuantidadeCheques"></label>
     </dt>
     <dd>
-        @if (Model.Cheques.Any())
+        @if (Model.QuantidadeCheques > 0)
         {
-            <span>@Model.Cheques.Count()</span>
+            <a asp-action="Index" asp-controller="Cheques" asp-route-bancoId="@Model.Id">@Model.QuantidadeCheques cheques encontrados</a>
         }
         else
         {
-            <p class="px-1 col s12 m12">
+            <span class="font-italic text-warning">
                 <i class="material-icons left">warning</i>
                 Nenhum cheque encontrado.
-            </p>
+            </span>
         }
     </dd>
 </dl>

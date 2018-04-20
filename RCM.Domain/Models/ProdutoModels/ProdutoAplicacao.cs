@@ -29,5 +29,10 @@ namespace RCM.Domain.Models.ProdutoModels
 
             return false; 
         }
+
+        public override int GetHashCode()
+        {
+            return (327 * Produto.Id.GetHashCode() + Aplicacao.Id.GetHashCode());
+        }
     }
 }
