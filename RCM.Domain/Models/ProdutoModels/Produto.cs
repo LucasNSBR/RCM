@@ -3,7 +3,6 @@ using RCM.Domain.Models.FornecedorModels;
 using RCM.Domain.Models.MarcaModels;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace RCM.Domain.Models.ProdutoModels
 {
@@ -74,6 +73,8 @@ namespace RCM.Domain.Models.ProdutoModels
 
             if (!_aplicacoes.Contains(produtoAplicacao))
                 _aplicacoes.Add(produtoAplicacao);
+            else
+                AddDomainError("A aplicação já existe no produto.");
         }
 
         public void RemoverAplicacao(Aplicacao aplicacao)

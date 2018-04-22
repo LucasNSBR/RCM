@@ -1,8 +1,12 @@
-﻿using System.Threading;
+﻿using System;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using RCM.Domain.Commands.ProdutoCommands;
+using RCM.Domain.Constants;
 using RCM.Domain.Core.Commands;
+using RCM.Domain.Core.Errors;
 using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.Events.ProdutoEvents;
 using RCM.Domain.Models;
@@ -17,6 +21,7 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
                                          IRequestHandler<AddProdutoCommand, CommandResult>,
                                          IRequestHandler<UpdateProdutoCommand, CommandResult>,
                                          IRequestHandler<RemoveProdutoCommand, CommandResult>,
+                                         IRequestHandler<AttachProdutoAplicacaoCommand, CommandResult>,
                                          IRequestHandler<AddProdutoAplicacaoCommand, CommandResult>,
                                          IRequestHandler<RemoveProdutoAplicacaoCommand, CommandResult>
     {
@@ -24,7 +29,7 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
         private readonly IMarcaRepository _marcaRepository;
         private readonly IAplicacaoRepository _aplicacaoRepository;
 
-        public ProdutoCommandHandler(IMediatorHandler mediator, IProdutoRepository produtoRepository, IMarcaRepository marcaRepository, IAplicacaoRepository aplicacaoRepository, IUnitOfWork unitOfWork) : 
+        public ProdutoCommandHandler(IMediatorHandler mediator, IProdutoRepository produtoRepository, IMarcaRepository marcaRepository, IAplicacaoRepository aplicacaoRepository, IUnitOfWork unitOfWork) :
                                                                                                         base(mediator, unitOfWork)
         {
             _produtoRepository = produtoRepository;
@@ -46,7 +51,7 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
 
             if (Commit())
                 _mediator.Publish(new AddedProdutoEvent());
-            
+
             return Response();
         }
 
@@ -85,6 +90,32 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
             return Response();
         }
 
+        public Task<CommandResult> Handle(AttachProdutoAplicacaoCommand command, CancellationToken cancellationToken)
+        {
+            if (!command.IsValid())
+            {
+                NotifyRequestErrors(command);
+                return Response();
+            }
+
+            Aplicacao aplicacao = _aplicacaoRepository.GetById(command.AplicacaoId);
+            Produto produto = _produtoRepository.GetById(command.Id);
+
+            produto.AdicionarAplicacao(aplicacao);
+            if (produto.Errors.Any())
+            {
+                _commandResponse.AddError(new CommandError(produto.Errors.First()));
+                return Response();
+            }
+
+            _produtoRepository.Update(produto);
+
+            if (Commit())
+                _mediator.Publish(new UpdatedProdutoEvent());
+
+            return Response();
+        }
+
         public Task<CommandResult> Handle(AddProdutoAplicacaoCommand command, CancellationToken cancellationToken)
         {
             if (!command.IsValid())
@@ -96,8 +127,8 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
             Carro carro = new Carro(command.MarcaAplicacao, command.ModeloAplicacao, command.AnoAplicacao, command.MotorAplicacao, command.ObservacaoAplicacao);
             Aplicacao aplicacao = new Aplicacao(carro);
             Produto produto = _produtoRepository.GetById(command.Id);
-            produto.AdicionarAplicacao(aplicacao);
 
+            produto.AdicionarAplicacao(aplicacao);
             _produtoRepository.Update(produto);
 
             if (Commit())
@@ -116,10 +147,9 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
 
             Aplicacao aplicacao = _aplicacaoRepository.GetById(command.AplicacaoId);
             Produto produto = _produtoRepository.GetById(command.Id);
-            produto.RemoverAplicacao(aplicacao);
 
+            produto.RemoverAplicacao(aplicacao);
             _produtoRepository.Update(produto);
-            _aplicacaoRepository.Remove(aplicacao);
 
             if (Commit())
                 _mediator.Publish(new UpdatedProdutoEvent());

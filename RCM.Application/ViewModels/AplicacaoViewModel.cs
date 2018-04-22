@@ -30,5 +30,7 @@ namespace RCM.Application.ViewModels
         [Display(Name = "Observação")]
         [StringLength(1000, ErrorMessage = "O campo observação até 1000 caracteres.")]
         public string Observacao { get; set; }
+
+        public Guid ProdutoId { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace RCM.Domain.Core.Models
         public Guid Id { get; protected set; }
 
         private List<INotification> _events;
-        private List<INotification> _errors;
+        private List<string> _errors;
 
         [NotMapped]
         public IReadOnlyList<INotification> Events
@@ -23,7 +23,7 @@ namespace RCM.Domain.Core.Models
         }
 
         [NotMapped]
-        public IReadOnlyList<INotification> Errors
+        public IReadOnlyList<string> Errors
         {
             get
             {
@@ -36,7 +36,7 @@ namespace RCM.Domain.Core.Models
             Id = Guid.NewGuid();
 
             _events = new List<INotification>();
-            _errors = new List<INotification>();
+            _errors = new List<string>();
         }
 
         public void AddDomainEvent(INotification notification)
@@ -44,8 +44,9 @@ namespace RCM.Domain.Core.Models
             _events.Add(notification);
         }
 
-        public void AddDomainError(Expression<Func<T, object>> property)
+        public void AddDomainError(string error)
         {
+            _errors.Add(error);
         }
 
         public override bool Equals(object obj)

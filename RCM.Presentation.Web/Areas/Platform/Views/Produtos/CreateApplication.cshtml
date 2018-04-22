@@ -1,0 +1,27 @@
+﻿@model RCM.Application.ViewModels.AplicacaoViewModel
+
+@{
+    ViewData["Title"] = "Criar nova aplicação";
+}
+
+<h5>Criar nova Aplicação</h5>
+
+<div class="form-container col s12 m12">
+    <form asp-action="CreateApplication">
+        @Html.EditorForModel()
+        <input type="hidden" asp-for="ProdutoId" />
+        <input type="hidden" asp-for="Id" />
+
+        <div class="row pt-2 px-1">
+            <post-button>Confirmar</post-button>
+        </div>
+    </form>
+</div>
+
+<div>
+    <a asp-action="AttachApplication" asp-route-id="@Model.ProdutoId">Voltar para selecionar aplicação</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

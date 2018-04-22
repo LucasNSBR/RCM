@@ -16,7 +16,9 @@ namespace RCM.Infra.Data.Repositories
         public override Produto GetById(Guid id)
         {
             return _dbSet
-                .Include(ap => ap.Aplicacoes)
+                .Include(p => p.Marca)
+                .Include(p => p.Aplicacoes)
+                .ThenInclude((ProdutoAplicacao ap) => ap.Aplicacao)
                 .FirstOrDefault(p => p.Id == id);
         }
     }

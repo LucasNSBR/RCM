@@ -19,12 +19,14 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
     {
         private readonly IProdutoApplicationService _produtoApplicationService;
         private readonly IMarcaApplicationService _marcaApplicationService;
+        private readonly IAplicacaoApplicationService _aplicacaoApplicationService;
 
-        public ProdutosController(IProdutoApplicationService produtoApplicationService, IMarcaApplicationService marcaApplicationService, IDomainNotificationHandler domainNotificationHandler) : 
+        public ProdutosController(IProdutoApplicationService produtoApplicationService, IMarcaApplicationService marcaApplicationService, IAplicacaoApplicationService aplicacaoApplicationService, IDomainNotificationHandler domainNotificationHandler) :
                                                                                                                     base(domainNotificationHandler)
         {
             _produtoApplicationService = produtoApplicationService;
             _marcaApplicationService = marcaApplicationService;
+            _aplicacaoApplicationService = aplicacaoApplicationService;
         }
 
         public IActionResult Index(Guid? marcaId, string minValor, string maxValor, int? minQuantidade, int? maxQuantidade, string nome, int pageNumber = 1, int pageSize = 20)
@@ -158,17 +160,61 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         }
 
         [Authorize(Policy = "ActiveUser")]
-        public IActionResult AdicionarAplicacao(Guid produtoId)
+        public IActionResult AttachApplication(Guid id)
         {
-            return View();
+            AplicacaoViewModel aplicacao = new AplicacaoViewModel
+            {
+                ProdutoId = id
+            };
+
+            ModelState.Clear();
+            return View(aplicacao);
         }
 
         [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AdicionarAplicacao(Guid id, AplicacaoViewModel aplicacao)
+        public async Task<IActionResult> AttachApplication(AplicacaoViewModel viewModel)
         {
-            var produto = _produtoApplicationService.GetById(id);
+            var produto = _produtoApplicationService.GetById(viewModel.ProdutoId);
+            if (produto == null)
+                return NotFound();
+
+            var aplicacao = _aplicacaoApplicationService.GetById(viewModel.Id);
+            if (aplicacao == null)
+                return NotFound();
+
+            var commandResult = await _produtoApplicationService.RelacionarAplicacao(produto, viewModel);
+
+            if (commandResult.Success)
+            {
+                NotifyCommandResultSuccess();
+                return RedirectToAction(nameof(Details), new { id = viewModel.ProdutoId });
+            }
+            else
+                NotifyCommandResultErrors(commandResult.Errors);
+
+            return View(viewModel);
+        }
+
+        [Authorize(Policy = "ActiveUser")]
+        public IActionResult CreateApplication(Guid id)
+        {
+            AplicacaoViewModel aplicacao = new AplicacaoViewModel
+            {
+                ProdutoId = id
+            };
+
+            ModelState.Clear();
+            return View(aplicacao);
+        }
+
+        [Authorize(Policy = "ActiveUser")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateApplication(AplicacaoViewModel aplicacao)
+        {
+            var produto = _produtoApplicationService.GetById(aplicacao.ProdutoId);
             if (produto == null)
                 return NotFound();
 
@@ -183,16 +229,16 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             if (commandResult.Success)
             {
                 NotifyCommandResultSuccess();
-                return RedirectToAction(nameof(Details), new { id });
+                return RedirectToAction(nameof(Details), new { id = aplicacao.ProdutoId });
             }
             else
                 NotifyCommandResultErrors(commandResult.Errors);
-            
+
             return View(aplicacao);
         }
 
         [Authorize(Policy = "ActiveUser")]
-        public async Task<IActionResult> RemoverAplicacao(Guid id, Guid AplicacaoId)
+        public async Task<IActionResult> RemoveApplication(Guid id, Guid AplicacaoId)
         {
             var commandResult = await _produtoApplicationService.RemoverAplicacao(id, AplicacaoId);
 
@@ -206,7 +252,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
 
         public JsonResult GetAplicacoes()
         {
-            return Json(_produtoApplicationService.Get());
+            return Json(_aplicacaoApplicationService.Get());
         }
 
         public JsonResult GetMarcas()

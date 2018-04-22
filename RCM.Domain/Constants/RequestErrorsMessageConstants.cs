@@ -7,6 +7,8 @@
 
         public const string MarcaNotFound = "Nenhuma marca foi encontrada com esse Id.";
 
+
+        public const string ProdutoAplicacaoNull = "Nenhuma aplicação foi encontrada com esse número de identificação.";
         public const string ChequeStateNull = "Nenhum estado foi encontrado para o cheque. Um novo estado de 'Bloqueado' foi criado.";
     }
 }

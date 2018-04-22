@@ -113,7 +113,7 @@
                                             @title
                                         </div>
                                         <div class="col s1">
-                                            <a asp-action="RemoverAplicacao" asp-controller="Produtos" asp-route-aplicacaoId="@aplicacao.Id" asp-route-id="@Model.Id">
+                                            <a asp-action="RemoveApplication" asp-controller="Produtos" asp-route-aplicacaoId="@aplicacao.Id" asp-route-id="@Model.Id">
                                                 Remover
                                             </a>
                                         </div>
@@ -178,7 +178,7 @@
                     <a asp-action="Details" asp-controller="Produtos">Repor estoque</a>
                 </dd>
                 <dd>
-                    <a asp-action="AdicionarAplicacao" asp-controller="Produtos" asp-route-id="@Model.Id">Adicionar Aplicação</a>
+                    <a asp-action="AttachApplication" asp-controller="Produtos" asp-route-id="@Model.Id">Adicionar Aplicação</a>
                 </dd>
             </dl>
         </div>

@@ -24,6 +24,8 @@ namespace RCM.Domain.Models.ProdutoModels
 
             if (ReferenceEquals(this, other))
                 return true;
+            if (other.Aplicacao == null || other.Produto == null)
+                return false; 
             if (Produto.Id == other.Produto.Id && Aplicacao.Id == other.Aplicacao.Id)
                 return true;
 

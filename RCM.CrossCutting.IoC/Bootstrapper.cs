@@ -71,6 +71,7 @@ namespace RCM.CrossCutting.IoC
         private static void RegisterRepositories(IServiceCollection services)
         {
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+            services.AddScoped<IAplicacaoRepository, AplicacaoRepository>();
             services.AddScoped<IBancoRepository, BancoRepository>();
             services.AddScoped<IChequeRepository, ChequeRepository>();
             services.AddScoped<IClienteRepository, ClienteRepository>();
@@ -80,12 +81,12 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<INotaFiscalRepository, NotaFiscalRepository>();
             services.AddScoped<IOrdemServicoRepository, OrdemServicoRepository>();
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
-            services.AddScoped<IAplicacaoRepository, AplicacaoRepository>();
         }
 
         private static void RegisterApplicationServices(IServiceCollection services)
         {
             services.AddScoped(typeof(IBaseApplicationService<,>), typeof(BaseApplicationService<,>));
+            services.AddScoped<IAplicacaoApplicationService, AplicacaoApplicationService>();
             services.AddScoped<IBancoApplicationService, BancoApplicationService>();
             services.AddScoped<IChequeApplicationService, ChequeApplicationService>();
             services.AddScoped<IClienteApplicationService, ClienteApplicationService>();
@@ -137,6 +138,7 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<IRequestHandler<AddProdutoCommand, CommandResult>, ProdutoCommandHandler>();
             services.AddScoped<IRequestHandler<UpdateProdutoCommand, CommandResult>, ProdutoCommandHandler>();
             services.AddScoped<IRequestHandler<RemoveProdutoCommand, CommandResult>, ProdutoCommandHandler>();
+            services.AddScoped<IRequestHandler<AttachProdutoAplicacaoCommand, CommandResult>, ProdutoCommandHandler>();
             services.AddScoped<IRequestHandler<AddProdutoAplicacaoCommand, CommandResult>, ProdutoCommandHandler>();
             services.AddScoped<IRequestHandler<RemoveProdutoAplicacaoCommand, CommandResult>, ProdutoCommandHandler>();
 

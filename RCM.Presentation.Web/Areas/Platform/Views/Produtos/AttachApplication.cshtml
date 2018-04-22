@@ -7,27 +7,21 @@
 <h5>Adicionar</h5>
 
 <div class="form-container col s12 m12">
-    
-    <form asp-action="AdicionarAplicacao">
-        <div>
-            <div class="row">
-                <div class="input-field col s12 m6">
-                    <input type="hidden" asp-for="Id" id="aplicacaoId" />
-                    <select id="aplicacaoSelect"></select>
-                    <label asp-for="Id"></label>
-                    <span asp-validation-for="Id" class="text-danger"></span>
-                    <a href="#" id="adicionar-aplicacao">Adicionar nova aplicação</a>
-                </div>
-                <div class="input-field col s12 m6 pt-1">
-                    <button class="btn-flat mx-0 small" id="reload-aplicacoes-button" type="button">
-                        Recarregar lista
-                    </button>
-                </div>
+    <form asp-action="AttachApplication">
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <input type="hidden" asp-for="ProdutoId"/>
+                <input type="hidden" asp-for="Id" id="aplicacaoId"/>
+                <select id="aplicacaoSelect"></select>
+                <label asp-for="Id"></label>
+                <span asp-validation-for="Id" class="text-danger"></span>
+                <a asp-action="CreateApplication" asp-route-id="@Model.ProdutoId">Adicionar nova aplicação</a>
             </div>
-        </div>
-
-        <div id="form-aplicacao" class="pt-2">
-            @Html.EditorForModel()
+            <div class="input-field col s12 m6 pt-1">
+                <button class="btn-flat mx-0 small" id="reload-aplicacoes-button" type="button">
+                    Recarregar lista
+                </button>
+            </div>
         </div>
 
         <div class="row pt-2 px-1">
@@ -36,8 +30,9 @@
     </form>
 </div>
 
+
 <div>
-    <a asp-action="Index">Voltar para a lista</a>
+    <a asp-action="Details" asp-route-id="@Model.ProdutoId">Voltar para detalhes</a>
 </div>
 
 @section Scripts {
@@ -45,7 +40,7 @@
 
     <script>
         var aplicacoesUrl = '@Url.Action("GetAplicacoes", "Produtos")';
-        
+
         function reloadSelect(dropdownName, url, inputId) {
             var dropdown = $(dropdownName);
             var fieldId = $(inputId).val();
@@ -57,32 +52,27 @@
                 dropdown.empty();
 
                 $.each(data, function (index, item) {
-                    dropdown.append($("<option />").text(item.nome).val(item.id));
+                    dropdown.append($("<option />").text(item.marca.
+                        concat(' ' + item.modelo + ' - ', item.motor + ' - ', item.ano)).val(item.id));
                 })
 
                 $(dropdown.find('option').each(function (index, item) {
-
                     if (item.value === fieldId) {
                         dropdown.prop('selectedIndex', index);
                     }
                 }));
 
-                if (fieldId == "")
+                if (fieldId == "" || fieldId == "00000000-0000-0000-0000-000000000000")
                     $(inputId).val(dropdown.find('option').first().val());
-
 
                 dropdown.material_select();
             });
         }
 
         reloadSelect('#aplicacaoSelect', aplicacoesUrl, '#aplicacaoId');
-        
+
         $('#reload-aplicacoes-button').click(function () {
             reloadSelect('#aplicacaoSelect', aplicacoesUrl, '#aplicacaoId');
-        });
-
-        $('#adicionar-aplicacao').click(function () {
-            $('#form-aplicacao').slideToggle('slow');
         });
 
         $('#aplicacaoSelect').change(function () {

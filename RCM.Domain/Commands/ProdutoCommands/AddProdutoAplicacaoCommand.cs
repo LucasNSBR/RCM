@@ -10,8 +10,9 @@ namespace RCM.Domain.Commands.ProdutoCommands
         public string ModeloAplicacao { get; set; }
         public string MotorAplicacao { get; set; }
         public string ObservacaoAplicacao { get; set; }
+        public Guid AplicacaoId { get; set; }
 
-        public AddProdutoAplicacaoCommand(Guid produtoId, string marca, string modelo, int ano, string motor = null, string observacao = null)
+        public AddProdutoAplicacaoCommand(Guid produtoId, Guid aplicacaoId, string marca, string modelo, int ano, string motor = null, string observacao = null)
         {
             Id = produtoId;
             MarcaAplicacao = marca;
@@ -19,6 +20,7 @@ namespace RCM.Domain.Commands.ProdutoCommands
             AnoAplicacao = ano;
             MotorAplicacao = motor;
             ObservacaoAplicacao = observacao;
+            AplicacaoId = aplicacaoId;
         }
 
         public override bool IsValid()
