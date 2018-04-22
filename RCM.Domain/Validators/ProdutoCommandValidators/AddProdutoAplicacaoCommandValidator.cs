@@ -41,7 +41,6 @@ namespace RCM.Domain.Validators.ProdutoCommandValidators
 
         public AddProdutoAplicacaoCommandValidator()
         {
-            ValidateId();
             ValidateAplicacaoId();
             ValidateAno();
             ValidateModelo();
