@@ -9,28 +9,28 @@ namespace RCM.Domain.Validators.ProdutoCommandValidators
         {
             RuleFor(p => p.Id)
                 .NotEmpty()
-                .WithMessage("O Id do produto não pode estar em branco.");
+                .WithMessage("O Id do produto não pode estar vazio.");
         }
 
         public void ValidateNome()
         {
             RuleFor(p => p.Nome)
                 .NotEmpty()
-                .WithMessage("O nome do produto deve ter entre 5 e 100 caracteres e não deve estar em branco.");
+                .WithMessage("O nome do produto deve ter entre 5 e 100 caracteres e não deve estar vazio.");
         }
 
         public void ValidateQuantidade()
         {
             RuleFor(p => p.Quantidade)
                 .NotEmpty()
-                .WithMessage("A quantidade do produto não deve estar em branco.");
+                .WithMessage("A quantidade do produto não deve estar vazio.");
         }
 
         public void ValidatePrecoVenda()
         {
             RuleFor(p => p.PrecoVenda)
                 .NotEmpty()
-                .WithMessage("O preço de venda do produto não deve estar em branco.");
+                .WithMessage("O preço de venda do produto não deve estar vazio.");
         }
     }
 }

@@ -5,21 +5,21 @@ namespace RCM.Domain.Commands.ProdutoCommands
 {
     public class AddProdutoAplicacaoCommand : ProdutoCommand
     {
-        public int AnoAplicacao { get; set; }
-        public string MarcaAplicacao { get; set; }
-        public string ModeloAplicacao { get; set; }
-        public string MotorAplicacao { get; set; }
-        public string ObservacaoAplicacao { get; set; }
+        public int AnoCarroAplicacao { get; set; }
+        public string MarcaCarroAplicacao { get; set; }
+        public string ModeloCarroAplicacao { get; set; }
+        public string MotorCarroAplicacao { get; set; }
+        public string ObservacaoCarroAplicacao { get; set; }
         public Guid AplicacaoId { get; set; }
 
         public AddProdutoAplicacaoCommand(Guid produtoId, Guid aplicacaoId, string marca, string modelo, int ano, string motor = null, string observacao = null)
         {
             Id = produtoId;
-            MarcaAplicacao = marca;
-            ModeloAplicacao = modelo;
-            AnoAplicacao = ano;
-            MotorAplicacao = motor;
-            ObservacaoAplicacao = observacao;
+            MarcaCarroAplicacao = marca;
+            ModeloCarroAplicacao = modelo;
+            AnoCarroAplicacao = ano;
+            MotorCarroAplicacao = motor;
+            ObservacaoCarroAplicacao = observacao;
             AplicacaoId = aplicacaoId;
         }
 

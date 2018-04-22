@@ -1,10 +1,8 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using RCM.Domain.Commands.ProdutoCommands;
-using RCM.Domain.Constants;
 using RCM.Domain.Core.Commands;
 using RCM.Domain.Core.Errors;
 using RCM.Domain.Core.MediatorServices;
@@ -124,7 +122,7 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
                 return Response();
             }
 
-            Carro carro = new Carro(command.MarcaAplicacao, command.ModeloAplicacao, command.AnoAplicacao, command.MotorAplicacao, command.ObservacaoAplicacao);
+            Carro carro = new Carro(command.MarcaCarroAplicacao, command.ModeloCarroAplicacao, command.AnoCarroAplicacao, command.MotorCarroAplicacao, command.ObservacaoCarroAplicacao);
             Aplicacao aplicacao = new Aplicacao(carro);
             Produto produto = _produtoRepository.GetById(command.Id);
 
