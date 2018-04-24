@@ -62,7 +62,10 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 NumeroCheque = numeroCheque,
                 DataEmissao = dataEmissao,
                 DataVencimento = dataVencimento,
-                Situacao = situacao
+                Situacao = situacao,
+                TotalResultados = list.ToList().Count(),
+                ValorTotalResultados = list.ToList().Sum(d => d.Valor),
+                ValorTotalVencidos = list.ToList().Where(d => d.ItemProblema).Sum(d => d.Valor)
             };
 
             return View(viewModel);

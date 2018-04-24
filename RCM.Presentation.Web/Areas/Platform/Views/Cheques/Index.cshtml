@@ -77,6 +77,27 @@
 
     @if (Model.Cheques.List.Any())
     {
+        <div class="row">
+            <div class="col s12 m12">
+                <div class="px-1">
+                    <span>
+                        @Model.TotalResultados resultados encontrados.
+                    </span>
+                    <span class="font-italic text-muted">
+                        O valor total dos cheques é de @Model.ValorTotalResultados.ToString("c").
+                    </span>
+                    @if (Model.ValorTotalVencidos > 0)
+                    {
+                        <span class="font-italic text-muted">O valor de @Model.ValorTotalVencidos.ToString("c") corresponde a cheques com situação pendente.</span>
+                    }
+                    else
+                    {
+                        <span class="font-italic text-muted">Não há valores de títulos vencidos.</span>
+                    }
+                </div>
+            </div>
+        </div>
+
         <table class="highlight centered">
             <thead>
                 <tr>
@@ -159,17 +180,17 @@
             <ul class="pagination center pt-2">
                 @{
                     var queryStringHelper = new Dictionary<string, string>
-                                                {
-                                                    { "clienteId", Model.ClienteId?.ToString() },
-                                                    { "minValor", Model.MinValor?.ToString() },
-                                                    { "maxValor", Model.MaxValor?.ToString() },
-                                                    { "agencia", Model.Agencia?.ToString() },
-                                                    { "conta", Model.Conta?.ToString() },
-                                                    { "numeroCheque", Model.NumeroCheque?.ToString() },
-                                                    { "dataEmissao", Model.DataEmissao?.ToString() },
-                                                    { "dataVencimento", Model.DataVencimento?.ToString() },
-                                                    { "pageSize", Model.Cheques.PageSize.ToString() },
-                                                };
+                                                        {
+                                                            { "clienteId", Model.ClienteId?.ToString() },
+                                                            { "minValor", Model.MinValor?.ToString() },
+                                                            { "maxValor", Model.MaxValor?.ToString() },
+                                                            { "agencia", Model.Agencia?.ToString() },
+                                                            { "conta", Model.Conta?.ToString() },
+                                                            { "numeroCheque", Model.NumeroCheque?.ToString() },
+                                                            { "dataEmissao", Model.DataEmissao?.ToString() },
+                                                            { "dataVencimento", Model.DataVencimento?.ToString() },
+                                                            { "pageSize", Model.Cheques.PageSize.ToString() },
+                                                        };
 
                 }
 

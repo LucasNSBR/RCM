@@ -59,7 +59,10 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 FornecedorId = fornecedorId,
                 NumeroDocumento = numeroDocumento,
                 DataEmissao = dataEmissao,
-                DataVencimento = dataVencimento
+                DataVencimento = dataVencimento,
+                TotalResultados = list.ToList().Count(),
+                ValorTotalResultados = list.ToList().Sum(d => d.Valor),
+                ValorTotalVencidas = list.ToList().Where(d => d.Vencido).Sum(d => d.Valor)
             };
 
             return View(viewModel);
