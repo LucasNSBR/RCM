@@ -1,8 +1,9 @@
 ﻿using MediatR;
+using RCM.Domain.Core.Errors;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq.Expressions;
+using System.Linq;
 
 namespace RCM.Domain.Core.Models
 {
@@ -11,7 +12,7 @@ namespace RCM.Domain.Core.Models
         public Guid Id { get; protected set; }
 
         private List<INotification> _events;
-        private List<string> _errors;
+        private List<DomainError> _errors;
 
         [NotMapped]
         public IReadOnlyList<INotification> Events
@@ -23,7 +24,7 @@ namespace RCM.Domain.Core.Models
         }
 
         [NotMapped]
-        public IReadOnlyList<string> Errors
+        public IReadOnlyList<DomainError> Errors
         {
             get
             {
@@ -36,7 +37,7 @@ namespace RCM.Domain.Core.Models
             Id = Guid.NewGuid();
 
             _events = new List<INotification>();
-            _errors = new List<string>();
+            _errors = new List<DomainError>();
         }
 
         public void AddDomainEvent(INotification notification)
@@ -44,9 +45,14 @@ namespace RCM.Domain.Core.Models
             _events.Add(notification);
         }
 
-        public void AddDomainError(string error)
+        public bool ContainsErrors()
         {
-            _errors.Add(error);
+            return _errors.Any();
+        }
+
+        public void AddDomainError(string description, string code = null)
+        {
+            _errors.Add(new DomainError(description));
         }
 
         public override bool Equals(object obj)

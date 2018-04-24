@@ -42,7 +42,7 @@
         var itemId = handler.target.parentElement.firstElementChild.innerHTML;
         var url = currentUrl.concat("/Details/", itemId.trim());
 
-        //window.location = url;
+        window.location = url;
     })
 
     $("#notifications-div").children().each(function (index, element) {

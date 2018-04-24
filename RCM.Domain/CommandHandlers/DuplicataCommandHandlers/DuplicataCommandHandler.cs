@@ -36,13 +36,13 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
         {
             if (!command.IsValid())
             {
-                NotifyRequestErrors(command);
+                NotifyCommandErrors(command);
                 return Response();
             }
 
             if (_duplicataRepository.CheckNumeroDocumentoExists(command.NumeroDocumento, command.FornecedorId, command.Id))
             {
-                _commandResponse.AddError(new CommandError(RequestErrorsMessageConstants.DuplicataAlreadyExists));
+                NotifyCommandError(RequestErrorsMessageConstants.DuplicataAlreadyExists);
                 return Response();
             }
 
@@ -61,13 +61,13 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
         {
             if (!command.IsValid())
             {
-                NotifyRequestErrors(command);
+                NotifyCommandErrors(command);
                 return Response();
             }
 
             if (_duplicataRepository.CheckNumeroDocumentoExists(command.NumeroDocumento, command.FornecedorId, command.Id))
             {
-                _commandResponse.AddError(new CommandError(RequestErrorsMessageConstants.DuplicataAlreadyExists));
+                NotifyCommandError(RequestErrorsMessageConstants.DuplicataAlreadyExists);
                 return Response();
             }
 
@@ -86,7 +86,7 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
         {
             if (!command.IsValid())
             {
-                NotifyRequestErrors(command);
+                NotifyCommandErrors(command);
                 return Response();
             }
 
@@ -103,7 +103,7 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
         {
             if (!command.IsValid())
             {
-                NotifyRequestErrors(command);
+                NotifyCommandErrors(command);
                 return Response();
             }
 
@@ -122,7 +122,7 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
         {
             if (!command.IsValid())
             {
-                NotifyRequestErrors(command);
+                NotifyCommandErrors(command);
                 return Response();
             }
 

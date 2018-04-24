@@ -28,7 +28,7 @@ namespace RCM.Presentation.Web.Controllers
             TempData["Notifications"] = JsonConvert.SerializeObject(_domainNotificationHandler.GetNotifications());
         }
 
-        protected void NotifyCommandResultErrors(IReadOnlyList<CommandError> errors)
+        protected void NotifyCommandResultErrors(IReadOnlyList<Error> errors)
         {
             foreach (var error in errors)
             {

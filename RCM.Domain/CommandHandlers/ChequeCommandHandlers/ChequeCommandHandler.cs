@@ -43,13 +43,13 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
         {
             if (!command.IsValid())
             {
-                NotifyRequestErrors(command);
+                NotifyCommandErrors(command);
                 return Response();
             }
 
             if (_chequeRepository.CheckNumeroChequeExists(command.NumeroCheque, command.ClienteId, command.BancoId, command.Id))
             {
-                _commandResponse.AddError(new CommandError(RequestErrorsMessageConstants.ChequeAlreadyExists));
+                NotifyCommandError(RequestErrorsMessageConstants.ChequeAlreadyExists);
                 return Response();
             }
 
@@ -68,13 +68,13 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
         {
             if (!command.IsValid())
             {
-                NotifyRequestErrors(command);
+                NotifyCommandErrors(command);
                 return Response();
             }
 
             if (_chequeRepository.CheckNumeroChequeExists(command.NumeroCheque, command.ClienteId, command.BancoId, command.Id))
             {
-                _commandResponse.AddError(new CommandError(RequestErrorsMessageConstants.ChequeAlreadyExists));
+                NotifyCommandError(RequestErrorsMessageConstants.ChequeAlreadyExists);
                 return Response();
             }
 
@@ -93,7 +93,7 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
         {
             if (!command.IsValid())
             {
-                NotifyRequestErrors(command);
+                NotifyCommandErrors(command);
                 return Response();
             }
 
@@ -110,7 +110,7 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
         {
             if (!command.IsValid())
             {
-                NotifyRequestErrors(command);
+                NotifyCommandErrors(command);
                 return Response();
             }
 
@@ -129,7 +129,7 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
         {
             if (!command.IsValid())
             {
-                NotifyRequestErrors(command);
+                NotifyCommandErrors(command);
                 return Response();
             }
 
@@ -149,7 +149,7 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
         {
             if (!command.IsValid())
             {
-                NotifyRequestErrors(command);
+                NotifyCommandErrors(command);
                 return Response();
             }
 
@@ -167,7 +167,7 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
         {
             if (!command.IsValid())
             {
-                NotifyRequestErrors(command);
+                NotifyCommandErrors(command);
                 return Response();
             }
 
@@ -186,7 +186,7 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
         {
             if (!command.IsValid())
             {
-                NotifyRequestErrors(command);
+                NotifyCommandErrors(command);
                 return Response();
             }
 
@@ -207,7 +207,7 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
                 return false;
             else
             {
-                NotifyRequestError(RequestErrorsMessageConstants.ChequeStateNull);
+                NotifyCommandError(RequestErrorsMessageConstants.ChequeStateNull);
                 cheque.MudarEstado(new ChequeBloqueado());
             }
 

@@ -4,6 +4,7 @@ using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.Core.Models;
 using RCM.Domain.Helpers;
 using RCM.Domain.UnitOfWork;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace RCM.Domain.CommandHandlers
@@ -38,18 +39,26 @@ namespace RCM.Domain.CommandHandlers
 
             return false;
         }
-        
-        protected void NotifyRequestErrors(Command command)
+
+        protected void NotifyModelErrors(List<DomainError> errors)
+        {
+            foreach (var error in errors)
+            {
+                _commandResponse.AddError(new DomainError(error.Code, error.Description));
+            }
+        }
+
+        protected void NotifyCommandError(string errorMessage, string errorCode = null)
+        {
+            _commandResponse.AddError(new CommandError(errorMessage, errorCode));
+        }
+
+        protected void NotifyCommandErrors(Command command)
         {
             foreach (var error in command.ValidationResult.Errors)
             {
                 _commandResponse.AddError(new CommandError(error.ErrorCode, error.ErrorMessage));
             }
-        }
-
-        protected void NotifyRequestError(string errorMessage, string errorCode = null)
-        {
-            _commandResponse.AddError(new CommandError(errorCode ?? NotificationMessageConstants.UndefinedError, errorMessage));
         }
 
         protected Task<CommandResult> Response()

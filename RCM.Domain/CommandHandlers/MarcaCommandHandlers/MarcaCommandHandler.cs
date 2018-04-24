@@ -26,7 +26,7 @@ namespace RCM.Domain.CommandHandlers.MarcaCommandHandlers
         {
             if (!command.IsValid())
             {
-                NotifyRequestErrors(command);
+                NotifyCommandErrors(command);
                 return Response();
             }
 
@@ -42,7 +42,7 @@ namespace RCM.Domain.CommandHandlers.MarcaCommandHandlers
         {
             if (!command.IsValid())
             {
-                NotifyRequestErrors(command);
+                NotifyCommandErrors(command);
                 return Response();
             }
 
@@ -58,7 +58,7 @@ namespace RCM.Domain.CommandHandlers.MarcaCommandHandlers
         {
             if (!command.IsValid())
             {
-                NotifyRequestErrors(command);
+                NotifyCommandErrors(command);
                 return Response();
             }
 

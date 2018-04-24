@@ -2,7 +2,7 @@
 {
     public class CommandError : Error
     {
-        public CommandError(string description, string code) : base(description, code)
+        public CommandError(string description, string code = null) : base(description, code)
         {
         }
     }

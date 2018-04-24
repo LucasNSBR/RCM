@@ -32,14 +32,14 @@ namespace RCM.Domain.CommandHandlers.OrdemServicoCommandHandlers
         {
             if (!command.IsValid())
             {
-                NotifyRequestErrors(command);
+                NotifyCommandErrors(command);
                 return Response();
             }
 
             Cliente cliente = _clienteRepository.GetById(command.ClienteId);
             if (cliente == null)
             {
-                _commandResponse.AddError(new CommandError("Erro de repositório", "Cliente não encontrado"));
+                NotifyCommandError("Cliente não encontrado", "Erro de repositório");
                 return Response();
             }
 
@@ -58,7 +58,7 @@ namespace RCM.Domain.CommandHandlers.OrdemServicoCommandHandlers
 
             if (cliente == null)
             {
-                _commandResponse.AddError(new CommandError("Erro de repositório", "Cliente não encontrado"));
+                NotifyCommandError("Cliente não encontrado", "Erro de repositório");
                 return Task.FromResult(_commandResponse);
             }
 
@@ -75,7 +75,7 @@ namespace RCM.Domain.CommandHandlers.OrdemServicoCommandHandlers
         {
             if (!command.IsValid())
             {
-                NotifyRequestErrors(command);
+                NotifyCommandErrors(command);
                 return Response();
             }
 

@@ -28,7 +28,7 @@ namespace RCM.Domain.CommandHandlers.FornecedorCommandHandlers
         {
             if (!command.IsValid())
             {
-                NotifyRequestErrors(command);
+                NotifyCommandErrors(command);
                 return Response();
             }
 
@@ -45,7 +45,7 @@ namespace RCM.Domain.CommandHandlers.FornecedorCommandHandlers
         {
             if (!command.IsValid())
             {
-                NotifyRequestErrors(command);
+                NotifyCommandErrors(command);
                 return Response();
             }
 
@@ -62,7 +62,7 @@ namespace RCM.Domain.CommandHandlers.FornecedorCommandHandlers
         {
             if (!command.IsValid())
             {
-                NotifyRequestErrors(command);
+                NotifyCommandErrors(command);
                 return Response();
             }
 

@@ -13,8 +13,8 @@ namespace RCM.Domain.Core.Commands
             }
         }
 
-        private List<CommandError> _errors;
-        public IReadOnlyList<CommandError> Errors
+        private List<Error> _errors;
+        public IReadOnlyList<Error> Errors
         {
             get
             {
@@ -24,12 +24,17 @@ namespace RCM.Domain.Core.Commands
 
         public CommandResult()
         {
-            _errors = new List<CommandError>();
+            _errors = new List<Error>();
         }
 
-        public void AddError(CommandError error)
+        public void AddError(Error error)
         {
             _errors.Add(error);
+        }
+
+        public void AddErrors(List<Error> errors)
+        {
+            _errors.AddRange(errors);
         }
     }
 }

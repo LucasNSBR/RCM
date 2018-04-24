@@ -5,9 +5,9 @@
         public string Code { get; }
         public string Description { get; }
 
-        public Error(string description, string code = "Erro")
+        public Error(string description, string code = null)
         {
-            Code = code;
+            Code = code ?? "Erro";
             Description = description;
         }
     }

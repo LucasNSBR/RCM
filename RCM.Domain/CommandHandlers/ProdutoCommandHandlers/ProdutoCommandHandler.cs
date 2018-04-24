@@ -39,7 +39,7 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
         {
             if (!command.IsValid())
             {
-                NotifyRequestErrors(command);
+                NotifyCommandErrors(command);
                 return Response();
             }
 
@@ -57,7 +57,7 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
         {
             if (!command.IsValid())
             {
-                NotifyRequestErrors(command);
+                NotifyCommandErrors(command);
                 return Response();
             }
 
@@ -75,7 +75,7 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
         {
             if (!command.IsValid())
             {
-                NotifyRequestErrors(command);
+                NotifyCommandErrors(command);
                 return Response();
             }
 
@@ -92,7 +92,7 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
         {
             if (!command.IsValid())
             {
-                NotifyRequestErrors(command);
+                NotifyCommandErrors(command);
                 return Response();
             }
 
@@ -100,9 +100,9 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
             Produto produto = _produtoRepository.GetById(command.Id);
 
             produto.AdicionarAplicacao(aplicacao);
-            if (produto.Errors.Any())
+            if (produto.ContainsErrors())
             {
-                _commandResponse.AddError(new CommandError(produto.Errors.First()));
+                NotifyModelErrors(produto.Errors.ToList());
                 return Response();
             }
 
@@ -118,7 +118,7 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
         {
             if (!command.IsValid())
             {
-                NotifyRequestErrors(command);
+                NotifyCommandErrors(command);
                 return Response();
             }
 
@@ -139,7 +139,7 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
         {
             if (!command.IsValid())
             {
-                NotifyRequestErrors(command);
+                NotifyCommandErrors(command);
                 return Response();
             }
 
