@@ -1,14 +1,9 @@
 ﻿namespace RCM.Domain.Core.Errors
 {
-    public class CommandError
+    public class CommandError : Error
     {
-        public string Code { get; }
-        public string Description { get; }
-
-        public CommandError(string description, string code = "Erro")
+        public CommandError(string description, string code) : base(description, code)
         {
-            Code = code;
-            Description = description;
         }
     }
 }
