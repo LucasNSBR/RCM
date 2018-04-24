@@ -39,7 +39,7 @@ namespace RCM.Application.ApplicationServices
 
         public Task<CommandResult> AdicionarAplicacao(ProdutoViewModel produtoViewModel, AplicacaoViewModel aplicacaoViewModel)
         {
-            return _mediator.SendCommand(new AddProdutoAplicacaoCommand(produtoViewModel.Id, aplicacaoViewModel.Id, aplicacaoViewModel.Marca, aplicacaoViewModel.Modelo, aplicacaoViewModel.Ano, aplicacaoViewModel.Motor, aplicacaoViewModel.Observacao));
+            return _mediator.SendCommand(new AddProdutoAplicacaoCommand(produtoViewModel.Id, aplicacaoViewModel.Marca, aplicacaoViewModel.Modelo, aplicacaoViewModel.Ano, aplicacaoViewModel.Motor, aplicacaoViewModel.Observacao));
         }
 
         public Task<CommandResult> RemoverAplicacao(Guid produtoId, Guid aplicacaoId)

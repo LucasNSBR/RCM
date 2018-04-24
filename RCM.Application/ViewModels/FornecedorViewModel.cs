@@ -24,7 +24,7 @@ namespace RCM.Application.ViewModels
         [Display(Name = "Notas Fiscais")]
         public List<NotaFiscalViewModel> NotasFiscais { get; set; }
 
-        [Display(Name = "Produtos")]
-        public List<ProdutoViewModel> Produtos { get; set; }
+        //[Display(Name = "Produtos")]
+        //public List<ProdutoViewModel> Produtos { get; set; }
     }
 }

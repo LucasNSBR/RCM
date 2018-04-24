@@ -80,6 +80,7 @@
         <table class="highlight centered">
             <thead>
                 <tr>
+                    <th></th>
                     <th>
                         @Html.DisplayNameFor(model => model.Cheques.List.FirstOrDefault().Banco)
                     </th>
@@ -112,6 +113,10 @@
                     <tr class="@(item.ItemRequerAtencao ? "bg-warning" : "")@(item.ItemProblema ? "bg-danger" : "")@(item.ItemBom ? "bg-success" : "")">
                         <td class="d-hidden">
                             @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            <input type="checkbox" class="input-field checkable" id="@("input-"+item.Id)" />
+                            <label for="@("input-"+@item.Id)"></label>
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Banco.Nome)
@@ -154,17 +159,17 @@
             <ul class="pagination center pt-2">
                 @{
                     var queryStringHelper = new Dictionary<string, string>
-                                        {
-                                            { "clienteId", Model.ClienteId?.ToString() },
-                                            { "minValor", Model.MinValor?.ToString() },
-                                            { "maxValor", Model.MaxValor?.ToString() },
-                                            { "agencia", Model.Agencia?.ToString() },
-                                            { "conta", Model.Conta?.ToString() },
-                                            { "numeroCheque", Model.NumeroCheque?.ToString() },
-                                            { "dataEmissao", Model.DataEmissao?.ToString() },
-                                            { "dataVencimento", Model.DataVencimento?.ToString() },
-                                            { "pageSize", Model.Cheques.PageSize.ToString() },
-                                        };
+                                                {
+                                                    { "clienteId", Model.ClienteId?.ToString() },
+                                                    { "minValor", Model.MinValor?.ToString() },
+                                                    { "maxValor", Model.MaxValor?.ToString() },
+                                                    { "agencia", Model.Agencia?.ToString() },
+                                                    { "conta", Model.Conta?.ToString() },
+                                                    { "numeroCheque", Model.NumeroCheque?.ToString() },
+                                                    { "dataEmissao", Model.DataEmissao?.ToString() },
+                                                    { "dataVencimento", Model.DataVencimento?.ToString() },
+                                                    { "pageSize", Model.Cheques.PageSize.ToString() },
+                                                };
 
                 }
 
@@ -207,3 +212,44 @@
         </p>
     }
 </div>
+
+<div id="items-info-panel" class="z-depth-2">
+    <p>
+    </p>
+    <p>
+    </p>
+</div>
+
+
+@section Scripts {
+    <script>
+        $('.checkable').removeAttr('checked');
+
+        var panel = $('#items-info-panel');
+        var totalItemValue = 0;
+        var selectedItems = 0;
+
+        $('.checkable').change(function () {
+            var selectedSalary = $(this).parents('tr').children().last().text().trim().replace('R$', '').replace('.', '').replace(',', '.');
+
+            if ($(this).prop('checked')) {
+                totalItemValue += parseFloat(selectedSalary);
+                selectedItems++;
+            } else {
+                totalItemValue -= parseFloat(selectedSalary);
+                selectedItems--;
+            }
+
+            if (selectedItems > 0) {
+                $(panel).children().eq(0).text("Valor total dos cheques: " + "R$" + totalItemValue.toFixed(2).replace('.', ','));
+                $(panel).children().eq(1).text("Cheques selecionados: " + selectedItems);
+                $(panel).slideDown('200');
+            } else {
+                $(panel).slideUp('200', function () {
+                    $(panel).children().eq(0).text();
+                    $(panel).children().eq(1).text();
+                });
+            }
+        });
+    </script>
+}

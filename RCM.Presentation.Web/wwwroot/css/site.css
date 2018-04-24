@@ -27,8 +27,8 @@ footer {
 .platform-content {
     padding-top: 10px;
     padding-bottom: 15px;
-    padding-left: 50px !important;
-    padding-right: 50px !important;
+    padding-left: 35px !important;
+    padding-right: 35px !important;
     width: 100%;
     min-height: 91vh;
     color: #3b3b3b !important;
@@ -438,4 +438,21 @@ dt {
 .collapsible-body {
     padding: 10px;
     background-color: #fafafa!important;
+}
+
+.checkable {
+
+}
+
+#items-info-panel {
+    position: fixed;
+    bottom: 0px;
+    color: whitesmoke;
+    background-color: #1a2228;
+    left: 65%;
+    width: 50%;
+    padding: 15px;
+    transform: translate(-65%, 0);
+    display: none;
+    z-index: 3;
 }

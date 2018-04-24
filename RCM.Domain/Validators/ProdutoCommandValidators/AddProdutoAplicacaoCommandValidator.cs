@@ -32,16 +32,9 @@ namespace RCM.Domain.Validators.ProdutoCommandValidators
                 .WithMessage("A marca deve ter entre 2 e 100 caracteres e não pode estar vazio.");
         }
 
-        private void ValidateAplicacaoId()
-        {
-            RuleFor(ap => ap.AplicacaoId)
-                .NotEmpty()
-                .WithMessage("O Id da aplicação não pode estar vazio.");
-        }
-
         public AddProdutoAplicacaoCommandValidator()
         {
-            ValidateAplicacaoId();
+            ValidateId();
             ValidateAno();
             ValidateModelo();
             ValidateMarca();

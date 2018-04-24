@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using RCM.Domain.Models.DuplicataModels;
 using RCM.Domain.Repositories;

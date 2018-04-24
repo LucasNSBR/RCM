@@ -87,6 +87,7 @@
         <table class="highlight centered">
             <thead>
                 <tr>
+                    <th></th>
                     <th>
                         @Html.DisplayNameFor(model => model.Duplicatas.List.FirstOrDefault().NumeroDocumento)
                     </th>
@@ -113,6 +114,10 @@
                     <tr class="@(item.Vencido ? "bg-danger" : "")@(item.Pago ? "bg-success" : "")">
                         <td class="d-hidden">
                             @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            <input type="checkbox" class="input-field checkable" id="@("input-"+item.Id)" />
+                            <label for="@("input-"+@item.Id)"></label>
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.NumeroDocumento)
@@ -148,17 +153,17 @@
             <ul class="pagination center pt-2">
                 @{
                     var queryStringHelper = new Dictionary<string, string>
-                                        {
-                                            { "apenasNaoPagas", Model.ApenasNaoPagas?.ToString() },
-                                            { "apenasVencidas", Model.ApenasVencidas?.ToString() },
-                                            { "fornecedorId", Model.FornecedorId?.ToString() },
-                                            { "minValor", Model.MinValor?.ToString() },
-                                            { "maxValor", Model.MaxValor?.ToString() },
-                                            { "numeroDocumento", Model.NumeroDocumento?.ToString() },
-                                            { "dataEmissao", Model.DataEmissao?.ToString() },
-                                            { "dataVencimento", Model.DataVencimento?.ToString() },
-                                            { "pageSize", Model.Duplicatas.PageSize.ToString() },
-                                        };
+                                                            {
+                                                                { "apenasNaoPagas", Model.ApenasNaoPagas?.ToString() },
+                                                                { "apenasVencidas", Model.ApenasVencidas?.ToString() },
+                                                                { "fornecedorId", Model.FornecedorId?.ToString() },
+                                                                { "minValor", Model.MinValor?.ToString() },
+                                                                { "maxValor", Model.MaxValor?.ToString() },
+                                                                { "numeroDocumento", Model.NumeroDocumento?.ToString() },
+                                                                { "dataEmissao", Model.DataEmissao?.ToString() },
+                                                                { "dataVencimento", Model.DataVencimento?.ToString() },
+                                                                { "pageSize", Model.Duplicatas.PageSize.ToString() },
+                                                            };
 
                 }
 
@@ -201,3 +206,44 @@
         </p>
     }
 </div>
+
+<div id="items-info-panel" class="z-depth-2">
+    <p>
+    </p>
+    <p>
+    </p>
+</div>
+
+@section Scripts {
+    <script>
+        $('.checkable').removeAttr('checked');
+
+        var panel = $('#items-info-panel');
+        var totalItemValue = 0;
+        var selectedItems = 0;
+
+        $('.checkable').change(function () {
+            var selectedSalary = $(this).parents('tr').children().last().text().trim().replace('R$', '').replace('.', '').replace(',', '.');
+
+            if ($(this).prop('checked')) {
+                totalItemValue += parseFloat(selectedSalary);
+                selectedItems++;
+            } else {
+                totalItemValue -= parseFloat(selectedSalary);
+                selectedItems--;
+            }
+
+            if (selectedItems > 0) {
+                $(panel).children().eq(0).text("Valor total das duplicatas: " + "R$" + totalItemValue.toFixed(2).replace('.', ','));
+                $(panel).children().eq(1).text("Duplicatas selecionadas: " + selectedItems);
+                $(panel).slideDown('200');
+            } else {
+                $(panel).slideUp('200', function () {
+                    $(panel).children().eq(0).text();
+                    $(panel).children().eq(1).text();
+                });
+            }
+        });
+    </script>
+}
+
