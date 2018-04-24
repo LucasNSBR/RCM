@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using RCM.Domain.Models.DuplicataModels;
 using RCM.Domain.Repositories;
@@ -12,6 +11,14 @@ namespace RCM.Infra.Data.Repositories
     {
         public DuplicataRepository(RCMDbContext dbContext) : base(dbContext)
         {
+        }
+
+        public override Duplicata GetById(Guid id)
+        {
+            return _dbSet
+                  .Include(f => f.Fornecedor)
+                  .Include(p => p.Pagamento)
+                  .FirstOrDefault(d => d.Id == id);
         }
 
         public bool CheckNumeroDocumentoExists(string numeroDocumento, Guid fornecedorId, Guid novaDuplicataId)

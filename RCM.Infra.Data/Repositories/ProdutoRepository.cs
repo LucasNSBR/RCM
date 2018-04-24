@@ -17,8 +17,8 @@ namespace RCM.Infra.Data.Repositories
         {
             return _dbSet
                 .Include(p => p.Marca)
-                .Include(p => p.Aplicacoes)
-                .ThenInclude((ProdutoAplicacao ap) => ap.Aplicacao)
+                .Include(ap => ap.Aplicacoes)
+                .ThenInclude((ProdutoAplicacao a) => a.Aplicacao)
                 .FirstOrDefault(p => p.Id == id);
         }
     }

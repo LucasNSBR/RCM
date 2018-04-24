@@ -13,6 +13,15 @@ namespace RCM.Infra.Data.Repositories
         {
         }
 
+        public override Cheque GetById(Guid id)
+        {
+            return _dbSet
+                .Include(b => b.Banco)
+                .Include(c => c.Cliente)
+                .Include(ec => ec.EstadoCheque)
+                .FirstOrDefault(ch => ch.Id == id);
+        }
+
         public bool CheckNumeroChequeExists(string numeroDocumento, Guid clienteId, Guid bancoId, Guid novoChequeId)
         {
             var numeroDocumentoSpecification = new ChequeNumeroSpecification(numeroDocumento);

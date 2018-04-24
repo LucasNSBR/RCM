@@ -1,4 +1,7 @@
-﻿using RCM.Domain.Models.BancoModels;
+﻿using System;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using RCM.Domain.Models.BancoModels;
 using RCM.Domain.Repositories;
 using RCM.Infra.Data.Context;
 
@@ -8,6 +11,13 @@ namespace RCM.Infra.Data.Repositories
     {
         public BancoRepository(RCMDbContext dbContext) : base(dbContext)
         {
+        }
+
+        public override Banco GetById(Guid id)
+        {
+            return _dbSet
+                .Include(c => c.Cheques)
+                .FirstOrDefault(b => b.Id == id);
         }
     }
 }

@@ -2,7 +2,6 @@
 using RCM.Domain.Core.Errors;
 using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.Core.Models;
-using RCM.Domain.Helpers;
 using RCM.Domain.UnitOfWork;
 using System.Collections.Generic;
 using System.Threading.Tasks;
