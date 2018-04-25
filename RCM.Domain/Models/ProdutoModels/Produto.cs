@@ -40,6 +40,8 @@ namespace RCM.Domain.Models.ProdutoModels
         public Guid MarcaId { get; private set; }
         public virtual Marca Marca { get; private set; }
         
+        protected Produto() { }
+
         public Produto(Guid id, string nome, int estoque, decimal precoVenda, Marca marca)
         {
             Id = id;
