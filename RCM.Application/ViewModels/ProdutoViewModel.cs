@@ -15,10 +15,10 @@ namespace RCM.Application.ViewModels
         [StringLength(100, MinimumLength = 4, ErrorMessage = "O campo nome deve ter entre 5 e 100 caracteres.")]
         public string Nome { get; set; }
 
-        [Display(Name = "Quantidade")]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "O campo quantidade é requerido.")]
-        [Range(0, 9999, ErrorMessage = "A quantidade deve estar em um formato válido.")]
-        public int Quantidade { get; set; }
+        [Display(Name = "Estoque")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "O campo estoque é requerido.")]
+        [Range(0, 9999, ErrorMessage = "A quantidade no estoque deve estar em um formato válido.")]
+        public int Estoque { get; set; }
 
         [Display(Name = "Preço de Venda")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo preço de venda é requerido.")]

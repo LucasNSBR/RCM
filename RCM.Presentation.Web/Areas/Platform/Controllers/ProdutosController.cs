@@ -30,15 +30,15 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             _aplicacaoApplicationService = aplicacaoApplicationService;
         }
 
-        public IActionResult Index(Guid? marcaId, string minValor, string maxValor, int? minQuantidade, int? maxQuantidade, string nome, int pageNumber = 1, int pageSize = 20)
+        public IActionResult Index(Guid? marcaId, string minValor, string maxValor, int? minEstoque, int? maxEstoque, string nome, int pageNumber = 1, int pageSize = 20)
         {
             var marcaIdSpecification = new ProdutoMarcaIdSpecification(marcaId);
             var valorSpecification = new ProdutoPrecoVendaSpecification(minValor.ToDecimal(), maxValor.ToDecimal());
-            var quantidadeSpecification = new ProdutoQuantidadeSpecification(minQuantidade, maxQuantidade);
+            var estoqueSpecification = new ProdutoEstoqueSpecification(minEstoque, maxEstoque);
             var nomeSpecification = new ProdutoNomeSpecification(nome);
 
             var list = _produtoApplicationService.Get(valorSpecification
-                .And(quantidadeSpecification)
+                .And(estoqueSpecification)
                 .And(nomeSpecification)
                 .And(marcaIdSpecification)
                 .ToExpression());
@@ -51,8 +51,8 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 Nome = nome,
                 MinValor = minValor,
                 MaxValor = maxValor,
-                MinQuantidade = minQuantidade,
-                MaxQuantidade = maxQuantidade,
+                MinEstoque = minEstoque,
+                MaxEstoque = maxEstoque,
             };
 
             return View(viewModel);

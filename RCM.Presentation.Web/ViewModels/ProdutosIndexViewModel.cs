@@ -13,7 +13,7 @@ namespace RCM.Presentation.Web.ViewModels
         public Guid? MarcaId { get; set; }
         public string MinValor { get; set; }
         public string MaxValor { get; set; }
-        public int? MinQuantidade { get; set; }
-        public int? MaxQuantidade { get; set; }
+        public int? MinEstoque { get; set; }
+        public int? MaxEstoque { get; set; }
     }
 }

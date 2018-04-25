@@ -5,11 +5,11 @@ namespace RCM.Domain.Commands.ProdutoCommands
 {
     public class UpdateProdutoCommand : ProdutoCommand
     {
-        public UpdateProdutoCommand(Guid id, string nome, int quantidade, decimal precoVenda, Guid marcaId)
+        public UpdateProdutoCommand(Guid id, string nome, int estoque, decimal precoVenda, Guid marcaId)
         {
             Id = id;
             Nome = nome;
-            Quantidade = quantidade;
+            Estoque = estoque;
             PrecoVenda = precoVenda;
             MarcaId = marcaId;
         }

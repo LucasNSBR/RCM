@@ -19,11 +19,11 @@ namespace RCM.Domain.Validators.ProdutoCommandValidators
                 .WithMessage("O nome do produto deve ter entre 5 e 100 caracteres e não deve estar vazio.");
         }
 
-        public void ValidateQuantidade()
+        public void ValidateEstoque()
         {
-            RuleFor(p => p.Quantidade)
+            RuleFor(p => p.Estoque)
                 .NotEmpty()
-                .WithMessage("A quantidade do produto não deve estar vazio.");
+                .WithMessage("O estoque do produto não deve estar vazio.");
         }
 
         public void ValidatePrecoVenda()

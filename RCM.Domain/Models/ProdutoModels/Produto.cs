@@ -19,7 +19,7 @@ namespace RCM.Domain.Models.ProdutoModels
             }
         }
 
-        public int Quantidade { get; private set; }
+        public int Estoque { get; private set; }
         public decimal PrecoVenda { get; private set; }
 
         private List<Fornecedor> _fornecedores;
@@ -36,11 +36,11 @@ namespace RCM.Domain.Models.ProdutoModels
 
         protected Produto() { }
 
-        public Produto(Guid id, string nome, int quantidade, decimal precoVenda, Marca marca)
+        public Produto(Guid id, string nome, int estoque, decimal precoVenda, Marca marca)
         {
             Id = id;
             Nome = nome;
-            Quantidade = quantidade;
+            Estoque = estoque;
             PrecoVenda = precoVenda;
             Marca = marca;
             
@@ -48,10 +48,10 @@ namespace RCM.Domain.Models.ProdutoModels
             _aplicacoes = new List<ProdutoAplicacao>();
         }
 
-        public Produto(string nome, int quantidade, decimal precoVenda, Marca marca)
+        public Produto(string nome, int estoque, decimal precoVenda, Marca marca)
         {
             Nome = nome;
-            Quantidade = quantidade;
+            Estoque = estoque;
             PrecoVenda = precoVenda;
             Marca = marca;
 
@@ -59,9 +59,9 @@ namespace RCM.Domain.Models.ProdutoModels
             _aplicacoes = new List<ProdutoAplicacao>();
         }
 
-        public void ReporEstoque(int quantidade)
+        public void ReporEstoque(int estoque)
         {
-            Quantidade += quantidade;
+            Estoque += estoque;
         }
 
         public void AdicionarAplicacao(Aplicacao aplicacao)

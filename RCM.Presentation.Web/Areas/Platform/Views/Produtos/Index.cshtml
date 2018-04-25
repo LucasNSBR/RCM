@@ -42,12 +42,12 @@
                     <label for="maxValor">Preço máximo</label>
                 </div>
                 <div class="input-field col s12 m3">
-                    <input asp-for="MinQuantidade" name="minQuantidade" type="text" id="minQuantidade" />
-                    <label for="minQuantidade">Quantidade mínima</label>
+                    <input asp-for="MinEstoque" name="MinEstoque" type="text" id="minEstoque" />
+                    <label for="minEstoque">Estoque mínimo</label>
                 </div>
                 <div class="input-field col s12 m3">
-                    <input asp-for="MaxQuantidade" name="maxQuantidade" type="text" id="maxQuantidade" />
-                    <label for="maxQuantidade">Quantidade máxima</label>
+                    <input asp-for="MaxEstoque" name="MaxEstoque" type="text" id="maxEstoque" />
+                    <label for="maxEstoque">Estoque máximo</label>
                 </div>
                 <div class="input-field col s12 m6">
                     <select asp-for="MarcaId" name="marcaId" asp-items="@(new SelectList(Model.Marcas, "Id", "Nome"))" id="marcaId">
@@ -68,7 +68,7 @@
                         @Html.DisplayNameFor(model => model.Produtos.List.FirstOrDefault().Nome)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Produtos.List.FirstOrDefault().Quantidade)
+                        @Html.DisplayNameFor(model => model.Produtos.List.FirstOrDefault().Estoque)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Produtos.List.FirstOrDefault().PrecoVenda)
@@ -89,7 +89,7 @@
                             @Html.DisplayFor(modelItem => item.Nome)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Quantidade)
+                            @Html.DisplayFor(modelItem => item.Estoque)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.PrecoVenda)
@@ -110,8 +110,8 @@
                                                 { "marcaId", Model.MarcaId?.ToString() },
                                                 { "minValor", Model.MinValor?.ToString() },
                                                 { "maxValor", Model.MaxValor?.ToString() },
-                                                { "minQuantidade", Model.MinQuantidade.ToString() },
-                                                { "maxQuantidade", Model.MaxQuantidade.ToString() },
+                                                { "minEstoque", Model.MinEstoque.ToString() },
+                                                { "maxEstoque", Model.MaxEstoque.ToString() },
                                                 { "nome", Model.Nome?.ToString() },
                                                 { "pageSize", Model.Produtos.PageSize.ToString() },
                                             };

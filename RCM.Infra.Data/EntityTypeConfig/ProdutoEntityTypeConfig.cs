@@ -15,7 +15,7 @@ namespace RCM.Infra.Data.EntityTypeConfig
                 .IsRequired()
                 .HasMaxLength(100);
 
-            builder.Property(p => p.Quantidade)
+            builder.Property(p => p.Estoque)
                 .IsRequired()
                 .HasMaxLength(4);
 
