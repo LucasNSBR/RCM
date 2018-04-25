@@ -56,7 +56,7 @@ namespace RCM.Domain.CommandHandlers
         {
             foreach (var error in command.ValidationResult.Errors)
             {
-                _commandResponse.AddError(new CommandError(error.ErrorCode, error.ErrorMessage));
+                _commandResponse.AddError(new CommandError(error.ErrorMessage, error.ErrorCode));
             }
         }
 

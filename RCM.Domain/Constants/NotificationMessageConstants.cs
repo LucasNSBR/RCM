@@ -2,12 +2,12 @@
 {
     public abstract class NotificationMessageConstants
     {
-        public const string ModelStateError = "MODEL STATE ERROR";
-        public const string CommitError = "COMMIT ERROR";
-        public const string AuthenticationError = "AUTHENTICATION ERROR";
-        public const string CommandValidationError = "COMMAND VALIDATION ERROR";
-        public const string UndefinedError = "UNDEFINED ERROR";
+        public const string ModelStateError = "Erro no formulário";
+        public const string CommitError = "Erro no Commit dos dados";
+        public const string AuthenticationError = "Erro de autenticação";
+        public const string CommandValidationError = "Erro na validação do comando";
+        public const string UndefinedError = "Erro indefinido";
 
-        public const string CommandSuccess = "COMMAND SUCCESS";
+        public const string CommandSuccess = "Sucesso";
     }
 }
