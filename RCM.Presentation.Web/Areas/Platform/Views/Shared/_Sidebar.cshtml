@@ -1,4 +1,6 @@
-﻿<div id="sidebar" class="position-fixed col s12 m2">
+﻿@{ var route = Url.GetControllerName(); }
+
+<div id="sidebar" class="position-fixed col s12 m2">
     <div class="z-depth-5" id="homeButton">
         <a asp-action="Index" asp-controller="Home" class="white-text">
             <i class="material-icons left">home</i>Home
@@ -6,52 +8,52 @@
     </div>
     <ul class="collection no-border no-margin">
         <li>
-            <a asp-action="Index" asp-controller="Duplicatas" class="collection-item">
+            <a asp-action="Index" asp-controller="Duplicatas" class="collection-item @(route == "duplicatas" ? "active" : "")">
                 <i class="material-icons left tiny">payment</i>Duplicatas
             </a>
         </li>
         <li>
-            <a asp-action="Index" asp-controller="Cheques" class="collection-item">
+            <a asp-action="Index" asp-controller="Cheques" class="collection-item @(route == "cheques" ? "active" : "")">
                 <i class="material-icons left tiny">note</i>Cheques
             </a>
         </li>
         <li>
-            <a asp-action="Index" asp-controller="Clientes" class="collection-item">
+            <a asp-action="Index" asp-controller="Clientes" class="collection-item @(route == "clientes" ? "active" : "")">
                 <i class="material-icons left tiny">perm_identity</i>Clientes
             </a>
         </li>
         <li>
-            <a asp-action="Index" asp-controller="Produtos" class="collection-item">
+            <a asp-action="Index" asp-controller="Produtos" class="collection-item @(route == "produtos" ? "active" : "")">
                 <i class="material-icons left tiny">shopping_basket</i>Estoque
             </a>
         </li>
         <li>
-            <a asp-action="Index" asp-controller="Marcas" class="collection-item">
+            <a asp-action="Index" asp-controller="Marcas" class="collection-item @(route == "marcas" ? "active" : "")">
                 <i class="material-icons left tiny">loyalty</i>Marcas
             </a>
         </li>
         <li>
-            <a asp-action="Index" asp-controller="Fornecedores" class="collection-item">
+            <a asp-action="Index" asp-controller="Fornecedores" class="collection-item @(route == "fornecedores" ? "active" : "")">
                 <i class="material-icons left tiny">store</i>Fornecedores
             </a>
         </li>
         <li>
-            <a asp-action="Index" asp-controller="OrdensServico" class="collection-item">
+            <a asp-action="Index" asp-controller="OrdensServico" class="collection-item @(route == "ordensservico" ? "active" : "")">
                 <i class="material-icons left tiny">assignment</i>Ordens de Serviço
             </a>
         </li>
         <li>
-            <a asp-action="Index" asp-controller="Vendas" class="collection-item">
+            <a asp-action="Index" asp-controller="Vendas" class="collection-item @(route == "vendas" ? "active" : "")">
                 <i class="material-icons left tiny">receipt</i>Vendas
             </a>
         </li>
         <li>
-            <a asp-action="Index" asp-controller="Bancos" class="collection-item">
+            <a asp-action="Index" asp-controller="Bancos" class="collection-item @(route == "bancos" ? "active" : "")">
                 <i class="material-icons left tiny">account_balance</i>Bancos
             </a>
         </li>
         <li>
-            <a asp-action="Index" asp-controller="NotasFiscais" class="collection-item">
+            <a asp-action="Index" asp-controller="NotasFiscais" class="collection-item @(route == "notasfiscais" ? "active" : "")">
                 <i class="material-icons left tiny">library_books</i>Notas fiscais
             </a>
         </li>

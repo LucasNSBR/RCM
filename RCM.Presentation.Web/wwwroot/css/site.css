@@ -104,7 +104,7 @@ tbody tr {
 }
 
 .collection-item {
-    color: lightgray !important;
+    color: #b5b5b5 !important;
     font-size: 13px;
     font-weight: 500;
     padding-top: 15px !important;
@@ -135,6 +135,11 @@ tbody tr {
 
 #sidebar .collection-item:hover {
     background-color: #0f1417 !important;
+}
+
+#sidebar .collection-item.active {
+        background-color: #9c27b0 !important;
+        color: white!important;
 }
 
 
