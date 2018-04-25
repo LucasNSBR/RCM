@@ -9,6 +9,9 @@ namespace RCM.Domain.Models.ProdutoModels
     public class Produto : Entity<Produto>
     {
         public string Nome { get; private set; }
+        public string ReferenciaFabricante { get; private set; }
+        public string ReferenciaOriginal { get; private set; }
+        public string ReferenciaAuxiliar { get; private set; }
 
         private List<ProdutoAplicacao> _aplicacoes;
         public virtual IReadOnlyList<ProdutoAplicacao> Aplicacoes
@@ -20,6 +23,9 @@ namespace RCM.Domain.Models.ProdutoModels
         }
 
         public int Estoque { get; private set; }
+        public int EstoqueMinimo { get; private set; }
+        public int EstoqueIdeal { get; private set; }
+
         public decimal PrecoVenda { get; private set; }
 
         private List<Fornecedor> _fornecedores;
