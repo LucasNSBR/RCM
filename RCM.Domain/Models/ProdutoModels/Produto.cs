@@ -40,8 +40,6 @@ namespace RCM.Domain.Models.ProdutoModels
         public Guid MarcaId { get; private set; }
         public virtual Marca Marca { get; private set; }
 
-        protected Produto() { }
-
         public Produto(Guid id, string nome, int estoque, decimal precoVenda, Marca marca)
         {
             Id = id;
@@ -58,6 +56,33 @@ namespace RCM.Domain.Models.ProdutoModels
         {
             Nome = nome;
             Estoque = estoque;
+            PrecoVenda = precoVenda;
+            Marca = marca;
+
+            _fornecedores = new List<Fornecedor>();
+            _aplicacoes = new List<ProdutoAplicacao>();
+        }
+
+        public Produto(string nome, int estoque, int estoqueMinimo, int estoqueIdeal, decimal precoVenda, Marca marca)
+        {
+            Nome = nome;
+            Estoque = estoque;
+            EstoqueMinimo = estoqueMinimo;
+            EstoqueIdeal = estoqueIdeal;
+            PrecoVenda = precoVenda;
+            Marca = marca;
+
+            _fornecedores = new List<Fornecedor>();
+            _aplicacoes = new List<ProdutoAplicacao>();
+        }
+
+        public Produto(Guid id, string nome, int estoque, int estoqueMinimo, int estoqueIdeal, decimal precoVenda, Marca marca)
+        {
+            Id = id;
+            Nome = nome;
+            Estoque = estoque;
+            EstoqueMinimo = estoqueMinimo;
+            EstoqueIdeal = estoqueIdeal;
             PrecoVenda = precoVenda;
             Marca = marca;
 
