@@ -15,6 +15,7 @@ namespace RCM.Application.ViewModels
         public string Nome { get; set; }
 
         [Display(Name = "Observações")]
+        [StringLength(1000, MinimumLength = 0, ErrorMessage = "O campo observação deve ter até 1000 caracteres.")]
         public string Observacao { get; set; }
 
         [Display(Name = "Id do Cliente")]

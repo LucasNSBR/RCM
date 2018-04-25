@@ -25,6 +25,7 @@ namespace RCM.Application.ViewModels
         public string Bairro { get; set; }
 
         [Display(Name = "Complemento")]
+        [StringLength(100, MinimumLength = 0, ErrorMessage = "O campo complemento deve ter até 100 caracteres.")]
         public string Complemento { get; set; }
 
         [Display(Name = "CEP")]

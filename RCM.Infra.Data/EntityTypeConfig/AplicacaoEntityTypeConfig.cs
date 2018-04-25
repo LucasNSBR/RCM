@@ -13,6 +13,10 @@ namespace RCM.Infra.Data.EntityTypeConfig
 
             builder.OwnsOne(c => c.Carro, cfg =>
             {
+                cfg.Property(c => c.Ano)
+                    .HasMaxLength(4)
+                    .HasColumnName("Ano");
+
                 cfg.Property(c => c.Marca)
                     .IsRequired()
                     .HasMaxLength(100)
@@ -23,14 +27,13 @@ namespace RCM.Infra.Data.EntityTypeConfig
                     .HasMaxLength(250)
                     .HasColumnName("Modelo");
 
-                cfg.Property(c => c.Ano)
-                    .HasColumnName("Ano");
+                cfg.Property(c => c.Motor)
+                    .HasMaxLength(100)
+                    .HasColumnName("Motor");
 
                 cfg.Property(c => c.Observacao)
+                    .HasMaxLength(1000)
                     .HasColumnName("Observacao");
-
-                cfg.Property(c => c.Motor)
-                    .HasColumnName("Motor");
             });
         }
     }

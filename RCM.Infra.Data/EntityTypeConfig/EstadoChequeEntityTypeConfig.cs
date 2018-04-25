@@ -8,7 +8,8 @@ namespace RCM.Infra.Data.EntityTypeConfig
     {
         public void Configure(EntityTypeBuilder<EstadoCheque> builder)
         {
-            builder.HasKey(k => k.ChequeId);
+            builder
+                .HasKey(k => k.ChequeId);
 
             builder.HasOne(c => c.Cheque)
               .WithOne(ec => ec.EstadoCheque)

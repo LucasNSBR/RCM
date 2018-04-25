@@ -31,7 +31,6 @@ namespace RCM.Application.ViewModels
         [Display(Name = "Valor")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo valor é requerido.")]
         [DisplayFormat(ApplyFormatInEditMode = false, ConvertEmptyStringToNull = true, DataFormatString = "{0:c}")]
-        [Range(0, 9999, ErrorMessage = "O campo valor deve ter entre 1 e 5 caracteres.")]
         public decimal Valor { get; set; }
     }
 }
