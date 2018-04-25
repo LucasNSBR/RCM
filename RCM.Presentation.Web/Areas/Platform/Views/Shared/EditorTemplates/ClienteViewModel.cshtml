@@ -4,14 +4,14 @@
 <div class="row">
     <div class="col s12 m6">
         <label asp-for="Nome"></label>
-        <input asp-for="Nome" class="input-field" />
+        <input asp-for="Nome" class="input-field" data-length="100"/>
         <span asp-validation-for="Nome" class="text-danger"></span>
     </div>
 </div>
 <div class="row">
     <div class="col s12 m6">
         <label asp-for="Descricao"></label>
-        <textarea asp-for="Descricao" class="materialize-textarea"></textarea>
+        <textarea asp-for="Descricao" class="materialize-textarea" data-length="1000"></textarea>
         <span asp-validation-for="Descricao" class="text-danger"></span>
     </div>
 </div>

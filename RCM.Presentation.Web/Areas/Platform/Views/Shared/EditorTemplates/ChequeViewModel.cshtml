@@ -19,7 +19,7 @@
         <div class="row">
             <div class="input-field col s12 m6">
                 <label asp-for="NumeroCheque"></label>
-                <input asp-for="NumeroCheque" class="input-field" id="numeroDocumento" />
+                <input asp-for="NumeroCheque" class="input-field" id="numeroDocumento" data-length="8"/>
                 <span asp-validation-for="NumeroCheque" class="text-danger"></span>
             </div>
         </div>
@@ -53,14 +53,14 @@
         <div class="row">
             <div class="input-field col s12 m6">
                 <label asp-for="Agencia"></label>
-                <input asp-for="Agencia" class="input-field" id="agencia" />
+                <input asp-for="Agencia" class="input-field" id="agencia" data-length="5"/>
                 <span asp-validation-for="Agencia" class="text-danger"></span>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12 m6">
                 <label asp-for="Conta"></label>
-                <input asp-for="Conta" class="input-field" id="conta" />
+                <input asp-for="Conta" class="input-field" id="conta" data-length="10"/>
                 <span asp-validation-for="Conta" class="text-danger"></span>
             </div>
         </div>

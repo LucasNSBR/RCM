@@ -8,14 +8,14 @@
 <div class="row">
     <div class="input-field col s12 m6">
         <label asp-for="CodigoCompensacao">Código de compensação</label>
-        <input asp-for="CodigoCompensacao" class="input-field" data-val-number="O valor deve estar em um formato válido." id="codigoCompensacao"/>
+        <input asp-for="CodigoCompensacao" class="input-field" data-val-number="O valor deve estar em um formato válido." data-length="4" id="codigoCompensacao" />
         <span asp-validation-for="CodigoCompensacao" class="text-danger"></span>
     </div>
 </div>
 <div class="row">
     <div class="input-field col s12 m6">
         <label asp-for="Nome">Nome</label>
-        <input asp-for="Nome" class="input-field" id="nome" />
+        <input asp-for="Nome" class="input-field" id="nome" data-length="50" />
         <span asp-validation-for="Nome" class="text-danger"></span>
     </div>
 </div>

@@ -22,7 +22,7 @@ namespace RCM.Infra.Data.EntityTypeConfig
 
             builder.Property(c => c.Conta)
                 .IsRequired()
-                .HasMaxLength(10);
+                .HasMaxLength(6);
 
             builder.Property(c => c.NumeroCheque)
                 .IsRequired()
