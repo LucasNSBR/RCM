@@ -90,6 +90,13 @@ namespace RCM.Domain.Models.ProdutoModels
             _aplicacoes = new List<ProdutoAplicacao>();
         }
         
+        public void AdicionarReferencias(string referenciaFabricante, string referenciaOriginal, string referenciaAuxiliar)
+        {
+            ReferenciaAuxiliar = referenciaAuxiliar ?? ReferenciaAuxiliar;
+            ReferenciaFabricante = referenciaFabricante ?? ReferenciaFabricante;
+            ReferenciaOriginal = referenciaOriginal ?? ReferenciaOriginal;
+        }
+
         public void ReporEstoque(int estoque)
         {
             Estoque += estoque;
