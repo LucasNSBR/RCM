@@ -5,7 +5,7 @@ namespace RCM.Domain.Commands.ProdutoCommands
 {
     public class UpdateProdutoCommand : ProdutoCommand
     {
-        public UpdateProdutoCommand(Guid id, string nome, int estoque, int estoqueMinimo, int estoqueIdeal, decimal precoVenda, Guid marcaId)
+        public UpdateProdutoCommand(Guid id, string nome, int estoque, int estoqueMinimo, int estoqueIdeal, decimal precoVenda, Guid marcaId, string referenciaFabricante, string referenciaOriginal, string referenciaAuxiliar)
         {
             Id = id;
             Nome = nome;
@@ -14,6 +14,9 @@ namespace RCM.Domain.Commands.ProdutoCommands
             EstoqueIdeal = estoqueIdeal;
             PrecoVenda = precoVenda;
             MarcaId = marcaId;
+            ReferenciaFabricante = referenciaFabricante;
+            ReferenciaOriginal = referenciaOriginal;
+            ReferenciaAuxiliar = referenciaAuxiliar;
         }
         
         public override bool IsValid()

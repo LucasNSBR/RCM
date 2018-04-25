@@ -42,29 +42,6 @@ namespace RCM.Domain.Models.ProdutoModels
         
         protected Produto() { }
 
-        public Produto(Guid id, string nome, int estoque, decimal precoVenda, Marca marca)
-        {
-            Id = id;
-            Nome = nome;
-            Estoque = estoque;
-            PrecoVenda = precoVenda;
-            Marca = marca;
-            
-            _fornecedores = new List<Fornecedor>();
-            _aplicacoes = new List<ProdutoAplicacao>();
-        }
-
-        public Produto(string nome, int estoque, decimal precoVenda, Marca marca)
-        {
-            Nome = nome;
-            Estoque = estoque;
-            PrecoVenda = precoVenda;
-            Marca = marca;
-
-            _fornecedores = new List<Fornecedor>();
-            _aplicacoes = new List<ProdutoAplicacao>();
-        }
-
         public Produto(string nome, int estoque, int estoqueMinimo, int estoqueIdeal, decimal precoVenda, Marca marca)
         {
             Nome = nome;

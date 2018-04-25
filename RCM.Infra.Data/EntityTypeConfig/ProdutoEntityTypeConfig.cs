@@ -44,10 +44,5 @@ namespace RCM.Infra.Data.EntityTypeConfig
                 .WithMany(m => m.Produtos)
                 .HasForeignKey(p => p.MarcaId);
         }
-
-        public int Estoque { get; private set; }
-        public int EstoqueMinimo { get; private set; }
-        public int EstoqueIdeal { get; private set; }
-
     }
 }

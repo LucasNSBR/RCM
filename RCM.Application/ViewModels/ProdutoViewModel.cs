@@ -35,12 +35,12 @@ namespace RCM.Application.ViewModels
         [Display(Name = "Estoque Mínimo")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo estoque mínimo é requerido.")]
         [Range(0, 9999, ErrorMessage = "A quantidade mínima no estoque deve estar em um formato válido.")]
-        public int EstoqueMinimo { get; private set; }
+        public int EstoqueMinimo { get; set; }
 
         [Display(Name = "Estoque Ideal")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo estoque ideal é requerido.")]
         [Range(0, 9999, ErrorMessage = "A quantidade ideal no estoque deve estar em um formato válido.")]
-        public int EstoqueIdeal { get; private set; }
+        public int EstoqueIdeal { get; set; }
 
         [Display(Name = "Preço de Venda")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo preço de venda é requerido.")]
