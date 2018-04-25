@@ -51,7 +51,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
 
             var viewModel = new DuplicataIndexViewModel {
                 Duplicatas = list.ToPagedList(pageNumber, pageSize),
-                Fornecedores = _fornecedorApplicationService.Get(),
+                Fornecedores = _fornecedorApplicationService.Get().OrderBy(f => f.Nome),
                 ApenasNaoPagas = apenasNaoPagas,
                 ApenasVencidas = apenasVencidas,
                 MinValor = minValor,
@@ -227,7 +227,8 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
 
         public JsonResult GetFornecedores()
         {
-            return Json(_fornecedorApplicationService.Get().ToList());
+            return Json(_fornecedorApplicationService.Get()
+                .OrderBy(f => f.Nome));
         }
     }
 }

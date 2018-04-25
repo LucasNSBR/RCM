@@ -53,7 +53,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             var viewModel = new ChequesIndexViewModel
             {
                 Cheques = list.ToPagedList(pageNumber, pageSize),
-                Clientes = _clienteApplicationService.Get(),
+                Clientes = _clienteApplicationService.Get().OrderBy(c => c.Nome),
                 MinValor = minValor,
                 MaxValor = maxValor,
                 ClienteId = clienteId,
@@ -330,12 +330,14 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
 
         public JsonResult GetClientes()
         {
-            return Json(_clienteApplicationService.Get().ToList());
+            return Json(_clienteApplicationService.Get()
+                .OrderBy(c => c.Nome));
         }
 
         public JsonResult GetBancos()
         {
-            return Json(_bancoApplicationService.Get().ToList());
+            return Json(_bancoApplicationService.Get()
+                .OrderBy(b => b.Nome));
         }
     }
 }

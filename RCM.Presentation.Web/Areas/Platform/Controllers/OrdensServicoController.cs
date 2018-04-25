@@ -5,8 +5,6 @@ using RCM.Application.ViewModels;
 using RCM.Domain.DomainNotificationHandlers;
 using RCM.Presentation.Web.Controllers;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace RCM.Presentation.Web.Areas.Platform.Controllers
 {

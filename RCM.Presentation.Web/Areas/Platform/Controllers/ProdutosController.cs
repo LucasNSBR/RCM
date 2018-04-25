@@ -9,6 +9,7 @@ using RCM.Presentation.Web.Controllers;
 using RCM.Presentation.Web.Extensions;
 using RCM.Presentation.Web.ViewModels;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace RCM.Presentation.Web.Areas.Platform.Controllers
@@ -45,7 +46,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             var viewModel = new ProdutosIndexViewModel
             {
                 Produtos = list.ToPagedList(pageNumber, pageSize),
-                Marcas = _marcaApplicationService.Get(),
+                Marcas = _marcaApplicationService.Get().OrderBy(m => m.Nome),
                 MarcaId = marcaId,
                 Nome = nome,
                 MinValor = minValor,
@@ -252,12 +253,16 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
 
         public JsonResult GetAplicacoes()
         {
-            return Json(_aplicacaoApplicationService.Get());
+            return Json(_aplicacaoApplicationService.Get()
+                .OrderBy(a => a.Marca)
+                .ThenBy(a => a.Modelo)
+                .ThenByDescending(a => a.Ano));
         }
 
         public JsonResult GetMarcas()
         {
-            return Json(_marcaApplicationService.Get());
+            return Json(_marcaApplicationService.Get()
+                .OrderBy(m => m.Nome));
         }
     }
 }
