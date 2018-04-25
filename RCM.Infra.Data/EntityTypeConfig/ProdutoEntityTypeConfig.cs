@@ -15,7 +15,24 @@ namespace RCM.Infra.Data.EntityTypeConfig
                 .IsRequired()
                 .HasMaxLength(100);
 
+            builder.Property(p => p.ReferenciaFabricante)
+                .HasMaxLength(25);
+
+            builder.Property(p => p.ReferenciaOriginal)
+                .HasMaxLength(25);
+
+            builder.Property(p => p.ReferenciaAuxiliar)
+                .HasMaxLength(50);
+
             builder.Property(p => p.Estoque)
+                .IsRequired()
+                .HasMaxLength(4);
+
+            builder.Property(p => p.EstoqueMinimo)
+                .IsRequired()
+                .HasMaxLength(4);
+
+            builder.Property(p => p.EstoqueIdeal)
                 .IsRequired()
                 .HasMaxLength(4);
 
@@ -27,5 +44,10 @@ namespace RCM.Infra.Data.EntityTypeConfig
                 .WithMany(m => m.Produtos)
                 .HasForeignKey(p => p.MarcaId);
         }
+
+        public int Estoque { get; private set; }
+        public int EstoqueMinimo { get; private set; }
+        public int EstoqueIdeal { get; private set; }
+
     }
 }
