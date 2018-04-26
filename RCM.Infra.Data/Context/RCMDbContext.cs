@@ -58,6 +58,7 @@ namespace RCM.Infra.Data.Context
             modelBuilder.ApplyConfiguration(new OrdemServicoEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new ProdutoEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new ProdutoAplicacaoEntityTypeConfig());
+            modelBuilder.ApplyConfiguration(new ProdutoFornecedorEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new VendaEntityTypeConfig());
 
             ConfigureChequeEstado(modelBuilder);

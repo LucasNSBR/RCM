@@ -30,8 +30,8 @@ namespace RCM.Domain.Models.FornecedorModels
             }
         }
 
-        private List<Produto> _produtos;
-        public virtual IReadOnlyList<Produto> Produtos
+        private List<ProdutoFornecedor> _produtos;
+        public virtual IReadOnlyList<ProdutoFornecedor> Produtos
         {
             get
             {
@@ -49,7 +49,7 @@ namespace RCM.Domain.Models.FornecedorModels
 
             _duplicatas = new List<Duplicata>();
             _notasFiscais = new List<NotaFiscal>();
-            _produtos = new List<Produto>();
+            _produtos = new List<ProdutoFornecedor>();
         }
 
         public Fornecedor(string nome, string observacao = null)
@@ -59,7 +59,7 @@ namespace RCM.Domain.Models.FornecedorModels
 
             _duplicatas = new List<Duplicata>();
             _notasFiscais = new List<NotaFiscal>();
-            _produtos = new List<Produto>();
+            _produtos = new List<ProdutoFornecedor>();
         }
     }
 }
