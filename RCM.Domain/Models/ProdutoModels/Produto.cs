@@ -28,8 +28,8 @@ namespace RCM.Domain.Models.ProdutoModels
 
         public decimal PrecoVenda { get; private set; }
 
-        private List<Fornecedor> _fornecedores;
-        public virtual IReadOnlyList<Fornecedor> Fornecedores
+        private List<ProdutoFornecedor> _fornecedores;
+        public virtual IReadOnlyList<ProdutoFornecedor> Fornecedores
         {
             get
             {
@@ -51,7 +51,7 @@ namespace RCM.Domain.Models.ProdutoModels
             PrecoVenda = precoVenda;
             Marca = marca;
 
-            _fornecedores = new List<Fornecedor>();
+            _fornecedores = new List<ProdutoFornecedor>();
             _aplicacoes = new List<ProdutoAplicacao>();
         }
 
@@ -65,7 +65,7 @@ namespace RCM.Domain.Models.ProdutoModels
             PrecoVenda = precoVenda;
             Marca = marca;
 
-            _fornecedores = new List<Fornecedor>();
+            _fornecedores = new List<ProdutoFornecedor>();
             _aplicacoes = new List<ProdutoAplicacao>();
         }
         
