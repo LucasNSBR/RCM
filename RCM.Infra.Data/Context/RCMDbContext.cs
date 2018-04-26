@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RCM.Domain.Core.Models;
 using RCM.Domain.Models;
 using RCM.Domain.Models.BancoModels;
 using RCM.Domain.Models.ChequeModels;
