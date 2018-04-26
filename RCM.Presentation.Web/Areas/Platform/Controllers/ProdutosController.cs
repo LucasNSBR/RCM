@@ -21,13 +21,15 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         private readonly IProdutoApplicationService _produtoApplicationService;
         private readonly IMarcaApplicationService _marcaApplicationService;
         private readonly IAplicacaoApplicationService _aplicacaoApplicationService;
+        private readonly IFornecedorApplicationService _fornecedorApplicationService;
 
-        public ProdutosController(IProdutoApplicationService produtoApplicationService, IMarcaApplicationService marcaApplicationService, IAplicacaoApplicationService aplicacaoApplicationService, IDomainNotificationHandler domainNotificationHandler) :
+        public ProdutosController(IProdutoApplicationService produtoApplicationService, IMarcaApplicationService marcaApplicationService, IAplicacaoApplicationService aplicacaoApplicationService, IFornecedorApplicationService fornecedorApplicationService, IDomainNotificationHandler domainNotificationHandler) :
                                                                                                                     base(domainNotificationHandler)
         {
             _produtoApplicationService = produtoApplicationService;
             _marcaApplicationService = marcaApplicationService;
             _aplicacaoApplicationService = aplicacaoApplicationService;
+            _fornecedorApplicationService = fornecedorApplicationService;
         }
 
         public IActionResult Index(Guid? marcaId, string minValor, string maxValor, int? minEstoque, int? maxEstoque, string nome, int pageNumber = 1, int pageSize = 20)
@@ -249,6 +251,38 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 NotifyCommandResultErrors(commandResult.Errors);
 
             return RedirectToAction(nameof(Details), new { id });
+        }
+
+        [Authorize(Policy = "ActiveUser")]
+        public IActionResult AttachFornecedor(Guid id)
+        {
+            ProdutoFornecedorViewModel produtoFornecedor = new ProdutoFornecedorViewModel()
+            {
+                ProdutoId = id,
+            };
+
+            return View(produtoFornecedor);
+        }
+
+        [Authorize(Policy = "ActiveUser")]
+        [HttpPost]
+        public async Task<IActionResult> AttachFornecedor(ProdutoFornecedorViewModel produtoFornecedor)
+        {
+            var commandResult = await _produtoApplicationService.AdicionarFornecedor(produtoFornecedor);
+
+            if (commandResult.Success)
+                NotifyCommandResultSuccess();
+            else
+                NotifyCommandResultErrors(commandResult.Errors);
+
+            return View(produtoFornecedor);
+        }
+
+
+        public JsonResult GetFornecedores()
+        {
+            return Json(_fornecedorApplicationService.Get()
+                .OrderBy(f => f.Nome));
         }
 
         public JsonResult GetAplicacoes()

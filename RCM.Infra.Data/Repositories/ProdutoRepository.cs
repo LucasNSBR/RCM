@@ -19,6 +19,8 @@ namespace RCM.Infra.Data.Repositories
                 .Include(p => p.Marca)
                 .Include(ap => ap.Aplicacoes)
                 .ThenInclude((ProdutoAplicacao a) => a.Aplicacao)
+                .Include(pf => pf.Fornecedores)
+                .ThenInclude((ProdutoFornecedor f) => f.Fornecedor)
                 .FirstOrDefault(p => p.Id == id);
         }
     }

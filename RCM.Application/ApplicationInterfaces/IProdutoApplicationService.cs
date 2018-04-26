@@ -11,5 +11,7 @@ namespace RCM.Application.ApplicationInterfaces
         Task<CommandResult> RelacionarAplicacao(ProdutoViewModel produtoViewModel, AplicacaoViewModel aplicacaoViewModel);
         Task<CommandResult> AdicionarAplicacao(ProdutoViewModel viewModel, AplicacaoViewModel aplicacaoViewModel);
         Task<CommandResult> RemoverAplicacao(Guid produtoId, Guid aplicacaoId);
+
+        Task<CommandResult> AdicionarFornecedor(ProdutoFornecedorViewModel produtoFornecedorViewModel);
     }
 }

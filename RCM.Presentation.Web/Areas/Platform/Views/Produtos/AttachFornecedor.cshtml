@@ -1,0 +1,99 @@
+﻿@using RCM.Domain.Models.ProdutoModels;
+
+@model RCM.Application.ViewModels.ProdutoFornecedorViewModel
+
+@{
+    ViewData["Title"] = "Adicionar fornecedor";
+}
+
+<h5>Adicionar</h5>
+
+<div class="form-container col s12 m12">
+    <form asp-action="AttachFornecedor">
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <input type="hidden" asp-for="ProdutoId" id="produtoId" />
+                <input type="hidden" asp-for="FornecedorId" id="fornecedorId" />
+                <select id="fornecedorSelect"></select>
+                <label asp-for="FornecedorId"></label>
+                <span asp-validation-for="FornecedorId" class="text-danger"></span>
+                <a asp-action="Create" asp-controller="Fornecedores">Adicionar nova fornecedor</a>
+            </div>
+            <div class="input-field col s12 m6 pt-1">
+                <button class="btn-flat mx-0 small" id="reload-fornecedores-button" type="button">
+                    Recarregar lista
+                </button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="PrecoCusto"></label>
+                <input asp-for="PrecoCusto" class="input-field" />
+                <span asp-validation-for="PrecoCusto" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <select asp-for="Disponibilidade" asp-items="@(new SelectList(Enum.GetNames(typeof(ProdutoDisponibilidadeEnum)).ToList()))" name="disponibilidade" class="input-field"></select>
+                <label for="disponibilidade">Disponibilidade</label>
+            </div>
+        </div>
+
+        <div class="row pt-2 px-1">
+            <post-button>Confirmar</post-button>
+        </div>
+    </form>
+</div>
+
+
+<div>
+    <a asp-action="Details" asp-route-id="@Model.ProdutoId">Voltar para detalhes</a>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        var fornecedoresUrl = '@Url.Action("GetFornecedores", "Produtos")';
+
+        function reloadSelect(dropdownName, url, inputId) {
+            var dropdown = $(dropdownName);
+            var fieldId = $(inputId).val();
+
+            $.ajax({
+                method: "GET",
+                url: url,
+            }).done(function (data) {
+                dropdown.empty();
+
+                $.each(data, function (index, item) {
+                    dropdown.append($("<option />").text(item.nome).val(item.id));
+                })
+
+                $(dropdown.find('option').each(function (index, item) {
+                    if (item.value === fieldId) {
+                        dropdown.prop('selectedIndex', index);
+                    }
+                }));
+
+                if (fieldId == "" || fieldId == "00000000-0000-0000-0000-000000000000")
+                    $(inputId).val(dropdown.find('option').first().val());
+
+                dropdown.material_select();
+            });
+        }
+
+        reloadSelect('#fornecedorSelect', fornecedoresUrl, '#fornecedorId');
+
+        $('#reload-fornecedores-button').click(function () {
+            reloadSelect('#fornecedorSelect', fornecedoresUrl, '#fornecedorId');
+        });
+
+        $('#fornecedorSelect').change(function () {
+            var optionId = $('#fornecedorSelect option:selected')[0].value;
+            $('#fornecedorId').val(optionId);
+        })
+    </script>
+}

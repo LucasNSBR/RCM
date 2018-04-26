@@ -76,7 +76,7 @@ namespace RCM.Domain.Models.ProdutoModels
             ReferenciaOriginal = referenciaOriginal ?? ReferenciaOriginal;
         }
 
-        public void AdicionarFornecedor(Fornecedor fornecedor, decimal precoCusto, DisponibilidadeEnum disponibilidade)
+        public void AdicionarFornecedor(Fornecedor fornecedor, decimal precoCusto, ProdutoDisponibilidadeEnum disponibilidade)
         {
             _fornecedores = _fornecedores ?? new List<ProdutoFornecedor>();
 

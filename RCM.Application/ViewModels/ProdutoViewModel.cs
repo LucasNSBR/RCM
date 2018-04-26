@@ -46,8 +46,8 @@ namespace RCM.Application.ViewModels
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo preço de venda é requerido.")]
         public decimal PrecoVenda { get; set; }
 
-        //[Display(Name = "Fornecedores")]
-        //public List<FornecedorViewModel> Fornecedores { get; set; }
+        [Display(Name = "Fornecedores")]
+        public List<FornecedorViewModel> Fornecedores { get; set; }
 
         [Display(Name = "Aplicações")]
         public List<AplicacaoViewModel> Aplicacoes { get; set; }

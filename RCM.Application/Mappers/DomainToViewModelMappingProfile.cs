@@ -40,6 +40,7 @@ namespace RCM.Application.Mappers
             CreateMap<Pagamento, PagamentoViewModel>();
             CreateMap<OrdemServico, OrdemServicoViewModel>();
             CreateMap<Marca, MarcaViewModel>();
+            CreateMap<ProdutoFornecedor, ProdutoFornecedorViewModel>();
 
             CreateMap<Aplicacao, AplicacaoViewModel>()
                 .ProjectUsing(a => new AplicacaoViewModel
@@ -56,6 +57,10 @@ namespace RCM.Application.Mappers
                 .ForMember(a => a.Aplicacoes, cfg =>
                 {
                     cfg.MapFrom(p => p.Aplicacoes.Select(a => a.Aplicacao));
+                })
+                .ForMember(p => p.Fornecedores, cfg =>
+                {
+                    cfg.MapFrom(p => p.Fornecedores.Select(f => f.Fornecedor));
                 });
         }
     }
