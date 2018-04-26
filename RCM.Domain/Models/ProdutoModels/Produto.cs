@@ -76,15 +76,31 @@ namespace RCM.Domain.Models.ProdutoModels
             ReferenciaOriginal = referenciaOriginal ?? ReferenciaOriginal;
         }
 
-        public void ReporEstoque(int estoque)
+        public void AdicionarFornecedor(Fornecedor fornecedor, decimal precoCusto, DisponibilidadeEnum disponibilidade)
         {
-            Estoque += estoque;
+            _fornecedores = _fornecedores ?? new List<ProdutoFornecedor>();
+
+            ProdutoFornecedor produtoFornecedor = new ProdutoFornecedor(this, fornecedor, precoCusto, disponibilidade);
+
+            if (!_fornecedores.Contains(produtoFornecedor))
+                _fornecedores.Add(produtoFornecedor);
+            else
+                AddDomainError("O fornecedor já está relacionado ao produto.");
+        }
+
+        public void RemoverFornecedor(Fornecedor fornecedor)
+        {
+            ProdutoFornecedor produtoFornecedor = new ProdutoFornecedor(this, fornecedor);
+
+            if (_fornecedores.Contains(produtoFornecedor))
+                _fornecedores.Remove(produtoFornecedor);
+            else
+                AddDomainError("O produto não está relacionado a esse fornecedor.");
         }
 
         public void AdicionarAplicacao(Aplicacao aplicacao)
         {
-            if (_aplicacoes == null)
-                _aplicacoes = new List<ProdutoAplicacao>();
+            _aplicacoes = _aplicacoes ?? new List<ProdutoAplicacao>();
             
             ProdutoAplicacao produtoAplicacao = new ProdutoAplicacao(this, aplicacao);
 
@@ -100,6 +116,14 @@ namespace RCM.Domain.Models.ProdutoModels
 
             if (_aplicacoes.Contains(produtoAplicacao))
                 _aplicacoes.Remove(produtoAplicacao);
+            else
+                AddDomainError("O produto não contém a aplicação.");
         }
+
+        public void ReporEstoque(int estoque)
+        {
+            Estoque += estoque;
+        }
+
     }
 }

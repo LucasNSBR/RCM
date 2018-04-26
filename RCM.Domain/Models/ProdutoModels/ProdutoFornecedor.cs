@@ -14,6 +14,12 @@ namespace RCM.Domain.Models.ProdutoModels
 
         protected ProdutoFornecedor() { }
 
+        public ProdutoFornecedor(Produto produto, Fornecedor fornecedor)
+        {
+            Produto = produto;
+            Fornecedor = fornecedor;
+        }
+
         public ProdutoFornecedor(Produto produto, Fornecedor fornecedor, decimal precoCusto, DisponibilidadeEnum disponibilidade)
         {
             Produto = produto;
