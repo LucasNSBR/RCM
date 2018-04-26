@@ -7,7 +7,7 @@ namespace RCM.Domain.Commands.ProdutoCommands
     {
         public UpdateProdutoCommand(Guid id, string nome, int estoque, int estoqueMinimo, int estoqueIdeal, decimal precoVenda, Guid marcaId, string referenciaFabricante, string referenciaOriginal, string referenciaAuxiliar)
         {
-            Id = id;
+            ProdutoId = id;
             Nome = nome;
             Estoque = estoque;
             EstoqueMinimo = estoqueMinimo;

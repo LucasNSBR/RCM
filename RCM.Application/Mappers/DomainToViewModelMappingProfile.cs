@@ -57,10 +57,6 @@ namespace RCM.Application.Mappers
                 .ForMember(a => a.Aplicacoes, cfg =>
                 {
                     cfg.MapFrom(p => p.Aplicacoes.Select(a => a.Aplicacao));
-                })
-                .ForMember(p => p.Fornecedores, cfg =>
-                {
-                    cfg.MapFrom(p => p.Fornecedores.Select(f => f.Fornecedor));
                 });
         }
     }

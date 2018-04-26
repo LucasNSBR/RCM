@@ -13,7 +13,7 @@ namespace RCM.Domain.Commands.ProdutoCommands
 
         public AddProdutoAplicacaoCommand(Guid produtoId, string marca, string modelo, int ano, string motor = null, string observacao = null)
         {
-            Id = produtoId;
+            ProdutoId = produtoId;
             MarcaCarroAplicacao = marca;
             ModeloCarroAplicacao = modelo;
             AnoCarroAplicacao = ano;

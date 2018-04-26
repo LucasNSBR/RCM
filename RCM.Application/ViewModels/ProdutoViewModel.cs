@@ -47,7 +47,7 @@ namespace RCM.Application.ViewModels
         public decimal PrecoVenda { get; set; }
 
         [Display(Name = "Fornecedores")]
-        public List<FornecedorViewModel> Fornecedores { get; set; }
+        public List<ProdutoFornecedorViewModel> Fornecedores { get; set; }
 
         [Display(Name = "Aplicações")]
         public List<AplicacaoViewModel> Aplicacoes { get; set; }

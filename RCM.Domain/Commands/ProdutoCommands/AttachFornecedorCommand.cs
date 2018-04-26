@@ -9,11 +9,10 @@ namespace RCM.Domain.Commands.ProdutoCommands
         public decimal PrecoCusto { get; set; }
         public ProdutoDisponibilidadeEnum Disponibilidade { get; set; }
         public Guid FornecedorId { get; set; }
-        public Guid ProdutoId { get; set; }
 
-        public AttachFornecedorCommand(Guid produtoId, Guid fornecedorId, decimal precoCusto, ProdutoDisponibilidadeEnum disponibilidade)
+        public AttachFornecedorCommand(Guid id, Guid fornecedorId, decimal precoCusto, ProdutoDisponibilidadeEnum disponibilidade)
         {
-            ProdutoId = produtoId;
+            ProdutoId = id;
             FornecedorId = fornecedorId;
             PrecoCusto = precoCusto;
             Disponibilidade = disponibilidade;

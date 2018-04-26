@@ -7,7 +7,7 @@ namespace RCM.Domain.Validators.ProdutoCommandValidators
     {
         public void ValidateId()
         {
-            RuleFor(p => p.Id)
+            RuleFor(p => p.ProdutoId)
                 .NotEmpty()
                 .WithMessage("O Id do produto não pode estar vazio.");
         }

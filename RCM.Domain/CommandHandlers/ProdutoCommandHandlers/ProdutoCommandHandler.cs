@@ -67,7 +67,7 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
             }
 
             Marca marca = _marcaRepository.GetById(command.MarcaId);
-            Produto produto = new Produto(command.Id, command.Nome, command.Estoque, command.EstoqueMinimo, command.EstoqueIdeal, command.PrecoVenda, marca);
+            Produto produto = new Produto(command.ProdutoId, command.Nome, command.Estoque, command.EstoqueMinimo, command.EstoqueIdeal, command.PrecoVenda, marca);
             produto.AdicionarReferencias(command.ReferenciaFabricante, command.ReferenciaOriginal, command.ReferenciaAuxiliar);
 
             _produtoRepository.Update(produto);
@@ -86,7 +86,7 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
                 return Response();
             }
 
-            Produto produto = _produtoRepository.GetById(command.Id);
+            Produto produto = _produtoRepository.GetById(command.ProdutoId);
             _produtoRepository.Remove(produto);
 
             if (Commit())
@@ -104,7 +104,7 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
             }
 
             Aplicacao aplicacao = _aplicacaoRepository.GetById(command.AplicacaoId);
-            Produto produto = _produtoRepository.GetById(command.Id);
+            Produto produto = _produtoRepository.GetById(command.ProdutoId);
 
             produto.AdicionarAplicacao(aplicacao);
             if (produto.ContainsErrors())
@@ -131,7 +131,7 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
 
             Carro carro = new Carro(command.MarcaCarroAplicacao, command.ModeloCarroAplicacao, command.AnoCarroAplicacao, command.MotorCarroAplicacao, command.ObservacaoCarroAplicacao);
             Aplicacao aplicacao = new Aplicacao(carro);
-            Produto produto = _produtoRepository.GetById(command.Id);
+            Produto produto = _produtoRepository.GetById(command.ProdutoId);
 
             produto.AdicionarAplicacao(aplicacao);
             _produtoRepository.Update(produto);
@@ -151,7 +151,7 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
             }
 
             Aplicacao aplicacao = _aplicacaoRepository.GetById(command.AplicacaoId);
-            Produto produto = _produtoRepository.GetById(command.Id);
+            Produto produto = _produtoRepository.GetById(command.ProdutoId);
 
             produto.RemoverAplicacao(aplicacao);
             _produtoRepository.Update(produto);

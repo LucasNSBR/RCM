@@ -7,7 +7,7 @@ namespace RCM.Domain.Commands.ProdutoCommands
     {
         public RemoveProdutoCommand(Guid id)
         {
-            Id = id;
+            ProdutoId = id;
         }
 
         public override bool IsValid()

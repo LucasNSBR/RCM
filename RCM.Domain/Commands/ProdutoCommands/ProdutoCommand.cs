@@ -5,7 +5,7 @@ namespace RCM.Domain.Commands.ProdutoCommands
 {
     public abstract class ProdutoCommand : Command
     {
-        public Guid Id { get; set; }
+        public Guid ProdutoId { get; set; }
         public string Nome { get; set; }
         public string ReferenciaFabricante { get; set; }
         public string ReferenciaOriginal { get; set; }

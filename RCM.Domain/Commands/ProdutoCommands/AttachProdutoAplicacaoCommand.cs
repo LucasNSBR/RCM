@@ -9,7 +9,7 @@ namespace RCM.Domain.Commands.ProdutoCommands
 
         public AttachProdutoAplicacaoCommand(Guid produtoId, Guid aplicacaoId)
         {
-            Id = produtoId;
+            ProdutoId = produtoId;
             AplicacaoId = aplicacaoId;
         }
 
