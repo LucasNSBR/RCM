@@ -254,7 +254,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         }
 
         [Authorize(Policy = "ActiveUser")]
-        public IActionResult AttachFornecedor(Guid id)
+        public IActionResult AttachSupplier(Guid id)
         {
             ProdutoFornecedorViewModel produtoFornecedor = new ProdutoFornecedorViewModel()
             {
@@ -266,7 +266,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
 
         [Authorize(Policy = "ActiveUser")]
         [HttpPost]
-        public async Task<IActionResult> AttachFornecedor(ProdutoFornecedorViewModel produtoFornecedor)
+        public async Task<IActionResult> AttachSupplier(ProdutoFornecedorViewModel produtoFornecedor)
         {
             var commandResult = await _produtoApplicationService.AdicionarFornecedor(produtoFornecedor);
 

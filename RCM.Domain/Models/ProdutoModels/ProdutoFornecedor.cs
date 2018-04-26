@@ -35,7 +35,7 @@ namespace RCM.Domain.Models.ProdutoModels
 
             if (ReferenceEquals(this, other))
                 return true;
-            if (other.ProdutoId == null || other.FornecedorId == null)
+            if (other.Produto == null || other.Fornecedor == null)
                 return false;
             if (Produto.Id == other.Produto.Id && Fornecedor.Id == other.Fornecedor.Id)
                 return true;
