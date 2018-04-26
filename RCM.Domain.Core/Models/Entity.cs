@@ -52,7 +52,7 @@ namespace RCM.Domain.Core.Models
 
         public void AddDomainError(string description, string code = null)
         {
-            _errors.Add(new DomainError(description));
+            _errors.Add(new DomainError(code, description));
         }
 
         public override bool Equals(object obj)

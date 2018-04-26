@@ -2,7 +2,7 @@
 {
     public class DomainError : Error
     {
-        public DomainError(string description, string code = null) : base(description, code)
+        public DomainError(string code, string description) : base(description, code)
         {
         }
     }
