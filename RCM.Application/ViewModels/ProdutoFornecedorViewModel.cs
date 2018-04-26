@@ -16,6 +16,9 @@ namespace RCM.Application.ViewModels
         public ProdutoDisponibilidadeEnum Disponibilidade { get; set; }
 
         public Guid ProdutoId { get; set; }
+        public ProdutoViewModel Produto { get; set; }
+
         public Guid FornecedorId { get; set; }
+        public FornecedorViewModel Fornecedor { get; set; }
     }
 }

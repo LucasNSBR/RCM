@@ -171,7 +171,7 @@
                             @foreach (var aplicacao in Model.Aplicacoes)
                             {
                                 <li>
-                                    @{ var title = $"{aplicacao.Marca} {aplicacao.Modelo}"; }
+                                    @{ var title = $"{aplicacao.Marca} {aplicacao.Modelo} - {aplicacao.Motor ?? "Sem informação de motor"}"; }
                                     <div class="collapsible-header">
                                         <div class="col s11">
                                             @title
@@ -183,7 +183,6 @@
                                         </div>
                                     </div>
                                     <div class="collapsible-body">
-                                        <p class="font-bold">@(aplicacao?.Motor ?? "Informação do motor não encontrada")</p>
                                         <p>@(aplicacao?.Observacao ?? "Nenhuma observação relacionada.")</p>
                                     </div>
                                 </li>
@@ -207,24 +206,41 @@
                 Informação sobre Fornecedor
             </p>
             <dl class="detail-list">
-                @*<dt>
-                        <label asp-for="@Model.Fornecedores"></label>
-                    </dt>
-                    <dd>
-                        @if (Model.Fornecedores.Any())
-                        {
-                            foreach (var fornecedor in Model.Fornecedores)
+                <dt>
+                    <label asp-for="@Model.ProdutoFornecedores"></label>
+                </dt>
+                <dd>
+                    @if (Model.ProdutoFornecedores.Any())
+                    {
+                        <ul class="collapsible z-depth-0" data-collapsible="accordion">
+
+                            @foreach (var fornecedor in Model.ProdutoFornecedores)
                             {
-                                <a asp-action="Details" asp-controller="Fornecedores" asp-route-id="@fornecedor.Nome">@fornecedor.Nome</a><br />
+                                <li>
+                                    <div class="collapsible-header">
+                                        <div class="col s11">
+                                            <a asp-action="Details" asp-controller="Fornecedores" asp-route-id="@fornecedor.FornecedorId">@fornecedor.Fornecedor.Nome</a>
+                                        </div>
+                                        <div class="col s1">
+                                            <a asp-action="UnattachFornecedor" asp-controller="Produtos" asp-route-aplicacaoId="@fornecedor.FornecedorId" asp-route-id="@Model.Id">
+                                                Remover
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="collapsible-body">
+                                        <p>@(fornecedor.Fornecedor?.Observacao ?? "Nenhuma observação relacionada.")</p>
+                                    </div>
+                                </li>
                             }
-                        }
-                        else
-                        {
-                            <span class="font-italic text-warning">
-                                <i class="material-icons left">warning</i>Nenhum fornecedor encontrado para este produto.
-                            </span>
-                        }
-                    </dd>*@
+                        </ul>
+                    }
+                    else
+                    {
+                        <span class="font-italic text-warning">
+                            <i class="material-icons left">warning</i> Nenhum fornecedor encontrado para este produto.
+                        </span>
+                    }
+                </dd>
             </dl>
         </div>
     </div>

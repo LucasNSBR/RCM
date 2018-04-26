@@ -81,7 +81,7 @@
             <tbody class="table-body">
                 @foreach (var item in Model.Produtos.List)
                 {
-                    <tr>
+                    <tr class="@(item.ItemEstoqueRazoavel ? "bg-warning" : "") @(item.ItemEstoqueBaixo ? "bg-danger" : "")">
                         <td class="d-hidden">
                             @Html.DisplayFor(modelItem => item.Id)
                         </td>

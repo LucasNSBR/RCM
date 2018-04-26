@@ -47,7 +47,7 @@ namespace RCM.Application.ViewModels
         public decimal PrecoVenda { get; set; }
 
         [Display(Name = "Fornecedores")]
-        public List<ProdutoFornecedorViewModel> Fornecedores { get; set; }
+        public List<ProdutoFornecedorViewModel> ProdutoFornecedores { get; set; }
 
         [Display(Name = "Aplicações")]
         public List<AplicacaoViewModel> Aplicacoes { get; set; }
@@ -58,9 +58,28 @@ namespace RCM.Application.ViewModels
         [Display(Name = "Marcas")]
         public MarcaViewModel Marca { get; set; }
 
+        #region Index View Helpers
+        public bool ItemEstoqueRazoavel
+        {
+            get
+            {
+                return Estoque < EstoqueIdeal && Estoque > EstoqueMinimo;
+            }
+        }
+
+        public bool ItemEstoqueBaixo
+        {
+            get
+            {
+                return Estoque <= EstoqueMinimo;
+            }
+        }
+        #endregion
+
         public ProdutoViewModel()
         {
             Aplicacoes = Aplicacoes ?? new List<AplicacaoViewModel>();
+            ProdutoFornecedores = ProdutoFornecedores ?? new List<ProdutoFornecedorViewModel>();
         }
     }
 }
