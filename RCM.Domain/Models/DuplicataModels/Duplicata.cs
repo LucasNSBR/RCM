@@ -28,8 +28,6 @@ namespace RCM.Domain.Models.DuplicataModels
             Fornecedor = fornecedor;
             Valor = valor;
             Observacao = observacao ?? Observacao;
-
-            Pagamento = new Pagamento();
         }
 
         public Duplicata(Guid id, string numeroDocumento, DateTime dataEmissao, DateTime dataVencimento, Fornecedor fornecedor, decimal valor, string observacao = null)
@@ -41,28 +39,27 @@ namespace RCM.Domain.Models.DuplicataModels
             Fornecedor = fornecedor;
             Valor = valor;
             Observacao = observacao ?? Observacao;
-
-            Pagamento = new Pagamento();
         }
 
         public bool Vencida()
         {
             return DataVencimento < DateTime.Now;
         }
-
-        public void VincularNotaFiscal(Guid notaFiscalId)
-        {
-            NotaFiscalId = notaFiscalId;
-        }
-
+        
         public void Pagar(Pagamento pagamento)
         {
-            Pagamento = new Pagamento(pagamento.DataPagamento, pagamento.ValorPago) ?? throw new ArgumentNullException("Pagamento");
+            if (Pagamento != null)
+                AddDomainError("O pagamento desse título já foi efetuado.");
+            else
+                Pagamento = new Pagamento(pagamento.DataPagamento, pagamento.ValorPago);
         }
 
         public void EstornarPagamento()
         {
-            Pagamento = new Pagamento();
+            if (Pagamento == null)
+                AddDomainError("Esse título ainda não foi pago.");
+            else
+                Pagamento = new Pagamento();
         }
     }
 }
