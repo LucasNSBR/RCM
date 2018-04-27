@@ -278,6 +278,18 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             return View(produtoFornecedor);
         }
 
+        [Authorize(Policy = "ActiveUser")]
+        public async Task<IActionResult> UnattachSupplier(Guid id, Guid fornecedorId)
+        {
+            var commandResult = await _produtoApplicationService.RemoverFornecedor(id, fornecedorId);
+
+            if (commandResult.Success)
+                NotifyCommandResultSuccess();
+            else
+                NotifyCommandResultErrors(commandResult.Errors);
+
+            return RedirectToAction(nameof(Details), new { id });
+        }
 
         public JsonResult GetFornecedores()
         {

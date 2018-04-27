@@ -13,5 +13,6 @@ namespace RCM.Application.ApplicationInterfaces
         Task<CommandResult> RemoverAplicacao(Guid produtoId, Guid aplicacaoId);
 
         Task<CommandResult> AdicionarFornecedor(ProdutoFornecedorViewModel produtoFornecedorViewModel);
+        Task<CommandResult> RemoverFornecedor(Guid produtoId, Guid aplicacaoId);
     }
 }

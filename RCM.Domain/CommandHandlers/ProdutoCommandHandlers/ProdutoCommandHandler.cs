@@ -22,7 +22,8 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
                                          IRequestHandler<AttachProdutoAplicacaoCommand, CommandResult>,
                                          IRequestHandler<AddProdutoAplicacaoCommand, CommandResult>,
                                          IRequestHandler<RemoveProdutoAplicacaoCommand, CommandResult>,
-                                         IRequestHandler<AttachFornecedorCommand, CommandResult>
+                                         IRequestHandler<AttachFornecedorCommand, CommandResult>,
+                                         IRequestHandler<RemoveProdutoFornecedorCommand, CommandResult>
     {
         private readonly IProdutoRepository _produtoRepository;
         private readonly IMarcaRepository _marcaRepository;
@@ -181,5 +182,26 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
 
             return Response();
         }
+
+        public Task<CommandResult> Handle(RemoveProdutoFornecedorCommand command, CancellationToken cancellationToken)
+        {
+            if (!command.IsValid())
+            {
+                NotifyCommandErrors(command);
+                return Response();
+            }
+
+            Produto produto = _produtoRepository.GetById(command.ProdutoId);
+            Fornecedor fornecedor = _fornecedorRepository.GetById(command.FornecedorId);
+
+            produto.RemoverFornecedor(fornecedor);
+            _produtoRepository.Update(produto);
+
+            if (Commit())
+                _mediator.Publish(new UpdatedProdutoEvent());
+
+            return Response();
+        }
     }
 }
+

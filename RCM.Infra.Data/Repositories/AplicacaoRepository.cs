@@ -18,7 +18,7 @@ namespace RCM.Infra.Data.Repositories
 
         public IQueryable<Aplicacao> Get()
         {
-            return _dbSet;
+            return _dbSet.AsNoTracking();
         }
 
         public Aplicacao GetById(Guid id)

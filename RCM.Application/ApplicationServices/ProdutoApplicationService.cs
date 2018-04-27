@@ -51,6 +51,11 @@ namespace RCM.Application.ApplicationServices
         {
             return _mediator.SendCommand(new AttachFornecedorCommand(produtoFornecedorViewModel.ProdutoId, produtoFornecedorViewModel.FornecedorId, produtoFornecedorViewModel.PrecoCusto, produtoFornecedorViewModel.Disponibilidade));
         }
+
+        public Task<CommandResult> RemoverFornecedor(Guid produtoId, Guid fornecedorId)
+        {
+            return _mediator.SendCommand(new RemoveProdutoFornecedorCommand(produtoId, fornecedorId));
+        }
     }
 }
 

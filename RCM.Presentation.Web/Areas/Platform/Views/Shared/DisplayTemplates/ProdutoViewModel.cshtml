@@ -222,12 +222,18 @@
                                             <a asp-action="Details" asp-controller="Fornecedores" asp-route-id="@fornecedor.FornecedorId">@fornecedor.Fornecedor.Nome</a>
                                         </div>
                                         <div class="col s1">
-                                            <a asp-action="UnattachFornecedor" asp-controller="Produtos" asp-route-aplicacaoId="@fornecedor.FornecedorId" asp-route-id="@Model.Id">
+                                            <a asp-action="UnattachSupplier" asp-controller="Produtos" asp-route-fornecedorId="@fornecedor.FornecedorId" asp-route-id="@Model.Id">
                                                 Remover
                                             </a>
                                         </div>
                                     </div>
                                     <div class="collapsible-body">
+                                        <span>
+                                            @("Preço de custo: " + fornecedor.PrecoCusto.ToString("c"))
+                                        </span><br/>
+                                        <span>
+                                             @("Disponibilidade: " + fornecedor.Disponibilidade)
+                                        </span>
                                         <p>@(fornecedor.Fornecedor?.Observacao ?? "Nenhuma observação relacionada.")</p>
                                     </div>
                                 </li>
@@ -252,13 +258,16 @@
             </p>
             <dl class="detail-list">
                 <dt>
-                    Funções básicas
+                    <label>Funções básicas</label>
                 </dt>
                 <dd>
                     <a asp-action="Details" asp-controller="Produtos">Repor estoque</a>
                 </dd>
                 <dd>
                     <a asp-action="AttachApplication" asp-controller="Produtos" asp-route-id="@Model.Id">Adicionar Aplicação</a>
+                </dd>
+                <dd>
+                    <a asp-action="AttachSupplier" asp-controller="Produtos" asp-route-id="@Model.Id">Relacionar Fornecedor</a>
                 </dd>
             </dl>
         </div>
