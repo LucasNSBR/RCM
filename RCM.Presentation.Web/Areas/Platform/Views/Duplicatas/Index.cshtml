@@ -149,15 +149,8 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.DataVencimento)
                         </td>
-                        <td>
-                            @if (item.Pagamento.IsEmpty)
-                            {
-                                <span class="font-italic">Não paga</span>
-                            }
-                            else
-                            {
-                                @item.Pagamento.DataPagamento.ToShortDateString()
-                            }
+                        <td class="@(item.Pagamento.IsEmpty ? "font-italic" : "")">
+                            @(item.Pagamento.IsEmpty ? "Não paga" : item.Pagamento.DataPagamento.ToShortDateString())
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Fornecedor.Nome)
@@ -174,17 +167,17 @@
             <ul class="pagination center pt-2">
                 @{
                     var queryStringHelper = new Dictionary<string, string>
-                                                                    {
-                                                                        { "apenasNaoPagas", Model.ApenasNaoPagas?.ToString() },
-                                                                        { "apenasVencidas", Model.ApenasVencidas?.ToString() },
-                                                                        { "fornecedorId", Model.FornecedorId?.ToString() },
-                                                                        { "minValor", Model.MinValor?.ToString() },
-                                                                        { "maxValor", Model.MaxValor?.ToString() },
-                                                                        { "numeroDocumento", Model.NumeroDocumento?.ToString() },
-                                                                        { "dataEmissao", Model.DataEmissao?.ToString() },
-                                                                        { "dataVencimento", Model.DataVencimento?.ToString() },
-                                                                        { "pageSize", Model.Duplicatas.PageSize.ToString() },
-                                                                    };
+                                                                        {
+                                                                            { "apenasNaoPagas", Model.ApenasNaoPagas?.ToString() },
+                                                                            { "apenasVencidas", Model.ApenasVencidas?.ToString() },
+                                                                            { "fornecedorId", Model.FornecedorId?.ToString() },
+                                                                            { "minValor", Model.MinValor?.ToString() },
+                                                                            { "maxValor", Model.MaxValor?.ToString() },
+                                                                            { "numeroDocumento", Model.NumeroDocumento?.ToString() },
+                                                                            { "dataEmissao", Model.DataEmissao?.ToString() },
+                                                                            { "dataVencimento", Model.DataVencimento?.ToString() },
+                                                                            { "pageSize", Model.Duplicatas.PageSize.ToString() },
+                                                                        };
 
                 }
 
@@ -229,42 +222,106 @@
 </div>
 
 <div id="items-info-panel" class="z-depth-2">
-    <p>
-    </p>
-    <p>
-    </p>
+    <div class="row">
+        <div class="col s12 m7">
+            <p>
+            </p>
+            <p>
+            </p>
+        </div>
+        <div class="col s12 m5">
+            <button type="button" id="select-button" class="btn btn-flat btn-small max-percent-width">Selecionar todas</button>
+            <button type="button" id="unselect-button" class="btn btn-flat btn-small max-percent-width">Deselecionar todas</button>
+        </div>
+    </div>
 </div>
 
 @section Scripts {
     <script>
-        $('.checkable').removeAttr('checked');
-
+        //ALL THESE CODE SMELLS AND DUPLICATIONS WILL BE FIXED IN A LATER TIME
         var panel = $('#items-info-panel');
+        var items = $('.checkable');
         var totalItemValue = 0;
         var selectedItems = 0;
 
-        $('.checkable').change(function () {
-            var selectedSalary = $(this).parents('tr').children().last().text().trim().replace('R$', '').replace('.', '').replace(',', '.');
+        unselectAll();
+
+        function normalizeCurrency(value) {
+            return value.trim().replace('R$', '').replace('.', '').replace(',', '.');
+        }
+
+        $(items).change(function () {
+            var selectedValue = $(this).parents('tr').children().last().text();
+            selectedValue = normalizeCurrency(selectedValue);
 
             if ($(this).prop('checked')) {
-                totalItemValue += parseFloat(selectedSalary);
-                selectedItems++;
+                addToSum(selectedValue)
             } else {
-                totalItemValue -= parseFloat(selectedSalary);
-                selectedItems--;
-            }
-
-            if (selectedItems > 0) {
-                $(panel).children().eq(0).text("Valor total das duplicatas: " + "R$" + totalItemValue.toFixed(2).replace('.', ','));
-                $(panel).children().eq(1).text("Duplicatas selecionadas: " + selectedItems);
-                $(panel).slideDown('200');
-            } else {
-                $(panel).slideUp('200', function () {
-                    $(panel).children().eq(0).text();
-                    $(panel).children().eq(1).text();
-                });
+                removeFromSum(selectedValue);
             }
         });
+
+        $('#unselect-button').click(function () {
+            unselectAll();
+        })
+
+        $('#select-button').click(function () {
+            selectAll();
+        })
+
+
+        function addToSum(value) {
+            selectedItems++;
+            totalItemValue += parseFloat(value);
+
+            if (selectedItems > 0) {
+                showPanel();   
+            }
+        }
+
+        function hidePanel() {
+            $(panel).slideUp('200', function () {
+                $(panel).children().eq(0).text();
+                $(panel).children().eq(1).text();
+            });
+        }
+
+        function showPanel() {
+            $(panel).find('p').eq(0).text("Valor total das duplicatas: " + "R$" + totalItemValue.toFixed(2).replace('.', ','));
+            $(panel).find('p').eq(1).text("Duplicatas selecionadas: " + selectedItems);
+            $(panel).slideDown('200');
+        }
+
+        function removeFromSum(value) {
+            selectedItems--;
+            totalItemValue -= parseFloat(value);
+
+            if (selectedItems == 0) {
+                hidePanel(); 
+            }
+        }
+
+        function unselectAll() {
+            $(items).removeAttr('checked');
+
+            selectedItems = 0;
+            totalItemValue = 0;
+            hidePanel();
+        }
+
+        function selectAll() {
+            selectedItems = 0;
+            totalItemValue = 0;
+
+            $(items).prop('checked', 'checked');
+            
+            $(items).each(function () {
+                var value = $(this).parents('tr').children().last().text();
+                value = normalizeCurrency(value);
+
+                addToSum(value);
+            })
+        }
     </script>
 }
 

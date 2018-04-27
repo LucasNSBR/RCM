@@ -24,7 +24,7 @@
         closeOnSelect: false,
         format: 'dd/mm/yyyy'
     });
-    
+
     if (notifications != 'null') {
         var notificationsArray = JSON.parse(notifications.substring(1, notifications.length - 1));
 
@@ -42,7 +42,9 @@
         var itemId = handler.target.parentElement.firstElementChild.innerHTML;
         var url = currentUrl.concat("/Details/", itemId.trim());
 
-        window.location = url;
+        if ($(handler.target).is('td')) {
+            window.location = url;
+        }
     })
 
     $("#notifications-div").children().each(function (index, element) {

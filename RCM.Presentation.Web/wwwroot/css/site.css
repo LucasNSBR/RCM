@@ -446,7 +446,6 @@ dt {
 }
 
 .checkable {
-
 }
 
 #items-info-panel {
@@ -456,8 +455,22 @@ dt {
     background-color: #1a2228;
     left: 65%;
     width: 50%;
-    padding: 15px;
+    padding: 20px 15px 0px 15px;
     transform: translate(-65%, 0);
     display: none;
     z-index: 3;
+}
+
+#unselect-button {
+    margin: 5px;
+    color: white;
+}
+
+#select-button {
+    color: white;
+    margin: 5px;
+}
+
+#select-button:hover, #unselect-button:hover {
+    background-color: #9c27b0;
 }
