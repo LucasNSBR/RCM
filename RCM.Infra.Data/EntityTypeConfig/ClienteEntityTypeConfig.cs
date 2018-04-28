@@ -26,7 +26,6 @@ namespace RCM.Infra.Data.EntityTypeConfig
                     .HasColumnName("Celular");
 
                 cfg.Property(co => co.Email)
-                    .IsRequired()
                     .HasMaxLength(100)
                     .HasColumnName("Email");
 

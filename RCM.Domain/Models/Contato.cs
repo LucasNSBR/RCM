@@ -10,7 +10,7 @@ namespace RCM.Domain.Models
         public string Celular { get; private set; }
         public string Observacao { get; private set; }
 
-        public Contato(string email, string telefoneComercial, string telefoneResidencial, string celular, string observacao = null)
+        public Contato(string celular, string email = null, string telefoneComercial = null, string telefoneResidencial = null, string observacao = null)
         {
             Email = email;
             TelefoneComercial = telefoneComercial;
