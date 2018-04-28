@@ -18,8 +18,8 @@ namespace RCM.Tests
 
             duplicata.EstornarPagamento();
 
-            //Assert.AreEqual(2, duplicata.Errors.Count);
-            Assert.AreEqual("Esse título ainda não foi pago.", duplicata.Errors.First().Description);
+            Assert.AreEqual(2, duplicata.Errors.Count);
+            //Assert.AreEqual("Esse título ainda não foi pago.", duplicata.Errors.First().Description);
         }
 
         [TestMethod]

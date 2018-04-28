@@ -17,13 +17,5 @@ namespace RCM.Application.ViewModels
         [Display(Name = "Valor Pago")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo valor pago é requerido.")]
         public decimal ValorPago { get; set; }
-
-        public bool IsEmpty
-        {
-            get
-            {
-                return DataPagamento == DateTime.MinValue;   
-            }
-        }
     }
 }

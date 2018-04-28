@@ -186,7 +186,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         public async Task<IActionResult> Payment(Guid id, PagamentoViewModel pagamento)
         {
             var duplicata = _duplicataApplicationService.GetById(id);
-            if (duplicata == null || !duplicata.Pagamento.IsEmpty)
+            if (duplicata == null || duplicata.Pagamento != null)
                 return NotFound();
 
             if (!ModelState.IsValid)
@@ -212,7 +212,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         public async Task<IActionResult> CancelPayment(Guid id)
         {
             var duplicata = _duplicataApplicationService.GetById(id);
-            if (duplicata == null || duplicata.Pagamento.IsEmpty)
+            if (duplicata == null || duplicata.Pagamento == null)
                 return NotFound();
 
             var commandResult = await _duplicataApplicationService.Estornar(duplicata);

@@ -16,10 +16,7 @@ namespace RCM.Domain.Models.DuplicataModels
         public override Expression<Func<Duplicata, bool>> ToExpression()
         {
             if (_naoPaga != null)
-                if (_naoPaga == true)
-                    return d => d.Pagamento.IsEmpty();
-                else
-                    return d => !d.Pagamento.IsEmpty();
+                return d => !d.Pagamento.Pago;
 
             return d => true;
         }

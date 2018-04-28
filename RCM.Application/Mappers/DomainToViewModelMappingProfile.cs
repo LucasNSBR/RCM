@@ -22,7 +22,6 @@ namespace RCM.Application.Mappers
         public DomainToViewModelMappingProfile()
         {
             CreateMap<Cliente, ClienteViewModel>();
-            CreateMap<Duplicata, DuplicataViewModel>();
             CreateMap<NotaFiscal, NotaFiscalViewModel>();
             CreateMap<Cidade, CidadeViewModel>();
             CreateMap<Estado, EstadoViewModel>();
@@ -37,10 +36,16 @@ namespace RCM.Application.Mappers
             CreateMap<Contato, ContatoViewModel>();
             CreateMap<Fornecedor, FornecedorViewModel>();
             CreateMap<Banco, BancoViewModel>();
-            CreateMap<Pagamento, PagamentoViewModel>();
             CreateMap<OrdemServico, OrdemServicoViewModel>();
             CreateMap<Marca, MarcaViewModel>();
             CreateMap<ProdutoFornecedor, ProdutoFornecedorViewModel>();
+            CreateMap<Pagamento, PagamentoViewModel>();
+
+            CreateMap<Duplicata, DuplicataViewModel>()
+                .ForMember(p => p.Pagamento, cfg =>
+                {
+                    cfg.MapFrom(d => (d.Pagamento.DataPagamento == null || d.Pagamento.ValorPago == null) ? null : d.Pagamento);
+                });
 
             CreateMap<Aplicacao, AplicacaoViewModel>()
                 .ProjectUsing(a => new AplicacaoViewModel

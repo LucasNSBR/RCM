@@ -48,7 +48,7 @@ namespace RCM.Domain.Models.DuplicataModels
         
         public void Pagar(Pagamento pagamento)
         {
-            if (Pagamento != null)
+            if (Pagamento.Pago)
                 AddDomainError("O pagamento desse título já foi efetuado.");
             else
                 Pagamento = new Pagamento(pagamento.DataPagamento, pagamento.ValorPago);
@@ -56,7 +56,7 @@ namespace RCM.Domain.Models.DuplicataModels
 
         public void EstornarPagamento()
         {
-            if (Pagamento == null)
+            if (!Pagamento.Pago)
                 AddDomainError("Esse título ainda não foi pago.");
             else
                 Pagamento = new Pagamento();

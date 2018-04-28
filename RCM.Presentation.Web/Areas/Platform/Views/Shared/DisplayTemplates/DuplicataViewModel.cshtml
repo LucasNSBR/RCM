@@ -99,7 +99,7 @@
                     <label asp-for="@Model.Pagamento.DataPagamento"></label>
                 </dt>
                 <dd>
-                    @if (!Model.Pagamento.IsEmpty)
+                    @if (Model.Pagamento != null)
                     {
                         @Model.Pagamento.DataPagamento.ToShortDateString() <span class="font-italic small text-muted">(@Model.Pagamento.DataPagamento.ToLongDateString())</span>
                     }
@@ -110,7 +110,7 @@
                         </span>
                     }
                 </dd>
-                @if (!Model.Pagamento.IsEmpty)
+                @if (Model.Pagamento != null)
                 {
                     <dt>
                         <label asp-for="@Model.Pagamento.ValorPago"></label>
@@ -151,7 +151,7 @@
                     <label>Pagamento</label>
                 </dt>
                 <dd>
-                    @if (Model.Pagamento.IsEmpty)
+                    @if (Model.Pagamento == null)
                     {
                         <a asp-action="Payment" asp-route-id="@Model.Id">
                             Pagar Duplicata

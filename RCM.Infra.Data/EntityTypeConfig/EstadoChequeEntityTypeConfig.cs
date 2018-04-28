@@ -15,6 +15,13 @@ namespace RCM.Infra.Data.EntityTypeConfig
               .WithOne(ec => ec.EstadoCheque)
               .HasForeignKey<EstadoCheque>(c => c.ChequeId);
 
+            builder.HasDiscriminator<int>("Situacao")
+                .HasValue<ChequeBloqueado>(1)
+                .HasValue<ChequeCompensado>(2)
+                .HasValue<ChequeRepassado>(3)
+                .HasValue<ChequeSustado>(4)
+                .HasValue<ChequeDevolvido>(5);
+
             builder.Ignore(c => c.Estado);
         }
     }

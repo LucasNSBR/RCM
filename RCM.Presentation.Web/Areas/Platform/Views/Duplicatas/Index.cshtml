@@ -149,8 +149,8 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.DataVencimento)
                         </td>
-                        <td class="@(item.Pagamento.IsEmpty ? "font-italic" : "")">
-                            @(item.Pagamento.IsEmpty ? "Não paga" : item.Pagamento.DataPagamento.ToShortDateString())
+                        <td class="@(item.Pagamento == null ? "font-italic" : "")">
+                            @(item.Pagamento == null ? "Não paga" : item.Pagamento.DataPagamento.ToShortDateString())
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Fornecedor.Nome)
