@@ -12,15 +12,6 @@ namespace RCM.Domain.Core.Models
     {
         public Guid Id { get; protected set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public DateTime DateCreated { get; protected set; }
-
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTime DateUpdated { get; protected set; }
-
-        [Timestamp]
-        public byte[] RowVersion { get; protected set; }
-
         private List<INotification> _events;
         private List<DomainError> _errors;
 

@@ -17,7 +17,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
     {
         private readonly IBancoApplicationService _bancoApplicationService;
 
-        public BancosController(IBancoApplicationService bancoApplicationService, IDomainNotificationHandler domainNotificationHandler) : 
+        public BancosController(IBancoApplicationService bancoApplicationService, IDomainNotificationHandler domainNotificationHandler) :
                                                                                                                 base(domainNotificationHandler)
         {
             _bancoApplicationService = bancoApplicationService;
@@ -103,7 +103,9 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 return RedirectToAction(nameof(Index));
             }
             else
-                return View(banco);
+                NotifyCommandResultErrors(commandResult.Errors);
+
+            return View(banco);
         }
 
         [Authorize(Policy = "ActiveUser")]
