@@ -31,7 +31,6 @@ namespace RCM.Infra.Data.Context
         public DbSet<Estado> Estados { get; set; }
         public DbSet<Banco> Bancos { get; set; }
         public DbSet<Endereco> Enderecos { get; set; }
-        public DbSet<Contato> Contatos { get; set; }
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<OrdemServico> OrdensServico { get; set; }
         public DbSet<Venda> Vendas { get; set; }
@@ -50,7 +49,6 @@ namespace RCM.Infra.Data.Context
             modelBuilder.ApplyConfiguration(new ChequeEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new CidadeEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new ClienteEntityTypeConfig());
-            modelBuilder.ApplyConfiguration(new ContatoEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new DuplicataEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new EnderecoEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new EstadoEntityTypeConfig());
