@@ -51,5 +51,15 @@ namespace RCM.Domain.Models.ClienteModels
             _enderecos = new List<Endereco>();
             _cheques = new List<Cheque>();
         }
+
+        public void AdicionarContato(Contato contato)
+        {
+            Contato = contato;
+        }
+
+        public void RemoverContato()
+        {
+            Contato = null;
+        }
     }
 }

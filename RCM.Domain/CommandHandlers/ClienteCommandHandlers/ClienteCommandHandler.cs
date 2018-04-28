@@ -3,6 +3,7 @@ using RCM.Domain.Commands.ClienteCommands;
 using RCM.Domain.Core.Commands;
 using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.Events.ClienteEvents;
+using RCM.Domain.Models;
 using RCM.Domain.Models.ClienteModels;
 using RCM.Domain.Repositories;
 using RCM.Domain.UnitOfWork;
@@ -14,7 +15,9 @@ namespace RCM.Domain.CommandHandlers.ClienteCommandHandlers
     public class ClienteCommandHandler : CommandHandler<Cliente>,
                                          IRequestHandler<AddClienteCommand, CommandResult>,
                                          IRequestHandler<UpdateClienteCommand, CommandResult>,
-                                         IRequestHandler<RemoveClienteCommand, CommandResult>
+                                         IRequestHandler<RemoveClienteCommand, CommandResult>,
+                                         IRequestHandler<AttachClienteContatoCommand, CommandResult>,
+                                         IRequestHandler<RemoveClienteContatoCommand, CommandResult>
     {
         private readonly IClienteRepository _clienteRepository;
 
@@ -72,6 +75,41 @@ namespace RCM.Domain.CommandHandlers.ClienteCommandHandlers
             if (Commit())
                 _mediator.Publish(new RemovedClienteEvent());
 
+            return Response();
+        }
+
+        public Task<CommandResult> Handle(AttachClienteContatoCommand command, CancellationToken cancellationToken)
+        {
+            if (!command.IsValid())
+            {
+                NotifyCommandErrors(command);
+                return Response();
+            }
+
+            Cliente cliente = _clienteRepository.GetById(command.Id);
+            Contato contato = new Contato(command.Celular, command.Email, command.TelefoneComercial, command.TelefoneResidencial, command.Observacao);
+
+            cliente.AdicionarContato(contato);
+            _clienteRepository.Update(cliente);
+
+            Commit();
+            return Response();
+        }
+
+        public Task<CommandResult> Handle(RemoveClienteContatoCommand command, CancellationToken cancellationToken)
+        {
+            if (!command.IsValid())
+            {
+                NotifyCommandErrors(command);
+                return Response();
+            }
+
+            Cliente cliente = _clienteRepository.GetById(command.Id);
+
+            cliente.RemoverContato();
+            _clienteRepository.Update(cliente);
+
+            Commit();
             return Response();
         }
     }
