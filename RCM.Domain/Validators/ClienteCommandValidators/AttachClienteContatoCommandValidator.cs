@@ -40,7 +40,7 @@ namespace RCM.Domain.Validators.ClienteCommandValidators
         {
             RuleFor(c => c.Observacao)
                 .MaximumLength(250)
-                .WithMessage("A observação deve ter até 250 caracteres e não deve estar vazia.");
+                .WithMessage("A Observação deve ter até 250 caracteres e não deve estar vazia.");
         }
 
         public AttachClienteContatoCommandValidator()
