@@ -7,6 +7,7 @@ using RCM.Domain.Models.ChequeModels.ChequeStates;
 using RCM.Domain.Models.CidadeModels;
 using RCM.Domain.Models.ClienteModels;
 using RCM.Domain.Models.DuplicataModels;
+using RCM.Domain.Models.EmpresaModels;
 using RCM.Domain.Models.EstadoModels;
 using RCM.Domain.Models.FornecedorModels;
 using RCM.Domain.Models.MarcaModels;
@@ -35,7 +36,7 @@ namespace RCM.Infra.Data.Context
         public DbSet<OrdemServico> OrdensServico { get; set; }
         public DbSet<Venda> Vendas { get; set; }
         public DbSet<Marca> Marcas { get; set; }
-
+        public DbSet<Empresa> Empresa { get; set; }
         public DbSet<EstadoCheque> EstadosCheques { get; set; }
 
         public RCMDbContext(DbContextOptions<RCMDbContext> options) : base(options)
@@ -61,6 +62,7 @@ namespace RCM.Infra.Data.Context
             modelBuilder.ApplyConfiguration(new ProdutoAplicacaoEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new ProdutoFornecedorEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new VendaEntityTypeConfig());
+            modelBuilder.ApplyConfiguration(new EmpresaEntityTypeConfig());
 
             ConfigureChequeEstado(modelBuilder);
         }
