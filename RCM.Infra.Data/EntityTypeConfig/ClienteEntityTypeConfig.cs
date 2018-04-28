@@ -17,6 +17,31 @@ namespace RCM.Infra.Data.EntityTypeConfig
 
             builder.Property(c => c.Descricao)
                 .HasMaxLength(1000);
+
+            builder.OwnsOne(c => c.Contato, cfg =>
+            {
+                cfg.Property(co => co.Celular)
+                    .IsRequired()
+                    .HasMaxLength(15)
+                    .HasColumnName("Celular");
+
+                cfg.Property(co => co.Email)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .HasColumnName("Email");
+
+                cfg.Property(co => co.TelefoneComercial)
+                    .HasMaxLength(15)
+                    .HasColumnName("TelefoneComercial");
+
+                cfg.Property(co => co.TelefoneResidencial)
+                    .HasMaxLength(15)
+                    .HasColumnName("TelefoneResidencial");
+
+                cfg.Property(co => co.Observacao)
+                    .HasMaxLength(250)
+                    .HasColumnName("ContatoObservacao");
+            });
         }
     }
 }
