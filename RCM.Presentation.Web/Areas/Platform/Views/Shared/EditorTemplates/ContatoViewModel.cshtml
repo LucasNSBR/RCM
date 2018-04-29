@@ -1,12 +1,11 @@
 ﻿@model RCM.Application.ViewModels.ContatoViewModel
 
 <p class="px-1 font-bold lead">
-    Informação geral
+    Informação de Contato
 </p>
 
 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 <div class="row">
-    <input type="hidden" asp-for="Id"/>
     <div class="input-field col s12 m6">
         <label asp-for="Celular"></label>
         <input asp-for="Celular" class="input-field" data-length="15" />

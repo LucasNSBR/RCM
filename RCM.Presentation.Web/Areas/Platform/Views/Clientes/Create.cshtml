@@ -8,10 +8,24 @@
 
 <div class="form-container col s12 m12">
     <form asp-action="Create">
-        @Html.EditorForModel()
+        <div class="row">
+            <div class="col s12">
+                <ul class="tabs tabs-fixed-width">
+                    <li class="tab col s3"><a href="#geral" class="active">Geral</a></li>
+                    <li class="tab col s3"><a href="#contato">Contato</a></li>
+                </ul>
+            </div>
+            <div id="geral" class="col s12 m12">
+                @Html.EditorForModel()
+            </div>
+            <div id="contato" class="col s12 m12">
+                @Html.EditorFor(c => c.Contato)
+            </div>
 
-        <div class="row pt-2 px-1">
-            <post-button>Confirmar</post-button>
+
+            <div class="row pt-2 px-1">
+                <post-button>Confirmar</post-button>
+            </div>
         </div>
     </form>
 </div>

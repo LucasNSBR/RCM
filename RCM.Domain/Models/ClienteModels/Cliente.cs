@@ -32,46 +32,25 @@ namespace RCM.Domain.Models.ClienteModels
 
         protected Cliente() { }
 
-        public Cliente(Guid id, string nome, string descricao = null)
+        public Cliente(Guid id, string nome, Contato contato, string descricao = null)
         {
             Id = id;
             Nome = nome;
             Descricao = descricao;
- 
+
             _enderecos = new List<Endereco>();
             _cheques = new List<Cheque>();
-            Contato = new Contato();
+            Contato = contato;
         }
 
-        public Cliente(string nome, string descricao = null)
+        public Cliente(string nome, Contato contato, string descricao = null)
         {
             Nome = nome;
             Descricao = descricao;
 
             _enderecos = new List<Endereco>();
             _cheques = new List<Cheque>();
-            Contato = new Contato();
-        }
-
-        public void AdicionarContato(Contato contato)
-        {
-            if (contato.IsEmpty) { 
-                AddDomainError("Há campos não preenchidos nas informações de contato.");
-                return;
-            }
-
             Contato = contato;
-        }
-
-        public void RemoverContato()
-        {
-            if (Contato.IsEmpty)
-            {
-                AddDomainError("As informações do contato já estão em branco.");
-                return;
-            }
-
-            Contato = null;
         }
     }
 }

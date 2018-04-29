@@ -1,10 +1,14 @@
 ﻿@model RCM.Application.ViewModels.ClienteViewModel
 
+<p class="px-1 font-bold lead">
+    Informação Geral
+</p>
+
 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 <div class="row">
     <div class="col s12 m6">
         <label asp-for="Nome"></label>
-        <input asp-for="Nome" class="input-field" data-length="100"/>
+        <input asp-for="Nome" class="input-field" data-length="100" />
         <span asp-validation-for="Nome" class="text-danger"></span>
     </div>
 </div>

@@ -132,47 +132,5 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
 
             return View(cliente);
         }
-
-        [Authorize(Policy = "ActiveUser")]
-        public IActionResult AttachContact(Guid id)
-        {
-            var contato = new ContatoViewModel()
-            {
-                Id = id
-            };
-
-            return View(contato);
-        }
-
-        [Authorize(Policy = "ActiveUser")]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AttachContact(ContatoViewModel contato)
-        {
-            var commandResult = await _clienteApplicationService.AdicionarContato(contato);
-
-            if (commandResult.Success)
-            {
-                NotifyCommandResultSuccess();
-                return RedirectToAction(nameof(Details), new { id = contato.Id });
-            }
-            else
-                NotifyCommandResultErrors(commandResult.Errors);
-
-            return View(contato);
-        }
-
-        [Authorize(Policy = "ActiveUser")]
-        public async Task<IActionResult> RemoveContato(Guid id)
-        {
-            var commandResult = await _clienteApplicationService.RemoverContato(id);
-
-            if (commandResult.Success)
-                NotifyCommandResultSuccess();
-            else
-                NotifyCommandResultErrors(commandResult.Errors);
-
-            return RedirectToAction(nameof(Details), new { id });
-        }
     }
 }

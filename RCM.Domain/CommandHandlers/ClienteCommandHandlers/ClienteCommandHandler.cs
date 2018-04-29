@@ -15,9 +15,7 @@ namespace RCM.Domain.CommandHandlers.ClienteCommandHandlers
     public class ClienteCommandHandler : CommandHandler<Cliente>,
                                          IRequestHandler<AddClienteCommand, CommandResult>,
                                          IRequestHandler<UpdateClienteCommand, CommandResult>,
-                                         IRequestHandler<RemoveClienteCommand, CommandResult>,
-                                         IRequestHandler<AttachClienteContatoCommand, CommandResult>,
-                                         IRequestHandler<RemoveClienteContatoCommand, CommandResult>
+                                         IRequestHandler<RemoveClienteCommand, CommandResult>
     {
         private readonly IClienteRepository _clienteRepository;
 
@@ -35,7 +33,8 @@ namespace RCM.Domain.CommandHandlers.ClienteCommandHandlers
                 return Response();
             }
 
-            Cliente cliente = new Cliente(command.Nome, command.Descricao);
+            Contato contato = new Contato(command.ContatoCelular, command.ContatoEmail, command.ContatoTelefoneComercial, command.ContatoTelefoneResidencial, command.ContatoObservacao);
+            Cliente cliente = new Cliente(command.Nome, contato, command.Descricao);
             _clienteRepository.Add(cliente);
 
             if (Commit())
@@ -52,7 +51,8 @@ namespace RCM.Domain.CommandHandlers.ClienteCommandHandlers
                 return Response();
             }
 
-            Cliente cliente = new Cliente(command.Id, command.Nome, command.Descricao);
+            Contato contato = new Contato(command.ContatoCelular, command.ContatoEmail, command.ContatoTelefoneComercial, command.ContatoTelefoneResidencial, command.ContatoObservacao);
+            Cliente cliente = new Cliente(command.Id, command.Nome, contato, command.Descricao);
             _clienteRepository.Update(cliente);
 
             if (Commit())
@@ -75,41 +75,6 @@ namespace RCM.Domain.CommandHandlers.ClienteCommandHandlers
             if (Commit())
                 _mediator.Publish(new RemovedClienteEvent());
 
-            return Response();
-        }
-
-        public Task<CommandResult> Handle(AttachClienteContatoCommand command, CancellationToken cancellationToken)
-        {
-            if (!command.IsValid())
-            {
-                NotifyCommandErrors(command);
-                return Response();
-            }
-
-            Cliente cliente = _clienteRepository.GetById(command.Id);
-            Contato contato = new Contato(command.Celular, command.Email, command.TelefoneComercial, command.TelefoneResidencial, command.Observacao);
-
-            cliente.AdicionarContato(contato);
-            _clienteRepository.Update(cliente);
-
-            Commit();
-            return Response();
-        }
-
-        public Task<CommandResult> Handle(RemoveClienteContatoCommand command, CancellationToken cancellationToken)
-        {
-            if (!command.IsValid())
-            {
-                NotifyCommandErrors(command);
-                return Response();
-            }
-
-            Cliente cliente = _clienteRepository.GetById(command.Id);
-
-            cliente.RemoverContato();
-            _clienteRepository.Update(cliente);
-
-            Commit();
             return Response();
         }
     }

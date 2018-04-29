@@ -1,15 +1,9 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace RCM.Application.ViewModels
 {
     public class ContatoViewModel
     {
-        //Aggregate Root Id
-        [Key]
-        [Display(Name = "Id")]
-        public Guid Id { get; set; }
-
         [Display(Name = "Celular")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo celular é requerido.")]
         [StringLength(15, MinimumLength = 8, ErrorMessage = "O campo deve ter entre 8 e 15 caracteres.")]
