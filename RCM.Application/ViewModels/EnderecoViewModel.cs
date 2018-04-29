@@ -1,14 +1,9 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace RCM.Application.ViewModels
 {
     public class EnderecoViewModel
     {
-        [Key]
-        [Display(Name = "Id")]
-        public Guid Id { get; set; }
-
         [Display(Name = "Número")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo número é requerido.")]
         [Range(0, 9999, ErrorMessage = "O campo número deve ter entre 1 e 4 caracteres.")]
@@ -29,22 +24,7 @@ namespace RCM.Application.ViewModels
         public string Complemento { get; set; }
 
         [Display(Name = "CEP")]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "O campo CEP é requerido.")]
-        [StringLength(8, MinimumLength = 8, ErrorMessage = "O campo CEP deve ter 8 caracteres.")]
+        [StringLength(8, MinimumLength = 0, ErrorMessage = "O campo CEP deve ter até 8 caracteres.")]
         public string CEP { get; set;  }
-
-        [Display(Name = "Id da Cidade")]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "A cidade relacionada é requerido.")]
-        public Guid CidadeId { get; set; }
-
-        [Display(Name = "Cidade")]
-        public CidadeViewModel Cidade { get; set; }
-
-        [Display(Name = "Id do Cliente")]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "O cliente relacionado é requerido.")]
-        public Guid ClienteId { get; set; }
-
-        [Display(Name = "Cliente")]
-        public ClienteViewModel Cliente { get; set; }
     }
 }

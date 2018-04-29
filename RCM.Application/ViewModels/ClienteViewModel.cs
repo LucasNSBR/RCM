@@ -22,8 +22,8 @@ namespace RCM.Application.ViewModels
         [Display(Name = "Contato")]
         public ContatoViewModel Contato { get; set; }
 
-        [Display(Name = "Endereços")]
-        public List<EnderecoViewModel> Enderecos { get; set; }
+        [Display(Name = "Endereço")]
+        public EnderecoViewModel Endereco { get; set; }
 
         [Display(Name = "Cheques")]
         public List<ChequeViewModel> Cheques { get; set; }
