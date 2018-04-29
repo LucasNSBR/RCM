@@ -10,16 +10,8 @@ namespace RCM.Domain.Models.ClienteModels
         public string Nome { get; private set; }
         public string Descricao { get; private set; }
 
-        public virtual Contato Contato { get; set; }
-
-        private List<Endereco> _enderecos;
-        public virtual IReadOnlyList<Endereco> Enderecos
-        {
-            get
-            {
-                return _enderecos;
-            }
-        }
+        public virtual Contato Contato { get; private set; }
+        public virtual Endereco Endereco { get; private set; }
 
         private List<Cheque> _cheques;
         public virtual IReadOnlyList<Cheque> Cheques
@@ -37,8 +29,7 @@ namespace RCM.Domain.Models.ClienteModels
             Id = id;
             Nome = nome;
             Descricao = descricao;
-
-            _enderecos = new List<Endereco>();
+            
             _cheques = new List<Cheque>();
             Contato = contato;
         }
@@ -47,8 +38,7 @@ namespace RCM.Domain.Models.ClienteModels
         {
             Nome = nome;
             Descricao = descricao;
-
-            _enderecos = new List<Endereco>();
+            
             _cheques = new List<Cheque>();
             Contato = contato;
         }
