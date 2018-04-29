@@ -10,10 +10,8 @@ namespace RCM.Tests
         [TestMethod]
         public void ClienteContatoEmpty()
         {
-            Cliente cliente = new Cliente("Lucas");
             Contato contato = new Contato();
-
-            cliente.AdicionarContato(contato);
+            Cliente cliente = new Cliente("Lucas", contato);
 
             Assert.AreEqual(true, cliente.Contato.IsEmpty);
         }

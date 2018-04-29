@@ -9,6 +9,12 @@ namespace RCM.Domain.Validators.ClienteCommandValidators
             ValidateId();
             ValidateNome();
             ValidateDescricao();
+            ValidateContatoNotEmpty();
+            ValidateContatoEmail();
+            ValidateContatoCelular();
+            ValidateContatoTelefoneComercial();
+            ValidateTelefoneResidencial();
+            ValidateContatoObservacao();
         }
     }
 }
