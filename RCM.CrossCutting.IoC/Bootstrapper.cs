@@ -116,6 +116,8 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<IRequestHandler<AddClienteCommand, CommandResult>, ClienteCommandHandler>();
             services.AddScoped<IRequestHandler<UpdateClienteCommand, CommandResult>, ClienteCommandHandler>();
             services.AddScoped<IRequestHandler<RemoveClienteCommand, CommandResult>, ClienteCommandHandler>();
+            services.AddScoped<IRequestHandler<AttachClienteContatoCommand, CommandResult>, ClienteCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoveClienteContatoCommand, CommandResult>, ClienteCommandHandler>();
 
             services.AddScoped<IRequestHandler<AddDuplicataCommand, CommandResult>, DuplicataCommandHandler>();
             services.AddScoped<IRequestHandler<UpdateDuplicataCommand, CommandResult>, DuplicataCommandHandler>();
