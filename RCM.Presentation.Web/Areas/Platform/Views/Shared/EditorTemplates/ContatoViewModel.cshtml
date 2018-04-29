@@ -1,0 +1,39 @@
+﻿@model RCM.Application.ViewModels.ContatoViewModel
+
+<p class="px-1 font-bold lead">
+    Informação geral
+</p>
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="row">
+    <input type="hidden" asp-for="Id"/>
+    <div class="input-field col s12 m6">
+        <label asp-for="Celular"></label>
+        <input asp-for="Celular" class="input-field" data-length="15" />
+        <span asp-validation-for="Celular" class="text-danger"></span>
+    </div>
+    <div class="input-field col s12 m6">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="input-field" data-length="100" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+</div>
+<div class="row">
+    <div class="input-field col s12 m6">
+        <label asp-for="TelefoneResidencial"></label>
+        <input asp-for="TelefoneResidencial" class="input-field" data-length="15" />
+        <span asp-validation-for="TelefoneResidencial" class="text-danger"></span>
+    </div>
+    <div class="input-field col s12 m6">
+        <label asp-for="TelefoneComercial"></label>
+        <input asp-for="TelefoneComercial" class="input-field" data-length="15" />
+        <span asp-validation-for="TelefoneComercial" class="text-danger"></span>
+    </div>
+</div>
+<div class="row">
+    <div class="input-field col s12 m12">
+        <label asp-for="Observacao"></label>
+        <textarea asp-for="Observacao" class="materialize-textarea" data-length="250"></textarea>
+        <span asp-validation-for="Observacao" class="text-danger"></span>
+    </div>
+</div>
