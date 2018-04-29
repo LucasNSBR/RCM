@@ -6,6 +6,7 @@ using RCM.Domain.Core.Commands;
 using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.Models.ClienteModels;
 using RCM.Domain.Repositories;
+using System;
 using System.Threading.Tasks;
 
 namespace RCM.Application.ApplicationServices
@@ -29,6 +30,16 @@ namespace RCM.Application.ApplicationServices
         public override Task<CommandResult> Remove(ClienteViewModel viewModel)
         {
             return _mediator.SendCommand(new RemoveClienteCommand(viewModel.Id));
+        }
+
+        public Task<CommandResult> AdicionarContato(ContatoViewModel viewModel)
+        {
+            return _mediator.SendCommand(new AttachClienteContatoCommand(viewModel.Id, viewModel.Email, viewModel.TelefoneResidencial, viewModel.TelefoneComercial, viewModel.Celular, viewModel.Observacao));
+        }
+
+        public Task<CommandResult> RemoverContato(Guid id)
+        {
+            return _mediator.SendCommand(new RemoveClienteContatoCommand(id));
         }
     }
 }

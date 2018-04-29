@@ -19,8 +19,8 @@ namespace RCM.Application.ViewModels
         [StringLength(1000, MinimumLength = 0, ErrorMessage = "O campo descrição deve ter até 1000 caracteres.")]
         public string Descricao { get; set; }
 
-        [Display(Name = "Contatos")]
-        public List<ContatoViewModel> Contatos { get; set; }
+        [Display(Name = "Contato")]
+        public ContatoViewModel Contato { get; set; }
 
         [Display(Name = "Endereços")]
         public List<EnderecoViewModel> Enderecos { get; set; }

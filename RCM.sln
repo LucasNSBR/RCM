@@ -43,7 +43,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RCM.Tests", "RCM.Tests\RCM.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RCM.Infra.Data", "RCM.Infra.Data\RCM.Infra.Data.csproj", "{426F51CB-4163-46C1-9757-BD27565FA68F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RCM.Infra", "RCM.Infra\RCM.Infra.csproj", "{CAF59E38-FB85-42D8-8A84-9E6EC7F32D89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RCM.Infra", "RCM.Infra\RCM.Infra.csproj", "{CAF59E38-FB85-42D8-8A84-9E6EC7F32D89}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
