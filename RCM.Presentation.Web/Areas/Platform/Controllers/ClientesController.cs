@@ -134,7 +134,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         }
 
         [Authorize(Policy = "ActiveUser")]
-        public IActionResult AttachContato(Guid id)
+        public IActionResult AttachContact(Guid id)
         {
             var contato = new ContatoViewModel()
             {
@@ -147,7 +147,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AttachContato(ContatoViewModel contato)
+        public async Task<IActionResult> AttachContact(ContatoViewModel contato)
         {
             var commandResult = await _clienteApplicationService.AdicionarContato(contato);
 
