@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RCM.Domain.Core.Models;
-using RCM.Domain.Models;
 using RCM.Domain.Models.BancoModels;
 using RCM.Domain.Models.ChequeModels;
 using RCM.Domain.Models.ChequeModels.ChequeStates;
@@ -30,7 +28,6 @@ namespace RCM.Infra.Data.Context
         public DbSet<Cidade> Cidades { get; set; }
         public DbSet<Estado> Estados { get; set; }
         public DbSet<Banco> Bancos { get; set; }
-        public DbSet<Endereco> Enderecos { get; set; }
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<OrdemServico> OrdensServico { get; set; }
         public DbSet<Venda> Vendas { get; set; }
