@@ -5,7 +5,7 @@
         <ul class="tabs tabs-fixed-width">
             <li class="tab col s3"><a href="#geral" class="active">Geral</a></li>
             <li class="tab col s3"><a href="#enderecos">Endereços</a></li>
-            <li class="tab col s3"><a href="#contatos">Contatos</a></li>
+            <li class="tab col s3"><a href="#contato">Contato</a></li>
             <li class="tab col s3"><a href="#cheques">Cheques</a></li>
         </ul>
     </div>
@@ -46,60 +46,43 @@
         </dl>
     </div>
 
-    <div id="contatos" class="col s12 m12">
+    <div id="contato" class="col s12 m12">
         <p class="px-1 font-bold lead">
-            Informações sobre Contatos
+            Informação de Contato
         </p>
 
-        @if (Model.Contatos.Any())
-        {
-            <label asp-for="@Model.Contatos" class="px-1">Contatos</label>
-            <table class="highlight centered">
-                <thead>
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(modelItem => modelItem.Contatos.Single().Id)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(modelItem => modelItem.Contatos.Single().Nome)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(modelItem => modelItem.Contatos.Single().Observacao)
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.Contatos)
-                    {
-                        <tr>
-                            <td>
-                                @item.Id
-                            </td>
-                            <td>
-                                @item.Nome
-                            </td>
-                            <td>
-                                @item.Observacao
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        }
-        else
-        {
-            <dl class="detail-list">
-                <dt>
-                    <label asp-for="@Model.Contatos">Endereços</label>
-                </dt>
-                <dd>
-                    <span class="font-italic text-warning">
-                        <i class="material-icons left">warning</i>
-                        Nenhum contato relacionado.
-                    </span>
-                </dd>
-            </dl>
-        }
+        <dl class="detail-list">
+            <dt>
+                <label asp-for="Contato.Celular"></label>
+            </dt>
+            <dd>
+                @Model.Contato.Celular
+            </dd>
+            <dt>
+                <label asp-for="Contato.Email"></label>
+            </dt>
+            <dd>
+                @(Model.Contato.Email ?? "N/A")
+            </dd>
+            <dt>
+                <label asp-for="Contato.TelefoneResidencial"></label>
+            </dt>
+            <dd>
+                @(Model.Contato.TelefoneResidencial ?? "N/A")
+            </dd>
+            <dt>
+                <label asp-for="Contato.TelefoneComercial"></label>
+            </dt>
+            <dd>
+                @(Model.Contato.TelefoneComercial ?? "N/A")
+            </dd>
+            <dt>
+                <label asp-for="Contato.Observacao"></label>
+            </dt>
+            <dd>
+                @(Model.Contato.Observacao ?? "Observação não registrada.")
+            </dd>
+        </dl>
     </div>
 
     <div id="enderecos" class="col s12 m12">
