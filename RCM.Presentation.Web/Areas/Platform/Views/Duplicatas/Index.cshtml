@@ -132,7 +132,7 @@
             <tbody class="table-body">
                 @foreach (var item in Model.Duplicatas.List)
                 {
-                    <tr class="@(item.Vencido ? "bg-danger" : "")@(item.Pago ? "bg-success" : "")">
+                    <tr class="@(item.Vencido ? "bg-danger" : "") @(item.Pago ? "bg-success" : "")">
                         <td class="d-hidden">
                             @Html.DisplayFor(modelItem => item.Id)
                         </td>

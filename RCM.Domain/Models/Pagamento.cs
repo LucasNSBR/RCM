@@ -6,15 +6,7 @@ namespace RCM.Domain.Models
     {
         public DateTime? DataPagamento { get; private set; }
         public decimal? ValorPago { get; private set; }
-
-        public bool Pago
-        {
-            get
-            {
-                return DataPagamento != null && ValorPago != null;
-            }
-        }
-
+        
         public Pagamento() { }
 
         public Pagamento(DateTime? dataPagamento, decimal? valorPago)

@@ -40,7 +40,6 @@ namespace RCM.Infra.Data.EntityTypeConfig
             builder.OwnsOne(d => d.Pagamento, cfg => {
                 cfg.Property(d => d.DataPagamento).HasColumnName("DataPagamento");
                 cfg.Property(d => d.ValorPago).HasColumnName("ValorPago");
-                cfg.Ignore(d => d.Pago);
             });
         }
     }

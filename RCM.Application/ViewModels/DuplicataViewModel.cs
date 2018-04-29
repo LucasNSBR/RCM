@@ -49,11 +49,12 @@ namespace RCM.Application.ViewModels
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo valor é requerido.")]
         public decimal Valor { get; set; }
 
+        #region Index View Helpers
         public bool Vencido
         {
             get
             {
-                return (Pagamento == null || Pagamento == null) && DataVencimento < DateTime.Now;
+                return Pagamento == null && DataVencimento < DateTime.Now;
             }
         }
 
@@ -61,8 +62,9 @@ namespace RCM.Application.ViewModels
         {
             get
             {
-                return (Pagamento == null || Pagamento != null);
+                return Pagamento != null;
             }
         }
+        #endregion
     }
 }
