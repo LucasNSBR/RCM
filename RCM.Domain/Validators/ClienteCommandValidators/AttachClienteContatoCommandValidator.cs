@@ -15,14 +15,14 @@ namespace RCM.Domain.Validators.ClienteCommandValidators
 
         private void ValidateTelefoneResidencial()
         {
-            RuleFor(c => c.Celular)
+            RuleFor(c => c.TelefoneResidencial)
                 .MaximumLength(15)
-                .WithMessage("O telefone residencial do cliente deve ter entre 10 e 15 caracteres e não deve estar vazio.");
+                .WithMessage("O telefone residencial do cliente deve ter entre 8 e 15 caracteres e não deve estar vazio.");
         }
 
         private void ValidateTelefoneComercial()
         {
-            RuleFor(c => c.Celular)
+            RuleFor(c => c.TelefoneComercial)
                 .MaximumLength(15)
                 .WithMessage("O telefone comercial do cliente deve ter entre 10 e 15 caracteres e não deve estar vazio.");
         }
