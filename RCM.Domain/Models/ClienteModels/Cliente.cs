@@ -40,7 +40,6 @@ namespace RCM.Domain.Models.ClienteModels
  
             _enderecos = new List<Endereco>();
             _cheques = new List<Cheque>();
-
         }
 
         public Cliente(string nome, string descricao = null)
