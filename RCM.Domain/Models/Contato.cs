@@ -14,10 +14,10 @@ namespace RCM.Domain.Models
 
         public Contato(string celular, string email = null, string telefoneComercial = null, string telefoneResidencial = null, string observacao = null)
         {
+            Celular = celular;
             Email = email;
             TelefoneComercial = telefoneComercial;
             TelefoneResidencial = telefoneResidencial;
-            Celular = celular;
             Observacao = observacao;
         }
     }

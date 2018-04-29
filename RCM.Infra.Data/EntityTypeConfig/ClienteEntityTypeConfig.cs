@@ -21,7 +21,6 @@ namespace RCM.Infra.Data.EntityTypeConfig
             builder.OwnsOne(c => c.Contato, cfg =>
             {
                 cfg.Property(co => co.Celular)
-                    .IsRequired()
                     .HasMaxLength(15)
                     .HasColumnName("Celular");
 

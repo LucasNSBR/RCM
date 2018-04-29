@@ -40,6 +40,7 @@ namespace RCM.Domain.Models.ClienteModels
  
             _enderecos = new List<Endereco>();
             _cheques = new List<Cheque>();
+            Contato = new Contato();
         }
 
         public Cliente(string nome, string descricao = null)
@@ -49,15 +50,27 @@ namespace RCM.Domain.Models.ClienteModels
 
             _enderecos = new List<Endereco>();
             _cheques = new List<Cheque>();
+            Contato = new Contato();
         }
 
         public void AdicionarContato(Contato contato)
         {
+            if (contato.IsEmpty) { 
+                AddDomainError("Há campos não preenchidos nas informações de contato.");
+                return;
+            }
+
             Contato = contato;
         }
 
         public void RemoverContato()
         {
+            if (Contato.IsEmpty)
+            {
+                AddDomainError("As informações do contato já estão em branco.");
+                return;
+            }
+
             Contato = null;
         }
     }
