@@ -7,7 +7,53 @@
 <h5>Detalhes do Cliente - @Model.Nome</h5>
 
 <div class="form-container col s12 m12">
-    @Html.DisplayForModel()
+    <div class="row">
+        <div class="col s12">
+            <ul class="tabs tabs-fixed-width">
+                <li class="tab col s3"><a href="#geral" class="active">Geral</a></li>
+                <li class="tab col s3"><a href="#endereco">Endereço</a></li>
+                <li class="tab col s3"><a href="#contato">Contato</a></li>
+                <li class="tab col s3"><a href="#cheques">Cheques</a></li>
+            </ul>
+        </div>
+
+        <div id="geral" class="col s12 m12">
+            @Html.DisplayForModel()
+        </div>
+
+        <div id="contato" class="col s12 m12">
+            @Html.DisplayFor(c => c.Contato)
+        </div>
+
+        <div id="endereco" class="col s12 m12">
+            @Html.DisplayFor(c => c.Endereco)
+        </div>
+
+        <div id="cheques" class="col s12 m12">
+            <p class="px-1 font-bold lead">
+                Informações sobre Cheques
+            </p>
+
+            <dl class="detail-list">
+                <dt>
+                    <label asp-for="Cheques">Cheques</label>
+                </dt>
+                <dd>
+                    @if (Model.Cheques.Any())
+                    {
+                        <a asp-action="Index" asp-route-clienteName="@Model.Nome" asp-controller="Cheques">@Model.Cheques.Count Cheques foram encontrados</a>
+                    }
+                    else
+                    {
+                        <span class="font-italic text-warning">
+                            <i class="material-icons left">warning</i>
+                            Nenhum cheque relacionado.
+                        </span>
+                    }
+                </dd>
+            </dl>
+        </div>
+    </div>
 
     <div class="center pt-3">
         <action-button asp-action="Edit" asp-controller="Clientes" asp-area="Platform" asp-route-id="@Model.Id" icon-name="edit">Editar</action-button>

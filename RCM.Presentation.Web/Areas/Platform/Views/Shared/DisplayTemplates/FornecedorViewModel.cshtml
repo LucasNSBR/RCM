@@ -4,8 +4,8 @@
     <div class="col s12">
         <ul class="tabs tabs-fixed-width">
             <li class="tab col s3"><a href="#geral" class="active">Geral</a></li>
-            <li class="tab col s3"><a href="#enderecos">Endereços</a></li>
-            <li class="tab col s3"><a href="#contatos">Contatos</a></li>
+            <li class="tab col s3"><a href="#contato">Contato</a></li>
+            <li class="tab col s3"><a href="#endereco">Endereço</a></li>
             <li class="tab col s3"><a href="#duplicatas">Duplicatas</a></li>
             <li class="tab col s3"><a href="#notasfiscais">Notas Fiscais</a></li>
         </ul>
@@ -32,44 +32,12 @@
             </dl>
         </div>
     </div>
-
-    <div id="enderecos" class="col s12 m12">
-        <div>
-            <p class="px-1 font-bold lead">
-                Informações sobre Endereços
-            </p>
-            <dl class="detail-list">
-                <dt>
-                    @*<label asp-for="@Model.Endereços"></label>*@
-                </dt>
-                <dd>
-
-                    <span class="font-italic text-warning">
-                        <i class="material-icons left">warning</i>
-                        Nenhum endereço relacionado.
-                    </span>
-                </dd>
-            </dl>
-        </div>
+    <div id="contato" class="col s12 m12">
+        @Html.DisplayFor(c => c.Contato)
     </div>
-
-    <div id="contatos" class="col s12 m12">
-        <p class="px-1 font-bold lead">
-            Informações sobre Contatos
-        </p>
-        <dl class="detail-list">
-            <dt>
-                @*<label asp-for="@Model.Contatos"></label>*@
-            </dt>
-            <dd>
-                <span class="font-italic text-warning">
-                    <i class="material-icons left">warning</i> 
-                    Nenhum contato relacionado.
-                </span>
-            </dd>
-        </dl>
+    <div id="endereco" class="col s12 m12">
+        @Html.DisplayFor(e => e.Endereco)
     </div>
-
     <div id="duplicatas" class="col s12 m12">
         <div>
             <p class="px-1 font-bold lead">
@@ -79,7 +47,6 @@
                 <dt>
                     <label asp-for="@Model.Duplicatas"></label>
                 </dt>
-                <dd>
                 <dd>
                     @if (Model.Duplicatas.Any())
                     {

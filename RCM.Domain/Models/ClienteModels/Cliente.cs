@@ -28,21 +28,21 @@ namespace RCM.Domain.Models.ClienteModels
         {
             Id = id;
             Nome = nome;
+            Contato = contato;
+            Endereco = endereco;
             Descricao = descricao;
             
             _cheques = new List<Cheque>();
-            Contato = contato;
-            Endereco = endereco;
         }
 
         public Cliente(string nome, Contato contato, Endereco endereco, string descricao = null)
         {
             Nome = nome;
+            Contato = contato;
+            Endereco = endereco;
             Descricao = descricao;
             
             _cheques = new List<Cheque>();
-            Contato = contato;
-            Endereco = endereco;
         }
     }
 }

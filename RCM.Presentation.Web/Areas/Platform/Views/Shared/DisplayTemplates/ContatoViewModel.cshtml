@@ -9,7 +9,7 @@
         <label asp-for="Celular"></label>
     </dt>
     <dd>
-        @Model.Celular
+        @(Model.Celular ?? "N/A")
     </dd>
     <dt>
         <label asp-for="Email"></label>

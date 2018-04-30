@@ -1,38 +1,22 @@
 ﻿@model RCM.Application.ViewModels.FornecedorViewModel
 
+<p class="px-1 font-bold lead">
+    Informação Geral
+</p>
+
 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 <div class="row">
-    <div class="col s12">
-        <ul class="tabs tabs-fixed-width">
-            <li class="tab col s3"><a href="#geral" class="active">Geral</a></li>
-            <li class="tab col s3"><a href="#enderecos">Endereços</a></li>
-            <li class="tab col s3"><a href="#contatos">Contatos</a></li>
-        </ul>
+    <div class="input-field col s12 m6">
+        <label asp-for="Nome"></label>
+        <input asp-for="Nome" class="input-field" id="nome" data-length="100" />
+        <span asp-validation-for="Nome" class="text-danger"></span>
     </div>
+</div>
 
-    <div id="geral" class="col s12 m12">
-        <p class="px-1 font-bold lead">
-            Informação Geral
-        </p>
-
-        <div class="row">
-            <div class="input-field col s12 m6">
-                <label asp-for="Nome"></label>
-                <input asp-for="Nome" class="input-field" id="nome" data-length="100"/>
-                <span asp-validation-for="Nome" class="text-danger"></span>
-            </div>
-        </div>
-    </div>
-
-    <div id="enderecos" class="col s12 m12">
-        <p class="px-1 font-bold lead">
-            Informações sobre Endereço
-        </p>
-    </div>
-
-    <div id="contatos" class="col s12 m12">
-        <p class="px-1 font-bold lead">
-            Informações sobre Contato
-        </p>
+<div class="row">
+    <div class="input-field col s12 m6">
+        <label asp-for="Observacao"></label>
+        <input asp-for="Observacao" class="input-field" id="nome" data-length="100" />
+        <span asp-validation-for="Observacao" class="text-danger"></span>
     </div>
 </div>

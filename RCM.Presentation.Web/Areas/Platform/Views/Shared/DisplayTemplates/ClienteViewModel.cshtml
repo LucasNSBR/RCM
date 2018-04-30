@@ -1,156 +1,36 @@
 ﻿@model RCM.Application.ViewModels.ClienteViewModel
 
-<div class="row">
-    <div class="col s12">
-        <ul class="tabs tabs-fixed-width">
-            <li class="tab col s3"><a href="#geral" class="active">Geral</a></li>
-            <li class="tab col s3"><a href="#enderecos">Endereços</a></li>
-            <li class="tab col s3"><a href="#contato">Contato</a></li>
-            <li class="tab col s3"><a href="#cheques">Cheques</a></li>
-        </ul>
-    </div>
+<p class="px-1 font-bold lead">
+    Informação Geral
+</p>
 
-    <div id="geral" class="col s12 m12">
-        <p class="px-1 font-bold lead">
-            Informação Geral
-        </p>
-        <dl class="detail-list">
-            <dt>
-                <label asp-for="Id">Identificação</label>
-            </dt>
-            <dd>
-                @Model.Id
-            </dd>
-            <dt>
-                <label asp-for="Nome">Nome</label>
-            </dt>
-            <dd>
-                @Model.Nome
-            </dd>
-            <dt>
-                <label asp-for="Descricao">Descrição</label>
-            </dt>
-            <dd>
-                @if (!string.IsNullOrWhiteSpace(Model.Descricao))
-                {
-                    @Model.Descricao
-                }
-                else
-                {
-                    <span class="font-italic text-warning">
-                        <i class="material-icons left">warning</i>
-                        Nenhuma descrição relacionada.
-                    </span>
-                }
-            </dd>
-        </dl>
-    </div>
-
-    <div id="contato" class="col s12 m12">
-        <p class="px-1 font-bold lead">
-            Informação de Contato
-        </p>
-
-        <dl class="detail-list">
-            <dt>
-                <label asp-for="Contato.Celular"></label>
-            </dt>
-            <dd>
-                @Model.Contato.Celular
-            </dd>
-            <dt>
-                <label asp-for="Contato.Email"></label>
-            </dt>
-            <dd>
-                @(Model.Contato.Email ?? "N/A")
-            </dd>
-            <dt>
-                <label asp-for="Contato.TelefoneResidencial"></label>
-            </dt>
-            <dd>
-                @(Model.Contato.TelefoneResidencial ?? "N/A")
-            </dd>
-            <dt>
-                <label asp-for="Contato.TelefoneComercial"></label>
-            </dt>
-            <dd>
-                @(Model.Contato.TelefoneComercial ?? "N/A")
-            </dd>
-            <dt>
-                <label asp-for="Contato.Observacao"></label>
-            </dt>
-            <dd>
-                @(Model.Contato.Observacao ?? "Observação não registrada.")
-            </dd>
-        </dl>
-    </div>
-
-    <div id="enderecos" class="col s12 m12">
-        <p class="px-1 font-bold lead">
-            Informações sobre Endereços
-        </p>
-
-        @if (Model.Enderecos.Any())
+<dl class="detail-list">
+    <dt>
+        <label asp-for="Id">Identificação</label>
+    </dt>
+    <dd>
+        @Model.Id
+    </dd>
+    <dt>
+        <label asp-for="Nome">Nome</label>
+    </dt>
+    <dd>
+        @Model.Nome
+    </dd>
+    <dt>
+        <label asp-for="Descricao">Descrição</label>
+    </dt>
+    <dd>
+        @if (!string.IsNullOrWhiteSpace(Model.Descricao))
         {
-            <label asp-for="@Model.Enderecos" class="px-1">Endereços</label>
-            <table class="highlight centered">
-                <thead>
-                    <tr>
-                        <th>
-
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.Enderecos)
-                    {
-                        <tr>
-                            <th>
-
-                            </th>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+            @Model.Descricao
         }
         else
         {
-            <dl class="detail-list">
-                <dt>
-                    <label asp-for="@Model.Enderecos">Endereços</label>
-                </dt>
-                <dd>
-                    <span class="font-italic text-warning">
-                        <i class="material-icons left">warning</i>
-                        Nenhum endereço relacionado.
-                    </span>
-                </dd>
-            </dl>
+            <span class="font-italic text-warning">
+                <i class="material-icons left">warning</i>
+                Nenhuma descrição relacionada.
+            </span>
         }
-    </div>
-
-    <div id="cheques" class="col s12 m12">
-        <p class="px-1 font-bold lead">
-            Informações sobre Cheques
-        </p>
-
-        <dl class="detail-list">
-            <dt>
-                <label asp-for="Cheques">Cheques</label>
-            </dt>
-            <dd>
-                @if (Model.Cheques.Any())
-                {
-                    <a asp-action="Index" asp-route-clienteName="@Model.Nome" asp-controller="Cheques">@Model.Cheques.Count Cheques foram encontrados</a>
-                }
-                else
-                {
-                    <span class="font-italic text-warning">
-                        <i class="material-icons left">warning</i>
-                        Nenhum cheque relacionado.
-                    </span>
-                }
-            </dd>
-        </dl>
-    </div>
-</div>
+    </dd>
+</dl>

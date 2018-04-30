@@ -3,6 +3,7 @@ using RCM.Domain.Commands.FornecedorCommands;
 using RCM.Domain.Core.Commands;
 using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.Events.FornecedorEvents;
+using RCM.Domain.Models;
 using RCM.Domain.Models.FornecedorModels;
 using RCM.Domain.Repositories;
 using RCM.Domain.UnitOfWork;
@@ -32,7 +33,10 @@ namespace RCM.Domain.CommandHandlers.FornecedorCommandHandlers
                 return Response();
             }
 
-            Fornecedor fornecedor = new Fornecedor(command.Nome, command.Observacao);
+            Contato contato = new Contato(command.ContatoCelular, command.ContatoEmail, command.ContatoTelefoneComercial, command.ContatoTelefoneResidencial, command.ContatoObservacao);
+            Endereco endereco = new Endereco(command.EnderecoNumero, command.EnderecoRua, command.EnderecoBairro, command.EnderecoComplemento, command.EnderecoCEP);
+            Fornecedor fornecedor = new Fornecedor(command.Nome, contato, endereco, command.Observacao);
+
             _fornecedorRepository.Add(fornecedor);
       
             if (Commit())
@@ -49,7 +53,10 @@ namespace RCM.Domain.CommandHandlers.FornecedorCommandHandlers
                 return Response();
             }
 
-            Fornecedor fornecedor = new Fornecedor(command.Id, command.Nome, command.Observacao);
+            Contato contato = new Contato(command.ContatoCelular, command.ContatoEmail, command.ContatoTelefoneComercial, command.ContatoTelefoneResidencial, command.ContatoObservacao);
+            Endereco endereco = new Endereco(command.EnderecoNumero, command.EnderecoRua, command.EnderecoBairro, command.EnderecoComplemento, command.EnderecoCEP);
+            Fornecedor fornecedor = new Fornecedor(command.Id, command.Nome, contato, endereco, command.Observacao);
+
             _fornecedorRepository.Update(fornecedor);
 
             if (Commit())
