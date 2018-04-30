@@ -11,12 +11,12 @@ namespace RCM.Application.ViewModels
 
         [Display(Name = "Rua")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo rua é requerido.")]
-        [StringLength(100, MinimumLength = 5, ErrorMessage = "O campo rua deve ter entre 5 e 100 caracteres.")]
+        [StringLength(100, MinimumLength = 3, ErrorMessage = "O campo rua deve ter entre 5 e 100 caracteres.")]
         public string Rua { get; set; }
 
         [Display(Name = "Bairro")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo bairro é requerido.")]
-        [StringLength(25, MinimumLength = 5, ErrorMessage = "O campo bairro deve ter entre 5 e 25 caracteres.")]
+        [StringLength(25, MinimumLength = 3, ErrorMessage = "O campo bairro deve ter entre 5 e 25 caracteres.")]
         public string Bairro { get; set; }
 
         [Display(Name = "Complemento")]
