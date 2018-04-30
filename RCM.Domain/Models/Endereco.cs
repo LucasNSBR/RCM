@@ -10,6 +10,8 @@ namespace RCM.Domain.Models
         public string Complemento { get; private set; }
         public string CEP { get; private set;  }
         
+        protected Endereco() { }
+
         public Endereco(int numero, string rua, string bairro, string complemento = null, string cep = null)
         {
             Numero = numero;

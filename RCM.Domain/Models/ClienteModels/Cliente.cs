@@ -24,7 +24,7 @@ namespace RCM.Domain.Models.ClienteModels
 
         protected Cliente() { }
 
-        public Cliente(Guid id, string nome, Contato contato, string descricao = null)
+        public Cliente(Guid id, string nome, Contato contato, Endereco endereco, string descricao = null)
         {
             Id = id;
             Nome = nome;
@@ -32,15 +32,17 @@ namespace RCM.Domain.Models.ClienteModels
             
             _cheques = new List<Cheque>();
             Contato = contato;
+            Endereco = endereco;
         }
 
-        public Cliente(string nome, Contato contato, string descricao = null)
+        public Cliente(string nome, Contato contato, Endereco endereco, string descricao = null)
         {
             Nome = nome;
             Descricao = descricao;
             
             _cheques = new List<Cheque>();
             Contato = contato;
+            Endereco = endereco;
         }
     }
 }

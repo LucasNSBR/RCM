@@ -5,7 +5,6 @@ namespace RCM.Application.ViewModels
     public class ContatoViewModel
     {
         [Display(Name = "Celular")]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "O campo celular é requerido.")]
         [StringLength(15, MinimumLength = 8, ErrorMessage = "O campo deve ter entre 8 e 15 caracteres.")]
         public string Celular { get; set; }
 
