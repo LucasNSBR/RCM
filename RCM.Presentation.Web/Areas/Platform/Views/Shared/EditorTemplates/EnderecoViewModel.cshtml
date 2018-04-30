@@ -1,0 +1,38 @@
+﻿@model RCM.Application.ViewModels.EnderecoViewModel
+
+<p class="px-1 font-bold lead">
+    Informação de Contato
+</p>
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="row">
+    <div class="input-field col s12 m6">
+        <label asp-for="Numero"></label>
+        <input asp-for="Numero" class="input-field" data-length="4" />
+        <span asp-validation-for="Numero" class="text-danger"></span>
+    </div>
+    <div class="input-field col s12 m6">
+        <label asp-for="Rua"></label>
+        <input asp-for="Rua" class="input-field" data-length="100" />
+        <span asp-validation-for="Rua" class="text-danger"></span>
+    </div>
+</div>
+<div class="row">
+    <div class="input-field col s12 m6">
+        <label asp-for="Bairro"></label>
+        <input asp-for="Bairro" class="input-field" data-length="25" />
+        <span asp-validation-for="Bairro" class="text-danger"></span>
+    </div>
+    <div class="input-field col s12 m6">
+        <label asp-for="Complemento"></label>
+        <input asp-for="Complemento" class="input-field" data-length="100" />
+        <span asp-validation-for="Complemento" class="text-danger"></span>
+    </div>
+</div>
+<div class="row">
+    <div class="input-field col s12 m12">
+        <label asp-for="CEP"></label>
+        <textarea asp-for="CEP" class="materialize-textarea" data-length="8"></textarea>
+        <span asp-validation-for="CEP" class="text-danger"></span>
+    </div>
+</div>

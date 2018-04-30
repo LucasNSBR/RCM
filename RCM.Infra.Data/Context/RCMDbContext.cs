@@ -47,7 +47,6 @@ namespace RCM.Infra.Data.Context
             modelBuilder.ApplyConfiguration(new CidadeEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new ClienteEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new DuplicataEntityTypeConfig());
-            modelBuilder.ApplyConfiguration(new EnderecoEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new EstadoEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new FornecedorEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new MarcaEntityTypeConfig());

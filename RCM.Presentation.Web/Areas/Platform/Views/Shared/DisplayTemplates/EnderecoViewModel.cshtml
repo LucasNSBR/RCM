@@ -1,0 +1,38 @@
+﻿@model RCM.Application.ViewModels.EnderecoViewModel
+
+<p class="px-1 font-bold lead">
+    Informação de Contato
+</p>
+
+<dl class="detail-list">
+    <dt>
+        <label asp-for="Numero"></label>
+    </dt>
+    <dd>
+        @Model.Numero
+    </dd>
+    <dt>
+        <label asp-for="Rua"></label>
+    </dt>
+    <dd>
+        @Model.Rua
+    </dd>
+    <dt>
+        <label asp-for="Bairro"></label>
+    </dt>
+    <dd>
+        @Model.Bairro
+    </dd>
+    <dt>
+        <label asp-for="@Model.Complemento"></label>
+    </dt>
+    <dd>
+        @(Model.Complemento ?? "N/A")
+    </dd>
+    <dt>
+        <label asp-for="CEP"></label>
+    </dt>
+    <dd>
+        @(Model.CEP ?? "N/A")
+    </dd>
+</dl>
