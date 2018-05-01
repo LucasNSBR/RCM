@@ -35,7 +35,9 @@ namespace RCM.Domain.CommandHandlers.ClienteCommandHandlers
 
             Contato contato = new Contato(command.ContatoCelular, command.ContatoEmail, command.ContatoTelefoneComercial, command.ContatoTelefoneResidencial, command.ContatoObservacao);
             Endereco endereco = new Endereco(command.EnderecoNumero, command.EnderecoRua, command.EnderecoBairro, command.EnderecoComplemento, command.EnderecoCEP);
-            Cliente cliente = new Cliente(command.Nome, contato, endereco, command.Descricao);
+            Documento documento = new Documento(command.DocumentoCadastroNacional, command.DocumentoCadastroEstadual);
+
+            Cliente cliente = new Cliente(command.Nome, documento, contato, endereco, command.Descricao);
 
             _clienteRepository.Add(cliente);
 
@@ -55,7 +57,8 @@ namespace RCM.Domain.CommandHandlers.ClienteCommandHandlers
 
             Contato contato = new Contato(command.ContatoCelular, command.ContatoEmail, command.ContatoTelefoneComercial, command.ContatoTelefoneResidencial, command.ContatoObservacao);
             Endereco endereco = new Endereco(command.EnderecoNumero, command.EnderecoRua, command.EnderecoBairro, command.EnderecoComplemento, command.EnderecoCEP);
-            Cliente cliente = new Cliente(command.Id, command.Nome, contato, endereco, command.Descricao);
+            Documento documento = new Documento(command.DocumentoCadastroNacional, command.DocumentoCadastroEstadual);
+            Cliente cliente = new Cliente(command.Id, command.Nome, documento, contato, endereco, command.Descricao);
             _clienteRepository.Update(cliente);
 
             if (Commit())

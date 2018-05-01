@@ -21,6 +21,7 @@ namespace RCM.Application.ApplicationServices
             var command = new AddClienteCommand(viewModel.Nome, viewModel.Descricao);
             command.AttachContato(viewModel.Contato.Celular, viewModel.Contato.Email, viewModel.Contato.TelefoneComercial, viewModel.Contato.TelefoneResidencial, viewModel.Contato.Observacao);
             command.AttachEndereco(viewModel.Endereco.Numero, viewModel.Endereco.Rua, viewModel.Endereco.Bairro, viewModel.Endereco.Complemento, viewModel.Endereco.CEP);
+            command.AttachDocumento(viewModel.Documento.CadastroNacional, viewModel.Documento.CadastroEstadual);
 
             return _mediator.SendCommand(command);
         }
@@ -30,6 +31,7 @@ namespace RCM.Application.ApplicationServices
             var command = new UpdateClienteCommand(viewModel.Id, viewModel.Nome, viewModel.Descricao);
             command.AttachContato(viewModel.Contato.Celular, viewModel.Contato.Email, viewModel.Contato.TelefoneComercial, viewModel.Contato.TelefoneResidencial, viewModel.Contato.Observacao);
             command.AttachEndereco(viewModel.Endereco.Numero, viewModel.Endereco.Rua, viewModel.Endereco.Bairro, viewModel.Endereco.Complemento, viewModel.Endereco.CEP);
+            command.AttachDocumento(viewModel.Documento.CadastroNacional, viewModel.Documento.CadastroEstadual);
 
             return _mediator.SendCommand(command);
         }

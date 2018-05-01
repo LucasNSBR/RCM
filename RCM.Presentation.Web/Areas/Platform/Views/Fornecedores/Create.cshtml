@@ -19,7 +19,21 @@
 
             <div id="geral" class="col s12 m12">
                 @Html.EditorForModel()
-                @Html.EditorFor(f => f.Documento)
+
+                <div class="row">
+                    <div class="input-field col s12 m6">
+                        <label asp-for="Documento.CadastroNacional">CNPJ</label>
+                        <input asp-for="Documento.CadastroNacional" class="input-field" data-length="14" />
+                        <span asp-validation-for="Documento.CadastroNacional" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m6">
+                        <label asp-for="Documento.CadastroEstadual">Inscrição Estadual</label>
+                        <input asp-for="Documento.CadastroEstadual" class="input-field" data-length="12" />
+                        <span asp-validation-for="Documento.CadastroEstadual" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
             <div id="contato" class="col s12 m12">
                 @Html.EditorFor(f => f.Contato)

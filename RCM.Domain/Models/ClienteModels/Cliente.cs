@@ -9,9 +9,9 @@ namespace RCM.Domain.Models.ClienteModels
     {
         public string Nome { get; private set; }
         public string Descricao { get; private set; }
-
-        public virtual Contato Contato { get; private set; }
-        public virtual Endereco Endereco { get; private set; }
+        public Documento Documento { get; private set; }
+        public Contato Contato { get; private set; }
+        public Endereco Endereco { get; private set; }
 
         private List<Cheque> _cheques;
         public virtual IReadOnlyList<Cheque> Cheques
@@ -24,10 +24,11 @@ namespace RCM.Domain.Models.ClienteModels
 
         protected Cliente() { }
 
-        public Cliente(Guid id, string nome, Contato contato, Endereco endereco, string descricao = null)
+        public Cliente(Guid id, string nome, Documento documento, Contato contato, Endereco endereco, string descricao = null)
         {
             Id = id;
             Nome = nome;
+            Documento = documento;
             Contato = contato;
             Endereco = endereco;
             Descricao = descricao;
@@ -35,9 +36,10 @@ namespace RCM.Domain.Models.ClienteModels
             _cheques = new List<Cheque>();
         }
 
-        public Cliente(string nome, Contato contato, Endereco endereco, string descricao = null)
+        public Cliente(string nome, Documento documento, Contato contato, Endereco endereco, string descricao = null)
         {
             Nome = nome;
+            Documento = documento;
             Contato = contato;
             Endereco = endereco;
             Descricao = descricao;

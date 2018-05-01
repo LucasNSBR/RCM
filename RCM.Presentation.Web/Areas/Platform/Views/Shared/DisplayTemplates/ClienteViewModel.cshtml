@@ -1,36 +1,84 @@
 ﻿@model RCM.Application.ViewModels.ClienteViewModel
 
-<p class="px-1 font-bold lead">
-    Informação Geral
-</p>
+<div class="row">
+    <div class="col s12">
+        <ul class="tabs tabs-fixed-width">
+            <li class="tab col s3"><a href="#geral" class="active">Geral</a></li>
+            <li class="tab col s3"><a href="#endereco">Endereço</a></li>
+            <li class="tab col s3"><a href="#contato">Contato</a></li>
+            <li class="tab col s3"><a href="#cheques">Cheques</a></li>
+        </ul>
+    </div>
 
-<dl class="detail-list">
-    <dt>
-        <label asp-for="Id">Identificação</label>
-    </dt>
-    <dd>
-        @Model.Id
-    </dd>
-    <dt>
-        <label asp-for="Nome">Nome</label>
-    </dt>
-    <dd>
-        @Model.Nome
-    </dd>
-    <dt>
-        <label asp-for="Descricao">Descrição</label>
-    </dt>
-    <dd>
-        @if (!string.IsNullOrWhiteSpace(Model.Descricao))
-        {
-            @Model.Descricao
-        }
-        else
-        {
-            <span class="font-italic text-warning">
-                <i class="material-icons left">warning</i>
-                Nenhuma descrição relacionada.
-            </span>
-        }
-    </dd>
-</dl>
+    <div id="geral" class="col s12 m12">
+        <p class="px-1 font-bold lead">
+            Informação Geral
+        </p>
+
+        <dl class="detail-list">
+            <dt>
+                <label asp-for="Id">Identificação</label>
+            </dt>
+            <dd>
+                @Model.Id
+            </dd>
+            <dt>
+                <label asp-for="Nome">Nome</label>
+            </dt>
+            <dd>
+                @Model.Nome
+            </dd>
+            <dt>
+                <label asp-for="Descricao">Descrição</label>
+            </dt>
+            <dd>
+                @if (!string.IsNullOrWhiteSpace(Model.Descricao))
+                {
+                    @Model.Descricao
+                }
+                else
+                {
+                    <span class="font-italic text-warning">
+                        <i class="material-icons left">warning</i>
+                        Nenhuma descrição relacionada.
+                    </span>
+                }
+            </dd>
+
+            @Html.DisplayFor(d => d.Documento)
+        </dl>
+    </div>
+
+    <div id="contato" class="col s12 m12">
+        @Html.DisplayFor(c => c.Contato)
+    </div>
+
+    <div id="endereco" class="col s12 m12">
+        @Html.DisplayFor(c => c.Endereco)
+    </div>
+
+    <div id="cheques" class="col s12 m12">
+        <p class="px-1 font-bold lead">
+            Informações sobre Cheques
+        </p>
+
+        <dl class="detail-list">
+            <dt>
+                <label asp-for="Cheques">Cheques</label>
+            </dt>
+            <dd>
+                @if (Model.Cheques.Any())
+                {
+                    <a asp-action="Index" asp-route-clienteName="@Model.Nome" asp-controller="Cheques">@Model.Cheques.Count Cheques foram encontrados</a>
+                }
+                else
+                {
+                    <span class="font-italic text-warning">
+                        <i class="material-icons left">warning</i>
+                        Nenhum cheque relacionado.
+                    </span>
+                }
+            </dd>
+        </dl>
+    </div>
+</div>

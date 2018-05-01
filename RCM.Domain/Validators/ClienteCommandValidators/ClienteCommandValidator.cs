@@ -144,5 +144,29 @@ namespace RCM.Domain.Validators.ClienteCommandValidators
                 .WithMessage("O CEP do endereço deve ter 8 caracteres.");
         }
         #endregion
+
+        #region Documento
+        protected void ValidateDocumento()
+        {
+            ValidateCPF();
+            ValidateRG();
+        }
+
+        protected void ValidateCPF()
+        {
+            RuleFor(c => c.DocumentoCadastroNacional)
+                .NotEmpty()
+                .MaximumLength(11)
+                .MaximumLength(11)
+                .WithMessage("O CPF deve ter 11 caracteres e não deve estar vazio.");
+        }
+
+        protected void ValidateRG()
+        {
+            RuleFor(c => c.DocumentoCadastroEstadual)
+                .MaximumLength(10)
+                .WithMessage("O RG deve até ter 10 caracteres.");
+        }
+        #endregion
     }
 }
