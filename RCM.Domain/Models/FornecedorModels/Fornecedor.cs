@@ -14,6 +14,7 @@ namespace RCM.Domain.Models.FornecedorModels
 
         public Contato Contato { get; private set; }
         public Endereco Endereco { get; private set; }
+        public Documento Documento { get; private set; }
 
         private List<Duplicata> _duplicatas;
         public virtual IReadOnlyList<Duplicata> Duplicatas
@@ -44,10 +45,11 @@ namespace RCM.Domain.Models.FornecedorModels
 
         protected Fornecedor() { }
 
-        public Fornecedor(Guid id, string nome, Contato contato, Endereco endereco, string observacao = null)
+        public Fornecedor(Guid id, string nome, Documento documento, Contato contato, Endereco endereco, string observacao = null)
         {
             Id = id;
             Nome = nome;
+            Documento = documento;
             Contato = contato;
             Endereco = endereco;
             Observacao = observacao;
@@ -57,9 +59,10 @@ namespace RCM.Domain.Models.FornecedorModels
             _produtos = new List<ProdutoFornecedor>();
         }
 
-        public Fornecedor(string nome, Contato contato, Endereco endereco, string observacao = null)
+        public Fornecedor(string nome, Documento documento, Contato contato, Endereco endereco, string observacao = null)
         {
             Nome = nome;
+            Documento = documento;
             Contato = contato;
             Endereco = endereco;
             Observacao = observacao;

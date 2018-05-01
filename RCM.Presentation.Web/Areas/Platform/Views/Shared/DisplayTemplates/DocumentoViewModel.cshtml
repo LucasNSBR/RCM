@@ -1,0 +1,14 @@
+﻿@model RCM.Application.ViewModels.DocumentoViewModel
+
+<dt>
+    <label asp-for="CadastroNacional"></label>
+</dt>
+<dd>
+    @Model.CadastroNacional
+</dd>
+<dt>
+    <label asp-for="CadastroEstadual"></label>
+</dt>
+<dd>
+    @(Model.CadastroEstadual ?? "N/A")
+</dd>

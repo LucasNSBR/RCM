@@ -21,6 +21,9 @@ namespace RCM.Domain.Commands.FornecedorCommands
         public string EnderecoComplemento { get; set; }
         public string EnderecoCEP { get; set; }
 
+        public string DocumentoCadastroNacional { get; set; }
+        public string DocumentoCadastroEstadual { get; set; }
+
         public void AttachContato(string contatoCelular, string contatoEmail, string contatoTelefoneComercial, string contatoTelefoneResidencial, string contatoObservacao)
         {
             ContatoCelular = contatoCelular;
@@ -37,6 +40,12 @@ namespace RCM.Domain.Commands.FornecedorCommands
             EnderecoBairro = enderecoBairro;
             EnderecoComplemento = enderecoComplemento;
             EnderecoCEP = enderecoCEP;
+        }
+
+        public void AttachDocumento(string documentoCadastroNacional, string documentoCadastroEstadual)
+        {
+            DocumentoCadastroNacional = documentoCadastroNacional;
+            DocumentoCadastroEstadual = documentoCadastroEstadual;
         }
     }
 }

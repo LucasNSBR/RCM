@@ -144,5 +144,29 @@ namespace RCM.Domain.Validators.FornecedorCommandValidators
                 .WithMessage("O CEP do endereço deve ter 8 caracteres.");
         }
         #endregion
+
+        #region Documento
+        protected void ValidateDocumento()
+        {
+            ValidateCNPJ();
+            ValidateInscricaoEstadual();
+        }
+
+        protected void ValidateCNPJ()
+        {
+            RuleFor(c => c.DocumentoCadastroNacional)
+                .NotEmpty()
+                .MaximumLength(14)
+                .MaximumLength(14)
+                .WithMessage("O CNPJ deve ter 14 caracteres e não deve estar vazio.");
+        }
+
+        protected void ValidateInscricaoEstadual()
+        {
+            RuleFor(c => c.DocumentoCadastroEstadual)
+                .MaximumLength(12)
+                .WithMessage("A inscrição estadual deve até ter 12 caracteres.");
+        }
+        #endregion
     }
 }

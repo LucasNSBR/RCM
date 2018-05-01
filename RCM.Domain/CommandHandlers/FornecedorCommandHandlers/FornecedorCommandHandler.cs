@@ -33,9 +33,10 @@ namespace RCM.Domain.CommandHandlers.FornecedorCommandHandlers
                 return Response();
             }
 
+            Documento documento = new Documento(command.DocumentoCadastroNacional, command.DocumentoCadastroEstadual);
             Contato contato = new Contato(command.ContatoCelular, command.ContatoEmail, command.ContatoTelefoneComercial, command.ContatoTelefoneResidencial, command.ContatoObservacao);
             Endereco endereco = new Endereco(command.EnderecoNumero, command.EnderecoRua, command.EnderecoBairro, command.EnderecoComplemento, command.EnderecoCEP);
-            Fornecedor fornecedor = new Fornecedor(command.Nome, contato, endereco, command.Observacao);
+            Fornecedor fornecedor = new Fornecedor(command.Nome, documento, contato, endereco, command.Observacao);
 
             _fornecedorRepository.Add(fornecedor);
       
@@ -53,9 +54,10 @@ namespace RCM.Domain.CommandHandlers.FornecedorCommandHandlers
                 return Response();
             }
 
+            Documento documento = new Documento(command.DocumentoCadastroNacional, command.DocumentoCadastroEstadual);
             Contato contato = new Contato(command.ContatoCelular, command.ContatoEmail, command.ContatoTelefoneComercial, command.ContatoTelefoneResidencial, command.ContatoObservacao);
             Endereco endereco = new Endereco(command.EnderecoNumero, command.EnderecoRua, command.EnderecoBairro, command.EnderecoComplemento, command.EnderecoCEP);
-            Fornecedor fornecedor = new Fornecedor(command.Id, command.Nome, contato, endereco, command.Observacao);
+            Fornecedor fornecedor = new Fornecedor(command.Id, command.Nome, documento, contato, endereco, command.Observacao);
 
             _fornecedorRepository.Update(fornecedor);
 

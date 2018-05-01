@@ -18,6 +18,18 @@ namespace RCM.Infra.Data.EntityTypeConfig
             builder.Property(f => f.Observacao)
                 .HasMaxLength(1000);
 
+            builder.OwnsOne(e => e.Documento, cfg =>
+            {
+                cfg.Property(en => en.CadastroNacional)
+                    .IsRequired()
+                    .HasMaxLength(14)
+                    .HasColumnName("CNPJ");
+
+                cfg.Property(en => en.CadastroEstadual)
+                    .HasMaxLength(11)
+                    .HasColumnName("InscricaoEstadual");
+            });
+
             builder.OwnsOne(c => c.Contato, cfg =>
             {
                 cfg.Property(co => co.Celular)

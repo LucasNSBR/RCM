@@ -1,0 +1,16 @@
+﻿@model RCM.Application.ViewModels.DocumentoViewModel
+
+<div class="row">
+    <div class="input-field col s12 m6">
+        <label asp-for="CadastroNacional"></label>
+        <input asp-for="CadastroNacional" class="input-field" data-length="14" />
+        <span asp-validation-for="CadastroNacional" class="text-danger"></span>
+    </div>
+</div>
+<div class="row">
+    <div class="input-field col s12 m6">
+        <label asp-for="CadastroEstadual">Nome</label>
+        <input asp-for="CadastroEstadual" class="input-field" data-length="12" />
+        <span asp-validation-for="CadastroEstadual" class="text-danger"></span>
+    </div>
+</div>

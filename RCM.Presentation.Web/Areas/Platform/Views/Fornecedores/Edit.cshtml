@@ -7,8 +7,27 @@
 <h5>Editar Fornecedor - @Model.Nome</h5>
 
 <div class="form-container col s12 m12">
-    <form asp-action="Edit">
-        @Html.EditorForModel()
+     <form asp-action="Create">
+        <div class="row">
+            <div class="col s12">
+                <ul class="tabs tabs-fixed-width">
+                    <li class="tab col s3"><a href="#geral" class="active">Geral</a></li>
+                    <li class="tab col s3"><a href="#contato">Contato</a></li>
+                    <li class="tab col s3"><a href="#endereco">Endereço</a></li>
+                </ul>
+            </div>
+
+            <div id="geral" class="col s12 m12">
+                @Html.EditorForModel()
+                @Html.EditorFor(f => f.Documento)
+            </div>
+            <div id="contato" class="col s12 m12">
+                @Html.EditorFor(f => f.Contato)
+            </div>
+            <div id="endereco" class="col s12 m12">
+                @Html.EditorFor(f => f.Endereco)
+            </div>
+        </div>
 
         <div class="row pt-2 px-1">
             <post-button>Confirmar</post-button>
