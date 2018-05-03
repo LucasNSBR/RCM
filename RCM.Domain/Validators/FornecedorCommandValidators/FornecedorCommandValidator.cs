@@ -39,14 +39,14 @@ namespace RCM.Domain.Validators.FornecedorCommandValidators
             ValidateContatoObservacao();
         }
 
-        protected void ValidateContatoNotEmpty()
+        private void ValidateContatoNotEmpty()
         {
             RuleFor(c => this)
                 .Must((c, m) => ValidateContatoProperties(c))
                 .WithMessage("Você deve preencher pelo menos um dos meios de contato.");
         }
 
-        protected void ValidateContatoEmail()
+        private void ValidateContatoEmail()
         {
             RuleFor(c => c.ContatoEmail)
                 .EmailAddress()
@@ -54,28 +54,28 @@ namespace RCM.Domain.Validators.FornecedorCommandValidators
                 .WithMessage("O e-mail do cliente deve ter entre 10 e 100 caracteres e não deve estar vazio.");
         }
 
-        protected void ValidateContatoTelefoneResidencial()
+        private void ValidateContatoTelefoneResidencial()
         {
             RuleFor(c => c.ContatoTelefoneResidencial)
                 .MaximumLength(15)
                 .WithMessage("O telefone residencial do cliente deve ter entre 8 e 15 caracteres e não deve estar vazio.");
         }
 
-        protected void ValidateContatoTelefoneComercial()
+        private void ValidateContatoTelefoneComercial()
         {
             RuleFor(c => c.ContatoTelefoneComercial)
                 .MaximumLength(15)
                 .WithMessage("O telefone comercial do cliente deve ter entre 10 e 15 caracteres e não deve estar vazio.");
         }
 
-        protected void ValidateContatoCelular()
+        private void ValidateContatoCelular()
         {
             RuleFor(c => c.ContatoCelular)
                 .MaximumLength(15)
                 .WithMessage("O celular do cliente deve ter entre 10 e 15 caracteres e não deve estar vazio.");
         }
 
-        protected void ValidateContatoObservacao()
+        private void ValidateContatoObservacao()
         {
             RuleFor(c => c.ContatoObservacao)
                 .MaximumLength(250)
@@ -107,14 +107,14 @@ namespace RCM.Domain.Validators.FornecedorCommandValidators
             ValidateEnderecoCEP();
         }
 
-        protected void ValidateEnderecoNumero()
+        private void ValidateEnderecoNumero()
         {
             RuleFor(c => c.EnderecoNumero)
                 .ExclusiveBetween(0, 9999)
                 .WithMessage("O número do endereço deve estar em um formato válido.");
         }
 
-        protected void ValidateEnderecoRua()
+        private void ValidateEnderecoRua()
         {
             RuleFor(c => c.EnderecoRua)
                 .MinimumLength(3)
@@ -122,7 +122,7 @@ namespace RCM.Domain.Validators.FornecedorCommandValidators
                 .WithMessage("O nome da rua deve ter entre 3 caracteres e 100 e não pode estar vazio.");
         }
 
-        protected void ValidateEnderecoBairro()
+        private void ValidateEnderecoBairro()
         {
             RuleFor(c => c.EnderecoBairro)
                 .MinimumLength(3)
@@ -130,14 +130,14 @@ namespace RCM.Domain.Validators.FornecedorCommandValidators
                 .WithMessage("O nome do bairro deve ter entre 3 e 25 caracteres e não pode estar vazio.");
         }
 
-        protected void ValidateEnderecoComplemento()
+        private void ValidateEnderecoComplemento()
         {
             RuleFor(c => c.EnderecoComplemento)
                 .MaximumLength(250)
                 .WithMessage("O complemento do endereço deve ter até 250 caracteres e não pode estar vazio");
         }
 
-        protected void ValidateEnderecoCEP()
+        private void ValidateEnderecoCEP()
         {
             RuleFor(c => c.EnderecoCEP)
                 .MaximumLength(8)
@@ -152,7 +152,7 @@ namespace RCM.Domain.Validators.FornecedorCommandValidators
             ValidateInscricaoEstadual();
         }
 
-        protected void ValidateCNPJ()
+        private void ValidateCNPJ()
         {
             RuleFor(c => c.DocumentoCadastroNacional)
                 .NotEmpty()
@@ -161,7 +161,7 @@ namespace RCM.Domain.Validators.FornecedorCommandValidators
                 .WithMessage("O CNPJ deve ter 14 caracteres e não deve estar vazio.");
         }
 
-        protected void ValidateInscricaoEstadual()
+        private void ValidateInscricaoEstadual()
         {
             RuleFor(c => c.DocumentoCadastroEstadual)
                 .MaximumLength(12)
