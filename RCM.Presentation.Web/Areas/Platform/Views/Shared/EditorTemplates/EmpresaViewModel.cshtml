@@ -1,0 +1,28 @@
+﻿@model RCM.Application.ViewModels.EmpresaViewModel
+
+<p class="px-1 font-bold lead">
+    Informação Geral
+</p>
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="row">
+    <div class="col s12 m6">
+        <label asp-for="RazaoSocial"></label>
+        <input asp-for="RazaoSocial" class="input-field" data-length="100" />
+        <span asp-validation-for="RazaoSocial" class="text-danger"></span>
+    </div>
+</div>
+<div class="row">
+    <div class="col s12 m6">
+        <label asp-for="NomeFantasia"></label>
+        <input asp-for="NomeFantasia" class="input-field" data-length="100" />
+        <span asp-validation-for="NomeFantasia" class="text-danger"></span>
+    </div>
+</div>
+<div class="row">
+    <div class="col s12 m6">
+        <label asp-for="Descricao"></label>
+        <textarea asp-for="Descricao" class="materialize-textarea" data-length="1000"></textarea>
+        <span asp-validation-for="Descricao" class="text-danger"></span>
+    </div>
+</div>

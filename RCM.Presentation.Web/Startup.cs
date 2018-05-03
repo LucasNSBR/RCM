@@ -68,7 +68,7 @@ namespace RCM.Presentation.Web
                 cfg.SendGridUser = Configuration["SendGrid:User"];
                 cfg.SendGridKey = Configuration["SendGrid:ApiKey"];
             });
-
+            
             Bootstrapper.RegisterServices(services);
         }
 
@@ -103,6 +103,11 @@ namespace RCM.Presentation.Web
                         name: "manage",
                         template: "Platform/Manage/",
                         defaults: new { area = "Platform", controller = "Settings", action = "Profile" });
+
+                    routes.MapRoute(
+                        name: "empresa",
+                        template: "Platform/Empresa/",
+                        defaults: new { area = "Platform", controller = "Empresa", action = "Details" });
 
                     routes.MapRoute(
                          name: "areas",

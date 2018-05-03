@@ -1,0 +1,19 @@
+﻿@model RCM.Application.ViewModels.EmpresaViewModel
+
+@{
+    ViewData["Title"] = "Detalhes da Empresa";
+}
+
+<h5>Detalhes da Empresa - @Model.NomeFantasia</h5>
+
+<div class="form-container col s12 m12">
+    @Html.DisplayForModel()
+
+    <div class="center pt-3">
+        <action-button asp-action="Update" asp-controller="Empresa" asp-area="Platform" asp-route-id="@Model.Id" icon-name="edit">Editar</action-button>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Voltar para a lista</a>
+</div>

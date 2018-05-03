@@ -10,6 +10,7 @@ using RCM.Domain.CommandHandlers.BancoCommandHandlers;
 using RCM.Domain.CommandHandlers.ChequeCommandHandlers;
 using RCM.Domain.CommandHandlers.ClienteCommandHandlers;
 using RCM.Domain.CommandHandlers.DuplicataCommandHandlers;
+using RCM.Domain.CommandHandlers.EmpresaCommandHandlers;
 using RCM.Domain.CommandHandlers.FornecedorCommandHandlers;
 using RCM.Domain.CommandHandlers.MarcaCommandHandlers;
 using RCM.Domain.CommandHandlers.NotaFiscalCommandHandlers;
@@ -19,6 +20,7 @@ using RCM.Domain.Commands.BancoCommands;
 using RCM.Domain.Commands.ChequeCommands;
 using RCM.Domain.Commands.ClienteCommands;
 using RCM.Domain.Commands.DuplicataCommands;
+using RCM.Domain.Commands.EmpresaCommands;
 using RCM.Domain.Commands.FornecedorCommands;
 using RCM.Domain.Commands.MarcaCommands;
 using RCM.Domain.Commands.NotaFiscalCommands;
@@ -76,6 +78,7 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<IChequeRepository, ChequeRepository>();
             services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<IDuplicataRepository, DuplicataRepository>();
+            services.AddScoped<IEmpresaRepository, EmpresaRepository>();
             services.AddScoped<IFornecedorRepository, FornecedorRepository>();
             services.AddScoped<IMarcaRepository, MarcaRepository>();
             services.AddScoped<INotaFiscalRepository, NotaFiscalRepository>();
@@ -91,6 +94,7 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<IChequeApplicationService, ChequeApplicationService>();
             services.AddScoped<IClienteApplicationService, ClienteApplicationService>();
             services.AddScoped<IDuplicataApplicationService, DuplicataApplicationService>();
+            services.AddScoped<IEmpresaApplicationService, EmpresaApplicationService>();
             services.AddScoped<IFornecedorApplicationService, FornecedorApplicationService>();
             services.AddScoped<IMarcaApplicationService, MarcaApplicationService>();
             services.AddScoped<INotaFiscalApplicationService, NotaFiscalApplicationService>();
@@ -147,6 +151,8 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<IRequestHandler<AddOrdemServicoCommand, CommandResult>, OrdemServicoCommandHandler>();
             services.AddScoped<IRequestHandler<UpdateOrdemServicoCommand, CommandResult>, OrdemServicoCommandHandler>();
             services.AddScoped<IRequestHandler<RemoveOrdemServicoCommand, CommandResult>, OrdemServicoCommandHandler>();
+
+            services.AddScoped<IRequestHandler<AddOrUpdateEmpresaCommand, CommandResult>, EmpresaCommandHandler>();
         }
 
         private static void RegisterEvents(IServiceCollection services)

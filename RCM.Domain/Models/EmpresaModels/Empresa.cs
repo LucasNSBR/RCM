@@ -9,26 +9,32 @@ namespace RCM.Domain.Models.EmpresaModels
         public string RazaoSocial { get; private set; }
         public string NomeFantasia { get; private set; }
         public string Descricao { get; private set; }
-        public string CNPJ { get; private set; }
-        public string InscricaoEstadual { get; private set; }
+
+        public Contato Contato { get; private set; }
+        public Endereco Endereco { get; private set; }
+        public Documento Documento { get; private set; }
 
         protected Empresa() { }
 
-        public Empresa(string nomeFantasia, string razaoSocial, string cnpj, string inscricaoEstadual)
+        public Empresa(string nomeFantasia, string razaoSocial, string descricao, Documento documento, Contato contato, Endereco endereco)
         {
             NomeFantasia = nomeFantasia;
             RazaoSocial = razaoSocial;
-            CNPJ = cnpj;
-            InscricaoEstadual = inscricaoEstadual;
+            Descricao = descricao;
+            Documento = documento;
+            Contato = contato;
+            Endereco = endereco;
         }
 
-        public Empresa(Guid id, string nomeFantasia, string razaoSocial, string cnpj, string inscricaoEstadual)
+        public Empresa(Guid id, string nomeFantasia, string razaoSocial, string descricao, Documento documento, Contato contato, Endereco endereco)
         {
             Id = id;
             NomeFantasia = nomeFantasia;
             RazaoSocial = razaoSocial;
-            CNPJ = cnpj;
-            InscricaoEstadual = inscricaoEstadual;
+            Descricao = descricao;
+            Documento = documento;
+            Contato = contato;
+            Endereco = endereco;
         }
     }
 }
