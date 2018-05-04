@@ -21,7 +21,7 @@ namespace RCM.Tests
 
             Venda venda = new Venda(DateTime.Now, "Sem detalhes", cliente);
 
-            venda.AdicionarProduto(produto, 0, 0);
+            venda.AdicionarProduto(produto, 0, 0, 1);
 
             Assert.AreEqual(1, venda.QuantidadeProdutos);
         }
@@ -31,7 +31,17 @@ namespace RCM.Tests
         {
             Produto produto = GetProdutos().First();
             Venda venda = new Venda(DateTime.Now, "Sem detalhes", GetCliente());
-            VendaProduto vendaProduto = new VendaProduto(venda, produto, 78, 0);
+            VendaProduto vendaProduto = new VendaProduto(venda, produto, 78, 0, 1);
+
+            Assert.AreEqual(200, vendaProduto.PrecoFinal);
+        }
+
+        [TestMethod]
+        public void TestProdutoValorQuantidade()
+        {
+            Produto produto = GetProdutos().First();
+            Venda venda = new Venda(DateTime.Now, "Sem detalhes", GetCliente());
+            VendaProduto vendaProduto = new VendaProduto(venda, produto, 0, 0, 2);
 
             Assert.AreEqual(200, vendaProduto.PrecoFinal);
         }
@@ -44,21 +54,34 @@ namespace RCM.Tests
 
             Venda venda = new Venda(DateTime.Now, "Sem detalhes", cliente);
 
-            venda.AdicionarProduto(produtos.First(), 2, 0);
-            venda.AdicionarProduto(produtos.Last(), 2, 0);
-            venda.RemoverProduto(produtos.Last());
+            venda.AdicionarProduto(produtos.First(), 2, 0, 7);
+            venda.AdicionarProduto(produtos.Last(), 2, 0, 1);
+            //venda.RemoverProduto(produtos.Last());
 
-            venda.Finalizar();
+            Assert.AreEqual(1, venda.Errors.Count);
+        }
 
-            //Assert.AreEqual(4, venda.Produtos.First().Produto.Estoque);
-            //Assert.AreEqual(venda.TotalVenda, venda.Produtos.Sum(pv => pv.PrecoFinal));
-            Assert.AreEqual(venda.Status, VendaStatusEnum.Fechada);
+        [TestMethod]
+        public void TestVendaAddRemove()
+        {
+            Cliente cliente = GetCliente();
+            List<Produto> produtos = GetProdutos();
+
+            Venda venda = new Venda(DateTime.Now, "Sem detalhes", cliente);
+
+            venda.AdicionarProduto(produtos[0], desconto: 0, acrescimo: 0, quantidade: 3);
+
+            //Assert.AreEqual(2, produtos[0].Estoque);
+            venda.RemoverProduto(produtos[0]);
+
+            Assert.AreEqual(5, produtos[0].Estoque);
+            //Assert.AreEqual("O estoque não tem essa quantidade disponível.", venda.Errors.First().Description);
         }
 
         public List<Produto> GetProdutos()
         {
-            Produto produto = new Produto("Vela Ignicao", 5, 1, 5, 122, new Marca("NGK"));
-            Produto produto2 = new Produto("Disco de freio", 5, 4, 2, 142, new Marca("Axios"));
+            Produto produto = new Produto("Vela Ignicao", 5, 1, 5, 100, new Marca("NGK"));
+            Produto produto2 = new Produto("Disco de freio", 5, 4, 2, 140, new Marca("Axios"));
 
             return new List<Produto>()
             {

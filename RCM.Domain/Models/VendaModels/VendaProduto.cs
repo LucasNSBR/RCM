@@ -20,12 +20,13 @@ namespace RCM.Domain.Models.VendaModels
 
         public decimal Desconto { get; private set; }
         public decimal Acrescimo { get; private set; }
-        
+        public int Quantidade { get; private set; }
+
         public decimal PrecoFinal
         {
             get
             {
-                return PrecoVenda - Desconto + Acrescimo; 
+                return (PrecoVenda - Desconto + Acrescimo) * Quantidade; 
             }
         }
 
@@ -37,12 +38,13 @@ namespace RCM.Domain.Models.VendaModels
             Produto = produto;
         }
 
-        public VendaProduto(Venda venda, Produto produto, decimal desconto, decimal acrescimo)
+        public VendaProduto(Venda venda, Produto produto, decimal desconto, decimal acrescimo, int quantidade)
         {
             Venda = venda;
             Produto = produto;
             Desconto = desconto;
             Acrescimo = acrescimo;
+            Quantidade = quantidade;
         }
 
         public bool Equals(VendaProduto other)

@@ -64,17 +64,23 @@ namespace RCM.Domain.Models.VendaModels
             _produtos = new List<VendaProduto>();
         }
 
-        public void AdicionarProduto(Produto produto, decimal desconto, decimal acrescimo)
+        public void AdicionarProduto(Produto produto, decimal desconto, decimal acrescimo, int quantidade)
         {
-            if (produto.Estoque <= 0) {
-                AddDomainError("Não é possível adicionar um produto com estoque zerado.");
+            if (produto.Estoque <= quantidade) {
+                AddDomainError("O estoque não tem essa quantidade disponível.");
                 return;
             }
 
-            VendaProduto vendaProduto = new VendaProduto(this, produto, desconto, acrescimo);
+            VendaProduto vendaProduto = new VendaProduto(this, produto, desconto, acrescimo, quantidade);
 
             if (!_produtos.Contains(vendaProduto))
             {
+                if (!produto.DeduzirEstoque(quantidade))
+                {
+                    AddDomainError("Erro ao deduzir do estoque.");
+                    return;
+                }
+
                 _produtos.Add(vendaProduto);
             }
             else
@@ -83,11 +89,12 @@ namespace RCM.Domain.Models.VendaModels
 
         public void RemoverProduto(Produto produto)
         {
-            VendaProduto vendaProduto = new VendaProduto(this, produto);
+            VendaProduto vendaProduto = _produtos.Find(c => c.Equals(new VendaProduto(this, produto)));
 
             if (_produtos.Contains(vendaProduto))
             {
                 _produtos.Remove(vendaProduto);
+                produto.ReporEstoque(vendaProduto.Quantidade);
             }
             else
                 AddDomainError("O produto ainda foi adicionado à venda.");
@@ -101,24 +108,9 @@ namespace RCM.Domain.Models.VendaModels
                 return null;
             }
             
-            DeduzirProdutoEstoque(_produtos);
             Status = VendaStatusEnum.Fechada;
 
             return this;
-        }
-
-        public void DeduzirProdutoEstoque(IEnumerable<VendaProduto> produtos)
-        {
-            foreach (Produto produto in produtos.Select(pv => pv.Produto))
-            {
-                if (produto == null)
-                {
-                    AddDomainError("Erro ao deduzir do estoque");
-                    return;
-                }
-
-                produto.DeduzirEstoque();
-            }
         }
     }
 }

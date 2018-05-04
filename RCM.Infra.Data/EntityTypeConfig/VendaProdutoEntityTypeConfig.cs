@@ -16,6 +16,9 @@ namespace RCM.Infra.Data.EntityTypeConfig
             builder.Property(pv => pv.Desconto)
                 .HasMaxLength(4);
 
+            builder.Property(pv => pv.Quantidade)
+                .HasMaxLength(4);
+
             builder.Ignore(pv => pv.PrecoFinal);
        }
     }

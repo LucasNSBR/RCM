@@ -39,7 +39,7 @@ namespace RCM.Domain.Models.ProdutoModels
 
         public Guid MarcaId { get; private set; }
         public virtual Marca Marca { get; private set; }
-        
+
         protected Produto() { }
 
         public Produto(string nome, int estoque, int estoqueMinimo, int estoqueIdeal, decimal precoVenda, Marca marca)
@@ -68,7 +68,7 @@ namespace RCM.Domain.Models.ProdutoModels
             _fornecedores = new List<ProdutoFornecedor>();
             _aplicacoes = new List<ProdutoAplicacao>();
         }
-        
+
         public void AdicionarReferencias(string referenciaFabricante, string referenciaOriginal, string referenciaAuxiliar)
         {
             ReferenciaAuxiliar = referenciaAuxiliar ?? ReferenciaAuxiliar;
@@ -101,7 +101,7 @@ namespace RCM.Domain.Models.ProdutoModels
         public void AdicionarAplicacao(Aplicacao aplicacao)
         {
             _aplicacoes = _aplicacoes ?? new List<ProdutoAplicacao>();
-            
+
             ProdutoAplicacao produtoAplicacao = new ProdutoAplicacao(this, aplicacao);
 
             if (!_aplicacoes.Contains(produtoAplicacao))
@@ -125,9 +125,16 @@ namespace RCM.Domain.Models.ProdutoModels
             Estoque += estoque;
         }
 
-        public void DeduzirEstoque()
+        public bool DeduzirEstoque(int quantidade)
         {
-            Estoque -= 1;
+            if (Estoque >= quantidade)
+            {
+                Estoque -= quantidade;
+                return true;
+            }
+
+            AddDomainError("Não foi possível deduzir pois o estoque não tem a quantidade necessária.");
+            return false;
         }
     }
 }
