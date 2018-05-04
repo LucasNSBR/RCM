@@ -30,24 +30,42 @@
                         @Html.DisplayNameFor(model => model.Nome)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Descricao)
+                        @Html.DisplayNameFor(model => model.Documento.CadastroNacional)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Documento.CadastroEstadual)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Contato.Celular)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Contato.TelefoneResidencial)
                     </th>
                 </tr>
             </thead>
             <tbody class="table-body">
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td class="d-hidden">
-                            @Html.DisplayFor(modelItem => item.Id)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Nome)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Descricao)
-                        </td>
-                    </tr>
+                <tr>
+                    <td class="d-hidden">
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nome)
+                    </td>
+                    <td>
+                        @(item.Documento.CadastroNacional ?? "N/A")
+                    </td>
+                    <td>
+                        @(item.Documento.CadastroEstadual ?? "N/A")
+                    </td>
+                    <td>
+                        @(item.Contato.Celular ?? "N/A")
+                    </td>
+                    <td>
+                        @(item.Contato.TelefoneResidencial ?? "N/A")
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>

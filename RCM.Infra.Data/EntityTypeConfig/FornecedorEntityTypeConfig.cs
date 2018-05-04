@@ -26,6 +26,7 @@ namespace RCM.Infra.Data.EntityTypeConfig
                     .HasColumnName("CNPJ");
 
                 cfg.Property(en => en.CadastroEstadual)
+                    .IsRequired()
                     .HasMaxLength(11)
                     .HasColumnName("InscricaoEstadual");
             });
