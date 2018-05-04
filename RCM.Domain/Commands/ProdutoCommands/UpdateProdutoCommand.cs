@@ -1,14 +1,16 @@
-﻿using RCM.Domain.Validators.ProdutoCommandValidators;
+﻿using RCM.Domain.Models.ProdutoModels;
+using RCM.Domain.Validators.ProdutoCommandValidators;
 using System;
 
 namespace RCM.Domain.Commands.ProdutoCommands
 {
     public class UpdateProdutoCommand : ProdutoCommand
     {
-        public UpdateProdutoCommand(Guid id, string nome, int estoque, int estoqueMinimo, int estoqueIdeal, decimal precoVenda, Guid marcaId, string referenciaFabricante, string referenciaOriginal, string referenciaAuxiliar)
+        public UpdateProdutoCommand(Guid id, string nome, ProdutoUnidadeEnum unidade, int estoque, int estoqueMinimo, int estoqueIdeal, decimal precoVenda, Guid marcaId, string referenciaFabricante, string referenciaOriginal, string referenciaAuxiliar)
         {
             ProdutoId = id;
             Nome = nome;
+            Unidade = unidade;
             Estoque = estoque;
             EstoqueMinimo = estoqueMinimo;
             EstoqueIdeal = estoqueIdeal;
@@ -18,7 +20,7 @@ namespace RCM.Domain.Commands.ProdutoCommands
             ReferenciaOriginal = referenciaOriginal;
             ReferenciaAuxiliar = referenciaAuxiliar;
         }
-        
+
         public override bool IsValid()
         {
             ValidationResult = new UpdateProdutoCommandValidator().Validate(this);

@@ -1,4 +1,5 @@
 ﻿using RCM.Domain.Core.Commands;
+using RCM.Domain.Models.ProdutoModels;
 using System;
 
 namespace RCM.Domain.Commands.ProdutoCommands
@@ -7,6 +8,7 @@ namespace RCM.Domain.Commands.ProdutoCommands
     {
         public Guid ProdutoId { get; set; }
         public string Nome { get; set; }
+        public ProdutoUnidadeEnum Unidade { get; set; }
         public string ReferenciaFabricante { get; set; }
         public string ReferenciaOriginal { get; set; }
         public string ReferenciaAuxiliar { get; set; }

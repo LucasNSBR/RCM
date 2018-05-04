@@ -1,4 +1,6 @@
-﻿@model RCM.Application.ViewModels.ProdutoViewModel
+﻿@using RCM.Domain.Models.ProdutoModels
+
+@model RCM.Application.ViewModels.ProdutoViewModel
 
 <div class="row">
     <div class="col s12">
@@ -21,6 +23,13 @@
                 <label asp-for="Nome"></label>
                 <input asp-for="Nome" class="input-field" id="nome" data-length="100" />
                 <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <select asp-for="Unidade" asp-items="@(new SelectList(Enum.GetNames(typeof(ProdutoUnidadeEnum)).ToList()))" class="input-field" id="unidade"></select>
+                <label for="unidade">Tipo de Unidade</label>
+                <span asp-validation-for="Unidade" class="text-danger"></span>
             </div>
         </div>
         <div class="row">

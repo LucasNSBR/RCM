@@ -80,8 +80,8 @@ namespace RCM.Tests
 
         public List<Produto> GetProdutos()
         {
-            Produto produto = new Produto("Vela Ignicao", 5, 1, 5, 100, new Marca("NGK"));
-            Produto produto2 = new Produto("Disco de freio", 5, 4, 2, 140, new Marca("Axios"));
+            Produto produto = new Produto("Vela Ignicao", ProdutoUnidadeEnum.KIT, 5, 1, 5, 100, new Marca("NGK"));
+            Produto produto2 = new Produto("Disco de freio", ProdutoUnidadeEnum.KIT, 5, 4, 2, 140, new Marca("Axios"));
 
             return new List<Produto>()
             {

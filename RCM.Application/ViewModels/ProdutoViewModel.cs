@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RCM.Domain.Models.ProdutoModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -14,6 +15,10 @@ namespace RCM.Application.ViewModels
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo nome é requerido.")]
         [StringLength(100, MinimumLength = 4, ErrorMessage = "O campo nome deve ter entre 5 e 100 caracteres.")]
         public string Nome { get; set; }
+
+        [Display(Name = "Unidade")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "O campo tipo de unidade é requerido.")]
+        public ProdutoUnidadeEnum Unidade { get; set; }
 
         [Display(Name = "Referência do Fabricante")]
         [StringLength(25, MinimumLength = 0, ErrorMessage = "O campo referência do fabricante deve ter entre até 25 caracteres.")]

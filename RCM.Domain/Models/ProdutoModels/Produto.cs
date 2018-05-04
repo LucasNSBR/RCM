@@ -13,6 +13,8 @@ namespace RCM.Domain.Models.ProdutoModels
         public string ReferenciaOriginal { get; private set; }
         public string ReferenciaAuxiliar { get; private set; }
 
+        public ProdutoUnidadeEnum Unidade { get; private set; }
+
         private List<ProdutoAplicacao> _aplicacoes;
         public virtual IReadOnlyList<ProdutoAplicacao> Aplicacoes
         {
@@ -42,9 +44,10 @@ namespace RCM.Domain.Models.ProdutoModels
 
         protected Produto() { }
 
-        public Produto(string nome, int estoque, int estoqueMinimo, int estoqueIdeal, decimal precoVenda, Marca marca)
+        public Produto(string nome, ProdutoUnidadeEnum unidade, int estoque, int estoqueMinimo, int estoqueIdeal, decimal precoVenda, Marca marca)
         {
             Nome = nome;
+            Unidade = unidade;
             Estoque = estoque;
             EstoqueMinimo = estoqueMinimo;
             EstoqueIdeal = estoqueIdeal;
@@ -55,10 +58,11 @@ namespace RCM.Domain.Models.ProdutoModels
             _aplicacoes = new List<ProdutoAplicacao>();
         }
 
-        public Produto(Guid id, string nome, int estoque, int estoqueMinimo, int estoqueIdeal, decimal precoVenda, Marca marca)
+        public Produto(Guid id, string nome, ProdutoUnidadeEnum unidade, int estoque, int estoqueMinimo, int estoqueIdeal, decimal precoVenda, Marca marca)
         {
             Id = id;
             Nome = nome;
+            Unidade = unidade;
             Estoque = estoque;
             EstoqueMinimo = estoqueMinimo;
             EstoqueIdeal = estoqueIdeal;
