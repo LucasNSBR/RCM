@@ -10,10 +10,37 @@ namespace RCM.Domain.Models.VendaModels
         public Guid ProdutoId { get; private set; }
         public virtual Produto Produto { get; private set; }
 
+        public decimal PrecoVenda
+        {
+            get
+            {
+                return Produto.PrecoVenda;
+            }
+        }
+
+        public decimal Desconto { get; private set; }
+        public decimal Acrescimo { get; private set; }
+        
+        public decimal PrecoFinal
+        {
+            get
+            {
+                return PrecoVenda - Desconto + Acrescimo; 
+            }
+        }
+
         public ProdutoVenda(Venda venda, Produto produto)
         {
             Venda = venda;
             Produto = produto;
+        }
+
+        public ProdutoVenda(Venda venda, Produto produto, decimal desconto, decimal acrescimo)
+        {
+            Venda = venda;
+            Produto = produto;
+            Desconto = desconto;
+            Acrescimo = acrescimo;
         }
 
         public bool Equals(ProdutoVenda other)

@@ -125,5 +125,9 @@ namespace RCM.Domain.Models.ProdutoModels
             Estoque += estoque;
         }
 
+        public void DeduzirEstoque()
+        {
+            Estoque -= 1;
+        }
     }
 }

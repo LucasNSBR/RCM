@@ -12,7 +12,7 @@ namespace RCM.Domain.Models
 
         protected Contato() { }
 
-        public Contato(string celular, string email = null, string telefoneComercial = null, string telefoneResidencial = null, string observacao = null)
+        public Contato(string celular = null, string email = null, string telefoneComercial = null, string telefoneResidencial = null, string observacao = null)
         {
             Celular = celular;
             Email = email;

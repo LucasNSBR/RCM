@@ -10,6 +10,24 @@ namespace RCM.Infra.Data.EntityTypeConfig
         {
             builder
                 .HasKey(v => v.Id);
+
+            builder.Property(v => v.DataVenda)
+                .IsRequired();
+
+            builder.Property(v => v.Detalhes)
+                .IsRequired()
+                .HasMaxLength(1000);
+
+            builder.HasOne(v => v.Cliente)
+                .WithMany()
+                .HasForeignKey(v => v.ClienteId);
+
+            builder.HasMany(v => v.Produtos)
+                .WithOne(pv => pv.Venda)
+                .HasForeignKey(pv => pv.VendaId);
+
+            builder.Property(v => v.Status)
+                .IsRequired();
         }
     }
 }
