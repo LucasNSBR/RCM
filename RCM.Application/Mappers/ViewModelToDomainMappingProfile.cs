@@ -12,6 +12,7 @@ using RCM.Domain.Models.MarcaModels;
 using RCM.Domain.Models.NotaFiscalModels;
 using RCM.Domain.Models.OrdemServicoModels;
 using RCM.Domain.Models.ProdutoModels;
+using RCM.Domain.Models.VendaModels;
 
 namespace RCM.Application.Mappers
 {
@@ -32,6 +33,7 @@ namespace RCM.Application.Mappers
             CreateMap<OrdemServicoViewModel, OrdemServico>();
             CreateMap<MarcaViewModel, Marca>();
             CreateMap<ProdutoViewModel, Produto>();
+            CreateMap<VendaViewModel, Venda>();
         }
     }
 }
