@@ -23,7 +23,7 @@ namespace RCM.Domain.Models.VendaModels
             }
         }
 
-        public int TotalProdutos
+        public int QuantidadeProdutos
         {
             get
             {
@@ -40,6 +40,8 @@ namespace RCM.Domain.Models.VendaModels
         }
 
         public VendaStatusEnum Status { get; private set; }
+
+        protected Venda() { }
 
         public Venda(DateTime dataVenda, string detalhes, Cliente cliente)
         {

@@ -1,0 +1,85 @@
+﻿@model RCM.Application.ViewModels.VendaViewModel
+
+<div class="row">
+    <div class="col s12">
+        <ul class="tabs tabs-fixed-width">
+            <li class="tab col s3"><a href="#geral" class="active">Geral</a></li>
+            <li class="tab col s3"><a href="#produtos">Produtos</a></li>
+        </ul>
+    </div>
+
+    <div id="geral" class="col s12 m12">
+        <p class="px-1 font-bold lead">
+            Informação geral
+        </p>
+
+        <dl class="detail-list">
+            <dt>
+                <label asp-for="Id"></label>
+            </dt>
+            <dd>
+                @Model.Id
+            </dd>
+            <dt>
+                <label asp-for="Status"></label>
+            </dt>
+            <dd>
+                @Model.Status
+            </dd>
+            <dt>
+                <label asp-for="Cliente"></label>
+            </dt>
+            <dd>
+                @Model.Cliente.Nome
+            </dd>
+            <dt>
+                <label asp-for="QuantidadeProdutos"></label>
+            </dt>
+            <dd>
+                @Model.QuantidadeProdutos
+            </dd>
+            <dt>
+                <label asp-for="TotalVenda"></label>
+            </dt>
+            <dd>
+                @Model.TotalVenda
+            </dd>
+        </dl>
+    </div>
+    <div id="produtos" class="col s12 m12">
+        <div>
+            <p class="px-1 font-bold lead">
+                Informação sobre Produtos
+            </p>
+            <dl class="detail-list">
+                <dt>
+                    <label asp-for="@Model.Produtos"></label>
+                </dt>
+                <dd>
+                    @if (Model.Produtos.Any())
+                    {
+                        <ul class="collection">
+                            @foreach (var produto in Model.Produtos)
+                            {
+                                <li class="collection-item">
+                                    <a asp-action="Index" asp-route-id="@produto.ProdutoId" asp-controller="Produtos">@produto.Produto.Nome</a>
+                                    <span>@produto.PrecoVenda</span>
+                                    <span>@produto.Acrescimo</span>
+                                    <span>@produto.Desconto</span>
+                                    <span>@produto.PrecoFinal</span>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <span class="font-italic text-warning">
+                            <i class="material-icons left">warning</i>
+                            Essa venda ainda não tem nenhum produto adicionado.
+                        </span>
+                    }
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>

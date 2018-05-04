@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using RCM.Application.ApplicationInterfaces;
 using RCM.Domain.DomainNotificationHandlers;
 using RCM.Presentation.Web.Controllers;
+using System;
 
 namespace RCM.Presentation.Web.Areas.Platform.Controllers
 {
@@ -22,6 +23,15 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             var list = _vendaApplicationService.Get();
 
             return View(list);
+        }
+
+        public IActionResult Details(Guid id)
+        {
+            var venda = _vendaApplicationService.GetById(id);
+            if (venda == null)
+                return NotFound();
+
+            return View(venda);
         }
     }
 }

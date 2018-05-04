@@ -1,0 +1,20 @@
+﻿@model RCM.Application.ViewModels.VendaViewModel
+
+@{
+    ViewData["Title"] = $"Detalhes da Venda";
+}
+
+<h5>Detalhes da Venda - @Model.Id</h5>
+
+<div class="form-container col s12 m12">
+    @Html.DisplayForModel()
+
+    <div class="center pt-3">
+        <action-button asp-action="Edit" asp-controller="Vendas" asp-area="Platform" asp-route-id="@Model.Id" icon-name="edit">Editar</action-button>
+        <action-button asp-action="Delete" asp-controller="Vendas" asp-area="Platform" asp-route-id="@Model.Id" icon-name="delete">Excluir</action-button>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Voltar para a lista</a>
+</div>
