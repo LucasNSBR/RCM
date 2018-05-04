@@ -29,6 +29,8 @@ namespace RCM.Domain.Models.VendaModels
             }
         }
 
+        protected VendaProduto() { }
+
         public VendaProduto(Venda venda, Produto produto)
         {
             Venda = venda;
