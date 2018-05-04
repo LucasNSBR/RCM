@@ -16,6 +16,7 @@ using RCM.Domain.CommandHandlers.MarcaCommandHandlers;
 using RCM.Domain.CommandHandlers.NotaFiscalCommandHandlers;
 using RCM.Domain.CommandHandlers.OrdemServicoCommandHandlers;
 using RCM.Domain.CommandHandlers.ProdutoCommandHandlers;
+using RCM.Domain.CommandHandlers.VendaCommandHandlers;
 using RCM.Domain.Commands.BancoCommands;
 using RCM.Domain.Commands.ChequeCommands;
 using RCM.Domain.Commands.ClienteCommands;
@@ -26,11 +27,14 @@ using RCM.Domain.Commands.MarcaCommands;
 using RCM.Domain.Commands.NotaFiscalCommands;
 using RCM.Domain.Commands.OrdemServicoCommands;
 using RCM.Domain.Commands.ProdutoCommands;
+using RCM.Domain.Commands.VendaCommands;
 using RCM.Domain.Core.Commands;
 using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.DomainNotificationHandlers;
 using RCM.Domain.EventHandlers.ChequeEventHandlers;
+using RCM.Domain.EventHandlers.VendaEventHandlers;
 using RCM.Domain.Events.ChequeEvents;
+using RCM.Domain.Events.VendaEvents;
 using RCM.Domain.Repositories;
 using RCM.Domain.Services.Email;
 using RCM.Domain.UnitOfWork;
@@ -153,6 +157,10 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<IRequestHandler<RemoveOrdemServicoCommand, CommandResult>, OrdemServicoCommandHandler>();
 
             services.AddScoped<IRequestHandler<AddOrUpdateEmpresaCommand, CommandResult>, EmpresaCommandHandler>();
+
+            services.AddScoped<IRequestHandler<AddVendaCommand, CommandResult>, VendaCommandHandler>();
+            services.AddScoped<IRequestHandler<UpdateVendaCommand, CommandResult>, VendaCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoveVendaCommand, CommandResult>, VendaCommandHandler>();
         }
 
         private static void RegisterEvents(IServiceCollection services)
@@ -160,6 +168,10 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<INotificationHandler<AddedChequeEvent>, ChequeEventHandler>();
             services.AddScoped<INotificationHandler<UpdatedChequeEvent>, ChequeEventHandler>();
             services.AddScoped<INotificationHandler<RemovedChequeEvent>, ChequeEventHandler>();
+
+            services.AddScoped<INotificationHandler<AddedVendaEvent>, VendaEventHandler>();
+            services.AddScoped<INotificationHandler<UpdatedVendaEvent>, VendaEventHandler>();
+            services.AddScoped<INotificationHandler<RemovedVendaEvent>, VendaEventHandler>();
         }
 
         private static void RegisterNotifications(IServiceCollection services)
