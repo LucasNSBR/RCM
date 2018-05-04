@@ -3,7 +3,7 @@ using System;
 
 namespace RCM.Domain.Models.VendaModels
 {
-    public class ProdutoVenda : IEquatable<ProdutoVenda>
+    public class VendaProduto : IEquatable<VendaProduto>
     {
         public Guid VendaId { get; private set; }
         public virtual Venda Venda { get; private set; }
@@ -29,13 +29,13 @@ namespace RCM.Domain.Models.VendaModels
             }
         }
 
-        public ProdutoVenda(Venda venda, Produto produto)
+        public VendaProduto(Venda venda, Produto produto)
         {
             Venda = venda;
             Produto = produto;
         }
 
-        public ProdutoVenda(Venda venda, Produto produto, decimal desconto, decimal acrescimo)
+        public VendaProduto(Venda venda, Produto produto, decimal desconto, decimal acrescimo)
         {
             Venda = venda;
             Produto = produto;
@@ -43,7 +43,7 @@ namespace RCM.Domain.Models.VendaModels
             Acrescimo = acrescimo;
         }
 
-        public bool Equals(ProdutoVenda other)
+        public bool Equals(VendaProduto other)
         {
             if (other == null)
                 return false;

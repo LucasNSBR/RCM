@@ -4,9 +4,9 @@ using RCM.Domain.Models.VendaModels;
 
 namespace RCM.Infra.Data.EntityTypeConfig
 {
-    public class ProdutoVendaEntityTypeConfig : IEntityTypeConfiguration<ProdutoVenda>
+    public class VendaProdutoEntityTypeConfig : IEntityTypeConfiguration<VendaProduto>
     {
-        public void Configure(EntityTypeBuilder<ProdutoVenda> builder)
+        public void Configure(EntityTypeBuilder<VendaProduto> builder)
         {
             builder.HasKey(k => new { k.ProdutoId, k.VendaId });
 

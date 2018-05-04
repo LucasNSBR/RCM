@@ -31,9 +31,9 @@ namespace RCM.Tests
         {
             Produto produto = GetProdutos().First();
             Venda venda = new Venda(DateTime.Now, "Sem detalhes", GetCliente());
-            ProdutoVenda produtoVenda = new ProdutoVenda(venda, produto, 78, 0);
+            VendaProduto vendaProduto = new VendaProduto(venda, produto, 78, 0);
 
-            Assert.AreEqual(200, produtoVenda.PrecoFinal);
+            Assert.AreEqual(200, vendaProduto.PrecoFinal);
         }
 
         [TestMethod]

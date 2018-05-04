@@ -55,7 +55,7 @@ namespace RCM.Infra.Data.Context
             modelBuilder.ApplyConfiguration(new ProdutoEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new ProdutoAplicacaoEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new ProdutoFornecedorEntityTypeConfig());
-            modelBuilder.ApplyConfiguration(new ProdutoVendaEntityTypeConfig());
+            modelBuilder.ApplyConfiguration(new VendaProdutoEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new VendaEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new EmpresaEntityTypeConfig());
 

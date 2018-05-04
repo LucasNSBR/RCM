@@ -2,7 +2,7 @@
 
 namespace RCM.Application.ViewModels
 {
-    public class ProdutoVendaViewModel
+    public class VendaProdutoViewModel
     {
         public Guid VendaId { get; set; }
         public VendaViewModel Venda { get; set; }

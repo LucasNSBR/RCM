@@ -13,7 +13,7 @@ namespace RCM.Application.ViewModels
         public ClienteViewModel Cliente { get; set; }
         public string Detalhes { get; set; }
 
-        public List<ProdutoVendaViewModel> Produtos { get; set; }
+        public List<VendaProdutoViewModel> Produtos { get; set; }
 
         public int TotalProdutos
         {
@@ -35,7 +35,7 @@ namespace RCM.Application.ViewModels
 
         public VendaViewModel()
         {
-            Produtos = Produtos ?? new List<ProdutoVendaViewModel>();
+            Produtos = Produtos ?? new List<VendaProdutoViewModel>();
         }
     }
 }

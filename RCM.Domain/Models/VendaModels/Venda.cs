@@ -14,8 +14,8 @@ namespace RCM.Domain.Models.VendaModels
         public virtual Cliente Cliente { get; private set; }
         public string Detalhes { get; private set; }
 
-        private List<ProdutoVenda> _produtos;
-        public virtual IReadOnlyList<ProdutoVenda> Produtos
+        private List<VendaProduto> _produtos;
+        public virtual IReadOnlyList<VendaProduto> Produtos
         {
             get
             {
@@ -48,7 +48,7 @@ namespace RCM.Domain.Models.VendaModels
             Cliente = cliente;
 
             Status = VendaStatusEnum.Aberta;
-            _produtos = new List<ProdutoVenda>();
+            _produtos = new List<VendaProduto>();
         }
 
         public Venda(Guid id, DateTime dataVenda, string detalhes, Cliente cliente)
@@ -59,7 +59,7 @@ namespace RCM.Domain.Models.VendaModels
             Cliente = cliente;
 
             Status = VendaStatusEnum.Aberta;
-            _produtos = new List<ProdutoVenda>();
+            _produtos = new List<VendaProduto>();
         }
 
         public void AdicionarProduto(Produto produto, decimal desconto, decimal acrescimo)
@@ -69,11 +69,11 @@ namespace RCM.Domain.Models.VendaModels
                 return;
             }
 
-            ProdutoVenda produtoVenda = new ProdutoVenda(this, produto, desconto, acrescimo);
+            VendaProduto vendaProduto = new VendaProduto(this, produto, desconto, acrescimo);
 
-            if (!_produtos.Contains(produtoVenda))
+            if (!_produtos.Contains(vendaProduto))
             {
-                _produtos.Add(produtoVenda);
+                _produtos.Add(vendaProduto);
             }
             else
                 AddDomainError("O produto já foi adicionado à venda.");
@@ -81,11 +81,11 @@ namespace RCM.Domain.Models.VendaModels
 
         public void RemoverProduto(Produto produto)
         {
-            ProdutoVenda produtoVenda = new ProdutoVenda(this, produto);
+            VendaProduto vendaProduto = new VendaProduto(this, produto);
 
-            if (_produtos.Contains(produtoVenda))
+            if (_produtos.Contains(vendaProduto))
             {
-                _produtos.Remove(produtoVenda);
+                _produtos.Remove(vendaProduto);
             }
             else
                 AddDomainError("O produto ainda foi adicionado à venda.");
@@ -105,7 +105,7 @@ namespace RCM.Domain.Models.VendaModels
             return this;
         }
 
-        public void DeduzirProdutoEstoque(IEnumerable<ProdutoVenda> produtos)
+        public void DeduzirProdutoEstoque(IEnumerable<VendaProduto> produtos)
         {
             foreach (Produto produto in produtos.Select(pv => pv.Produto))
             {
