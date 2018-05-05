@@ -4,6 +4,7 @@ using RCM.Domain.Core.Commands;
 using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.Events.VendaEvents;
 using RCM.Domain.Models.ClienteModels;
+using RCM.Domain.Models.ProdutoModels;
 using RCM.Domain.Models.VendaModels;
 using RCM.Domain.Repositories;
 using RCM.Domain.UnitOfWork;
@@ -15,15 +16,19 @@ namespace RCM.Domain.CommandHandlers.VendaCommandHandlers
     public class VendaCommandHandler : CommandHandler<Venda>,
                                        IRequestHandler<AddVendaCommand, CommandResult>,
                                        IRequestHandler<UpdateVendaCommand, CommandResult>,
-                                       IRequestHandler<RemoveVendaCommand, CommandResult>
+                                       IRequestHandler<RemoveVendaCommand, CommandResult>,
+                                       IRequestHandler<AttachVendaProdutoCommand, CommandResult>,
+                                       IRequestHandler<RemoveVendaProdutoCommand, CommandResult>
     {
         private readonly IVendaRepository _vendaRepository;
         private readonly IClienteRepository _clienteRepository;
+        private readonly IProdutoRepository _produtoRepository;
 
-        public VendaCommandHandler(IVendaRepository vendaRepository, IClienteRepository clienteRepository, IMediatorHandler mediator, IUnitOfWork unitOfWork) : base(mediator, unitOfWork)
+        public VendaCommandHandler(IVendaRepository vendaRepository, IClienteRepository clienteRepository, IProdutoRepository produtoRepository, IMediatorHandler mediator, IUnitOfWork unitOfWork) : base(mediator, unitOfWork)
         {
             _vendaRepository = vendaRepository;
             _clienteRepository = clienteRepository;
+            _produtoRepository = produtoRepository;
         }
 
         public Task<CommandResult> Handle(AddVendaCommand command, CancellationToken cancellationToken)
@@ -77,6 +82,44 @@ namespace RCM.Domain.CommandHandlers.VendaCommandHandlers
 
             if (Commit())
                 _mediator.Publish(new RemovedVendaEvent());
+
+            return Response();
+        }
+
+        public Task<CommandResult> Handle(AttachVendaProdutoCommand command, CancellationToken cancellationToken)
+        {
+            if (!command.IsValid())
+            {
+                NotifyCommandErrors(command);
+                return Response();
+            }
+
+            Venda venda = _vendaRepository.GetById(command.Id);
+            Produto produto = _produtoRepository.GetById(command.ProdutoId);
+
+            venda.AdicionarProduto(produto, command.Desconto, command.Acrescimo, command.Quantidade);
+            _vendaRepository.Update(venda);
+
+            Commit();
+
+            return Response();
+        }
+
+        public Task<CommandResult> Handle(RemoveVendaProdutoCommand command, CancellationToken cancellationToken)
+        {
+            if (!command.IsValid())
+            {
+                NotifyCommandErrors(command);
+                return Response();
+            }
+
+            Venda venda = _vendaRepository.GetById(command.Id);
+            Produto produto = _produtoRepository.GetById(command.ProdutoId);
+
+            venda.RemoverProduto(produto);
+            _vendaRepository.Update(venda);
+
+            Commit();
 
             return Response();
         }

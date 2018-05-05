@@ -156,16 +156,16 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> RemoveProduto(Guid produtoId)
+        public async Task<IActionResult> RemoveProduto(Guid vendaId, Guid produtoId)
         {
-            var commandResult = await _vendaApplicationService.RemoveProduto(produtoId);
+            var commandResult = await _vendaApplicationService.RemoveProduto(vendaId, produtoId);
 
             if (commandResult.Success)
                 NotifyCommandResultSuccess();
             else
                 NotifyCommandResultErrors(commandResult.Errors);
 
-            return RedirectToAction(nameof(Details), new { id = produtoId });
+            return RedirectToAction(nameof(Details), new { id = vendaId });
         }
 
         public JsonResult GetClientes()

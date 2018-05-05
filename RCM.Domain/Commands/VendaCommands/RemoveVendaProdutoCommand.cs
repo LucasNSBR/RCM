@@ -7,8 +7,9 @@ namespace RCM.Domain.Commands.VendaCommands
     {
         public Guid ProdutoId { get; set; }
 
-        public RemoveVendaProdutoCommand(Guid produtoId)
+        public RemoveVendaProdutoCommand(Guid vendaId, Guid produtoId)
         {
+            Id = vendaId;
             ProdutoId = produtoId;
         }
 

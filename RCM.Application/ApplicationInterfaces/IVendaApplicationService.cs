@@ -9,6 +9,6 @@ namespace RCM.Application.ApplicationInterfaces
     public interface IVendaApplicationService : IBaseApplicationService<Venda, VendaViewModel>
     {
         Task<CommandResult> AttachProduto(VendaProdutoViewModel viewModel);
-        Task<CommandResult> RemoveProduto(Guid produtoId);
+        Task<CommandResult> RemoveProduto(Guid vendaId, Guid produtoId);
     }
 }
