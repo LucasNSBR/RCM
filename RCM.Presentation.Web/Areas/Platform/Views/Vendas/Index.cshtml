@@ -60,7 +60,7 @@
                         @(item.QuantidadeProdutos == 0 ? "Nenhum" : item.QuantidadeProdutos.ToString())
                     </td>
                     <td>
-                        @(item.TotalVenda == 0 ? "0 reais" : item.TotalVenda.ToString())
+                        @(item.TotalVenda == 0 ? "Rascunho" : item.TotalVenda.ToString())
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Status)

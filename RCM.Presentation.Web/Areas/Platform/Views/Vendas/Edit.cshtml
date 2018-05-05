@@ -1,0 +1,67 @@
+﻿@model RCM.Application.ViewModels.VendaViewModel
+
+@{
+    ViewData["Title"] = "Editar Venda";
+}
+
+<h5>Editar</h5>
+
+<div class="form-container col s12 m12">
+    <form asp-action="Create">
+        @Html.EditorForModel()
+
+        <div class="row pt-2 px-1">
+            <post-button>Confirmar</post-button>
+        </div>
+    </form>
+</div>
+
+<div>
+    <a asp-action="Details" asp-route-id="@Model.Id">Voltar para detalhes</a>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        var dropdown = $('#clienteSelect');
+        var fornecedoresUrl = '@Url.Action("GetClientes", "Vendas")';
+        var fornecedorId = $('#clienteId').val();
+
+        function reloadSelect() {
+            $.ajax({
+                method: "GET",
+                url: fornecedoresUrl,
+            }).done(function (data) {
+                dropdown.empty();
+
+                $.each(data, function (index, item) {
+                    dropdown.append($("<option />").text(item.nome).val(item.id));
+                })
+
+                $(dropdown.find('option').each(function (index, item) {
+                    if (item.value === fornecedorId) {
+                        dropdown.prop('selectedIndex', index);
+                    }
+                }));
+
+                if (fornecedorId == "")
+                    $('#clienteId').val(dropdown.find('option').first().val());
+
+                dropdown.material_select();
+            });
+        }
+
+        reloadSelect();
+
+        $('#reload-clientes-button').click(function () {
+            reloadSelect();
+        });
+
+        $('#clienteSelect').change(function () {
+            var optionId = $('#clienteSelect option:selected')[0].value;
+            $('#clienteId').val(optionId);
+        })
+    </script>
+}

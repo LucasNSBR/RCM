@@ -17,7 +17,7 @@ namespace RCM.Domain.Validators.VendaCommandValidators
         {
             RuleFor(d => d.DataVenda)
                 .NotEmpty()
-                .GreaterThanOrEqualTo(DateTime.Now.AddDays(7))
+                .GreaterThanOrEqualTo(DateTime.Now.AddDays(-7))
                 .LessThanOrEqualTo(DateTime.Now)
                 .WithMessage("A data da venda deve estar em um formato válido.");
         }
