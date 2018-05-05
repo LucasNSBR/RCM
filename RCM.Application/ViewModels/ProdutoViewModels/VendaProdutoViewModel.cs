@@ -24,8 +24,10 @@ namespace RCM.Application.ViewModels
         {
             get
             {
-                return PrecoVenda - Desconto+ Acrescimo;
+                return PrecoVenda - Desconto + Acrescimo;
             }
         }
+
+        public int Quantidade { get; set; }
     }
 }

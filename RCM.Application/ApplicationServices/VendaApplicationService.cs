@@ -30,5 +30,10 @@ namespace RCM.Application.ApplicationServices
         {
             return _mediator.SendCommand(new RemoveVendaCommand(viewModel.Id));
         }
+
+        public Task<CommandResult> AttachProduto(VendaProdutoViewModel viewModel)
+        {
+            return _mediator.SendCommand(new AttachVendaProdutoCommand(viewModel.VendaId, viewModel.ProdutoId, viewModel.PrecoVenda, viewModel.Desconto, viewModel.Acrescimo, viewModel.Quantidade));
+        }
     }
 }

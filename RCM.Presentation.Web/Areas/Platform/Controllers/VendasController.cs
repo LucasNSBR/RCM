@@ -126,6 +126,35 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             return View(venda);
         }
 
+        public IActionResult Attach()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AttachProduto(VendaProdutoViewModel vendaProduto)
+        {
+            if (!ModelState.IsValid)
+            {
+                NotifyModelStateErrors();
+                return View(vendaProduto);
+            }
+
+            var commandResult = await _vendaApplicationService.AttachProduto(vendaProduto);
+
+            if (commandResult.Success)
+            {
+                NotifyCommandResultSuccess();
+                return RedirectToAction(nameof(Details), new { id = vendaProduto.ProdutoId });
+            }
+            else
+                NotifyCommandResultErrors(commandResult.Errors);
+            
+            return View(vendaProduto);
+        }
+
+    
         public JsonResult GetClientes()
         {
             return Json(_clienteApplicationService.Get()
