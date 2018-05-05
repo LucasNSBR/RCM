@@ -150,7 +150,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             }
             else
                 NotifyCommandResultErrors(commandResult.Errors);
-            
+
             return View(vendaProduto);
         }
 
@@ -158,17 +158,12 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RemoveProduto(Guid produtoId)
         {
-            //var commandResult = await _vendaApplicationService.AttachProduto(vendaProduto);
+            var commandResult = await _vendaApplicationService.RemoveProduto(produtoId);
 
-            //if (commandResult.Success)
-            //{
-            //    NotifyCommandResultSuccess();
-            //    return RedirectToAction(nameof(Details), new { id = vendaProduto.ProdutoId });
-            //}
-            //else
-            //    NotifyCommandResultErrors(commandResult.Errors);
-
-            //return View(vendaProduto);
+            if (commandResult.Success)
+                NotifyCommandResultSuccess();
+            else
+                NotifyCommandResultErrors(commandResult.Errors);
 
             return RedirectToAction(nameof(Details), new { id = produtoId });
         }

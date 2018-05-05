@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using AutoMapper;
 using RCM.Application.ApplicationInterfaces;
 using RCM.Application.ViewModels;
@@ -34,6 +35,11 @@ namespace RCM.Application.ApplicationServices
         public Task<CommandResult> AttachProduto(VendaProdutoViewModel viewModel)
         {
             return _mediator.SendCommand(new AttachVendaProdutoCommand(viewModel.VendaId, viewModel.ProdutoId, viewModel.PrecoVenda, viewModel.Desconto, viewModel.Acrescimo, viewModel.Quantidade));
+        }
+
+        public Task<CommandResult> RemoveProduto(Guid produtoId)
+        {
+            return _mediator.SendCommand(new RemoveVendaProdutoCommand(produtoId));
         }
     }
 }
