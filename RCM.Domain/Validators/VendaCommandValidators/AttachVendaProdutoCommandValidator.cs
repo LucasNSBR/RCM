@@ -8,7 +8,6 @@ namespace RCM.Domain.Validators.VendaCommandValidators
         public AttachVendaProdutoCommandValidator()
         {
             ValidateDesconto();
-            ValidateAcrescimo();
             ValidateProdutoId();
             ValidateQuantidade();
         }
@@ -17,7 +16,6 @@ namespace RCM.Domain.Validators.VendaCommandValidators
         private void ValidateDesconto()
         {
             RuleFor(pv => pv.Desconto)
-                .NotEmpty()
                 .Must((pv, d) => ValidateDesconto(pv))
                 .WithMessage("O desconto deve estar em um formato válido.");
         }
@@ -27,13 +25,6 @@ namespace RCM.Domain.Validators.VendaCommandValidators
             return command.Desconto < command.PrecoVenda;
         }
         #endregion
-
-        private void ValidateAcrescimo()
-        {
-            RuleFor(pv => pv.Acrescimo)
-                .NotEmpty()
-                .WithMessage("O acréscimo deve estar em um formato válido.");
-        }
 
         private void ValidateProdutoId()
         {
