@@ -17,11 +17,13 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
     {
         private readonly IVendaApplicationService _vendaApplicationService;
         private readonly IClienteApplicationService _clienteApplicationService;
+        private readonly IProdutoApplicationService _produtoApplicationService;
 
-        public VendasController(IVendaApplicationService vendaApplicationService, IClienteApplicationService clienteApplicationService, IDomainNotificationHandler domainNotificationHandler) : base(domainNotificationHandler)
+        public VendasController(IVendaApplicationService vendaApplicationService, IClienteApplicationService clienteApplicationService, IProdutoApplicationService produtoApplicationService, IDomainNotificationHandler domainNotificationHandler) : base(domainNotificationHandler)
         {
             _vendaApplicationService = vendaApplicationService;
             _clienteApplicationService = clienteApplicationService;
+            _produtoApplicationService = produtoApplicationService;
         }
 
         public IActionResult Index()
@@ -126,9 +128,14 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             return View(venda);
         }
 
-        public IActionResult Attach()
+        public IActionResult AttachProduto(Guid id)
         {
-            return View();
+            VendaProdutoViewModel vendaProduto = new VendaProdutoViewModel()
+            {
+                VendaId = id
+            };
+
+            return View(vendaProduto);
         }
 
         [HttpPost]
@@ -171,6 +178,12 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         public JsonResult GetClientes()
         {
             return Json(_clienteApplicationService.Get()
+                .OrderBy(c => c.Nome));
+        }
+
+        public JsonResult GetProdutos()
+        {
+            return Json(_produtoApplicationService.Get()
                 .OrderBy(c => c.Nome));
         }
     }

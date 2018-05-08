@@ -474,3 +474,8 @@ dt {
 #select-button:hover, #unselect-button:hover {
     background-color: #9c27b0;
 }
+
+#input-preco-venda, #input-preco-final {
+    border-bottom: dotted 1px;
+    color: lightslategray;
+}

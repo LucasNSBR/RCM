@@ -1,0 +1,99 @@
+﻿@model RCM.Application.ViewModels.VendaProdutoViewModel
+
+@{
+    ViewData["Title"] = "Relacionar Produto";
+}
+
+<h5>Adicionar</h5>
+
+<div class="form-container col s12 m12">
+    <form asp-action="AttachProduto">
+        @Html.EditorForModel()
+
+        <div class="row pt-2 px-1">
+            <post-button>Confirmar</post-button>
+        </div>
+    </form>
+</div>
+
+<div>
+    <a asp-action="Details" asp-route-id="@Model.VendaId">Voltar para detalhes</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        var produtosUrl = '@Url.Action("GetProdutos", "Vendas")';
+        var dropdown = $('#produtoSelect');
+        var produtoId = $('#produtoId').val();
+        var produtos = {};
+        var precoVenda = 0;
+        var acrescimo = 0;
+        var desconto = 0;
+        var quantidade = 0;
+        var precoFinal = $('#input-preco-final');
+
+        function reloadSelect() {
+            $.ajax({
+                method: "GET",
+                url: produtosUrl,
+            }).done(function (data) {
+                produtos = data;
+                dropdown.empty();
+
+                $.each(data, function (index, item) {
+                    dropdown.append($("<option />").text(item.nome).val(item.id));
+                })
+
+                $(dropdown.find('option').each(function (index, item) {
+                    if (item.value === produtoId) {
+                        dropdown.prop('selectedIndex', index);
+                        $('#input-preco-venda').val($(produtos)[index].precoVenda);
+                    }
+                }));
+
+                if (produtoId == "" || produtoId == "00000000-0000-0000-0000-000000000000") {
+                    $('#produtoId').val(dropdown.find('option').first().val());
+                    $('#input-preco-venda').val($(produtos)[0].precoVenda);
+                }
+
+                calculateTotal();
+                Materialize.updateTextFields();
+                dropdown.material_select();
+            });
+        }
+
+        reloadSelect();
+
+        $('#reload-produtos-button').click(function () {
+            reloadSelect();
+        });
+
+        $('#produtoSelect').change(function () {
+            var optionId = $('#produtoSelect option:selected')[0].value;
+            var selectedIndex = $('#produtoSelect option:selected').index();
+            $('#produtoId').val(optionId);
+            $('#input-preco-venda').val($(produtos)[selectedIndex].precoVenda);
+
+            calculateTotal();
+        })
+
+        $('#input-acrescimo, #input-desconto, #input-quantidade').blur(function () {
+            calculateTotal();
+        })
+
+        function calculateTotal() {
+            precoVenda = $('#input-preco-venda').val();
+            acrescimo = $('#input-acrescimo').val() == '' ? '0' : parseFloat($('#input-acrescimo').val().replace(',', '.'));
+            desconto = $('#input-desconto').val() == '' ? '0' : parseFloat($('#input-desconto').val().replace(',', '.'));
+            quantidade = $('#input-quantidade').val() == '' ? '0' : parseFloat($('#input-quantidade').val().replace(',', '.'));
+            
+            var total = (precoVenda * quantidade) + acrescimo - desconto;
+            if (total <= 0)
+                total = "Insira valores válidos nos campos de acréscimo, desconto e quantidade.";
+
+            $(precoFinal).val(total.toFixed(2).replace('.', ','));
+        }
+    </script>
+}

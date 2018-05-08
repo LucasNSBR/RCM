@@ -30,7 +30,7 @@
                 <label asp-for="Detalhes"></label>
             </dt>
             <dd>
-                @Model.Detalhes
+                @(!string.IsNullOrWhiteSpace(Model.Detalhes) ? Model.Detalhes : "Nenhum detalhe relacionado.")
             </dd>
             <dt>
                 <label asp-for="Cliente"></label>
@@ -42,13 +42,33 @@
                 <label asp-for="QuantidadeProdutos"></label>
             </dt>
             <dd>
-                @Model.QuantidadeProdutos
+                @if (Model.QuantidadeProdutos > 0)
+                {
+                    @Model.QuantidadeProdutos
+                }
+                else
+                {
+                    <span class="font-italic text-warning">
+                        <i class="material-icons left">warning</i>
+                        Nenhum produto adicionado.
+                    </span>
+                }
             </dd>
             <dt>
                 <label asp-for="TotalVenda"></label>
             </dt>
             <dd>
-                @Model.TotalVenda
+                @if (Model.TotalVenda > 0)
+                {
+                    @Model.TotalVenda.ToString("c")
+                }
+                else
+                {
+                    <span class="font-italic text-warning">
+                        <i class="material-icons left">warning</i>
+                        Venda em rascunho.
+                    </span>
+                }
             </dd>
         </dl>
     </div>
@@ -86,6 +106,8 @@
                     }
                 </dd>
             </dl>
+
+            <a asp-action="AttachProduto" asp-route-id="@Model.Id" class="px-2">Adicionar Produto</a>
         </div>
     </div>
 </div>
