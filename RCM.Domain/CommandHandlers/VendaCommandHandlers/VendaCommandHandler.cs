@@ -58,8 +58,8 @@ namespace RCM.Domain.CommandHandlers.VendaCommandHandlers
                 return Response();
             }
 
-            Cliente cliente = _clienteRepository.GetById(command.Id);
-            Venda venda = new Venda(command.Id, command.DataVenda, command.Detalhes, cliente);
+            Cliente cliente = _clienteRepository.GetById(command.VendaId);
+            Venda venda = new Venda(command.VendaId, command.DataVenda, command.Detalhes, cliente);
 
             _vendaRepository.Update(venda);
 
@@ -77,7 +77,7 @@ namespace RCM.Domain.CommandHandlers.VendaCommandHandlers
                 return Response();
             }
 
-            Venda venda = _vendaRepository.GetById(command.Id);
+            Venda venda = _vendaRepository.GetById(command.VendaId);
             _vendaRepository.Remove(venda);
 
             if (Commit())
@@ -94,7 +94,7 @@ namespace RCM.Domain.CommandHandlers.VendaCommandHandlers
                 return Response();
             }
 
-            Venda venda = _vendaRepository.GetById(command.Id);
+            Venda venda = _vendaRepository.GetById(command.VendaId);
             Produto produto = _produtoRepository.GetById(command.ProdutoId);
 
             venda.AdicionarProduto(produto, command.Desconto, command.Acrescimo, command.Quantidade);
@@ -113,7 +113,7 @@ namespace RCM.Domain.CommandHandlers.VendaCommandHandlers
                 return Response();
             }
 
-            Venda venda = _vendaRepository.GetById(command.Id);
+            Venda venda = _vendaRepository.GetById(command.VendaId);
             Produto produto = _produtoRepository.GetById(command.ProdutoId);
 
             venda.RemoverProduto(produto);

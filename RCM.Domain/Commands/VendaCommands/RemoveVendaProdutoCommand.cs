@@ -9,7 +9,7 @@ namespace RCM.Domain.Commands.VendaCommands
 
         public RemoveVendaProdutoCommand(Guid vendaId, Guid produtoId)
         {
-            Id = vendaId;
+            VendaId = vendaId;
             ProdutoId = produtoId;
         }
 

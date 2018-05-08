@@ -5,7 +5,6 @@ namespace RCM.Domain.Commands.VendaCommands
 {
     public class AttachVendaProdutoCommand : VendaCommand
     {
-        public Guid VendaId { get; set; }
         public Guid ProdutoId { get; set; }
         public decimal PrecoVenda { get; set; }
         public decimal Desconto { get; set; }

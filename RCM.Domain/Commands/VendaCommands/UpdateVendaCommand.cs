@@ -7,7 +7,7 @@ namespace RCM.Domain.Commands.VendaCommands
     {
         public UpdateVendaCommand(Guid id, DateTime dataVenda, string detalhes, Guid clienteId)
         {
-            Id = id;
+            VendaId = id;
             DataVenda = dataVenda;
             Detalhes = detalhes;
             ClienteId = clienteId;
