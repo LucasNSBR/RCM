@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using RCM.Domain.Models.VendaModels;
 using RCM.Domain.Repositories;
@@ -13,13 +14,23 @@ namespace RCM.Infra.Data.Repositories
         {
         }
 
+        public override IQueryable<Venda> Get(Expression<Func<Venda, bool>> expression)
+        {
+            return _dbSet
+                .Include(pv => pv.Produtos)
+                .ThenInclude(vp => vp.Produto)
+                .Include(pv => pv.Cliente)
+                .Where(expression)
+                .AsNoTracking();
+        }
+
         public override IQueryable<Venda> Get()
         {
             return _dbSet
                 .Include(pv => pv.Produtos)
                 .ThenInclude(vp => vp.Produto)
                 .Include(pv => pv.Cliente)
-                .AsQueryable();
+                .AsNoTracking();
         }
 
         public override Venda GetById(Guid id)
