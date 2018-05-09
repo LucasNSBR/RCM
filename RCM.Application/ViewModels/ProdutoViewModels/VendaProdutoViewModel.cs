@@ -38,5 +38,10 @@ namespace RCM.Application.ViewModels
         [Display(Name = "Quantidade")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "A quantidade do produto é requerida.")]
         public int Quantidade { get; set; } = 1;
+
+        public VendaProdutoViewModel()
+        {
+           
+        }
     }
 }

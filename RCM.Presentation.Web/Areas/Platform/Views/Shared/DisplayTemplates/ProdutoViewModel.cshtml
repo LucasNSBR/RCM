@@ -42,51 +42,51 @@
                 </dt>
                 <dd>
                     @if (!string.IsNullOrEmpty(Model.ReferenciaFabricante))
-        {
+                    {
 
-            @Model.ReferenciaFabricante
-}
-else
-{
-            <span class="font-italic text-warning">
-                <i class="material-icons left">warning</i>
-                Referência do fabricante não foi informada.
-            </span>
-}
+                        @Model.ReferenciaFabricante
+                    }
+                    else
+                    {
+                        <span class="font-italic text-warning">
+                            <i class="material-icons left">warning</i>
+                            Referência do fabricante não foi informada.
+                        </span>
+                    }
                 </dd>
                 <dt>
                     <label asp-for="@Model.ReferenciaOriginal"></label>
                 </dt>
                 <dd>
                     @if (!string.IsNullOrEmpty(Model.ReferenciaOriginal))
-        {
+                    {
 
-            @Model.ReferenciaOriginal
-}
-else
-{
-            <span class="font-italic text-warning">
-                <i class="material-icons left">warning</i>
-                Referência original não foi informada.
-            </span>
-}
+                        @Model.ReferenciaOriginal
+                    }
+                    else
+                    {
+                        <span class="font-italic text-warning">
+                            <i class="material-icons left">warning</i>
+                            Referência original não foi informada.
+                        </span>
+                    }
                 </dd>
                 <dt>
                     <label asp-for="@Model.ReferenciaAuxiliar"></label>
                 </dt>
                 <dd>
                     @if (!string.IsNullOrEmpty(Model.ReferenciaAuxiliar))
-        {
+                    {
 
-            @Model.ReferenciaAuxiliar
-}
-else
-{
-            <span class="font-italic text-warning">
-                <i class="material-icons left">warning</i>
-                Referência auxiliar não foi informada.
-            </span>
-}
+                        @Model.ReferenciaAuxiliar
+                    }
+                    else
+                    {
+                        <span class="font-italic text-warning">
+                            <i class="material-icons left">warning</i>
+                            Referência auxiliar não foi informada.
+                        </span>
+                    }
                 </dd>
             </dl>
         </div>
@@ -236,9 +236,9 @@ else
                                     <div class="collapsible-body">
                                         <span>
                                             @("Preço de custo: " + fornecedor.PrecoCusto.ToString("c"))
-                                        </span><br/>
+                                        </span><br />
                                         <span>
-                                             @("Disponibilidade: " + fornecedor.Disponibilidade)
+                                            @("Disponibilidade: " + fornecedor.Disponibilidade)
                                         </span>
                                         <p>@(fornecedor.Fornecedor?.Observacao ?? "Nenhuma observação relacionada.")</p>
                                     </div>

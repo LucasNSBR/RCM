@@ -38,38 +38,6 @@
             <dd>
                 @Model.Cliente.Nome
             </dd>
-            <dt>
-                <label asp-for="QuantidadeProdutos"></label>
-            </dt>
-            <dd>
-                @if (Model.QuantidadeProdutos > 0)
-                {
-                    @Model.QuantidadeProdutos
-                }
-                else
-                {
-                    <span class="font-italic text-warning">
-                        <i class="material-icons left">warning</i>
-                        Nenhum produto adicionado.
-                    </span>
-                }
-            </dd>
-            <dt>
-                <label asp-for="TotalVenda"></label>
-            </dt>
-            <dd>
-                @if (Model.TotalVenda > 0)
-                {
-                    @Model.TotalVenda.ToString("c")
-                }
-                else
-                {
-                    <span class="font-italic text-warning">
-                        <i class="material-icons left">warning</i>
-                        Venda em rascunho.
-                    </span>
-                }
-            </dd>
         </dl>
     </div>
     <div id="produtos" class="col s12 m12">
@@ -88,11 +56,31 @@
                             @foreach (var produto in Model.Produtos)
                             {
                                 <li class="collection-item">
-                                    <a asp-action="Index" asp-route-id="@produto.ProdutoId" asp-controller="Produtos">@produto.Produto.Nome</a>
-                                    <span>@produto.PrecoVenda</span>
-                                    <span>@produto.Acrescimo</span>
-                                    <span>@produto.Desconto</span>
-                                    <span>@produto.PrecoFinal</span>
+                                    <div class="valign-wrapper">
+                                        <div class="col s3">
+                                            <a asp-action="Details" asp-route-id="@produto.ProdutoId" asp-controller="Produtos">@produto.Produto.Nome</a>
+                                        </div>
+                                        <div class="col s2">
+                                            <p>Preço de Venda: @produto.PrecoVenda.ToString("c")</p>
+                                        </div>
+                                        <div class="col s1">
+                                            <p>Quantidade: @produto.Quantidade</p>
+                                        </div>
+                                        <div class="col s1">
+                                            <p>Desconto: @produto.Desconto.ToString("c")</p>
+                                        </div>
+                                        <div class="col s1">
+                                            <p>Acréscimo: @produto.Acrescimo.ToString("c")</p>
+                                        </div>
+                                        <div class="col s2">
+                                            <p>Preço de Final: @produto.PrecoFinal.ToString("c")</p>
+                                        </div>
+                                        <div class="col s1">
+                                            <a asp-action="RemoveProduto" asp-controller="Vendas" asp-route-produtoId="@produto.ProdutoId" asp-route-vendaId="@Model.Id">
+                                                Remover
+                                            </a>
+                                        </div>
+                                    </div>
                                 </li>
                             }
                         </ul>
@@ -106,8 +94,29 @@
                     }
                 </dd>
             </dl>
-
-            <a asp-action="AttachProduto" asp-route-id="@Model.Id" class="px-2">Adicionar Produto</a>
+            <div class="right-align">
+                <a asp-action="AttachProduto" asp-route-id="@Model.Id">Adicionar Produto</a>
+            </div>
         </div>
+
+        @if (Model.QuantidadeProdutos > 0 && Model.TotalVenda > 0)
+        {
+            <div class="mt-3 px-2 row mb-2">
+                <div class="col s12">
+                    <span class="text-muted">Quantidade de produtos: </span>
+                    @Model.QuantidadeProdutos
+                </div>
+                <div class="col s12">
+                    <span class="text-muted">Valor total da Venda: </span>
+                    @Model.TotalVenda.ToString("c")
+                </div>
+
+                <div class="col s12 mt-1">
+                    <a asp-action="Checkout" asp-route-id="@Model.Id" class="lead-2">
+                        <i class="material-icons left">done</i>Finalizar venda
+                    </a>
+                </div>
+            </div>
+        }
     </div>
 </div>

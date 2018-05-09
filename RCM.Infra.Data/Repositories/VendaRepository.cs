@@ -13,6 +13,15 @@ namespace RCM.Infra.Data.Repositories
         {
         }
 
+        public override IQueryable<Venda> Get()
+        {
+            return _dbSet
+                .Include(pv => pv.Produtos)
+                .ThenInclude(vp => vp.Produto)
+                .Include(pv => pv.Cliente)
+                .AsQueryable();
+        }
+
         public override Venda GetById(Guid id)
         {
             return _dbSet

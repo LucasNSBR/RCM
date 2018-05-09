@@ -23,21 +23,8 @@ namespace RCM.Domain.Models.VendaModels
             }
         }
 
-        public int QuantidadeProdutos
-        {
-            get
-            {
-                return _produtos.Count();
-            }
-        }
-
-        public decimal TotalVenda
-        {
-            get
-            {
-                return _produtos.Sum(pv => pv.PrecoFinal);
-            }
-        }
+        public int QuantidadeProdutos { get; private set; }
+        public decimal TotalVenda { get; private set; }
 
         public VendaStatusEnum Status { get; private set; }
 
@@ -66,7 +53,8 @@ namespace RCM.Domain.Models.VendaModels
 
         public void AdicionarProduto(Produto produto, decimal desconto, decimal acrescimo, int quantidade)
         {
-            if (produto.Estoque <= quantidade) {
+            if (produto.Estoque < quantidade)
+            {
                 AddDomainError("O estoque não tem essa quantidade disponível.");
                 return;
             }
@@ -82,6 +70,8 @@ namespace RCM.Domain.Models.VendaModels
                 }
 
                 _produtos.Add(vendaProduto);
+                QuantidadeProdutos += vendaProduto.Quantidade;
+                TotalVenda += vendaProduto.PrecoFinal;
             }
             else
                 AddDomainError("O produto já foi adicionado à venda.");
@@ -94,6 +84,9 @@ namespace RCM.Domain.Models.VendaModels
             if (_produtos.Contains(vendaProduto))
             {
                 _produtos.Remove(vendaProduto);
+
+                QuantidadeProdutos -= vendaProduto.Quantidade;
+                TotalVenda -= vendaProduto.PrecoFinal;
                 produto.ReporEstoque(vendaProduto.Quantidade);
             }
             else
@@ -107,7 +100,7 @@ namespace RCM.Domain.Models.VendaModels
                 AddDomainError("Não é possível finalizar a venda sem nenhum item.");
                 return null;
             }
-            
+
             Status = VendaStatusEnum.Fechada;
 
             return this;

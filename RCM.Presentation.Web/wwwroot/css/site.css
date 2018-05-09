@@ -111,6 +111,10 @@ tbody tr {
     padding-bottom: 15px !important;
 }
 
+.collection-item div strong {
+    color: black;
+}
+
 .collapsible-body {
     background-color: gray!important;
     padding: 0px;
@@ -161,6 +165,14 @@ tbody tr {
     padding-top: 20px;
     padding-bottom: 17px;
     font-size: 18px;
+}
+
+.p-1 {
+    padding: 10px;
+}
+
+.p-2 {
+    padding: 20px;
 }
 
 .px-5 {
@@ -237,6 +249,14 @@ tbody tr {
     margin-top: 10px !important;
 }
 
+.mt-2 {
+    margin-top: 20px !important;
+}
+
+.mt-3 {
+    margin-top: 30px !important;
+}
+
 .mb-0 {
     margin-bottom: 0px !important;
 }
@@ -298,6 +318,10 @@ tbody tr {
 
 .lead {
     font-size: 16px;
+}
+
+.lead-2 {
+    font-size: 20px;
 }
 
 .small {

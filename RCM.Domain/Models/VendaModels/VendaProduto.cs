@@ -10,25 +10,13 @@ namespace RCM.Domain.Models.VendaModels
         public Guid ProdutoId { get; private set; }
         public virtual Produto Produto { get; private set; }
 
-        public decimal PrecoVenda
-        {
-            get
-            {
-                return Produto.PrecoVenda;
-            }
-        }
+        //EF doesn't allow get only fields
+        public decimal PrecoVenda { get; private set; }
+        public decimal PrecoFinal { get; private set; }
 
         public decimal Desconto { get; private set; }
         public decimal Acrescimo { get; private set; }
         public int Quantidade { get; private set; }
-
-        public decimal PrecoFinal
-        {
-            get
-            {
-                return (PrecoVenda - Desconto + Acrescimo) * Quantidade; 
-            }
-        }
 
         protected VendaProduto() { }
 
@@ -36,6 +24,8 @@ namespace RCM.Domain.Models.VendaModels
         {
             Venda = venda;
             Produto = produto;
+
+            PrecoVenda = produto.PrecoVenda;
         }
 
         public VendaProduto(Venda venda, Produto produto, decimal desconto, decimal acrescimo, int quantidade)
@@ -45,6 +35,9 @@ namespace RCM.Domain.Models.VendaModels
             Desconto = desconto;
             Acrescimo = acrescimo;
             Quantidade = quantidade;
+
+            PrecoVenda = produto.PrecoVenda;
+            PrecoFinal = (PrecoVenda - Desconto + Acrescimo) * Quantidade;
         }
 
         public bool Equals(VendaProduto other)

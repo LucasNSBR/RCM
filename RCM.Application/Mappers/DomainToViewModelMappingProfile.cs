@@ -42,6 +42,7 @@ namespace RCM.Application.Mappers
             CreateMap<ProdutoFornecedor, ProdutoFornecedorViewModel>();
             CreateMap<Pagamento, PagamentoViewModel>();
             CreateMap<Venda, VendaViewModel>();
+            CreateMap<VendaProduto, VendaProdutoViewModel>();
 
             CreateMap<Duplicata, DuplicataViewModel>()
                 .ForMember(p => p.Pagamento, cfg =>

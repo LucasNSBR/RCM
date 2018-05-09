@@ -32,23 +32,11 @@ namespace RCM.Application.ViewModels
         public List<VendaProdutoViewModel> Produtos { get; set; }
 
         [Display(Name = "Quantidade de Produtos")]
-        public int QuantidadeProdutos
-        {
-            get
-            {
-                return Produtos.Count();
-            }
-        }
+        public int QuantidadeProdutos { get; set; }
 
         [Display(Name = "Valor total da Venda")]
         [DisplayFormat(ApplyFormatInEditMode = false, ConvertEmptyStringToNull = true, DataFormatString = "{0:c}")]
-        public decimal TotalVenda
-        {
-            get
-            {
-                return Produtos.Sum(pv => pv.PrecoFinal);
-            }
-        }
+        public decimal TotalVenda { get; set; }
 
         [Display(Name = "Status da Venda")]
         public VendaStatusEnum Status { get; set; }

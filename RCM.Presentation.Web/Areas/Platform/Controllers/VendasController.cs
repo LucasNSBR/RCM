@@ -153,7 +153,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             if (commandResult.Success)
             {
                 NotifyCommandResultSuccess();
-                return RedirectToAction(nameof(Details), new { id = vendaProduto.ProdutoId });
+                return RedirectToAction(nameof(Details), new { id = vendaProduto.VendaId });
             }
             else
                 NotifyCommandResultErrors(commandResult.Errors);
@@ -161,8 +161,6 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             return View(vendaProduto);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> RemoveProduto(Guid vendaId, Guid produtoId)
         {
             var commandResult = await _vendaApplicationService.RemoveProduto(vendaId, produtoId);

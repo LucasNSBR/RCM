@@ -8,6 +8,7 @@ using RCM.Domain.Models.ProdutoModels;
 using RCM.Domain.Models.VendaModels;
 using RCM.Domain.Repositories;
 using RCM.Domain.UnitOfWork;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -98,6 +99,8 @@ namespace RCM.Domain.CommandHandlers.VendaCommandHandlers
             Produto produto = _produtoRepository.GetById(command.ProdutoId);
 
             venda.AdicionarProduto(produto, command.Desconto, command.Acrescimo, command.Quantidade);
+            NotifyModelErrors(venda.Errors.ToList());
+
             _vendaRepository.Update(venda);
 
             Commit();
