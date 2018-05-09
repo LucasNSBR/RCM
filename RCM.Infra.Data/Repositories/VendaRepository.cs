@@ -27,6 +27,7 @@ namespace RCM.Infra.Data.Repositories
             return _dbSet
                 .Include(pv => pv.Produtos)
                 .ThenInclude((VendaProduto vp) => vp.Produto)
+                .ThenInclude(m => m.Marca)
                 .Include(pv => pv.Cliente)
                 .FirstOrDefault(v => v.Id == id);
         }

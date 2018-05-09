@@ -7,8 +7,78 @@
 <h5>Adicionar</h5>
 
 <div class="form-container col s12 m12">
-    <form asp-action="AttachProduto">
-        @Html.EditorForModel()
+    <form asp-action="AttachProduto" class="px-1">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="VendaId" />
+
+        <div class="row">
+            <p class="px-1 font-bold lead">
+                Informação geral
+            </p>
+
+            <div class="row">
+                <div class="input-field col s12 m10">
+                    <input asp-for="ProdutoId" type="hidden" id="produtoId" />
+                    <select id="produtoSelect"></select>
+                    <label asp-for="ProdutoId"></label>
+                    <span asp-validation-for="ProdutoId" class="text-danger"></span>
+                </div>
+                <div class="input-field col s12 m2 pt-1">
+                    <button class="btn-flat mx-0 small px-1" id="reload-produtos-button" type="button">
+                        Recarregar lista
+                    </button>
+                </div>
+                <div class="col s12 m12">
+                    <label for="produto-info">Informação do produto</label>
+                    <div class="border" id="produto-info">
+                        <strong id="produto-nome-text"></strong><br /><br />
+
+                        <strong>Id: </strong><span id="produto-id-text"></span><br />
+                        <strong>Estoque atual: </strong><span id="produto-estoque-text"></span><br />
+                        <strong>Referência do Fabricante: </strong><span id="produto-referencia-fabricante-text"></span><br />
+                        <strong>Referência Original: </strong><span id="produto-referencia-original-text"></span><br />
+                        <strong>Referência Auxiliar: </strong><span id="produto-referencia-auxiliar-text"></span><br />
+                        <strong>Marca: </strong><span id="produto-marca-text"></span><br />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="separator mt-2 mb-2"></div>
+
+        <div class="row pt-1">
+            <p class="px-1 font-bold lead">
+                Informação sobre Preços
+            </p>
+
+            <div class="input-field col s12 m6">
+                <input asp-for="PrecoVenda" class="input-field" id="input-preco-venda" readonly />
+                <label asp-for="PrecoVenda">Preço de Venda</label>
+            </div>
+            <div class="input-field col s12 m6">
+                <label asp-for="Quantidade"></label>
+                <input asp-for="Quantidade" class="input-field" id="input-quantidade" data-length="4" />
+                <span asp-validation-for="Quantidade" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="Desconto"></label>
+                <input asp-for="Desconto" class="input-field" id="input-desconto" data-val-number="O valor deve estar em um formato válido." />
+                <span asp-validation-for="Desconto" class="text-danger"></span>
+            </div>
+            <div class="input-field col s12 m6">
+                <label asp-for="Acrescimo"></label>
+                <input asp-for="Acrescimo" class="input-field" id="input-acrescimo" data-val-number="O valor deve estar em um formato válido." />
+                <span asp-validation-for="Acrescimo" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m6 offset-m6">
+                <input asp-for="PrecoFinal" class="input-field" id="input-preco-final" readonly />
+                <label asp-for="PrecoFinal">Preço Final</label>
+            </div>
+        </div>
 
         <div class="row pt-2 px-1">
             <post-button>Confirmar</post-button>
@@ -28,11 +98,11 @@
         var dropdown = $('#produtoSelect');
         var produtoId = $('#produtoId').val();
         var produtos = {};
+        var produto;
         var precoVenda = 0;
         var acrescimo = 0;
         var desconto = 0;
         var quantidade = 0;
-        var precoFinal = $('#input-preco-final');
 
         function reloadSelect() {
             $.ajax({
@@ -43,21 +113,28 @@
                 dropdown.empty();
 
                 $.each(data, function (index, item) {
-                    dropdown.append($("<option />").text(item.nome).val(item.id));
+                    var optionText = ''.concat(item.nome)
+                        .concat(' - Referência do Fabricante: ')
+                        .concat(item.referenciaFabricante)
+                        .concat(' - Referência Auxiliar: ')
+                        .concat(item.referenciaAuxiliar)
+
+                    dropdown.append($("<option />").text(optionText).val(item.id));
                 })
 
                 $(dropdown.find('option').each(function (index, item) {
                     if (item.value === produtoId) {
                         dropdown.prop('selectedIndex', index);
-                        $('#input-preco-venda').val($(produtos)[index].precoVenda);
+                        produto = $(produtos)[index];
                     }
                 }));
 
                 if (produtoId == "" || produtoId == "00000000-0000-0000-0000-000000000000") {
                     $('#produtoId').val(dropdown.find('option').first().val());
-                    $('#input-preco-venda').val($(produtos)[0].precoVenda);
+                    produto = $(produtos)[0];
                 }
 
+                fillProduto();
                 calculateTotal();
                 Materialize.updateTextFields();
                 dropdown.material_select();
@@ -74,8 +151,9 @@
             var optionId = $('#produtoSelect option:selected')[0].value;
             var selectedIndex = $('#produtoSelect option:selected').index();
             $('#produtoId').val(optionId);
-            $('#input-preco-venda').val($(produtos)[selectedIndex].precoVenda);
+            produto = $(produtos)[selectedIndex];
 
+            fillProduto();
             calculateTotal();
         })
 
@@ -83,17 +161,28 @@
             calculateTotal();
         })
 
+        function fillProduto() {
+            $('#input-preco-venda').val(produto.precoVenda);
+            $('#produto-nome-text').text(produto.nome);
+            $('#produto-id-text').text(produto.id);
+            $('#produto-estoque-text').text(produto.estoque)
+            $('#produto-referencia-fabricante-text').text(produto.referenciaFabricante == null ? 'Sem referência do fabricante' : produto.referenciaFabricante);
+            $('#produto-referencia-original-text').text(produto.referenciaOriginal == null ? 'Sem referência original' : produto.referenciaOriginal);
+            $('#produto-referencia-auxiliar-text').text(produto.referenciaAuxiliar == null ? 'Sem referência auxiliar' : produto.referenciaAuxiliar);
+            $('#produto-marca-text').text(produto.marca.nome);
+        }
+
         function calculateTotal() {
             precoVenda = $('#input-preco-venda').val();
             acrescimo = $('#input-acrescimo').val() == '' ? '0' : parseFloat($('#input-acrescimo').val().replace(',', '.'));
             desconto = $('#input-desconto').val() == '' ? '0' : parseFloat($('#input-desconto').val().replace(',', '.'));
             quantidade = $('#input-quantidade').val() == '' ? '0' : parseFloat($('#input-quantidade').val().replace(',', '.'));
-            
+
             var total = (precoVenda * quantidade) + acrescimo - desconto;
             if (total <= 0)
                 total = "Insira valores válidos nos campos de acréscimo, desconto e quantidade.";
 
-            $(precoFinal).val(total.toFixed(2).replace('.', ','));
+            $('#input-preco-final').val(total.toFixed(2).replace('.', ','));
         }
     </script>
 }

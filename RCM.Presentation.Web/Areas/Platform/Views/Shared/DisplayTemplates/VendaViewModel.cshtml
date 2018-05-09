@@ -1,4 +1,6 @@
-﻿@model RCM.Application.ViewModels.VendaViewModel
+﻿@using RCM.Domain.Models.VendaModels
+
+@model RCM.Application.ViewModels.VendaViewModel
 
 <div class="row">
     <div class="col s12">
@@ -52,11 +54,11 @@
                 <dd>
                     @if (Model.Produtos.Any())
                     {
-                        <ul class="collection">
+                        <ul class="collapsible z-depth-0" data-collapsible="expandable">
                             @foreach (var produto in Model.Produtos)
                             {
-                                <li class="collection-item">
-                                    <div class="valign-wrapper">
+                                <li>
+                                    <div class="valign-wrapper collapsible-header collapsible-compact-header">
                                         <div class="col s3">
                                             <a asp-action="Details" asp-route-id="@produto.ProdutoId" asp-controller="Produtos">@produto.Produto.Nome</a>
                                         </div>
@@ -76,10 +78,21 @@
                                             <p>Preço de Final: @produto.PrecoFinal.ToString("c")</p>
                                         </div>
                                         <div class="col s1">
-                                            <a asp-action="RemoveProduto" asp-controller="Vendas" asp-route-produtoId="@produto.ProdutoId" asp-route-vendaId="@Model.Id">
-                                                Remover
-                                            </a>
+                                            @if (Model.Status == VendaStatusEnum.Aberta)
+                                            {
+                                                <a asp-action="RemoveProduto" asp-controller="Vendas" asp-route-produtoId="@produto.ProdutoId" asp-route-vendaId="@Model.Id">
+                                                    Remover
+                                                </a>
+                                            }
                                         </div>
+                                    </div>
+                                    <div class="collapsible-body">
+                                        <strong>Id: </strong><span>@produto.ProdutoId</span><br />
+                                        <strong>Estoque atual: </strong><span>@produto.Produto.Estoque</span><br />
+                                        <strong>Referência do Fabricante: </strong><span>@(produto.Produto.ReferenciaAuxiliar ?? "Referência Auxiliar não encontrada.")</span><br />
+                                        <strong>Referência Original: </strong><span>@(produto.Produto.ReferenciaOriginal ?? "Referência original não encontrada.")</span><br />
+                                        <strong>Referência Auxiliar: </strong><span>@produto.Produto.ReferenciaFabricante</span><br />
+                                        <strong>Marca: </strong><span>@produto.Produto.Marca.Nome</span>
                                     </div>
                                 </li>
                             }
@@ -94,9 +107,12 @@
                     }
                 </dd>
             </dl>
-            <div class="right-align">
-                <a asp-action="AttachProduto" asp-route-id="@Model.Id">Adicionar Produto</a>
-            </div>
+            @if (Model.Status == VendaStatusEnum.Aberta)
+            {
+                <div class="right-align">
+                    <a asp-action="AttachProduto" asp-route-id="@Model.Id">Adicionar Produto</a>
+                </div>
+            }
         </div>
 
         @if (Model.QuantidadeProdutos > 0 && Model.TotalVenda > 0)
@@ -112,9 +128,20 @@
                 </div>
 
                 <div class="col s12 mt-1">
-                    <a asp-action="Checkout" asp-route-id="@Model.Id" class="lead-2">
-                        <i class="material-icons left">done</i>Finalizar venda
-                    </a>
+                    @if (Model.Status == VendaStatusEnum.Aberta)
+                    {
+                        <a asp-action="Checkout" asp-route-id="@Model.Id" class="lead-2">
+                            <i class="material-icons left">done</i>Finalizar venda
+                        </a>
+                    }
+                    else
+                    {
+                        <span class="lead-2 text-success">Essa venda já foi finalizada.</span>
+                        <br />
+                        <a asp-action="PrintDAV" asp-route-id="@Model.Id">
+                            Imprimir Documento Auxiliar de Venda    
+                        </a>
+                    }
                 </div>
             </div>
         }

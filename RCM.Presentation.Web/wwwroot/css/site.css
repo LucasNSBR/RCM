@@ -103,6 +103,10 @@ tbody tr {
     border-radius: 0px!important;
 }
 
+.border {
+    border: 1px solid #c8c8c8;
+}
+
 .collection-item {
     color: #b5b5b5 !important;
     font-size: 13px;
@@ -119,6 +123,12 @@ tbody tr {
     background-color: gray!important;
     padding: 0px;
     border: 0px;
+}
+
+.collapsible-compact-header {
+    color: #b5b5b5 !important;
+    font-size: 13px;
+    font-weight: 500;
 }
 
 .div-brand {
@@ -344,7 +354,7 @@ tbody tr {
     color: #034dff;
 }
 
-.text-info {
+.text-success {
     color: #3cb05e;
 }
 
@@ -502,4 +512,16 @@ dt {
 #input-preco-venda, #input-preco-final {
     border-bottom: dotted 1px;
     color: lightslategray;
+}
+
+#produto-info {
+    margin: 10px 5px 0px 5px;
+    padding: 10px;
+}
+
+.separator {
+    margin: 0px 20px 0px 20px;
+    border-bottom: dotted 1px;
+    color: #c8c8c8;
+    height: 2px;
 }

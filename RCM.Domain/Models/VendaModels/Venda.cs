@@ -53,6 +53,12 @@ namespace RCM.Domain.Models.VendaModels
 
         public void AdicionarProduto(Produto produto, decimal desconto, decimal acrescimo, int quantidade)
         {
+            if (Status != VendaStatusEnum.Aberta)
+            {
+                AddDomainError("A venda já foi finalizada. Não é possível adicionar mais itens agora.");
+                return;
+            }
+
             if (produto.Estoque < quantidade)
             {
                 AddDomainError("O estoque não tem essa quantidade disponível.");
@@ -79,6 +85,12 @@ namespace RCM.Domain.Models.VendaModels
 
         public void RemoverProduto(Produto produto)
         {
+            if (Status != VendaStatusEnum.Aberta)
+            {
+                AddDomainError("A venda já foi finalizada. Não foi possível remover esse item.");
+                return;
+            }
+
             VendaProduto vendaProduto = _produtos.Find(c => c.Equals(new VendaProduto(this, produto)));
 
             if (_produtos.Contains(vendaProduto))
@@ -90,7 +102,7 @@ namespace RCM.Domain.Models.VendaModels
                 produto.ReporEstoque(vendaProduto.Quantidade);
             }
             else
-                AddDomainError("O produto ainda foi adicionado à venda.");
+                AddDomainError("O produto ainda não foi adicionado à venda.");
         }
 
         public Venda Finalizar()
@@ -101,7 +113,11 @@ namespace RCM.Domain.Models.VendaModels
                 return null;
             }
 
-            Status = VendaStatusEnum.Fechada;
+            if (Status == VendaStatusEnum.Aberta)
+                Status = VendaStatusEnum.Fechada;
+            else
+                AddDomainError("A venda já foi finalizada.");
+
             return this;
         }
     }

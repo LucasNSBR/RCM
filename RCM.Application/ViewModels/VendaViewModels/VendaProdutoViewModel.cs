@@ -12,8 +12,8 @@ namespace RCM.Application.ViewModels
         [Display(Name = "Venda")]
         public VendaViewModel Venda { get; set; }
 
-        [Display(Name = "Id da Produto")]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "O Id da produto é requerido.")]
+        [Display(Name = "Id do Produto")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "O Id do produto é requerido.")]
         public Guid ProdutoId { get; set; }
 
         [Display(Name = "Produto")]
