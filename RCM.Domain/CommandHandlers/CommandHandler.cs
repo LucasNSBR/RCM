@@ -4,6 +4,7 @@ using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.Core.Models;
 using RCM.Domain.UnitOfWork;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace RCM.Domain.CommandHandlers
@@ -39,12 +40,17 @@ namespace RCM.Domain.CommandHandlers
             return false;
         }
 
-        protected void NotifyModelErrors(List<DomainError> errors)
+        protected bool NotifyModelErrors(IReadOnlyList<DomainError> errors)
         {
-            foreach (var error in errors)
+            if (!errors.Any())
+                return false;
+
+            foreach (var error in errors.ToList())
             {
                 _commandResponse.AddError(new DomainError(error.Code, error.Description));
             }
+
+            return true;
         }
 
         protected void NotifyCommandError(string errorMessage, string errorCode = null)

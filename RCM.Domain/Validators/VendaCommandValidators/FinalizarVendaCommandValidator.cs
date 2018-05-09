@@ -2,9 +2,9 @@
 
 namespace RCM.Domain.Validators.VendaCommandValidators
 {
-    public class RemoveVendaCommandValidator : VendaCommandValidator<RemoveVendaCommand>
+    public class FinalizarVendaCommandValidator : VendaCommandValidator<FinalizarVendaCommand>
     {
-        public RemoveVendaCommandValidator()
+        public FinalizarVendaCommandValidator()
         {
             ValidateVendaId();
         }

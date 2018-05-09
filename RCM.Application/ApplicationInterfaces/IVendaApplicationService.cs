@@ -10,5 +10,6 @@ namespace RCM.Application.ApplicationInterfaces
     {
         Task<CommandResult> AttachProduto(VendaProdutoViewModel viewModel);
         Task<CommandResult> RemoveProduto(Guid vendaId, Guid produtoId);
+        Task<CommandResult> FinalizarVenda(Guid vendaId);
     }
 }

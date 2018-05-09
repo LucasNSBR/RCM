@@ -173,6 +173,18 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             return RedirectToAction(nameof(Details), new { id = vendaId });
         }
 
+        public async Task<IActionResult> FinalizarVenda(Guid vendaId)
+        {
+            var commandResult = await _vendaApplicationService.FinalizarVenda(vendaId);
+
+            if (commandResult.Success)
+                NotifyCommandResultSuccess();
+            else
+                NotifyCommandResultErrors(commandResult.Errors);
+
+            return RedirectToAction(nameof(Details), new { id = vendaId });
+        }
+
         public JsonResult GetClientes()
         {
             return Json(_clienteApplicationService.Get()

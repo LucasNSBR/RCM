@@ -41,5 +41,10 @@ namespace RCM.Application.ApplicationServices
         {
             return _mediator.SendCommand(new RemoveVendaProdutoCommand(vendaId, produtoId));
         }
+
+        public Task<CommandResult> FinalizarVenda(Guid vendaId)
+        {
+            return _mediator.SendCommand(new FinalizarVendaCommand(vendaId));
+        }
     }
 }

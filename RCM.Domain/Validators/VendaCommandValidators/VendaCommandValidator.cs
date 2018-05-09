@@ -6,7 +6,7 @@ namespace RCM.Domain.Validators.VendaCommandValidators
 {
     public class VendaCommandValidator<T> : AbstractValidator<T> where T : VendaCommand
     {
-        protected void ValidateId()
+        protected void ValidateVendaId()
         {
             RuleFor(d => d.VendaId)
                 .NotEmpty()

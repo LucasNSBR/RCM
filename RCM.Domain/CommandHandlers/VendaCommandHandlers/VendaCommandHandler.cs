@@ -19,7 +19,8 @@ namespace RCM.Domain.CommandHandlers.VendaCommandHandlers
                                        IRequestHandler<UpdateVendaCommand, CommandResult>,
                                        IRequestHandler<RemoveVendaCommand, CommandResult>,
                                        IRequestHandler<AttachVendaProdutoCommand, CommandResult>,
-                                       IRequestHandler<RemoveVendaProdutoCommand, CommandResult>
+                                       IRequestHandler<RemoveVendaProdutoCommand, CommandResult>,
+                                       IRequestHandler<FinalizarVendaCommand, CommandResult>
     {
         private readonly IVendaRepository _vendaRepository;
         private readonly IClienteRepository _clienteRepository;
@@ -99,9 +100,11 @@ namespace RCM.Domain.CommandHandlers.VendaCommandHandlers
             Produto produto = _produtoRepository.GetById(command.ProdutoId);
 
             venda.AdicionarProduto(produto, command.Desconto, command.Acrescimo, command.Quantidade);
-            NotifyModelErrors(venda.Errors.ToList());
 
-            _vendaRepository.Update(venda);
+            if (NotifyModelErrors(venda.Errors))
+                return Response();
+            else
+                _vendaRepository.Update(venda);
 
             Commit();
 
@@ -120,7 +123,32 @@ namespace RCM.Domain.CommandHandlers.VendaCommandHandlers
             Produto produto = _produtoRepository.GetById(command.ProdutoId);
 
             venda.RemoverProduto(produto);
-            _vendaRepository.Update(venda);
+
+            if (NotifyModelErrors(venda.Errors))
+                return Response();
+            else
+                _vendaRepository.Update(venda);
+
+            Commit();
+
+            return Response();
+        }
+
+        public Task<CommandResult> Handle(FinalizarVendaCommand command, CancellationToken cancellationToken)
+        {
+            if (!command.IsValid())
+            {
+                NotifyCommandErrors(command);
+                return Response();
+            }
+
+            Venda venda = _vendaRepository.GetById(command.VendaId);
+            venda.Finalizar();
+
+            if (NotifyModelErrors(venda.Errors))
+                return Response();
+            else
+                _vendaRepository.Update(venda);
 
             Commit();
 

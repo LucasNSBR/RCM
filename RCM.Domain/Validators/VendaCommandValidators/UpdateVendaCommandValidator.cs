@@ -6,7 +6,7 @@ namespace RCM.Domain.Validators.VendaCommandValidators
     {
         public UpdateVendaCommandValidator()
         {
-            ValidateId();
+            ValidateVendaId();
             ValidateDataVenda();
             ValidateDetalhes();
             ValidateClienteId();

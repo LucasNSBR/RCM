@@ -102,7 +102,6 @@ namespace RCM.Domain.Models.VendaModels
             }
 
             Status = VendaStatusEnum.Fechada;
-
             return this;
         }
     }
