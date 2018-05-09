@@ -18,7 +18,7 @@ namespace RCM.Domain.Models.ProdutoModels
         public override Expression<Func<Produto, bool>> ToExpression()
         {
             if (_minValor != null && _maxValor != null)
-                return p => p.PrecoVenda >= _minValor.Value & p.PrecoVenda <= _maxValor.Value;
+                return p => p.PrecoVenda >= _minValor.Value && p.PrecoVenda <= _maxValor.Value;
 
             if (_minValor != null)
                 return p => p.PrecoVenda >= _minValor.Value;
