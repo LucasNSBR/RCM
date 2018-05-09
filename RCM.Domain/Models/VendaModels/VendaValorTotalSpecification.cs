@@ -9,7 +9,7 @@ namespace RCM.Domain.Models.VendaModels
         private readonly decimal? _minValor;
         private readonly decimal? _maxValor;
 
-        VendaValorTotalSpecification(decimal? minValor, decimal? maxValor)
+        public VendaValorTotalSpecification(decimal? minValor, decimal? maxValor)
         {
             _minValor = minValor;
             _maxValor = maxValor;

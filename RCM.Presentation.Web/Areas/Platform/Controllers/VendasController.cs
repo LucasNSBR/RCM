@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using RCM.Application.ApplicationInterfaces;
 using RCM.Application.ViewModels;
+using RCM.Domain.Core.Extensions;
 using RCM.Domain.DomainNotificationHandlers;
+using RCM.Domain.Models.VendaModels;
 using RCM.Presentation.Web.Controllers;
 using System;
 using System.Linq;
@@ -26,9 +28,18 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             _produtoApplicationService = produtoApplicationService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(Guid? clienteId, string minValor = null, string maxValor = null, string status = null, string dataInicial = null, string dataFinal = null)
         {
-            var list = _vendaApplicationService.Get();
+            var clienteIdSpecification = new VendaClienteIdSpecification(clienteId);
+            var valorSpecification = new VendaValorTotalSpecification(minValor.ToDecimal(), maxValor.ToDecimal());
+            var statusSpecification = new VendaStatusSpecification(status);
+            var dataSpecification = new VendaDataSpecification(dataInicial.ToDate(), dataFinal.ToDate());
+            
+            var list = _vendaApplicationService.Get(clienteIdSpecification
+                .And(valorSpecification)
+                .And(statusSpecification)
+                .And(dataSpecification)
+                .ToExpression());
 
             return View(list);
         }
