@@ -173,7 +173,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             return RedirectToAction(nameof(Details), new { id = vendaId });
         }
 
-        public async Task<IActionResult> FinalizarVenda(Guid vendaId)
+        public async Task<IActionResult> Checkout(Guid vendaId)
         {
             var commandResult = await _vendaApplicationService.FinalizarVenda(vendaId);
 
