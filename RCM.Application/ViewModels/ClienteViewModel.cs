@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RCM.Domain.Models.ClienteModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -14,6 +15,10 @@ namespace RCM.Application.ViewModels
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo nome é requerido.")]
         [StringLength(100, MinimumLength = 10, ErrorMessage = "O campo nome deve ter entre 10 e 100 caracteres.")]
         public string Nome { get; set; }
+
+        [Display(Name = "Classificação")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "O campo classificação é requerido.")]
+        public ClientePontuacaoEnum Pontuacao { get; set; }
 
         [Display(Name = "Descrição")]
         [StringLength(1000, MinimumLength = 0, ErrorMessage = "O campo descrição deve ter até 1000 caracteres.")]

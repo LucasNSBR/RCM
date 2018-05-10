@@ -1,4 +1,6 @@
-﻿@model RCM.Application.ViewModels.ClienteViewModel
+﻿@using RCM.Domain.Models.ClienteModels
+
+@model RCM.Application.ViewModels.ClienteViewModel
 
 <div class="row">
     <div class="col s12">
@@ -17,19 +19,25 @@
 
         <dl class="detail-list">
             <dt>
-                <label asp-for="Id">Identificação</label>
+                <label asp-for="Id"></label>
             </dt>
             <dd>
                 @Model.Id
             </dd>
             <dt>
-                <label asp-for="Nome">Nome</label>
+                <label asp-for="Nome"></label>
             </dt>
             <dd>
                 @Model.Nome
             </dd>
             <dt>
-                <label asp-for="Descricao">Descrição</label>
+                <label asp-for="Pontuacao"></label>
+            </dt>
+            <dd>
+                @Model.Pontuacao
+            </dd>
+            <dt>
+                <label asp-for="Descricao"></label>
             </dt>
             <dd>
                 @if (!string.IsNullOrWhiteSpace(Model.Descricao))
@@ -64,7 +72,7 @@
 
         <dl class="detail-list">
             <dt>
-                <label asp-for="Cheques">Cheques</label>
+                <label asp-for="Cheques"></label>
             </dt>
             <dd>
                 @if (Model.Cheques.Any())

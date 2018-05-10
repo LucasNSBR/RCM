@@ -2,9 +2,9 @@
 {
     public enum ClientePontuacaoEnum
     {
-        Ruim = 1,
-        Mediano = 2,
-        Bom = 3,
-        Excelente = 4,
+        Ruim = 0,
+        Mediano = 1,
+        Bom = 2,
+        Excelente = 3,
     }
 }
