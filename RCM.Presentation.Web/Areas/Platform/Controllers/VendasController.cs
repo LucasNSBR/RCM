@@ -6,6 +6,8 @@ using RCM.Domain.Core.Extensions;
 using RCM.Domain.DomainNotificationHandlers;
 using RCM.Domain.Models.VendaModels;
 using RCM.Presentation.Web.Controllers;
+using RCM.Presentation.Web.Extensions;
+using RCM.Presentation.Web.ViewModels;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -28,7 +30,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             _produtoApplicationService = produtoApplicationService;
         }
 
-        public IActionResult Index(Guid? clienteId, string minValor = null, string maxValor = null, string status = null, string dataInicial = null, string dataFinal = null)
+        public IActionResult Index(Guid? clienteId, string minValor = null, string maxValor = null, string status = null, string dataInicial = null, string dataFinal = null, int pageNumber = 1, int pageSize = 20)
         {
             var clienteIdSpecification = new VendaClienteIdSpecification(clienteId);
             var valorSpecification = new VendaValorTotalSpecification(minValor.ToDecimal(), maxValor.ToDecimal());
@@ -41,7 +43,19 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 .And(dataSpecification)
                 .ToExpression());
 
-            return View(list);
+            var viewModel = new VendasIndexViewModel
+            {
+                Vendas = list.ToPagedList(pageNumber, pageSize),
+                Clientes = _clienteApplicationService.Get().OrderBy(c => c.Nome),
+                ClienteId = clienteId,
+                MinValor = minValor,
+                MaxValor = maxValor,
+                DataInicial = dataInicial,
+                DataFinal = dataFinal,
+                Status = status
+            };
+
+            return View(viewModel);
         }
 
         public IActionResult Details(Guid id)

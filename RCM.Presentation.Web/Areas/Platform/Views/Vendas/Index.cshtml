@@ -1,4 +1,6 @@
-﻿@model IEnumerable<RCM.Application.ViewModels.VendaViewModel>
+﻿@using RCM.Domain.Models.VendaModels
+
+@model RCM.Presentation.Web.ViewModels.VendasIndexViewModel
 
 @{
     ViewData["Title"] = "Vendas - Índice";
@@ -12,63 +14,138 @@
 
         <div id="advancedSearch" class="col s12 m12">
             <div class="row">
-                <div class="col s6 m6">
-                    <p class="text-muted pt-0 mt-0 small">
-                        Sem opções de busca avançada
-                    </p>
+                <div class="input-field col s12 m3">
+                    <input asp-for="MinValor" name="minValor" type="text" class="input-field" id="minValor" />
+                    <label for="minValor">Valor mínimo</label>
+                </div>
+                <div class="input-field col s12 m3">
+                    <input asp-for="MaxValor" name="maxValor" type="text" class="input-field" id="maxValor" />
+                    <label for="maxValor">Valor máximo</label>
+                </div>
+                <div class="input-field col s12 m3">
+                    <input asp-for="DataInicial" name="dataInicial" type="text" class="datepicker" id="dataInicial" />
+                    <label for="dataInicial">Data Inicial</label>
+                </div>
+                <div class="input-field col s12 m3">
+                    <input asp-for="DataFinal" name="dataFinal" type="text" class="datepicker" id="dataFinal" />
+                    <label for="dataFinal">Data Final</label>
+                </div>
+                <div class="input-field col s12 m6">
+                    <select name="clienteId" asp-for="ClienteId" asp-items="@(new SelectList(Model.Clientes, "Id", "Nome"))" id="clienteId">
+                        <option value="">Todos os Clientes</option>
+                    </select>
+                    <label for="fornecedorId">Escolher Cliente</label>
+                </div>
+                <div class="input-field col s12 m6">
+                    <select asp-for="Status" asp-items="@(new SelectList(Enum.GetNames(typeof(VendaStatusEnum)).ToList()))" name="status" id="status">
+                        <option value="">Todos</option>
+                    </select>
+                    <label for="status">Status da Venda</label>
                 </div>
             </div>
         </div>
     </form>
 
-    @if (Model.Any())
+    @if (Model.Vendas.List.Any())
     {
         <table class="highlight centered">
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.Cliente.Nome)
+                        @Html.DisplayNameFor(model => model.Vendas.List.FirstOrDefault().Cliente.Nome)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Cliente.Documento.CadastroNacional)
+                        @Html.DisplayNameFor(model => model.Vendas.List.FirstOrDefault().Cliente.Documento.CadastroNacional)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.QuantidadeProdutos)
+                        @Html.DisplayNameFor(model => model.Vendas.List.FirstOrDefault().DataVenda)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.TotalVenda)
+                        @Html.DisplayNameFor(model => model.Vendas.List.FirstOrDefault().QuantidadeProdutos)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Status)
+                        @Html.DisplayNameFor(model => model.Vendas.List.FirstOrDefault().TotalVenda)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Vendas.List.FirstOrDefault().Status)
                     </th>
                 </tr>
             </thead>
             <tbody class="table-body">
-                @foreach (var item in Model)
+                @foreach (var item in Model.Vendas.List)
                 {
-                <tr>
-                    <td class="d-hidden">
-                        @Html.DisplayFor(modelItem => item.Id)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Cliente.Nome)
-                    </td>
-                    <td>
-                        @(string.IsNullOrWhiteSpace(item.Cliente.Documento.CadastroNacional) ? "Não cadastrado" : item.Cliente.Documento.CadastroNacional)
-                    </td>
-                    <td>
-                        @(item.QuantidadeProdutos == 0 ? "Nenhum" : item.QuantidadeProdutos.ToString())
-                    </td>
-                    <td>
-                        @(item.TotalVenda == 0 ? "Rascunho" : item.TotalVenda.ToString())
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Status)
-                    </td>
-                </tr>
+                    <tr>
+                        <td class="d-hidden">
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cliente.Nome)
+                        </td>
+                        <td>
+                            @(string.IsNullOrWhiteSpace(item.Cliente.Documento.CadastroNacional) ? "Não cadastrado" : item.Cliente.Documento.CadastroNacional)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DataVenda)
+                        </td>
+                        <td>
+                            @(item.QuantidadeProdutos == 0 ? "Nenhum" : item.QuantidadeProdutos.ToString())
+                        </td>
+                        <td>
+                            @(item.TotalVenda == 0 ? "Rascunho" : item.TotalVenda.ToString())
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table>
+
+        <div class="col s12 m12">
+            <ul class="pagination center pt-2">
+                @{
+                    var queryStringHelper = new Dictionary<string, string>
+                                                                                {
+                                                                                    { "clienteId", Model.ClienteId?.ToString() },
+                                                                                    { "minValor", Model.MinValor?.ToString() },
+                                                                                    { "maxValor", Model.MaxValor?.ToString() },
+                                                                                    { "dataInicial", Model.DataInicial?.ToString() },
+                                                                                    { "dataFinal", Model.DataFinal?.ToString() },
+                                                                                    { "pageSize", Model.Vendas.PageSize.ToString() },
+                                                                                };
+
+                }
+
+                @if (Model.Vendas.IsFirstPage)
+                {
+                    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+                }
+                else
+                {
+                    <li>
+                        <a asp-all-route-data="queryStringHelper" asp-route-pageNumber="@(Model.Vendas.PageNumber - 1)"><i class="material-icons">chevron_left</i></a>
+                    </li>
+                }
+
+                @for (int i = 1; i <= Model.Vendas.TotalPages; i++)
+                {
+                    <li class="waves-effect @(Model.Vendas.PageNumber == i ? "active" : "")">
+                        <a asp-all-route-data="queryStringHelper" asp-route-pageNumber="@i" asp-route-pageSize="@Model.Vendas.PageSize">@i</a>
+                    </li>
+                }
+
+                @if (Model.Vendas.IsLastPage)
+                {
+                    <li class="disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+                }
+                else
+                {
+                    <li>
+                        <a asp-all-route-data="queryStringHelper" asp-route-pageNumber="@(Model.Vendas.PageNumber + 1)"><i class="material-icons">chevron_right</i></a>
+                    </li>
+                }
+            </ul>
+        </div>
     }
     else
     {
