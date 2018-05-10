@@ -15,6 +15,9 @@ namespace RCM.Infra.Data.EntityTypeConfig
                 .IsRequired()
                 .HasMaxLength(100);
 
+            builder.Property(c => c.Pontuacao)
+                .IsRequired();
+
             builder.Property(c => c.Descricao)
                 .HasMaxLength(1000);
 
