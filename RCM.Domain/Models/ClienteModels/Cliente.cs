@@ -13,6 +13,7 @@ namespace RCM.Domain.Models.ClienteModels
         public Contato Contato { get; private set; }
         public Endereco Endereco { get; private set; }
         public ClientePontuacaoEnum Pontuacao { get; private set; }
+        public ClienteTipoEnum Tipo { get; private set; }
 
         private List<Cheque> _cheques;
         public virtual IReadOnlyList<Cheque> Cheques
