@@ -88,8 +88,8 @@ namespace RCM.Application.ViewModels
             {
                 return DateTime.Now > DataVencimento &&
                     (EstadoCheque != null &&
-                    EstadoCheque.Estado == EstadoChequeEnum.Repassado ||
-                    EstadoCheque.Estado == EstadoChequeEnum.Compensado);
+                    EstadoCheque?.Estado == EstadoChequeEnum.Repassado ||
+                    EstadoCheque?.Estado == EstadoChequeEnum.Compensado);
             }
         }
         #endregion

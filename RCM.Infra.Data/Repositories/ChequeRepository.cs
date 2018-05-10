@@ -16,6 +16,7 @@ namespace RCM.Infra.Data.Repositories
         public override Cheque GetById(Guid id)
         {
             return _dbSet
+                .AsNoTracking()
                 .Include(b => b.Banco)
                 .Include(c => c.Cliente)
                 .Include(ec => ec.EstadoCheque)
@@ -28,11 +29,12 @@ namespace RCM.Infra.Data.Repositories
             var clienteIdSpecification = new ChequeClienteIdSpecification(clienteId);
             var bancoIdSpecification = new ChequeBancoIdSpecification(bancoId);
 
-            Cheque cheque = _dbSet.AsNoTracking()
+            Cheque cheque = _dbSet
                 .Where(numeroDocumentoSpecification
                 .And(bancoIdSpecification)
                 .And(clienteIdSpecification)
                 .ToExpression())
+                .AsNoTracking()
                 .FirstOrDefault();
 
             if (cheque == null || novoChequeId == cheque.Id)

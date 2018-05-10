@@ -1,4 +1,5 @@
 ﻿using RCM.Domain.Core.Commands;
+using RCM.Domain.Models.ClienteModels;
 using System;
 
 namespace RCM.Domain.Commands.ClienteCommands
@@ -7,6 +8,7 @@ namespace RCM.Domain.Commands.ClienteCommands
     {
         public Guid Id { get; set; }
         public string Nome { get; set; }
+        public ClientePontuacaoEnum Pontuacao { get; set; }
         public string Descricao { get; set; }
 
         public string ContatoCelular { get; set; }

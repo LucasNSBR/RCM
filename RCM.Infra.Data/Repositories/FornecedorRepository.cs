@@ -17,7 +17,6 @@ namespace RCM.Infra.Data.Repositories
         {
             return _dbSet
                 .Include(d => d.Duplicatas)
-                .Include(nf => nf.NotasFiscais)
                 .FirstOrDefault(f => f.Id == id);
         }
     }

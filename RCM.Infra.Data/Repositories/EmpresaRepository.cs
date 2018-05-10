@@ -18,7 +18,10 @@ namespace RCM.Infra.Data.Repositories
 
         public Empresa Get()
         {
-            return _dbContext.Empresa.AsNoTracking().FirstOrDefault();
+            return _dbContext
+                .Empresa
+                .AsNoTracking()
+                .FirstOrDefault();
         }
 
         public void AddOrUpdate(Empresa empresa)

@@ -9,15 +9,15 @@ namespace RCM.Infra.Data.Repositories
 {
     public class ClienteRepository : BaseRepository<Cliente>, IClienteRepository
     {
+        public ClienteRepository(RCMDbContext dbContext) : base(dbContext)
+        {
+        }
+
         public override Cliente GetById(Guid id)
         {
             return _dbSet
-                .Include(ch => ch.Cheques)
+                .AsNoTracking()
                 .FirstOrDefault(c => c.Id == id);
-        }
-
-        public ClienteRepository(RCMDbContext dbContext) : base(dbContext)
-        {
         }
     }
 }

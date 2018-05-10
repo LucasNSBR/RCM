@@ -21,6 +21,7 @@ namespace RCM.Infra.Data.Repositories
                 .ThenInclude((ProdutoAplicacao a) => a.Aplicacao)
                 .Include(pf => pf.Fornecedores)
                 .ThenInclude((ProdutoFornecedor f) => f.Fornecedor)
+                .AsNoTracking()
                 .FirstOrDefault(p => p.Id == id);
         }
     }

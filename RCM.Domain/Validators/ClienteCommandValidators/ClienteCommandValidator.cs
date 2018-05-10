@@ -21,6 +21,13 @@ namespace RCM.Domain.Validators.ClienteCommandValidators
                 .WithMessage("O nome do cliente deve ter entre 10 e 100 caracteres e não deve estar vazio.");
         }
 
+        protected void ValidatePontuacao()
+        {
+            RuleFor(c => c.Pontuacao)
+                .NotEmpty()
+                .WithMessage("A classificação do cliente não deve estar vazia.");
+        }
+
         protected void ValidateDescricao()
         {
             RuleFor(c => c.Descricao)

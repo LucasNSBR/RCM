@@ -40,6 +40,7 @@ namespace RCM.Infra.Data.Repositories
                 .ThenInclude((VendaProduto vp) => vp.Produto)
                 .ThenInclude(m => m.Marca)
                 .Include(pv => pv.Cliente)
+                .AsNoTracking()
                 .FirstOrDefault(v => v.Id == id);
         }
     }

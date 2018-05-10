@@ -26,7 +26,8 @@ namespace RCM.Infra.Data.Repositories
             var numeroDocumentoSpecification = new DuplicataNumeroDocumentoSpecification(numeroDocumento);
             var fornecedorSpecification = new DuplicataFornecedorIdSpecification(fornecedorId);
 
-            Duplicata duplicata = _dbSet.AsNoTracking()
+            Duplicata duplicata = _dbSet
+                .AsNoTracking()
                 .Where(numeroDocumentoSpecification
                 .And(fornecedorSpecification)
                 .ToExpression())
