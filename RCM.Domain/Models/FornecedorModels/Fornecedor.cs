@@ -10,6 +10,7 @@ namespace RCM.Domain.Models.FornecedorModels
     public class Fornecedor : Entity<Fornecedor>
     {
         public string Nome { get; private set; }
+        public FornecedorTipoEnum Tipo { get; private set; }
         public string Observacao { get; private set; }
 
         public Contato Contato { get; private set; }
