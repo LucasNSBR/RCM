@@ -16,6 +16,13 @@
 </div>
 <div class="row">
     <div class="col s12 m6">
+        <label asp-for="Tipo"></label>
+        <select asp-for="Tipo" asp-items="@(new SelectList(Enum.GetNames(typeof(ClienteTipoEnum))).ToList())"></select>
+        <span asp-validation-for="Tipo" class="text-danger"></span>
+    </div>
+</div>
+<div class="row">
+    <div class="col s12 m6">
         <label asp-for="Pontuacao"></label>
         <select asp-for="Pontuacao" asp-items="@(new SelectList(Enum.GetNames(typeof(ClientePontuacaoEnum))).ToList())"></select>
         <span asp-validation-for="Pontuacao" class="text-danger"></span>

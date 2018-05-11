@@ -31,6 +31,19 @@
                 @Model.Nome
             </dd>
             <dt>
+                <label asp-for="Tipo"></label>
+            </dt>
+            <dd>
+                @if (Model.Tipo == ClienteTipoEnum.PessoaFisica)
+                {
+                    <span>Pessoa física</span>
+                }
+                else
+                {
+                    <span>Pessoa jurídica</span>
+                }
+            </dd>
+            <dt>
                 <label asp-for="Pontuacao"></label>
             </dt>
             <dd>

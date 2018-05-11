@@ -10,7 +10,7 @@ namespace RCM.Domain.Validators.ClienteCommandValidators
             ValidateNome();
             ValidatePontuacao();
             ValidateDescricao();
-
+            ValidateDocumento();
             ValidateContato();
             ValidateEndereco();
         }

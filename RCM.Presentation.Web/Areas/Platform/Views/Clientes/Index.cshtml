@@ -1,4 +1,6 @@
-﻿@model IEnumerable<RCM.Application.ViewModels.ClienteViewModel>
+﻿@using RCM.Domain.Models.ClienteModels;
+
+@model IEnumerable<RCM.Application.ViewModels.ClienteViewModel>
 
 @{
     ViewData["Title"] = "Clientes - Índice";
@@ -23,11 +25,14 @@
 
     @if (Model.Any())
     {
-        <table class="highlight centered">
+        <table class="highlight">
             <thead>
                 <tr>
                     <th>
                         @Html.DisplayNameFor(model => model.Nome)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Tipo)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Documento.CadastroNacional)
@@ -46,26 +51,36 @@
             <tbody class="table-body">
                 @foreach (var item in Model)
                 {
-                <tr>
-                    <td class="d-hidden">
-                        @Html.DisplayFor(modelItem => item.Id)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Nome)
-                    </td>
-                    <td>
-                        @(item.Documento.CadastroNacional ?? "N/A")
-                    </td>
-                    <td>
-                        @(item.Documento.CadastroEstadual ?? "N/A")
-                    </td>
-                    <td>
-                        @(item.Contato.Celular ?? "N/A")
-                    </td>
-                    <td>
-                        @(item.Contato.TelefoneResidencial ?? "N/A")
-                    </td>
-                </tr>
+                    <tr>
+                        <td class="d-hidden">
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nome)
+                        </td>
+                        <td>
+                            @if (item.Tipo == ClienteTipoEnum.PessoaFisica)
+                            {
+                                @Html.Raw("Pessoa Física")
+                            }
+                            else
+                            {
+                                @Html.Raw("Pessoa Jurídica")
+                            }
+                        </td>
+                        <td>
+                            @(item.Documento.CadastroNacional ?? "N/A")
+                        </td>
+                        <td>
+                            @(item.Documento.CadastroEstadual ?? "N/A")
+                        </td>
+                        <td>
+                            @(item.Contato.Celular ?? "N/A")
+                        </td>
+                        <td>
+                            @(item.Contato.TelefoneResidencial ?? "N/A")
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table>
