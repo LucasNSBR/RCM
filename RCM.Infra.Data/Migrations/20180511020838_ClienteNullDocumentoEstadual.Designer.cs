@@ -17,9 +17,10 @@ using System;
 namespace RCM.Infra.Data.Migrations
 {
     [DbContext(typeof(RCMDbContext))]
-    partial class RCMDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180511020838_ClienteNullDocumentoEstadual")]
+    partial class ClienteNullDocumentoEstadual
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -773,7 +774,7 @@ namespace RCM.Infra.Data.Migrations
 
                             b1.Property<string>("CadastroEstadual")
                                 .HasColumnName("DocumentoEstadual")
-                                .HasMaxLength(14);
+                                .HasMaxLength(11);
 
                             b1.Property<string>("CadastroNacional")
                                 .IsRequired()

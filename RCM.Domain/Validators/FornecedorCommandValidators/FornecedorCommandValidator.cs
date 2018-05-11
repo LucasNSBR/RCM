@@ -155,7 +155,6 @@ namespace RCM.Domain.Validators.FornecedorCommandValidators
                 .WithMessage("O CPF/CNPJ deve estar em um formato válido.");
 
             RuleFor(f => f.DocumentoCadastroEstadual)
-                .NotEmpty()
                 .Must((command, property) => ValidateDocumentoCadastroEstadual(command))
                 .WithMessage("O RG/Inscrição Estadual deve estar em um formato válido.");
         }
@@ -173,8 +172,8 @@ namespace RCM.Domain.Validators.FornecedorCommandValidators
 
         private bool ValidateDocumentoCadastroEstadual(FornecedorCommand command)
         {
-            if (command.DocumentoCadastroEstadual == null)
-                return false;
+            if (command.DocumentoCadastroEstadual == null || string.IsNullOrEmpty(command.DocumentoCadastroEstadual))
+                return true;
 
             var length = command.DocumentoCadastroEstadual.Length;
 

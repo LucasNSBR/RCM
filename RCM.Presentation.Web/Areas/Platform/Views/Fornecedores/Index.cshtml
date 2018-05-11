@@ -1,6 +1,6 @@
 ﻿@using RCM.Domain.Models.FornecedorModels;
 
-@model IEnumerable<RCM.Application.ViewModels.FornecedorViewModel>
+@model RCM.Presentation.Web.ViewModels.FornecedorIndexViewModel
 
 @{
     ViewData["Title"] = "Fornecedores - Índice";
@@ -13,30 +13,30 @@
         @await Component.InvokeAsync("SearchBar", new Dictionary<string, string>() { { "Nome", "nomePrefix" } })
     </form>
 
-    @if (Model.Any())
+    @if (Model.Fornecedores.List.Any())
     {
-        <table class="highlight centered">
+        <table class="highlight">
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.Nome)
+                        @Html.DisplayNameFor(model => model.Fornecedores.List.FirstOrDefault().Nome)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Tipo)
+                        @Html.DisplayNameFor(model => model.Fornecedores.List.FirstOrDefault().Tipo)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Documento.CadastroNacional)
+                        @Html.DisplayNameFor(model => model.Fornecedores.List.FirstOrDefault().Documento.CadastroNacional)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Documento.CadastroEstadual)
+                        @Html.DisplayNameFor(model => model.Fornecedores.List.FirstOrDefault().Documento.CadastroEstadual)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Contato.TelefoneComercial)
+                        @Html.DisplayNameFor(model => model.Fornecedores.List.FirstOrDefault().Contato.TelefoneComercial)
                     </th>
                 </tr>
             </thead>
             <tbody class="table-body">
-                @foreach (var item in Model)
+                @foreach (var item in Model.Fornecedores.List)
                 {
                     <tr>
                         <td class="d-hidden">
@@ -65,6 +65,47 @@
                 }
             </tbody>
         </table>
+
+        <div class="col s12 m12">
+            <ul class="pagination center pt-2">
+                @{
+                    var queryStringHelper = new Dictionary<string, string>
+                                                                {
+                                                                    { "nome", Model.Nome.ToString() },
+                                                                };
+
+                }
+
+                @if (Model.Fornecedores.IsFirstPage)
+                {
+                    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+                }
+                else
+                {
+                    <li>
+                        <a asp-all-route-data="queryStringHelper" asp-route-pageNumber="@(Model.Fornecedores.PageNumber - 1)"><i class="material-icons">chevron_left</i></a>
+                    </li>
+                }
+
+                @for (int i = 1; i <= Model.Fornecedores.TotalPages; i++)
+                {
+                    <li class="waves-effect @(Model.Fornecedores.PageNumber == i ? "active" : "")">
+                        <a asp-all-route-data="queryStringHelper" asp-route-pageNumber="@i" asp-route-pageSize="@Model.Fornecedores.PageSize">@i</a>
+                    </li>
+                }
+
+                @if (Model.Fornecedores.IsLastPage)
+                {
+                    <li class="disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+                }
+                else
+                {
+                    <li>
+                        <a asp-all-route-data="queryStringHelper" asp-route-pageNumber="@(Model.Fornecedores.PageNumber + 1)"><i class="material-icons">chevron_right</i></a>
+                    </li>
+                }
+            </ul>
+        </div>
     }
     else
     {
