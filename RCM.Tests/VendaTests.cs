@@ -94,7 +94,7 @@ namespace RCM.Tests
             Documento doc = new Documento();
             Contato cont = new Contato();
             Endereco end = new Endereco(100, "One Microsoft Way", "Redmond");
-            Cliente cliente = new Cliente("Lucas Pereira Campos", ClientePontuacaoEnum.Bom, doc, cont, end);
+            Cliente cliente = new Cliente("Lucas Pereira Campos", ClienteTipoEnum.PessoaJuridica, ClientePontuacaoEnum.Bom, doc, cont, end);
 
             return cliente;
         }

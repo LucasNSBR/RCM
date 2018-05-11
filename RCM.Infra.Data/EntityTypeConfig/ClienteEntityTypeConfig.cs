@@ -28,11 +28,12 @@ namespace RCM.Infra.Data.EntityTypeConfig
             {
                 cfg.Property(en => en.CadastroNacional)
                     .IsRequired()
-                    .HasMaxLength(11)
+                    .HasMaxLength(14)
                     .HasColumnName("DocumentoNacional");
 
                 cfg.Property(en => en.CadastroEstadual)
-                    .HasMaxLength(10)
+                    .IsRequired()
+                    .HasMaxLength(14)
                     .HasColumnName("DocumentoEstadual");
             });
             

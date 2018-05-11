@@ -159,16 +159,21 @@ namespace RCM.Domain.Validators.ClienteCommandValidators
         protected void ValidateDocumento()
         {
             RuleFor(c => c.DocumentoCadastroNacional)
+                .NotEmpty()
                 .Must((command, property) => ValidateDocumentoCadastroNacional(command))
                 .WithMessage("O CPF/CNPJ deve estar em um formato válido.");
 
             RuleFor(c => c.DocumentoCadastroEstadual)
+                .NotEmpty()
                 .Must((command, property) => ValidateDocumentoCadastroEstadual(command))
                 .WithMessage("O RG/Inscrição Estadual deve estar em um formato válido.");
         }
 
         private bool ValidateDocumentoCadastroNacional(ClienteCommand command)
         {
+            if (command.DocumentoCadastroNacional == null)
+                return false;
+
             if (command.Tipo == ClienteTipoEnum.PessoaFisica)
                 return command.DocumentoCadastroNacional.Length == 11;
             else
@@ -177,8 +182,11 @@ namespace RCM.Domain.Validators.ClienteCommandValidators
 
         private bool ValidateDocumentoCadastroEstadual(ClienteCommand command)
         {
-            var length = command.DocumentoCadastroEstadual.Length;
+            if (command.DocumentoCadastroEstadual == null)
+                return false;
 
+            var length = command.DocumentoCadastroEstadual.Length;
+            
             if (command.Tipo == ClienteTipoEnum.PessoaFisica)
                 return length <= 12;
             else
