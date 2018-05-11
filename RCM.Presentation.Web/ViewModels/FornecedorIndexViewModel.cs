@@ -5,6 +5,7 @@ namespace RCM.Presentation.Web.ViewModels
     public class FornecedorIndexViewModel
     {
         public PagedList<FornecedorViewModel> Fornecedores { get; set; }
+
         public int? Tipo { get; set; }
 
         public string Nome { get; set; }
