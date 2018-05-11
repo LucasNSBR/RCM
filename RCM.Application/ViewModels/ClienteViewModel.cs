@@ -16,6 +16,10 @@ namespace RCM.Application.ViewModels
         [StringLength(100, MinimumLength = 10, ErrorMessage = "O campo nome deve ter entre 10 e 100 caracteres.")]
         public string Nome { get; set; }
 
+        [Display(Name = "Tipo de Cliente")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "O campo tipo é requerido.")]
+        public ClienteTipoEnum Tipo { get; set; }
+
         [Display(Name = "Classificação")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo classificação é requerido.")]
         public ClientePontuacaoEnum Pontuacao { get; set; }

@@ -1,5 +1,8 @@
 ﻿using FluentValidation;
+using FluentValidation.Validators;
 using RCM.Domain.Commands.ClienteCommands;
+using RCM.Domain.Models;
+using RCM.Domain.Models.ClienteModels;
 
 namespace RCM.Domain.Validators.ClienteCommandValidators
 {
@@ -155,24 +158,31 @@ namespace RCM.Domain.Validators.ClienteCommandValidators
         #region Documento
         protected void ValidateDocumento()
         {
-            ValidateCPF();
-            ValidateRG();
-        }
-
-        private void ValidateCPF()
-        {
             RuleFor(c => c.DocumentoCadastroNacional)
-                .NotEmpty()
-                .MaximumLength(11)
-                .MaximumLength(11)
-                .WithMessage("O CPF deve ter 11 caracteres e não deve estar vazio.");
+                .Must((command, property) => ValidateDocumentoCadastroNacional(command))
+                .WithMessage("O CPF/CNPJ deve estar em um formato válido.");
+
+            RuleFor(c => c.DocumentoCadastroEstadual)
+                .Must((command, property) => ValidateDocumentoCadastroEstadual(command))
+                .WithMessage("O RG/Inscrição Estadual deve estar em um formato válido.");
         }
 
-        private void ValidateRG()
+        private bool ValidateDocumentoCadastroNacional(ClienteCommand command)
         {
-            RuleFor(c => c.DocumentoCadastroEstadual)
-                .MaximumLength(10)
-                .WithMessage("O RG deve até ter 10 caracteres.");
+            if (command.Tipo == ClienteTipoEnum.PessoaFisica)
+                return command.DocumentoCadastroNacional.Length == 11;
+            else
+                return command.DocumentoCadastroNacional.Length == 14;
+        }
+
+        private bool ValidateDocumentoCadastroEstadual(ClienteCommand command)
+        {
+            var length = command.DocumentoCadastroEstadual.Length;
+
+            if (command.Tipo == ClienteTipoEnum.PessoaFisica)
+                return length <= 12;
+            else
+                return length > 12 && length <= 14;
         }
         #endregion
     }

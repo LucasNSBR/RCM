@@ -5,9 +5,10 @@ namespace RCM.Domain.Commands.ClienteCommands
 {
     public class AddClienteCommand : ClienteCommand
     {
-        public AddClienteCommand(string nome, ClientePontuacaoEnum pontuacao, string descricao)
+        public AddClienteCommand(string nome, ClienteTipoEnum tipo, ClientePontuacaoEnum pontuacao, string descricao)
         {
             Nome = nome;
+            Tipo = tipo;
             Pontuacao = pontuacao;
             Descricao = descricao;
         }

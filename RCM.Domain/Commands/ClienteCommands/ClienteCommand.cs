@@ -8,6 +8,7 @@ namespace RCM.Domain.Commands.ClienteCommands
     {
         public Guid Id { get; set; }
         public string Nome { get; set; }
+        public ClienteTipoEnum Tipo { get; set; }
         public ClientePontuacaoEnum Pontuacao { get; set; }
         public string Descricao { get; set; }
 
