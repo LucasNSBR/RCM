@@ -24,21 +24,29 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             _fornecedorApplicationService = fornecedorApplicationService;
         }
 
-        public IActionResult Index(string nome = null, int pageNumber = 1, int pageSize = 20)
+        public IActionResult Index(string nome = null, int? tipo = null, string cadastroNacional = null, string cadastroEstadual = null, int pageNumber = 1, int pageSize = 20)
         {
             var nomeSpecification = new FornecedorNomeSpecification(nome);
+            var tipoSpecification = new FornecedorTipoSpecification(tipo);
+            var cadastroNacionalSpecification = new FornecedorCadastroNacionalSpecification(cadastroNacional);
+            var cadastroEstadualSpecification = new FornecedorCadastroEstadualSpecification(cadastroEstadual);
 
             var list = _fornecedorApplicationService.Get(nomeSpecification
+                .And(tipoSpecification
+                .And(cadastroNacionalSpecification)
+                .And(cadastroEstadualSpecification))
                 .ToExpression());
 
             var viewModel = new FornecedorIndexViewModel
             {
                 Fornecedores = list.ToPagedList(pageNumber, pageSize),
                 Nome = nome,
+                Tipo = tipo,
+                CadastroNacional = cadastroNacional,
+                CadastroEstadual = cadastroEstadual,
             };
 
             return View(viewModel);
-
         }
 
         public IActionResult Details(Guid id)

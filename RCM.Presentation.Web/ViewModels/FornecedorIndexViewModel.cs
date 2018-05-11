@@ -1,12 +1,14 @@
 ﻿using RCM.Application.ViewModels;
-using RCM.Domain.Models.FornecedorModels;
 
 namespace RCM.Presentation.Web.ViewModels
 {
     public class FornecedorIndexViewModel
     {
         public PagedList<FornecedorViewModel> Fornecedores { get; set; }
-        
+        public int? Tipo { get; set; }
+
         public string Nome { get; set; }
+        public string CadastroNacional { get; set; }
+        public string CadastroEstadual { get; set; }
     }
 }
