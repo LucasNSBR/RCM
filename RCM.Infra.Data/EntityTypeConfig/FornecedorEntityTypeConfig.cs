@@ -15,6 +15,9 @@ namespace RCM.Infra.Data.EntityTypeConfig
                 .IsRequired()
                 .HasMaxLength(100);
 
+            builder.Property(f => f.Tipo)
+                .IsRequired();
+
             builder.Property(f => f.Observacao)
                 .HasMaxLength(1000);
 
@@ -23,12 +26,12 @@ namespace RCM.Infra.Data.EntityTypeConfig
                 cfg.Property(en => en.CadastroNacional)
                     .IsRequired()
                     .HasMaxLength(14)
-                    .HasColumnName("CNPJ");
+                    .HasColumnName("DocumentoNacional");
 
                 cfg.Property(en => en.CadastroEstadual)
                     .IsRequired()
                     .HasMaxLength(11)
-                    .HasColumnName("InscricaoEstadual");
+                    .HasColumnName("DocumentoEstadual");
             });
 
             builder.OwnsOne(c => c.Contato, cfg =>
