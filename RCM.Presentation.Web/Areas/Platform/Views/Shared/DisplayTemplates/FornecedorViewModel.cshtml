@@ -1,4 +1,6 @@
-﻿@model RCM.Application.ViewModels.FornecedorViewModel
+﻿@using RCM.Domain.Models.ClienteModels
+
+@model RCM.Application.ViewModels.FornecedorViewModel
 
 <div class="row">
     <div class="col s12">
@@ -24,12 +26,25 @@
                     @Model.Id
                 </dd>
                 <dt>
+                    <label asp-for="Tipo"></label>
+                </dt>
+                <dd>
+                    @if (Model.Tipo == FornecedorTipoEnum.PessoaFisica)
+                    {
+                        <span>Pessoa física</span>
+                    }
+                    else
+                    {
+                        <span>Pessoa jurídica</span>
+                    }
+                </dd>
+                <dt>
                     <label asp-for="@Model.Nome"></label>
                 </dt>
                 <dd>
                     @Model.Nome
                 </dd>
-                
+
                 @Html.DisplayFor(d => d.Documento)
             </dl>
         </div>

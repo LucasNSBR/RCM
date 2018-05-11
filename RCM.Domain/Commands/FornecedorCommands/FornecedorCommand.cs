@@ -1,4 +1,5 @@
 ﻿using RCM.Domain.Core.Commands;
+using RCM.Domain.Models.FornecedorModels;
 using System;
 
 namespace RCM.Domain.Commands.FornecedorCommands
@@ -7,6 +8,7 @@ namespace RCM.Domain.Commands.FornecedorCommands
     {
         public Guid Id { get; set; }
         public string Nome { get; set; }
+        public FornecedorTipoEnum Tipo { get; set; }
         public string Observacao { get; set; }
 
         public string ContatoCelular { get; set; }

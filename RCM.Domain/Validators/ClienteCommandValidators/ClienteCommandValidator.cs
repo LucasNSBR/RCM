@@ -1,7 +1,5 @@
 ﻿using FluentValidation;
-using FluentValidation.Validators;
 using RCM.Domain.Commands.ClienteCommands;
-using RCM.Domain.Models;
 using RCM.Domain.Models.ClienteModels;
 
 namespace RCM.Domain.Validators.ClienteCommandValidators

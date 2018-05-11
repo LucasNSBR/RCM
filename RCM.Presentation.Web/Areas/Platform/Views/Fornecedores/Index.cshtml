@@ -1,4 +1,6 @@
-﻿@model IEnumerable<RCM.Application.ViewModels.FornecedorViewModel>
+﻿@using RCM.Domain.Models.FornecedorModels;
+
+@model IEnumerable<RCM.Application.ViewModels.FornecedorViewModel>
 
 @{
     ViewData["Title"] = "Fornecedores - Índice";
@@ -20,6 +22,9 @@
                         @Html.DisplayNameFor(model => model.Nome)
                     </th>
                     <th>
+                        @Html.DisplayNameFor(model => model.Tipo)
+                    </th>
+                    <th>
                         @Html.DisplayNameFor(model => model.Documento.CadastroNacional)
                     </th>
                     <th>
@@ -33,20 +38,30 @@
             <tbody class="table-body">
                 @foreach (var item in Model)
                 {
-                <tr>
-                    <td class="d-hidden">
-                        @Html.DisplayFor(modelItem => item.Id)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Nome)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Documento.CadastroNacional)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Documento.CadastroEstadual)
-                    </td>
-                </tr>
+                    <tr>
+                        <td class="d-hidden">
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nome)
+                        </td>
+                        <td>
+                            @if (item.Tipo == FornecedorTipoEnum.PessoaFisica)
+                            {
+                                @Html.Raw("Pessoa Física")
+                            }
+                            else
+                            {
+                                @Html.Raw("Pessoa Jurídica")
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Documento.CadastroNacional)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Documento.CadastroEstadual)
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table>

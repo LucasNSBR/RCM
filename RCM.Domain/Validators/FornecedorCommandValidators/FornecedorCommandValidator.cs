@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using RCM.Domain.Commands.FornecedorCommands;
+using RCM.Domain.Models.FornecedorModels;
 
 namespace RCM.Domain.Validators.FornecedorCommandValidators
 {
@@ -148,24 +149,39 @@ namespace RCM.Domain.Validators.FornecedorCommandValidators
         #region Documento
         protected void ValidateDocumento()
         {
-            ValidateCNPJ();
-            ValidateInscricaoEstadual();
-        }
-
-        private void ValidateCNPJ()
-        {
-            RuleFor(c => c.DocumentoCadastroNacional)
+            RuleFor(f => f.DocumentoCadastroNacional)
                 .NotEmpty()
-                .MaximumLength(14)
-                .MaximumLength(14)
-                .WithMessage("O CNPJ deve ter 14 caracteres e não deve estar vazio.");
+                .Must((command, property) => ValidateDocumentoCadastroNacional(command))
+                .WithMessage("O CPF/CNPJ deve estar em um formato válido.");
+
+            RuleFor(f => f.DocumentoCadastroEstadual)
+                .NotEmpty()
+                .Must((command, property) => ValidateDocumentoCadastroEstadual(command))
+                .WithMessage("O RG/Inscrição Estadual deve estar em um formato válido.");
         }
 
-        private void ValidateInscricaoEstadual()
+        private bool ValidateDocumentoCadastroNacional(FornecedorCommand command)
         {
-            RuleFor(c => c.DocumentoCadastroEstadual)
-                .MaximumLength(12)
-                .WithMessage("A inscrição estadual deve até ter 12 caracteres.");
+            if (command.DocumentoCadastroNacional == null)
+                return false;
+
+            if (command.Tipo == FornecedorTipoEnum.PessoaFisica)
+                return command.DocumentoCadastroNacional.Length == 11;
+            else
+                return command.DocumentoCadastroNacional.Length == 14;
+        }
+
+        private bool ValidateDocumentoCadastroEstadual(FornecedorCommand command)
+        {
+            if (command.DocumentoCadastroEstadual == null)
+                return false;
+
+            var length = command.DocumentoCadastroEstadual.Length;
+
+            if (command.Tipo == FornecedorTipoEnum.PessoaFisica)
+                return length <= 12;
+            else
+                return length > 12 && length <= 14;
         }
         #endregion
     }

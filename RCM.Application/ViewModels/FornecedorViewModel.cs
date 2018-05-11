@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RCM.Domain.Models.FornecedorModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -14,6 +15,10 @@ namespace RCM.Application.ViewModels
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo nome é requerido.")]
         [StringLength(100, MinimumLength = 5, ErrorMessage = "O campo nome deve ter entre 5 e 100 caracteres.")]
         public string Nome { get; set; }
+
+        [Display(Name = "Tipo de Fornecedor")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "O campo tipo é requerido.")]
+        public FornecedorTipoEnum Tipo { get; set; }
 
         [Display(Name = "Observações")]
         [StringLength(1000, MinimumLength = 0, ErrorMessage = "O campo observação deve ter até 1000 caracteres.")]

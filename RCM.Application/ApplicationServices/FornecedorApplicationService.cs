@@ -18,7 +18,7 @@ namespace RCM.Application.ApplicationServices
 
         public override Task<CommandResult> Add(FornecedorViewModel viewModel)
         {
-            var command = new AddFornecedorCommand(viewModel.Nome, viewModel.Observacao);
+            var command = new AddFornecedorCommand(viewModel.Nome, viewModel.Tipo, viewModel.Observacao);
             command.AttachContato(viewModel.Contato.Celular, viewModel.Contato.Email, viewModel.Contato.TelefoneComercial, viewModel.Contato.TelefoneResidencial, viewModel.Contato.Observacao);
             command.AttachEndereco(viewModel.Endereco.Numero, viewModel.Endereco.Rua, viewModel.Endereco.Bairro, viewModel.Endereco.Complemento, viewModel.Endereco.CEP);
             command.AttachDocumento(viewModel.Documento.CadastroNacional, viewModel.Documento.CadastroEstadual);
@@ -28,7 +28,7 @@ namespace RCM.Application.ApplicationServices
 
         public override Task<CommandResult> Update(FornecedorViewModel viewModel)
         {
-            var command = new UpdateFornecedorCommand(viewModel.Id, viewModel.Nome, viewModel.Observacao);
+            var command = new UpdateFornecedorCommand(viewModel.Id, viewModel.Nome, viewModel.Tipo, viewModel.Observacao);
             command.AttachContato(viewModel.Contato.Celular, viewModel.Contato.Email, viewModel.Contato.TelefoneComercial, viewModel.Contato.TelefoneResidencial, viewModel.Contato.Observacao);
             command.AttachEndereco(viewModel.Endereco.Numero, viewModel.Endereco.Rua, viewModel.Endereco.Bairro, viewModel.Endereco.Complemento, viewModel.Endereco.CEP);
             command.AttachDocumento(viewModel.Documento.CadastroNacional, viewModel.Documento.CadastroEstadual);

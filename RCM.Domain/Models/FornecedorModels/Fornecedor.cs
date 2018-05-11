@@ -46,10 +46,11 @@ namespace RCM.Domain.Models.FornecedorModels
 
         protected Fornecedor() { }
 
-        public Fornecedor(Guid id, string nome, Documento documento, Contato contato, Endereco endereco, string observacao = null)
+        public Fornecedor(Guid id, string nome, FornecedorTipoEnum tipo, Documento documento, Contato contato, Endereco endereco, string observacao = null)
         {
             Id = id;
             Nome = nome;
+            Tipo = tipo;
             Documento = documento;
             Contato = contato;
             Endereco = endereco;
@@ -60,9 +61,10 @@ namespace RCM.Domain.Models.FornecedorModels
             _produtos = new List<ProdutoFornecedor>();
         }
 
-        public Fornecedor(string nome, Documento documento, Contato contato, Endereco endereco, string observacao = null)
+        public Fornecedor(string nome, FornecedorTipoEnum tipo, Documento documento, Contato contato, Endereco endereco, string observacao = null)
         {
             Nome = nome;
+            Tipo = tipo;
             Documento = documento;
             Contato = contato;
             Endereco = endereco;
