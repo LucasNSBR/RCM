@@ -38,6 +38,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             };
 
             return View(viewModel);
+
         }
 
         public IActionResult Details(Guid id)
