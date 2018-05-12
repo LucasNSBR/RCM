@@ -16,7 +16,7 @@ namespace RCM.Domain.Models.ClienteModels
         public override Expression<Func<Cliente, bool>> ToExpression()
         {
             if (_cadastroNacional != null)
-                return f => f.Documento.CadastroNacional.Contains(_cadastroNacional);
+                return f => f.Documento.CadastroNacional.ToLower().Contains(_cadastroNacional.ToLower());
 
             return f => true;
         }

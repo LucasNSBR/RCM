@@ -32,9 +32,9 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             var cadastroEstadualSpecification = new FornecedorCadastroEstadualSpecification(cadastroEstadual);
 
             var list = _fornecedorApplicationService.Get(nomeSpecification
-                .And(tipoSpecification
+                .And(tipoSpecification)
                 .And(cadastroNacionalSpecification)
-                .And(cadastroEstadualSpecification))
+                .And(cadastroEstadualSpecification)
                 .ToExpression());
 
             var viewModel = new FornecedorIndexViewModel

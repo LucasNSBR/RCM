@@ -1,6 +1,6 @@
 ﻿@using RCM.Domain.Models.ClienteModels;
 
-@model IEnumerable<RCM.Application.ViewModels.ClienteViewModel>
+@model RCM.Presentation.Web.ViewModels.ClienteIndexViewModel
 
 @{
     ViewData["Title"] = "Clientes - Índice";
@@ -10,46 +10,91 @@
 
 <div class="form-container col s12 m12">
     <form>
-        @await Component.InvokeAsync("SearchBar", new Dictionary<string, string>() { { "Nome do Cliente", "nome" } })
+        <div class="col s12 m12">
+            <div class="row my-0 py-0">
+                <div class="input-field col s5 m5">
+                    <label for="nome">Nome do Cliente</label>
+                    <input asp-for="Nome" name="nome" type="text" id="nome" />
+                </div>
+                <div class="input-field col s4 m3">
+                    <select>
+                        <option value="nome">Nome do Cliente</option>
+                    </select>
+                </div>
+                <div class="col s4 m4 pt-2 px-0 mx-0 max-percent-width">
+                    <a class="btn waves-effect purple left no-border col s1 m2" id="advancedSearchToggler">
+                        <i class="material-icons center">keyboard_arrow_down</i>
+                    </a><button type="submit" class="btn waves-effect purple no-border col s11 m10">
+                        <i class="material-icons right">search</i>
+                        Pesquisar
+                    </button>
+                </div>
+            </div>
+        </div>
 
         <div id="advancedSearch" class="col s12 m12">
             <div class="row">
-                <div class="col s6 m12">
-                    <p class="text-muted pt-0 mt-0 small">
-                        Sem opções de busca avançada
-                    </p>
+                <div class="input-field col s12 m3">
+                    <input asp-for="CadastroNacional" name="cadastroNacional" type="text" class="input-field" id="cadastro-nacional" />
+                    <label for="minValor">CNPJ/CPF</label>
+                </div>
+                <div class="input-field col s12 m3">
+                    <input asp-for="CadastroEstadual" name="cadastroEstadual" type="text" class="input-field" id="cadastro-estadual" />
+                    <label for="maxValor">RG/Inscrição Estadual</label>
+                </div>
+                <div class="input-field col s12 m6">
+                    @{
+                        var tipoEnumValues = from ClienteTipoEnum enumValue in Enum.GetValues(typeof(ClienteTipoEnum))
+                                             select new { name = enumValue.ToString(), value = (int)enumValue };
+                    }
+
+                    <select asp-for="Tipo" asp-items="@(new SelectList(tipoEnumValues, "value", "name"))" name="tipo" id="tipo">
+                        <option value="">Todos os tipos</option>
+                    </select>
+                    <label for="tipo">Tipo de Cliente</label>
+                </div>
+                <div class="input-field col s12 m6">
+                    @{
+                        var pontuacaoEnumValues = from ClientePontuacaoEnum enumValue in Enum.GetValues(typeof(ClientePontuacaoEnum))
+                                                  select new { name = enumValue.ToString(), value = (int)enumValue };
+                    }
+
+                    <select asp-for="Pontuacao" asp-items="@(new SelectList(pontuacaoEnumValues, "value", "name"))" name="pontuacao" id="pontuacao">
+                        <option value="">Todos as Classificações</option>
+                    </select>
+                    <label for="tipo">Tipo de Classificação</label>
                 </div>
             </div>
         </div>
     </form>
 
-    @if (Model.Any())
+    @if (Model.Clientes.List.Any())
     {
         <table class="highlight">
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.Nome)
+                        @Html.DisplayNameFor(model => model.Clientes.List.FirstOrDefault().Nome)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Tipo)
+                        @Html.DisplayNameFor(model => model.Clientes.List.FirstOrDefault().Tipo)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Documento.CadastroNacional)
+                        @Html.DisplayNameFor(model => model.Clientes.List.FirstOrDefault().Documento.CadastroNacional)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Documento.CadastroEstadual)
+                        @Html.DisplayNameFor(model => model.Clientes.List.FirstOrDefault().Documento.CadastroEstadual)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Contato.Celular)
+                        @Html.DisplayNameFor(model => model.Clientes.List.FirstOrDefault().Contato.Celular)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Contato.TelefoneResidencial)
+                        @Html.DisplayNameFor(model => model.Clientes.List.FirstOrDefault().Contato.TelefoneResidencial)
                     </th>
                 </tr>
             </thead>
             <tbody class="table-body">
-                @foreach (var item in Model)
+                @foreach (var item in Model.Clientes.List)
                 {
                     <tr>
                         <td class="d-hidden">
@@ -84,6 +129,50 @@
                 }
             </tbody>
         </table>
+
+        <div class="col s12 m12">
+            <ul class="pagination center pt-2">
+                @{
+                    var queryStringHelper = new Dictionary<string, string>
+                                                                                {
+                                                                                    { "nome", Model.Nome },
+                                                                                    { "tipo", Model.Tipo.ToString() },
+                                                                                    { "pontuacao", Model.Pontuacao.ToString() },
+                                                                                    { "cadastroNacional", Model.CadastroNacional },
+                                                                                    { "cadastroEstadual", Model.CadastroEstadual },
+                                                                                };
+                }
+
+                @if (Model.Clientes.IsFirstPage)
+                {
+                    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+                }
+                else
+                {
+                    <li>
+                        <a asp-all-route-data="queryStringHelper" asp-route-pageNumber="@(Model.Clientes.PageNumber - 1)"><i class="material-icons">chevron_left</i></a>
+                    </li>
+                }
+
+                @for (int i = 1; i <= Model.Clientes.TotalPages; i++)
+                {
+                    <li class="waves-effect @(Model.Clientes.PageNumber == i ? "active" : "")">
+                        <a asp-all-route-data="queryStringHelper" asp-route-pageNumber="@i" asp-route-pageSize="@Model.Clientes.PageSize">@i</a>
+                    </li>
+                }
+
+                @if (Model.Clientes.IsLastPage)
+                {
+                    <li class="disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+                }
+                else
+                {
+                    <li>
+                        <a asp-all-route-data="queryStringHelper" asp-route-pageNumber="@(Model.Clientes.PageNumber + 1)"><i class="material-icons">chevron_right</i></a>
+                    </li>
+                }
+            </ul>
+        </div>
     }
     else
     {

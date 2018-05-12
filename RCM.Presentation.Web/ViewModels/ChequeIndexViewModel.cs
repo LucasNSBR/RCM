@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace RCM.Presentation.Web.ViewModels
 {
-    public class ChequesIndexViewModel
+    public class ChequeIndexViewModel
     {
         public PagedList<ChequeViewModel> Cheques { get; set; }
         public IEnumerable<ClienteViewModel> Clientes { get; set; }

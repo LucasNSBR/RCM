@@ -16,7 +16,7 @@ namespace RCM.Domain.Models.FornecedorModels
         public override Expression<Func<Fornecedor, bool>> ToExpression()
         {
             if (_cadastroNacional != null)
-                return f => f.Documento.CadastroNacional.Contains(_cadastroNacional);
+                return f => f.Documento.CadastroNacional.ToLower().Contains(_cadastroNacional.ToLower());
 
             return f => true;
         }

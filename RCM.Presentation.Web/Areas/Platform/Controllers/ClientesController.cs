@@ -5,6 +5,8 @@ using RCM.Application.ViewModels;
 using RCM.Domain.DomainNotificationHandlers;
 using RCM.Domain.Models.ClienteModels;
 using RCM.Presentation.Web.Controllers;
+using RCM.Presentation.Web.Extensions;
+using RCM.Presentation.Web.ViewModels;
 using System;
 using System.Threading.Tasks;
 
@@ -22,14 +24,32 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             _clienteApplicationService = clienteApplicationService;
         }
 
-        public IActionResult Index(string nome = null)
+        public IActionResult Index(string nome = null, int? tipo = null, int? pontuacao = null, string cadastroNacional = null, string cadastroEstadual = null, int pageNumber = 1, int pageSize = 20)
         {
             var nomeSpecification = new ClienteNomeSpecification(nome);
+            var tipoSpecification = new ClienteTipoSpecification(tipo);
+            var pontuacaoSpecification = new ClientePontuacaoSpecification(pontuacao);
+            var cadastroNacionalSpecification = new ClienteCadastroNacionalSpecification(cadastroNacional);
+            var cadastroEstadualSpecification = new ClienteCadastroEstadualSpecification(cadastroEstadual);
 
             var list = _clienteApplicationService.Get(nomeSpecification
+                .And(tipoSpecification)
+                .And(pontuacaoSpecification)
+                .And(cadastroNacionalSpecification)
+                .And(cadastroEstadualSpecification)
                 .ToExpression());
 
-            return View(list);
+            var viewModel = new ClienteIndexViewModel
+            {
+                Clientes = list.ToPagedList(pageNumber, pageSize),
+                Nome = nome,
+                Tipo = tipo,
+                Pontuacao = pontuacao,
+                CadastroNacional = cadastroNacional,
+                CadastroEstadual = cadastroEstadual,
+            };
+
+            return View(viewModel);
         }
 
         public IActionResult Details(Guid id)

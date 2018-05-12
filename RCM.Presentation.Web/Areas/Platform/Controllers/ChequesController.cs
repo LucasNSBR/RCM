@@ -50,7 +50,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 .And(situacaoSpecification)
                 .ToExpression());
 
-            var viewModel = new ChequesIndexViewModel
+            var viewModel = new ChequeIndexViewModel
             {
                 Cheques = list.ToPagedList(pageNumber, pageSize),
                 Clientes = _clienteApplicationService.Get().OrderBy(c => c.Nome),
