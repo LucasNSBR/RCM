@@ -1,0 +1,41 @@
+﻿@{
+    Dictionary<string, string> listHelper = (Dictionary<string, string>)ViewData["listHelper"];
+    Dictionary<string, string> queryStringHelper = (Dictionary<string, string>)ViewData["queryStringHelper"];
+
+    var IsFirstPage = Convert.ToBoolean(listHelper["IsFirstPage"]);
+    var IsLastPage = Convert.ToBoolean(listHelper["IsLastPage"]);
+    var pageSize = Convert.ToInt16(listHelper["PageSize"]);
+    var pageNumber = Convert.ToInt16(listHelper["PageNumber"]);
+    var totalPages = Convert.ToInt16(listHelper["TotalPages"]);
+}
+
+<ul class="pagination center pt-2">
+    @if (IsFirstPage)
+    {
+        <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+    }
+    else
+    {
+        <li>
+            <a asp-all-route-data="queryStringHelper" asp-route-pageNumber="@(pageNumber - 1)"><i class="material-icons">chevron_left</i></a>
+        </li>
+    }
+
+    @for (int i = 1; i <= totalPages; i++)
+    {
+        <li class="waves-effect @(pageNumber == i ? "active" : "")">
+            <a asp-all-route-data="queryStringHelper" asp-route-pageNumber="@i" asp-route-pageSize="@pageSize">@i</a>
+        </li>
+    }
+
+    @if (IsLastPage)
+    {
+        <li class="disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+    }
+    else
+    {
+        <li>
+            <a asp-all-route-data="queryStringHelper" asp-route-pageNumber="@(pageNumber + 1)"><i class="material-icons">chevron_right</i></a>
+        </li>
+    }
+</ul>

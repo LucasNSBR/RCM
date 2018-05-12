@@ -106,47 +106,24 @@
             <ul class="pagination center pt-2">
                 @{
                     var queryStringHelper = new Dictionary<string, string>
-                                            {
-                                                { "marcaId", Model.MarcaId?.ToString() },
-                                                { "minValor", Model.MinValor?.ToString() },
-                                                { "maxValor", Model.MaxValor?.ToString() },
-                                                { "minEstoque", Model.MinEstoque.ToString() },
-                                                { "maxEstoque", Model.MaxEstoque.ToString() },
-                                                { "nome", Model.Nome?.ToString() },
-                                                { "pageSize", Model.Produtos.PageSize.ToString() },
-                                            };
+                    {
+                        { "marcaId", Model.MarcaId?.ToString() },
+                        { "minValor", Model.MinValor?.ToString() },
+                        { "maxValor", Model.MaxValor?.ToString() },
+                        { "minEstoque", Model.MinEstoque.ToString() },
+                        { "maxEstoque", Model.MaxEstoque.ToString() },
+                        { "nome", Model.Nome?.ToString() },
+                        { "pageSize", Model.Produtos.PageSize.ToString() },
+                    };
 
-                }
+                   var listHelper = new Dictionary<string, string>().LoadPagination(Model.Produtos);
+            }
 
-                @if (Model.Produtos.IsFirstPage)
-                {
-                    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-                }
-                else
-                {
-                    <li>
-                        <a asp-all-route-data="queryStringHelper" asp-route-pageNumber="@(Model.Produtos.PageNumber - 1)"><i class="material-icons">chevron_left</i></a>
-                    </li>
-                }
-
-                @for (int i = 1; i <= Model.Produtos.TotalPages; i++)
-                {
-                    <li class="waves-effect @(Model.Produtos.PageNumber == i ? "active" : "")">
-                        <a asp-all-route-data="queryStringHelper" asp-route-pageNumber="@i" asp-route-pageSize="@Model.Produtos.PageSize">@i</a>
-                    </li>
-                }
-
-                @if (Model.Produtos.IsLastPage)
-                {
-                    <li class="disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-                }
-                else
-                {
-                    <li>
-                        <a asp-all-route-data="queryStringHelper" asp-route-pageNumber="@(Model.Produtos.PageNumber + 1)"><i class="material-icons">chevron_right</i></a>
-                    </li>
-                }
-            </ul>
+            @Html.Partial("_Pagination", new ViewDataDictionary(this.ViewData)
+            {
+                { "listHelper", listHelper },
+                { "queryStringHelper", queryStringHelper }
+            })
         </div>
     }
     else

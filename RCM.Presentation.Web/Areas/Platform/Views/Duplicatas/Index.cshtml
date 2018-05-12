@@ -164,52 +164,29 @@
         </table>
 
         <div class="col s12 m12">
-            <ul class="pagination center pt-2">
-                @{
-                    var queryStringHelper = new Dictionary<string, string>
-                                                                        {
-                                                                            { "apenasNaoPagas", Model.ApenasNaoPagas?.ToString() },
-                                                                            { "apenasVencidas", Model.ApenasVencidas?.ToString() },
-                                                                            { "fornecedorId", Model.FornecedorId?.ToString() },
-                                                                            { "minValor", Model.MinValor?.ToString() },
-                                                                            { "maxValor", Model.MaxValor?.ToString() },
-                                                                            { "numeroDocumento", Model.NumeroDocumento?.ToString() },
-                                                                            { "dataEmissao", Model.DataEmissao?.ToString() },
-                                                                            { "dataVencimento", Model.DataVencimento?.ToString() },
-                                                                            { "pageSize", Model.Duplicatas.PageSize.ToString() },
-                                                                        };
+            @{
+                var queryStringHelper = new Dictionary<string, string>
+                    {
+                         { "apenasNaoPagas", Model.ApenasNaoPagas?.ToString() },
+                         { "apenasVencidas", Model.ApenasVencidas?.ToString() },
+                         { "fornecedorId", Model.FornecedorId?.ToString() },
+                         { "minValor", Model.MinValor?.ToString() },
+                         { "maxValor", Model.MaxValor?.ToString() },
+                         { "numeroDocumento", Model.NumeroDocumento?.ToString() },
+                         { "dataEmissao", Model.DataEmissao?.ToString() },
+                         { "dataVencimento", Model.DataVencimento?.ToString() },
+                         { "pageSize", Model.Duplicatas.PageSize.ToString() },
+                    };
 
-                }
+                var listHelper = new Dictionary<string, string>().LoadPagination(Model.Duplicatas);
 
-                @if (Model.Duplicatas.IsFirstPage)
-                {
-                    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-                }
-                else
-                {
-                    <li>
-                        <a asp-all-route-data="queryStringHelper" asp-route-pageNumber="@(Model.Duplicatas.PageNumber - 1)"><i class="material-icons">chevron_left</i></a>
-                    </li>
-                }
+            }
 
-                @for (int i = 1; i <= Model.Duplicatas.TotalPages; i++)
-                {
-                    <li class="waves-effect @(Model.Duplicatas.PageNumber == i ? "active" : "")">
-                        <a asp-all-route-data="queryStringHelper" asp-route-pageNumber="@i" asp-route-pageSize="@Model.Duplicatas.PageSize">@i</a>
-                    </li>
-                }
-
-                @if (Model.Duplicatas.IsLastPage)
-                {
-                    <li class="disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-                }
-                else
-                {
-                    <li>
-                        <a asp-all-route-data="queryStringHelper" asp-route-pageNumber="@(Model.Duplicatas.PageNumber + 1)"><i class="material-icons">chevron_right</i></a>
-                    </li>
-                }
-            </ul>
+            @Html.Partial("_Pagination", new ViewDataDictionary(this.ViewData)
+            {
+                { "listHelper", listHelper },
+                { "queryStringHelper", queryStringHelper }
+            })
         </div>
     }
     else
@@ -275,7 +252,7 @@
             totalItemValue += parseFloat(value);
 
             if (selectedItems > 0) {
-                showPanel();   
+                showPanel();
             }
         }
 
@@ -297,7 +274,7 @@
             totalItemValue -= parseFloat(value);
 
             if (selectedItems == 0) {
-                hidePanel(); 
+                hidePanel();
             }
         }
 
@@ -314,7 +291,7 @@
             totalItemValue = 0;
 
             $(items).prop('checked', 'checked');
-            
+
             $(items).each(function () {
                 var value = $(this).parents('tr').children().last().text();
                 value = normalizeCurrency(value);

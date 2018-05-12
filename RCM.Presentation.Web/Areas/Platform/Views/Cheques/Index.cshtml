@@ -180,48 +180,26 @@
             <ul class="pagination center pt-2">
                 @{
                     var queryStringHelper = new Dictionary<string, string>
-                                                            {
-                                                                { "clienteId", Model.ClienteId?.ToString() },
-                                                                { "minValor", Model.MinValor?.ToString() },
-                                                                { "maxValor", Model.MaxValor?.ToString() },
-                                                                { "agencia", Model.Agencia?.ToString() },
-                                                                { "conta", Model.Conta?.ToString() },
-                                                                { "numeroCheque", Model.NumeroCheque?.ToString() },
-                                                                { "dataEmissao", Model.DataEmissao?.ToString() },
-                                                                { "dataVencimento", Model.DataVencimento?.ToString() },
-                                                                { "pageSize", Model.Cheques.PageSize.ToString() },
-                                                            };
+                    {
+                        { "clienteId", Model.ClienteId?.ToString() },
+                        { "minValor", Model.MinValor?.ToString() },
+                        { "maxValor", Model.MaxValor?.ToString() },
+                        { "agencia", Model.Agencia?.ToString() },
+                        { "conta", Model.Conta?.ToString() },
+                        { "numeroCheque", Model.NumeroCheque?.ToString() },
+                        { "dataEmissao", Model.DataEmissao?.ToString() },
+                        { "dataVencimento", Model.DataVencimento?.ToString() },
+                        { "pageSize", Model.Cheques.PageSize.ToString() },
+                    };
 
-                }
+                    var listHelper = new Dictionary<string, string>().LoadPagination(Model.Cheques);
+            }
 
-                @if (Model.Cheques.IsFirstPage)
-                {
-                    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-                }
-                else
-                {
-                    <li>
-                        <a asp-all-route-data="queryStringHelper" asp-route-pageNumber="@(Model.Cheques.PageNumber - 1)"><i class="material-icons">chevron_left</i></a>
-                    </li>
-                }
-
-                @for (int i = 1; i <= Model.Cheques.TotalPages; i++)
-                {
-                    <li class="waves-effect @(Model.Cheques.PageNumber == i ? "active" : "")">
-                        <a asp-all-route-data="queryStringHelper" asp-route-pageNumber="@i" asp-route-pageSize="@Model.Cheques.PageSize">@i</a>
-                    </li>
-                }
-
-                @if (Model.Cheques.IsLastPage)
-                {
-                    <li class="disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-                }
-                else
-                {
-                    <li>
-                        <a asp-all-route-data="queryStringHelper" asp-route-pageNumber="@(Model.Cheques.PageNumber + 1)"><i class="material-icons">chevron_right</i></a>
-                    </li>
-                }
+            @Html.Partial("_Pagination", new ViewDataDictionary(this.ViewData)
+            {
+                { "listHelper", listHelper },
+                { "queryStringHelper", queryStringHelper }
+            })
             </ul>
         </div>
     }
