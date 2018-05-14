@@ -1,0 +1,164 @@
+﻿@{
+    Layout = "_Report";
+}
+
+@model RCM.Presentation.Web.ViewModels.DAVViewModel
+
+@{
+    ViewData["Title"] = "Documento Auxiliar de Venda";
+}
+
+<div class="row" id="report-header">
+    <div class="col s2">
+        <h3 class="center">
+            RCM
+        </h3>
+    </div>
+    <div class="col s4 my-1">
+        <span>
+            Model.Empresa
+        </span>
+        <br/>
+        <span>
+            Model.CNPJ
+        </span>
+        <br/>
+        <span>
+            Model.Endereco
+        </span>
+        <br/>
+        <span>
+            Model.Contato 
+        </span>
+    </div>
+    <div class="col s2 my-1">
+        <p class="right-align my-0">
+            Id da Venda:
+        </p>
+        <p class="right-align my-0">
+            Data da Venda:
+        </p>
+    </div>
+    <div class="col s4 my-1">
+        <p class="right-align my-0">
+            @Model.Venda.Id
+        </p>
+        <p class="right-align my-0">
+            @Model.Venda.DataVenda.ToLongDateString()
+        </p>
+    </div>
+</div>
+<div class="row">
+    <div class="col s12">
+        <h5>Id da Venda:</h5>
+        <p>#@Model.Venda.Id</p>
+    </div>
+    <div class="col s12">
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus suscipit nunc venenatis eros bibendum finibus. Fusce lacus ligula, mattis eu pretium a, blandit vel sem. Mauris leo erat, aliquet in leo in, bibendum vulputate purus. Curabitur convallis metus nulla, eget vestibulum lorem dignissim sit amet. Nunc molestie eu massa eu egestas. Aenean vitae hendrerit elit. Vivamus nunc odio, consequat vel elementum iaculis, condimentum ac libero. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris eu imperdiet ipsum. Mauris porta nisl a condimentum gravida. Vivamus varius porttitor hendrerit. Sed sem neque, tincidunt cursus sagittis porta, vulputate eu elit. Phasellus eget maximus dui. Nulla rutrum neque justo, sed convallis turpis finibus eget. Phasellus efficitur felis eget orci rutrum ullamcorper.
+        </p>
+    </div>
+    <div class="col s12 mt-2">
+        <table id="report-table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Venda.Produtos.FirstOrDefault().Produto.Nome)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Venda.Produtos.FirstOrDefault().PrecoVenda)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Venda.Produtos.FirstOrDefault().Quantidade)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Venda.Produtos.FirstOrDefault().Desconto)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Venda.Produtos.FirstOrDefault().Acrescimo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Venda.Produtos.FirstOrDefault().PrecoFinal)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Venda.Produtos)
+                {
+                    <tr>
+                        <td>
+                            <bold>
+                                @Html.DisplayFor(modelItem => item.Produto.Nome)
+                            </bold>
+                            <br />
+                            <span class="small">
+                                Referência: @Html.DisplayFor(modelItem => item.Produto.ReferenciaFabricante)
+                            </span>
+                            <br />
+                            <span class="small">
+                                Marca: @Html.DisplayFor(modelItem => item.Produto.Marca.Nome)
+                            </span>
+                            <br />
+                            <span class="small">
+                                Id: @Html.DisplayFor(modelItem => item.Produto.Id)
+                            </span>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PrecoVenda)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Quantidade)
+                        </td>
+                        <td>
+                            @if (item.Desconto == 0)
+                            {
+                                <span class="font-italic">Nenhum</span>
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(modelItem => item.Desconto)
+                            }
+                        </td>
+                        <td>
+                            @if (item.Desconto == 0)
+                            {
+                                <span class="font-italic">Nenhum</span>
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(modelItem => item.Acrescimo)
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PrecoFinal)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row mt-2">
+    <div class="col s6">
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus suscipit nunc venenatis eros bibendum finibus. Fusce lacus ligula, mattis eu pretium a, blandit vel sem. Mauris leo erat, aliquet in leo in, bibendum vulputate purus. Curabitur convallis metus nulla, eget vestibulum lorem dignissim sit amet. Nunc molestie eu massa eu egestas. Aenean vitae hendrerit elit.
+        </p>
+    </div>
+    <div class="col s3 offset-s2">
+        <p class="lead">Quantidade de Produtos: </p>
+        <p class="lead">Valor Total da Venda: </p>
+    </div>
+    <div class="col s1 right-align">
+        <p class="lead">@Model.Venda.QuantidadeProdutos</p>
+        <p class="lead">@Model.Venda.TotalVenda.ToString("c")</p>
+    </div>
+</div>
+<div class="row mt-max" id="report-footer">
+    <hr class="w-75"/>
+    <p class="center small">Assinatura do Cliente</p>
+</div>
+
+
+<script>
+                                                    //window.print();
+</script>

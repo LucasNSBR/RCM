@@ -16,7 +16,6 @@ namespace RCM.Infra.Data.Repositories
         public override Cliente GetById(Guid id)
         {
             return _dbSet
-                .AsNoTracking()
                 .FirstOrDefault(c => c.Id == id);
         }
     }

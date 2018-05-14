@@ -20,6 +20,7 @@ namespace RCM.Application.ViewModels
         public ProdutoViewModel Produto { get; set; }
 
         [Display(Name = "Preço de Venda")]
+        [DisplayFormat(ApplyFormatInEditMode = false, ConvertEmptyStringToNull = true, DataFormatString = "{0:c}")]
         public decimal PrecoVenda { get; set; }
 
         [Display(Name = "Desconto")]
@@ -33,6 +34,7 @@ namespace RCM.Application.ViewModels
         public decimal Acrescimo { get; set; }
 
         [Display(Name = "Preço Final")]
+        [DisplayFormat(ApplyFormatInEditMode = false, ConvertEmptyStringToNull = true, DataFormatString = "{0:c}")]
         public decimal PrecoFinal { get; set; }
 
         [Display(Name = "Quantidade")]

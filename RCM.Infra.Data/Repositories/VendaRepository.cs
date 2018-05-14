@@ -24,15 +24,6 @@ namespace RCM.Infra.Data.Repositories
                 .AsNoTracking();
         }
 
-        public override IQueryable<Venda> Get()
-        {
-            return _dbSet
-                .Include(pv => pv.Produtos)
-                .ThenInclude(vp => vp.Produto)
-                .Include(pv => pv.Cliente)
-                .AsNoTracking();
-        }
-
         public override Venda GetById(Guid id)
         {
             return _dbSet

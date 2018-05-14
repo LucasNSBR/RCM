@@ -22,12 +22,14 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         private readonly IVendaApplicationService _vendaApplicationService;
         private readonly IClienteApplicationService _clienteApplicationService;
         private readonly IProdutoApplicationService _produtoApplicationService;
+        private readonly IEmpresaApplicationService _empresaApplicationService;
 
-        public VendasController(IVendaApplicationService vendaApplicationService, IClienteApplicationService clienteApplicationService, IProdutoApplicationService produtoApplicationService, IDomainNotificationHandler domainNotificationHandler) : base(domainNotificationHandler)
+        public VendasController(IVendaApplicationService vendaApplicationService, IClienteApplicationService clienteApplicationService, IProdutoApplicationService produtoApplicationService, IEmpresaApplicationService empresaApplicationService, IDomainNotificationHandler domainNotificationHandler) : base(domainNotificationHandler)
         {
             _vendaApplicationService = vendaApplicationService;
             _clienteApplicationService = clienteApplicationService;
             _produtoApplicationService = produtoApplicationService;
+            _empresaApplicationService = empresaApplicationService;
         }
 
         public IActionResult Index(Guid? clienteId, string minValor = null, string maxValor = null, string status = null, string dataInicial = null, string dataFinal = null, int pageNumber = 1, int pageSize = 20)
@@ -208,6 +210,26 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 NotifyCommandResultErrors(commandResult.Errors);
 
             return RedirectToAction(nameof(Details), new { id = id });
+        }
+
+        public IActionResult PrintDav(Guid id)
+        {
+            var venda = _vendaApplicationService.GetById(id);
+            var empresa = _empresaApplicationService.Get();
+            
+            if (venda == null)
+                return NotFound();
+            if (empresa == null)
+                return RedirectToAction(nameof(Index), "Empresas");
+
+            var viewModel = new DAVViewModel
+            {
+                Venda = venda,
+                Cliente = venda.Cliente,
+                Empresa = empresa,
+            };
+
+            return View(viewModel);
         }
 
         public JsonResult GetClientes()
