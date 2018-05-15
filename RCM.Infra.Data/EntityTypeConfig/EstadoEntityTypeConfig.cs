@@ -10,6 +10,12 @@ namespace RCM.Infra.Data.EntityTypeConfig
         {
             builder
                 .HasKey(e => e.Id);
+
+            builder.Property(e => e.Nome)
+                .HasMaxLength(25);
+
+            builder.Property(e => e.Sigla)
+                .HasMaxLength(2);
         }
     }
 }

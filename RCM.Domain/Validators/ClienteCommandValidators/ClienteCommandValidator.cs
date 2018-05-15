@@ -22,13 +22,6 @@ namespace RCM.Domain.Validators.ClienteCommandValidators
                 .WithMessage("O nome do cliente deve ter entre 10 e 100 caracteres e não deve estar vazio.");
         }
 
-        protected void ValidatePontuacao()
-        {
-            RuleFor(c => c.Pontuacao)
-                .NotEmpty()
-                .WithMessage("A classificação do cliente não deve estar vazia.");
-        }
-
         protected void ValidateDescricao()
         {
             RuleFor(c => c.Descricao)
@@ -162,7 +155,6 @@ namespace RCM.Domain.Validators.ClienteCommandValidators
                 .WithMessage("O CPF/CNPJ deve estar em um formato válido.");
 
             RuleFor(c => c.DocumentoCadastroEstadual)
-                .NotEmpty()
                 .Must((command, property) => ValidateDocumentoCadastroEstadual(command))
                 .WithMessage("O RG/Inscrição Estadual deve estar em um formato válido.");
         }
@@ -181,7 +173,7 @@ namespace RCM.Domain.Validators.ClienteCommandValidators
         private bool ValidateDocumentoCadastroEstadual(ClienteCommand command)
         {
             if (command.DocumentoCadastroEstadual == null)
-                return false;
+                return true;
 
             var length = command.DocumentoCadastroEstadual.Length;
             

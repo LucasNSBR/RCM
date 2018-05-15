@@ -8,6 +8,7 @@ using RCM.Application.Mappers;
 using RCM.CrossCutting.MediatorServices;
 using RCM.Domain.CommandHandlers.BancoCommandHandlers;
 using RCM.Domain.CommandHandlers.ChequeCommandHandlers;
+using RCM.Domain.CommandHandlers.CidadeCommandHandlers;
 using RCM.Domain.CommandHandlers.ClienteCommandHandlers;
 using RCM.Domain.CommandHandlers.DuplicataCommandHandlers;
 using RCM.Domain.CommandHandlers.EmpresaCommandHandlers;
@@ -19,6 +20,7 @@ using RCM.Domain.CommandHandlers.ProdutoCommandHandlers;
 using RCM.Domain.CommandHandlers.VendaCommandHandlers;
 using RCM.Domain.Commands.BancoCommands;
 using RCM.Domain.Commands.ChequeCommands;
+using RCM.Domain.Commands.CidadeCommands;
 using RCM.Domain.Commands.ClienteCommands;
 using RCM.Domain.Commands.DuplicataCommands;
 using RCM.Domain.Commands.EmpresaCommands;
@@ -80,9 +82,12 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<IAplicacaoRepository, AplicacaoRepository>();
             services.AddScoped<IBancoRepository, BancoRepository>();
             services.AddScoped<IChequeRepository, ChequeRepository>();
+            services.AddScoped<ICidadeRepository, CidadeRepository>();
             services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<IDuplicataRepository, DuplicataRepository>();
             services.AddScoped<IEmpresaRepository, EmpresaRepository>();
+            services.AddScoped<IEstadoRepository, EstadoRepository>();
+            services.AddScoped<IEstadoRepository, EstadoRepository>();
             services.AddScoped<IFornecedorRepository, FornecedorRepository>();
             services.AddScoped<IMarcaRepository, MarcaRepository>();
             services.AddScoped<INotaFiscalRepository, NotaFiscalRepository>();
@@ -97,9 +102,11 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<IAplicacaoApplicationService, AplicacaoApplicationService>();
             services.AddScoped<IBancoApplicationService, BancoApplicationService>();
             services.AddScoped<IChequeApplicationService, ChequeApplicationService>();
+            services.AddScoped<ICidadeApplicationService, CidadeApplicationService>();
             services.AddScoped<IClienteApplicationService, ClienteApplicationService>();
             services.AddScoped<IDuplicataApplicationService, DuplicataApplicationService>();
             services.AddScoped<IEmpresaApplicationService, EmpresaApplicationService>();
+            services.AddScoped<IEstadoApplicationService, EstadoApplicationService>();
             services.AddScoped<IFornecedorApplicationService, FornecedorApplicationService>();
             services.AddScoped<IMarcaApplicationService, MarcaApplicationService>();
             services.AddScoped<INotaFiscalApplicationService, NotaFiscalApplicationService>();
@@ -122,6 +129,9 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<IRequestHandler<CompensarChequeCommand, CommandResult>, ChequeCommandHandler>();
             services.AddScoped<IRequestHandler<DevolverChequeCommand, CommandResult>, ChequeCommandHandler>();
             services.AddScoped<IRequestHandler<SustarChequeCommand, CommandResult>, ChequeCommandHandler>();
+
+            services.AddScoped<IRequestHandler<AddCidadeCommand, CommandResult>, CidadeCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoveCidadeCommand, CommandResult>, CidadeCommandHandler>();
 
             services.AddScoped<IRequestHandler<AddClienteCommand, CommandResult>, ClienteCommandHandler>();
             services.AddScoped<IRequestHandler<UpdateClienteCommand, CommandResult>, ClienteCommandHandler>();

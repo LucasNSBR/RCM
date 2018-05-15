@@ -30,6 +30,20 @@
     </div>
 </div>
 <div class="row">
+    <div class="input-field col s12 m6">
+        <input type="hidden" asp-for="CidadeId" id="cidadeId" />
+        <select id="cidadeSelect"></select>
+        <label asp-for="CidadeId"></label>
+        <span asp-validation-for="CidadeId" class="text-danger"></span>
+        <a asp-action="Create" asp-controller="Cidades" target="_blank">Adicionar nova Cidade</a>
+    </div>
+    <div class="input-field col s12 m6 pt-1">
+        <button class="btn-flat mx-0 small" id="reload-fornecedores-button" type="button">
+            Recarregar lista
+        </button>
+    </div>
+</div>
+<div class="row">
     <div class="input-field col s12 m12">
         <label asp-for="CEP"></label>
         <textarea asp-for="CEP" class="materialize-textarea" data-length="8"></textarea>

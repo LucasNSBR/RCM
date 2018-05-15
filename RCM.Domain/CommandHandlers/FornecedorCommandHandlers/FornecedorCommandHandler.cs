@@ -4,6 +4,7 @@ using RCM.Domain.Core.Commands;
 using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.Events.FornecedorEvents;
 using RCM.Domain.Models;
+using RCM.Domain.Models.CidadeModels;
 using RCM.Domain.Models.FornecedorModels;
 using RCM.Domain.Repositories;
 using RCM.Domain.UnitOfWork;
@@ -18,11 +19,13 @@ namespace RCM.Domain.CommandHandlers.FornecedorCommandHandlers
                                             IRequestHandler<RemoveFornecedorCommand, CommandResult>
     {
         private readonly IFornecedorRepository _fornecedorRepository;
+        private readonly ICidadeRepository _cidadeRepository;
 
-        public FornecedorCommandHandler(IMediatorHandler mediator, IFornecedorRepository fornecedorRepository, IUnitOfWork unitOfWork) :
+        public FornecedorCommandHandler(IMediatorHandler mediator, IFornecedorRepository fornecedorRepository, ICidadeRepository cidadeRepository, IUnitOfWork unitOfWork) :
                                                                                                                 base(mediator, unitOfWork)
         {
             _fornecedorRepository = fornecedorRepository;
+            _cidadeRepository = cidadeRepository;
         }
 
         public Task<CommandResult> Handle(AddFornecedorCommand command, CancellationToken cancellationToken)
@@ -33,9 +36,10 @@ namespace RCM.Domain.CommandHandlers.FornecedorCommandHandlers
                 return Response();
             }
 
+            Cidade cidade = _cidadeRepository.GetById(command.EnderecoCidadeId);
             Documento documento = new Documento(command.DocumentoCadastroNacional, command.DocumentoCadastroEstadual);
             Contato contato = new Contato(command.ContatoCelular, command.ContatoEmail, command.ContatoTelefoneComercial, command.ContatoTelefoneResidencial, command.ContatoObservacao);
-            Endereco endereco = new Endereco(command.EnderecoNumero, command.EnderecoRua, command.EnderecoBairro, command.EnderecoComplemento, command.EnderecoCEP);
+            Endereco endereco = new Endereco(command.EnderecoNumero, command.EnderecoRua, command.EnderecoBairro, command.EnderecoComplemento, cidade, command.EnderecoCEP);
             Fornecedor fornecedor = new Fornecedor(command.Nome, command.Tipo, documento, contato, endereco, command.Observacao);
 
             _fornecedorRepository.Add(fornecedor);
@@ -54,9 +58,10 @@ namespace RCM.Domain.CommandHandlers.FornecedorCommandHandlers
                 return Response();
             }
 
+            Cidade cidade = _cidadeRepository.GetById(command.EnderecoCidadeId);
             Documento documento = new Documento(command.DocumentoCadastroNacional, command.DocumentoCadastroEstadual);
             Contato contato = new Contato(command.ContatoCelular, command.ContatoEmail, command.ContatoTelefoneComercial, command.ContatoTelefoneResidencial, command.ContatoObservacao);
-            Endereco endereco = new Endereco(command.EnderecoNumero, command.EnderecoRua, command.EnderecoBairro, command.EnderecoComplemento, command.EnderecoCEP);
+            Endereco endereco = new Endereco(command.EnderecoNumero, command.EnderecoRua, command.EnderecoBairro, command.EnderecoComplemento, cidade, command.EnderecoCEP);
             Fornecedor fornecedor = new Fornecedor(command.Id, command.Nome, command.Tipo, documento, contato, endereco, command.Observacao);
 
             _fornecedorRepository.Update(fornecedor);

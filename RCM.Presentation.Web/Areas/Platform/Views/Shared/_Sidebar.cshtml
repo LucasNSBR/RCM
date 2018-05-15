@@ -53,6 +53,11 @@
             </a>
         </li>
         <li>
+            <a asp-action="Index" asp-controller="Cidades" class="collection-item @(route == "cidades" ? "active" : "")">
+                <i class="material-icons left tiny">pin_drop</i>Cidades
+            </a>
+        </li>
+        <li>
             <a asp-action="Index" asp-controller="NotasFiscais" class="collection-item @(route == "notasfiscais" ? "active" : "")">
                 <i class="material-icons left tiny">library_books</i>Notas fiscais
             </a>

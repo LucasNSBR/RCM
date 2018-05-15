@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace RCM.Application.ViewModels
 {
@@ -22,6 +23,13 @@ namespace RCM.Application.ViewModels
         [Display(Name = "Complemento")]
         [StringLength(100, MinimumLength = 0, ErrorMessage = "O campo complemento deve ter até 100 caracteres.")]
         public string Complemento { get; set; }
+
+        [Display(Name = "Id da Cidade")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "A cidade é requerida.")]
+        public Guid CidadeId { get; set; }
+
+        [Display(Name = "Cidade")]
+        public CidadeViewModel Cidade { get; set; }
 
         [Display(Name = "CEP")]
         [StringLength(8, MinimumLength = 0, ErrorMessage = "O campo CEP deve ter até 8 caracteres.")]

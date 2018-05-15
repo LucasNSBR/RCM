@@ -20,6 +20,7 @@ namespace RCM.Domain.Commands.EmpresaCommands
         public string EnderecoRua { get; set; }
         public string EnderecoBairro { get; set; }
         public string EnderecoComplemento { get; set; }
+        public Guid EnderecoCidadeId { get; set; }
         public string EnderecoCEP { get; set; }
 
         public string DocumentoCadastroNacional { get; set; }

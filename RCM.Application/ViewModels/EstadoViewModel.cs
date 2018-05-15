@@ -13,6 +13,9 @@ namespace RCM.Application.ViewModels
         [Display(Name = "Nome")]
         public string Nome { get; set; }
 
+        [Display(Name = "Sigla")]
+        public string Sigla { get; set; }
+
         [Display(Name = "Cidades")]
         public List<CidadeViewModel> Cidades { get; set; }
     }

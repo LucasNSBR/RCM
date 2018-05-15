@@ -55,4 +55,36 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        var dropdown = $('#cidadeSelect');
+        var estadosUrl = '@Url.Action("GetCidades", "Clientes")';
+        var estadoId = $('#cidadeId').val();
+
+        function reloadSelect() {
+            $.ajax({
+                method: "GET",
+                url: estadosUrl,
+            }).done(function (data) {
+                dropdown.empty();
+
+                $.each(data, function (index, item) {
+                    dropdown.append($("<option />").text(item.nome).val(item.id));
+                })
+
+                $(dropdown.find('option').each(function (index, item) {
+                    if (item.value === estadoId) {
+                        dropdown.prop('selectedIndex', index);
+                    }
+                }));
+
+                if (estadoId == "")
+                    $('#cidadeId').val(dropdown.find('option').first().val());
+
+                dropdown.material_select();
+            });
+        }
+
+        reloadSelect();
+    </script>
 }

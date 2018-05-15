@@ -32,7 +32,7 @@
             var title = element.Title + ' - ';
             var body = element.Body;
             var type = element.Type;
-            var text = title.toUpperCase() + body;
+            var text = title + body;
 
             Materialize.toast(text, 5000, 'notification '.concat(type === 0 ? 'bg-success' : 'bg-danger'));
         });
@@ -53,7 +53,7 @@
 
         var text = title.toUpperCase() + body;
 
-        Materialize.toast(text, 5000, 'notification '.concat(title.includes('SUCCESS') ? 'bg-success' : 'bg-danger'));
+        Materialize.toast(text, 5000, 'notification '.concat(title.includes('Success') ? 'bg-success' : 'bg-danger'));
     });
 
     $('#propertyInput').change(function (handler) {

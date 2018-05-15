@@ -1,4 +1,5 @@
-﻿using RCM.Domain.Core.Commands;
+﻿
+using RCM.Domain.Core.Commands;
 using RCM.Domain.Models.ClienteModels;
 using System;
 
@@ -22,6 +23,7 @@ namespace RCM.Domain.Commands.ClienteCommands
         public string EnderecoRua { get; set; }
         public string EnderecoBairro { get; set; }
         public string EnderecoComplemento { get; set; }
+        public Guid EnderecoCidadeId { get; set; }
         public string EnderecoCEP { get; set; }
 
         public string DocumentoCadastroNacional { get; set; }
@@ -36,12 +38,13 @@ namespace RCM.Domain.Commands.ClienteCommands
             ContatoObservacao = contatoObservacao;
         }
 
-        public void AttachEndereco(int enderecoNumero, string enderecoRua, string enderecoBairro, string enderecoComplemento, string enderecoCEP)
+        public void AttachEndereco(int enderecoNumero, string enderecoRua, string enderecoBairro, string enderecoComplemento, Guid enderecoCidadeId, string enderecoCEP)
         {
             EnderecoNumero = enderecoNumero;
             EnderecoRua = enderecoRua;
             EnderecoBairro = enderecoBairro;
             EnderecoComplemento = enderecoComplemento;
+            EnderecoCidadeId = enderecoCidadeId;
             EnderecoCEP = enderecoCEP;
         }
 

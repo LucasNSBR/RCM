@@ -1,0 +1,76 @@
+﻿@model RCM.Application.ViewModels.CidadeViewModel
+
+@{
+    ViewData["Title"] = "Adicionar nova cidade";
+}
+
+<h5>Adicionar</h5>
+
+<div class="form-container col s12 m12">
+    <form asp-action="Create">
+        <p class="px-1 font-bold lead">
+            Informação geral
+        </p>
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="Nome"></label>
+                <input asp-for="Nome" class="input-field" data-length="50" id="nome" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <input type="hidden" asp-for="EstadoId" id="estadoId" />
+                <select id="estadoSelect"></select>
+                <label asp-for="EstadoId"></label>
+                <span asp-validation-for="EstadoId" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row pt-2 px-1">
+            <post-button>Confirmar</post-button>
+        </div>
+    </form>
+</div>
+
+<div>
+    <a asp-action="Index">Voltar para a lista</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        var dropdown = $('#estadoSelect');
+        var estadosUrl = '@Url.Action("GetEstados", "Cidades")';
+        var estadoId = $('#estadoId').val();
+
+        function reloadSelect() {
+            $.ajax({
+                method: "GET",
+                url: estadosUrl,
+            }).done(function (data) {
+                dropdown.empty();
+
+                $.each(data, function (index, item) {
+                    dropdown.append($("<option />").text(item.nome).val(item.id));
+                })
+
+                $(dropdown.find('option').each(function (index, item) {
+                    if (item.value === estadoId) {
+                        dropdown.prop('selectedIndex', index);
+                    }
+                }));
+
+                if (estadoId == "")
+                    $('#estadoId').val(dropdown.find('option').first().val());
+
+                dropdown.material_select();
+            });
+        }
+
+        reloadSelect();
+    </script>
+}

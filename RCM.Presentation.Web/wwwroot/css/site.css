@@ -363,6 +363,10 @@ tbody tr {
     color: #cb9535;
 }
 
+.text-black {
+    color: black;
+}
+
 .text-danger {
     color: #cb3535;
 }

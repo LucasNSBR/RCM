@@ -8,6 +8,7 @@ using RCM.Presentation.Web.Controllers;
 using RCM.Presentation.Web.Extensions;
 using RCM.Presentation.Web.ViewModels;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace RCM.Presentation.Web.Areas.Platform.Controllers
@@ -17,11 +18,13 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
     public class ClientesController : BaseController
     {
         private readonly IClienteApplicationService _clienteApplicationService;
+        private readonly ICidadeApplicationService _cidadeApplicationService;
 
-        public ClientesController(IClienteApplicationService clienteApplicationService, IDomainNotificationHandler domainNotificationHandler) :
+        public ClientesController(IClienteApplicationService clienteApplicationService, ICidadeApplicationService cidadeApplicationService, IDomainNotificationHandler domainNotificationHandler) :
                                                                                                                       base(domainNotificationHandler)
         {
             _clienteApplicationService = clienteApplicationService;
+            _cidadeApplicationService = cidadeApplicationService;
         }
 
         public IActionResult Index(string nome = null, int? tipo = null, int? pontuacao = null, string cadastroNacional = null, string cadastroEstadual = null, int pageNumber = 1, int pageSize = 20)
@@ -151,6 +154,12 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 NotifyCommandResultErrors(commandResult.Errors);
 
             return View(cliente);
+        }
+
+        public JsonResult GetCidades()
+        {
+            return Json(_cidadeApplicationService.Get()
+                .OrderBy(e => e.Nome));
         }
     }
 }

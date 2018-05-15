@@ -17,6 +17,7 @@ namespace RCM.Infra.Data.Repositories
         {
             return _dbSet
                 .Include(d => d.Duplicatas)
+                .Include(d => d.Endereco.Cidade)
                 .FirstOrDefault(f => f.Id == id);
         }
     }

@@ -7,7 +7,6 @@ namespace RCM.Domain.Validators.ClienteCommandValidators
         public AddClienteCommandValidator()
         {
             ValidateNome();
-            ValidatePontuacao();
             ValidateDescricao();
             ValidateDocumento();
             ValidateContato();
