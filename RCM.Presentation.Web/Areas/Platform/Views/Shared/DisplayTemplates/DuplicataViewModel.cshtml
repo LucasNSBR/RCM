@@ -7,7 +7,6 @@
             <li class="tab col s3"><a href="#vencimento">Emissão/Vencimento</a></li>
             <li class="tab col s3"><a href="#notaFiscal">Nota Fiscal</a></li>
             <li class="tab col s3"><a href="#pagamento">Pagamento</a></li>
-            <li class="tab col s3"><a href="#fornecedor">Fornecedor</a></li>
         </ul>
     </div>
 
@@ -28,6 +27,14 @@
                 </dt>
                 <dd>
                     @Model.NumeroDocumento
+                </dd>
+                <dt>
+                    <label asp-for="@Model.Fornecedor"></label>
+                </dt>
+                <dd>
+                    <a asp-action="Details" asp-controller="Fornecedores" asp-route-id="@Model.FornecedorId">
+                        @Model.Fornecedor.Nome
+                    </a>
                 </dd>
                 <dt>
                     <label asp-for="@Model.Valor"></label>
@@ -133,24 +140,6 @@
                     </a>
                 }
             </p>
-        </div>
-    </div>
-
-    <div id="fornecedor" class="col s12 m12">
-        <div>
-            <p class="px-1 font-bold lead">
-                Informação sobre Fornecedor
-            </p>
-            <dl class="detail-list">
-                <dt>
-                    <label asp-for="@Model.Fornecedor"></label>
-                </dt>
-                <dd>
-                    <a asp-action="Details" asp-controller="Fornecedores" asp-route-id="@Model.FornecedorId">
-                        @Model.Fornecedor.Nome
-                    </a>
-                </dd>
-            </dl>
         </div>
     </div>
 </div>

@@ -9,8 +9,6 @@
             <li class="tab col s3"><a href="#banco">Dados Bancários</a></li>
             <li class="tab col s3"><a href="#vencimento">Emissão/Vencimento</a></li>
             <li class="tab col s3"><a href="#situacao">Situação</a></li>
-            <li class="tab col s3"><a href="#cliente">Cliente</a></li>
-            <li class="tab col s3"><a href="#funcoes">Funções</a></li>
         </ul>
     </div>
 
@@ -31,6 +29,14 @@
                 </dt>
                 <dd>
                     @Model.NumeroCheque
+                </dd>
+                <dt>
+                    <label asp-for="@Model.Cliente"></label>
+                </dt>
+                <dd>
+                    <a asp-action="Details" asp-controller="Clientes" asp-route-id="@Model.ClienteId">
+                        @Model.Cliente.Nome
+                    </a>
                 </dd>
                 <dt>
                     <label asp-for="@Model.Valor"></label>
@@ -102,24 +108,6 @@
         </dl>
     </div>
 
-    <div id="cliente" class="col s12 m12">
-        <div>
-            <p class="px-1 font-bold lead">
-                Informação sobre Responsável pelo Cheque
-            </p>
-            <dl class="detail-list">
-                <dt>
-                    <label asp-for="@Model.Cliente"></label>
-                </dt>
-                <dd>
-                    <a asp-action="Details" asp-controller="Clientes" asp-route-id="@Model.ClienteId">
-                        @Model.Cliente.Nome
-                    </a>
-                </dd>
-            </dl>
-        </div>
-    </div>
-
     <div id="situacao" class="col s12 m12">
         <div>
             <p class="px-1 font-bold lead">
@@ -174,26 +162,13 @@
                     }
                 </dd>
             </dl>
-        </div>
-    </div>
-
-    <div id="funcoes" class="col s12 m12">
-        <div>
-            <p class="px-1 font-bold lead">
-                Funções básicas
-            </p>
-            <dl class="detail-list">
-                <dt>
-                    <label>Pagamento</label>
-                </dt>
-                <dd>
-                    <a class="modal-trigger" href="#bloqueioModal" id="bloquearCheque">Bloquear</a><br />
-                    <a asp-action="Compensar" asp-route-id="@Model.Id">Compensar</a><br />
-                    <a asp-action="Repassar" asp-route-id="@Model.Id">Repassar</a><br />
-                    <a asp-action="Devolver" asp-route-id="@Model.Id">Devolver</a><br />
-                    <a asp-action="Sustar" asp-route-id="@Model.Id">Sustar</a><br />
-                </dd>
-            </dl>
+            <div class="pt-1 px-1">
+                <a class="modal-trigger" href="#bloqueioModal" id="bloquearCheque">Bloquear</a><br />
+                <a asp-action="Compensar" asp-route-id="@Model.Id">Compensar</a><br />
+                <a asp-action="Repassar" asp-route-id="@Model.Id">Repassar</a><br />
+                <a asp-action="Devolver" asp-route-id="@Model.Id">Devolver</a><br />
+                <a asp-action="Sustar" asp-route-id="@Model.Id">Sustar</a><br />
+            </div>
         </div>
     </div>
 </div>
