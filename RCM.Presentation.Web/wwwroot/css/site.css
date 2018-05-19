@@ -611,7 +611,8 @@ dt {
     margin-bottom: 5px;
 }
 
-/*NOTIFICATIONS EXPERIMENT*/
+
+/* NOTIFICATIONS */
 #notifications-container {
     padding: 5px;
     font-size: 12px;
@@ -621,10 +622,10 @@ dt {
     display: none;
 }
 
-    #notifications-container .notifications-container-body {
-        position: relative;
-        padding: 10px 0px 10px 0px;
-    }
+#notifications-container .notifications-container-body {
+    position: relative;
+    padding: 10px 0px 10px 0px;
+}
 
 #notifications-detail-collapsible {
     display: none;

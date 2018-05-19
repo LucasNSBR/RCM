@@ -5,6 +5,8 @@ using RCM.Application.ViewModels;
 using RCM.Domain.DomainNotificationHandlers;
 using RCM.Domain.Models.CidadeModels;
 using RCM.Presentation.Web.Controllers;
+using RCM.Presentation.Web.Extensions;
+using RCM.Presentation.Web.ViewModels;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,7 +26,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             _estadoApplicationService = estadoApplicationService;
         }
 
-        public IActionResult Index(string nome = null)
+        public IActionResult Index(string nome = null, int pageNumber = 1, int pageSize = 20)
         {
             var nomeSpecification = new CidadeNomeSpecification(nome);
 
@@ -32,7 +34,13 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 nomeSpecification
                 .ToExpression());
 
-            return View(list);
+            var viewModel = new CidadeIndexViewModel
+            {
+                Cidades = list.ToPagedList(pageNumber, pageSize),
+                Nome = nome
+            };
+
+            return View(viewModel);
         }
 
         [Authorize(Policy = "ActiveUser")]
