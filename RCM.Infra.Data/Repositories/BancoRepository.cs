@@ -16,7 +16,6 @@ namespace RCM.Infra.Data.Repositories
         public override Banco GetById(Guid id)
         {
             return _dbSet
-                .AsNoTracking()
                 .Include(c => c.Cheques)
                 .FirstOrDefault(b => b.Id == id);
         }

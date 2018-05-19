@@ -1,4 +1,4 @@
-﻿@model IEnumerable<RCM.Application.ViewModels.MarcaViewModel>
+﻿@model RCM.Presentation.Web.ViewModels.MarcaIndexViewModel
 
 @{
     ViewData["Title"] = "Marcas - Índice";
@@ -8,7 +8,27 @@
 
 <div class="form-container col s12 m12">
     <form>
-        @await Component.InvokeAsync("SearchBar", new Dictionary<string, string>() { { "Nome", "nome" } })
+        <div class="col s12 m12">
+            <div class="row my-0 py-0">
+                <div class="input-field col s5 m5">
+                    <label for="nome">Nome da Marca</label>
+                    <input name="nome" type="text" id="nome" />
+                </div>
+                <div class="input-field col s4 m3">
+                    <select>
+                        <option value="vendaId">Nome da Marca</option>
+                    </select>
+                </div>
+                <div class="col s4 m4 pt-2 px-0 mx-0 max-percent-width">
+                    <a class="btn waves-effect purple left no-border col s1 m2" id="advancedSearchToggler">
+                        <i class="material-icons center">keyboard_arrow_down</i>
+                    </a><button type="submit" class="btn waves-effect purple no-border col s11 m10">
+                        <i class="material-icons right">search</i>
+                        Pesquisar
+                    </button>
+                </div>
+            </div>
+        </div>
 
         <div id="advancedSearch" class="col s12 m12">
             <div class="row">
@@ -21,21 +41,18 @@
         </div>
     </form>
 
-    @if (Model.Any())
+    @if (Model.Marcas.List.Any())
     {
         <table class="highlight centered">
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.Nome)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Observacao)
+                        @Html.DisplayNameFor(model => model.Marcas.List.FirstOrDefault().Nome)
                     </th>
                 </tr>
             </thead>
             <tbody class="table-body">
-                @foreach (var item in Model)
+                @foreach (var item in Model.Marcas.List)
                 {
                     <tr>
                         <td class="d-hidden">
@@ -51,6 +68,23 @@
                 }
             </tbody>
         </table>
+
+        <div class="col s12 m12">
+            @{
+                var queryStringHelper = new Dictionary<string, string>
+                    {
+                        { "nome", Model.Nome },
+                    };
+
+                var listHelper = new Dictionary<string, string>().LoadPagination(Model.Marcas);
+            }
+
+            @Html.Partial("_Pagination", new ViewDataDictionary(this.ViewData)
+            {
+                { "listHelper", listHelper },
+                { "queryStringHelper", queryStringHelper }
+            })
+        </div>
     }
     else
     {

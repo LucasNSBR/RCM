@@ -1,4 +1,4 @@
-﻿@model IEnumerable<RCM.Application.ViewModels.BancoViewModel>
+﻿@model RCM.Presentation.Web.ViewModels.BancoIndexViewModel
 
 @{
     ViewData["Title"] = "Bancos - Índice";
@@ -7,8 +7,29 @@
 <float-action-button controller="Bancos"></float-action-button>
 
 <div class="form-container col s12 m12">
-    @*<form>
-        @await Component.InvokeAsync("SearchBar", new Dictionary<string, string>() { { "Nome", "nome" }, { "Código de Compensação", "codigoCompensacao" } })
+    <form>
+        <div class="col s12 m12">
+            <div class="row my-0 py-0">
+                <div class="input-field col s5 m5">
+                    <label for="nome">Nome do Banco</label>
+                    <input name="nome" type="text" id="searchInput"/>
+                </div>
+                <div class="input-field col s4 m3">
+                    <select id="propertyInput">
+                        <option value="nome">Nome do Banco</option>
+                        <option value="codigoCompensacao">Código de Compensação</option>
+                    </select>
+                </div>
+                <div class="col s4 m4 pt-2 px-0 mx-0 max-percent-width">
+                    <a class="btn waves-effect purple left no-border col s1 m2" id="advancedSearchToggler">
+                        <i class="material-icons center">keyboard_arrow_down</i>
+                    </a><button type="submit" class="btn waves-effect purple no-border col s11 m10">
+                        <i class="material-icons right">search</i>
+                        Pesquisar
+                    </button>
+                </div>
+            </div>
+        </div>
 
         <div id="advancedSearch" class="col s12 m12">
             <div class="row">
@@ -19,23 +40,23 @@
                 </div>
             </div>
         </div>
-    </form>*@
+    </form>
 
-    @if (Model.Any())
+    @if (Model.Bancos.List.Any())
     {
         <table class="highlight centered">
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.Nome)
+                        @Html.DisplayNameFor(model => model.Bancos.List.FirstOrDefault().Nome)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.CodigoCompensacao)
+                        @Html.DisplayNameFor(model => model.Bancos.List.FirstOrDefault().CodigoCompensacao)
                     </th>
                 </tr>
             </thead>
             <tbody class="table-body">
-                @foreach (var item in Model)
+                @foreach (var item in Model.Bancos.List)
                 {
                     <tr>
                         <td class="d-hidden">
@@ -51,6 +72,24 @@
                 }
             </tbody>
         </table>
+
+        <div class="col s12 m12">
+            @{
+                var queryStringHelper = new Dictionary<string, string>
+                    {
+                        { "nome", Model.Nome },
+                        { "codigoCompensacao", Model.CodigoCompensacao.ToString() },
+                    };
+
+                var listHelper = new Dictionary<string, string>().LoadPagination(Model.Bancos);
+            }
+
+            @Html.Partial("_Pagination", new ViewDataDictionary(this.ViewData)
+            {
+                { "listHelper", listHelper },
+                { "queryStringHelper", queryStringHelper }
+            })
+        </div>
     }
     else
     {

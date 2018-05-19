@@ -5,6 +5,8 @@ using RCM.Application.ViewModels;
 using RCM.Domain.DomainNotificationHandlers;
 using RCM.Domain.Models.MarcaModels;
 using RCM.Presentation.Web.Controllers;
+using RCM.Presentation.Web.Extensions;
+using RCM.Presentation.Web.ViewModels;
 using System;
 using System.Threading.Tasks;
 
@@ -21,14 +23,20 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             _marcaApplicationService = marcaApplicationService;
         }
 
-        public IActionResult Index(string nome = null)
+        public IActionResult Index(string nome = null, int pageNumber = 1, int pageSize = 20)
         {
             var nomeSpecification = new MarcaNomeSpecification(nome);
 
             var list = _marcaApplicationService.Get(nomeSpecification
                 .ToExpression());
 
-            return View(list);
+            var viewModel = new MarcaIndexViewModel
+            {
+                Marcas = list.ToPagedList(pageNumber, pageSize),
+                Nome = nome
+            };
+
+            return View(viewModel);
         }
 
         public IActionResult Details(Guid id)

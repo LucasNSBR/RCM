@@ -180,22 +180,22 @@
             <ul class="pagination center pt-2">
                 @{
                     var queryStringHelper = new Dictionary<string, string>
-                    {
-                        { "clienteId", Model.ClienteId?.ToString() },
-                        { "minValor", Model.MinValor?.ToString() },
-                        { "maxValor", Model.MaxValor?.ToString() },
-                        { "agencia", Model.Agencia?.ToString() },
-                        { "conta", Model.Conta?.ToString() },
-                        { "numeroCheque", Model.NumeroCheque?.ToString() },
-                        { "dataEmissao", Model.DataEmissao?.ToString() },
-                        { "dataVencimento", Model.DataVencimento?.ToString() },
-                        { "pageSize", Model.Cheques.PageSize.ToString() },
-                    };
+                        {
+                            { "clienteId", Model.ClienteId?.ToString() },
+                            { "minValor", Model.MinValor?.ToString() },
+                            { "maxValor", Model.MaxValor?.ToString() },
+                            { "agencia", Model.Agencia?.ToString() },
+                            { "conta", Model.Conta?.ToString() },
+                            { "numeroCheque", Model.NumeroCheque?.ToString() },
+                            { "dataEmissao", Model.DataEmissao?.ToString() },
+                            { "dataVencimento", Model.DataVencimento?.ToString() },
+                            { "pageSize", Model.Cheques.PageSize.ToString() },
+                        };
 
                     var listHelper = new Dictionary<string, string>().LoadPagination(Model.Cheques);
-            }
+                }
 
-            @Html.Partial("_Pagination", new ViewDataDictionary(this.ViewData)
+                @Html.Partial("_Pagination", new ViewDataDictionary(this.ViewData)
             {
                 { "listHelper", listHelper },
                 { "queryStringHelper", queryStringHelper }
@@ -229,90 +229,5 @@
 
 
 @section Scripts {
-    <script>
-        //ALL THESE CODE SMELLS AND DUPLICATIONS WILL BE FIXED IN A LATER TIME
-        var panel = $('#items-info-panel');
-        var items = $('.checkable');
-        var totalItemValue = 0;
-        var selectedItems = 0;
-
-        unselectAll();
-
-        function normalizeCurrency(value) {
-            return value.trim().replace('R$', '').replace('.', '').replace(',', '.');
-        }
-
-        $(items).change(function () {
-            var selectedValue = $(this).parents('tr').children().last().text();
-            selectedValue = normalizeCurrency(selectedValue);
-
-            if ($(this).prop('checked')) {
-                addToSum(selectedValue)
-            } else {
-                removeFromSum(selectedValue);
-            }
-        });
-
-        $('#unselect-button').click(function () {
-            unselectAll();
-        })
-
-        $('#select-button').click(function () {
-            selectAll();
-        })
-
-
-        function addToSum(value) {
-            selectedItems++;
-            totalItemValue += parseFloat(value);
-
-            if (selectedItems > 0) {
-                showPanel();
-            }
-        }
-
-        function hidePanel() {
-            $(panel).slideUp('200', function () {
-                $(panel).children().eq(0).text();
-                $(panel).children().eq(1).text();
-            });
-        }
-
-        function showPanel() {
-            $(panel).find('p').eq(0).text("Valor total dos cheques: " + "R$" + totalItemValue.toFixed(2).replace('.', ','));
-            $(panel).find('p').eq(1).text("Cheques selecionados: " + selectedItems);
-            $(panel).slideDown('200');
-        }
-
-        function removeFromSum(value) {
-            selectedItems--;
-            totalItemValue -= parseFloat(value);
-
-            if (selectedItems == 0) {
-                hidePanel();
-            }
-        }
-
-        function unselectAll() {
-            $(items).removeAttr('checked');
-
-            selectedItems = 0;
-            totalItemValue = 0;
-            hidePanel();
-        }
-
-        function selectAll() {
-            selectedItems = 0;
-            totalItemValue = 0;
-
-            $(items).prop('checked', 'checked');
-
-            $(items).each(function () {
-                var value = $(this).parents('tr').children().last().text();
-                value = normalizeCurrency(value);
-
-                addToSum(value);
-            })
-        }
-    </script>
+    <script src="~/js/select-and-sum.js"></script>
 }

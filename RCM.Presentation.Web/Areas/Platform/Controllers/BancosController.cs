@@ -5,6 +5,8 @@ using RCM.Application.ViewModels;
 using RCM.Domain.DomainNotificationHandlers;
 using RCM.Domain.Models.BancoModels;
 using RCM.Presentation.Web.Controllers;
+using RCM.Presentation.Web.Extensions;
+using RCM.Presentation.Web.ViewModels;
 using System;
 using System.Threading.Tasks;
 
@@ -23,7 +25,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             _bancoApplicationService = bancoApplicationService;
         }
 
-        public IActionResult Index(int? codigoCompensacao, string nome = null)
+        public IActionResult Index(int? codigoCompensacao, string nome = null, int pageNumber = 1, int pageSize = 20)
         {
             var codigoCompensacaoSpecification = new BancoCodigoCompensacaoSpecification(codigoCompensacao);
             var nomeSpecification = new BancoNomeSpecification(nome);
@@ -32,7 +34,14 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 .And(nomeSpecification)
                 .ToExpression());
 
-            return View(list);
+            var viewModel = new BancoIndexViewModel
+            {
+                Bancos = list.ToPagedList(pageNumber, pageSize),
+                CodigoCompensacao = codigoCompensacao,
+                Nome = nome, 
+            };
+
+            return View(viewModel);
         }
 
         public IActionResult Details(Guid id)
