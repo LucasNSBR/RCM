@@ -35,11 +35,13 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             return View(list);
         }
 
+        [Authorize(Policy = "ActiveUser")]
         public IActionResult Create()
         {
             return View();
         }
 
+        [Authorize(Policy = "ActiveUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CidadeViewModel cidade)
@@ -63,6 +65,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             return View(cidade);
         }
 
+        [Authorize(Policy = "ActiveUser")]
         public async Task<IActionResult> Remove(Guid id)
         {
             var commandResult = await _cidadeApplicationService.Remove(id);

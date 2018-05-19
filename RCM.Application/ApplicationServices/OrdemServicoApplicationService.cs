@@ -15,7 +15,7 @@ namespace RCM.Application.ApplicationServices
 {
     public class OrdemServicoApplicationService : BaseApplicationService<OrdemServico, OrdemServicoViewModel>, IOrdemServicoApplicationService
     {
-        public OrdemServicoApplicationService(IOrdemServicoRepository baseRepository, IMapper mapper, IMediatorHandler mediator) : base(baseRepository, mapper, mediator)
+        public OrdemServicoApplicationService(IOrdemServicoRepository ordemServicoRepository, IMapper mapper, IMediatorHandler mediator) : base(ordemServicoRepository, mapper, mediator)
         {
         }
 

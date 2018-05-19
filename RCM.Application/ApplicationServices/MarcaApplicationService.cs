@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using RCM.Application.ApplicationInterfaces;
 using RCM.Application.ViewModels;
 using RCM.Domain.Commands.MarcaCommands;
@@ -7,6 +6,7 @@ using RCM.Domain.Core.Commands;
 using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.Models.MarcaModels;
 using RCM.Domain.Repositories;
+using System.Threading.Tasks;
 
 namespace RCM.Application.ApplicationServices
 {

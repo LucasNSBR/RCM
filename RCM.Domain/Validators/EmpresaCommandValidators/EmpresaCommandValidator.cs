@@ -9,25 +9,20 @@ namespace RCM.Domain.Validators.EmpresaCommandValidators
         {
             RuleFor(e => e.RazaoSocial)
                 .NotEmpty()
-                .MinimumLength(10)
-                .MaximumLength(100)
-                .WithMessage("A razão social deve ter entre 10 e 100 caracteres e não pode estar vazia.");
+                .Length(10, 100);
         }
 
         protected void ValidateNomeFantasia()
         {
             RuleFor(e => e.NomeFantasia)
                 .NotEmpty()
-                .MinimumLength(10)
-                .MaximumLength(100)
-                .WithMessage("O nome fantasia deve ter entre 10 e 100 caracteres e não pode estar vazia.");
+                .Length(10, 100);
         }
 
         protected void ValidateDescricao()
         {
             RuleFor(e => e.Descricao)
-                .MaximumLength(1000)
-                .WithMessage("A descrição deve ter até 1000 caracteres.");
+                .MaximumLength(1000);
         }
 
         #region Contato

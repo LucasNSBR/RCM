@@ -1,15 +1,12 @@
-﻿@model RCM.Application.ViewModels.ProdutoViewModel
+﻿@model RCM.Application.ViewModels.ProdutoViewModels.ProdutoViewModel
 
 <div class="row">
     <div class="col s12">
         <ul class="tabs tabs-fixed-width">
             <li class="tab col s3"><a href="#geral" class="active">Geral</a></li>
             <li class="tab col s3"><a href="#estoque">Estoque</a></li>
-            <li class="tab col s3"><a href="#preco">Preço</a></li>
-            <li class="tab col s3"><a href="#marca">Marca</a></li>
             <li class="tab col s3"><a href="#aplicacao">Aplicações</a></li>
             <li class="tab col s3"><a href="#fornecedor">Fornecedor</a></li>
-            <li class="tab col s3"><a href="#funcoes">Funções</a></li>
         </ul>
     </div>
 
@@ -88,6 +85,12 @@
                         </span>
                     }
                 </dd>
+                <dt>
+                    <label asp-for="@Model.Marca"></label>
+                </dt>
+                <dd>
+                    <a asp-route-id="@Model.MarcaId" asp-controller="Marcas">@Model.Marca.Nome</a>
+                </dd>
             </dl>
         </div>
     </div>
@@ -98,6 +101,12 @@
                 Informações sobre estoque
             </p>
             <dl class="detail-list">
+                <dt>
+                    <label asp-for="@Model.PrecoVenda"></label>
+                </dt>
+                <dd>
+                    @Model.PrecoVenda.ToString("c")
+                </dd>
                 <dt>
                     <label asp-for="@Model.Estoque"></label>
                 </dt>
@@ -120,7 +129,6 @@
                 <dd>
                     @Model.EstoqueIdeal
                 </dd>
-
                 <dt>
                     <label asp-for="@Model.EstoqueMinimo"></label>
                 </dt>
@@ -128,36 +136,10 @@
                     @Model.EstoqueMinimo
                 </dd>
             </dl>
-        </div>
-    </div>
 
-    <div id="preco" class="col s12 m12">
-        <p class="px-1 font-bold lead">
-            Informações sobre Preços
-        </p>
-        <dl class="detail-list">
-            <dt>
-                <label asp-for="@Model.PrecoVenda"></label>
-            </dt>
-            <dd>
-                @Model.PrecoVenda.ToString("c")
-            </dd>
-        </dl>
-    </div>
-
-    <div id="marca" class="col s12 m12">
-        <div>
-            <p class="px-1 font-bold lead">
-                Informação sobre Marca
+            <p class="px-1 pt-1">
+                <a asp-action="Details" asp-controller="Produtos">Repor estoque</a>
             </p>
-            <dl class="detail-list">
-                <dt>
-                    <label asp-for="@Model.Marca"></label>
-                </dt>
-                <dd>
-                    <a asp-route-id="@Model.MarcaId" asp-controller="Marcas">@Model.Marca.Nome</a>
-                </dd>
-            </dl>
         </div>
     </div>
 
@@ -177,7 +159,7 @@
                             @foreach (var aplicacao in Model.Aplicacoes)
                             {
                                 <li>
-                                    @{ var title = $"{aplicacao.Marca} {aplicacao.Modelo} - {aplicacao.Motor ?? "Sem informação de motor"}"; }
+                                    @{ var title = $"{aplicacao.CarroMarca} {aplicacao.CarroModelo} - {aplicacao.CarroMotor ?? "Sem informação de motor"}"; }
                                     <div class="collapsible-header">
                                         <div class="col s11">
                                             @title
@@ -203,6 +185,10 @@
                     }
                 </dd>
             </dl>
+
+            <p class="px-1 pt-1">
+                <a asp-action="AttachApplication" asp-controller="Produtos" asp-route-id="@Model.Id">Relacionar Aplicação</a>
+            </p>
         </div>
     </div>
 
@@ -240,7 +226,7 @@
                                         <span>
                                             @("Disponibilidade: " + fornecedor.Disponibilidade)
                                         </span>
-                                        <p>@(fornecedor.Fornecedor?.Observacao ?? "Nenhuma observação relacionada.")</p>
+                                        <p>@(fornecedor.Fornecedor?.Descricao ?? "Nenhuma observação relacionada.")</p>
                                     </div>
                                 </li>
                             }
@@ -254,28 +240,10 @@
                     }
                 </dd>
             </dl>
-        </div>
-    </div>
 
-    <div id="funcoes" class="col s12 m12">
-        <div>
-            <p class="px-1 font-bold lead">
-                Funções
+            <p class="px-1 pt-1">
+                <a asp-action="AttachSupplier" asp-controller="Produtos" asp-route-id="@Model.Id">Relacionar Fornecedor</a>
             </p>
-            <dl class="detail-list">
-                <dt>
-                    <label>Funções básicas</label>
-                </dt>
-                <dd>
-                    <a asp-action="Details" asp-controller="Produtos">Repor estoque</a>
-                </dd>
-                <dd>
-                    <a asp-action="AttachApplication" asp-controller="Produtos" asp-route-id="@Model.Id">Adicionar Aplicação</a>
-                </dd>
-                <dd>
-                    <a asp-action="AttachSupplier" asp-controller="Produtos" asp-route-id="@Model.Id">Relacionar Fornecedor</a>
-                </dd>
-            </dl>
         </div>
     </div>
 </div>

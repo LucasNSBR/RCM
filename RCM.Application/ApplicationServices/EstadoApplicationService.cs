@@ -1,22 +1,22 @@
-﻿using System;
-using System.Linq;
-using AutoMapper;
+﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using RCM.Application.ApplicationInterfaces;
 using RCM.Application.ViewModels;
 using RCM.Domain.Repositories;
+using System;
+using System.Linq;
 
 namespace RCM.Application.ApplicationServices
 {
     public class EstadoApplicationService : IEstadoApplicationService
     {
-        private readonly IMapper _mapper;
         private readonly IEstadoRepository _estadoRepository;
+        private readonly IMapper _mapper;
 
-        public EstadoApplicationService(IMapper mapper, IEstadoRepository estadoRepository)
+        public EstadoApplicationService(IEstadoRepository estadoRepository, IMapper mapper)
         {
-            _mapper = mapper;
             _estadoRepository = estadoRepository;
+            _mapper = mapper;
         }
 
         public IQueryable<EstadoViewModel> Get()

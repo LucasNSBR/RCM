@@ -6,8 +6,8 @@ namespace RCM.Domain.Core.Commands
     public class CommitResult 
     {
         public bool Success { get; }
-        private List<Exception> _errors;
 
+        private List<Exception> _errors;
         public IReadOnlyList<Exception> Errors
         {
             get
@@ -15,6 +15,7 @@ namespace RCM.Domain.Core.Commands
                 return _errors;
             }
         }
+
 
         public CommitResult(bool success = false)
         {

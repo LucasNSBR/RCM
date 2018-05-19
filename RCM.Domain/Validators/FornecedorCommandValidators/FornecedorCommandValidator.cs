@@ -9,24 +9,20 @@ namespace RCM.Domain.Validators.FornecedorCommandValidators
         protected void ValidateId()
         {
             RuleFor(f => f.Id)
-                .NotEmpty()
-                .WithMessage("O Id do fornecedor não deve estar vazio.");
+                .NotEmpty();
         }
 
         protected void ValidateNome()
         {
             RuleFor(f => f.Nome)
                .NotEmpty()
-               .MinimumLength(10)
-               .MaximumLength(100)
-               .WithMessage("O nome do fornecedor deve ter entre 10 e 100 caracteres e não pode estar vazio.");
+               .Length(10, 100);
         }
 
-        protected void ValidateObservacao()
+        protected void ValidateDescricao()
         {
             RuleFor(f => f.Observacao)
-                .MaximumLength(1000)
-                .WithMessage("O campo observação deve ter até 1000 caracteres.");
+                .MaximumLength(1000);
         }
 
         #region Contato

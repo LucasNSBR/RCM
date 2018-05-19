@@ -9,6 +9,7 @@ namespace RCM.Domain.Models.ProdutoModels
         public Guid AplicacaoId { get; private set; }
         public virtual Aplicacao Aplicacao { get; private set; }
 
+
         protected ProdutoAplicacao() { }
 
         public ProdutoAplicacao(Produto produto, Aplicacao aplicacao)

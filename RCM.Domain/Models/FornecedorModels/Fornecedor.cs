@@ -2,6 +2,7 @@
 using RCM.Domain.Models.DuplicataModels;
 using RCM.Domain.Models.NotaFiscalModels;
 using RCM.Domain.Models.ProdutoModels;
+using RCM.Domain.Models.ValueObjects;
 using System;
 using System.Collections.Generic;
 
@@ -11,7 +12,7 @@ namespace RCM.Domain.Models.FornecedorModels
     {
         public string Nome { get; private set; }
         public FornecedorTipoEnum Tipo { get; private set; }
-        public string Observacao { get; private set; }
+        public string Descricao { get; private set; }
 
         public Contato Contato { get; private set; }
         public Endereco Endereco { get; private set; }
@@ -54,7 +55,7 @@ namespace RCM.Domain.Models.FornecedorModels
             Documento = documento;
             Contato = contato;
             Endereco = endereco;
-            Observacao = observacao;
+            Descricao = observacao;
 
             _duplicatas = new List<Duplicata>();
             _notasFiscais = new List<NotaFiscal>();
@@ -68,7 +69,7 @@ namespace RCM.Domain.Models.FornecedorModels
             Documento = documento;
             Contato = contato;
             Endereco = endereco;
-            Observacao = observacao;
+            Descricao = observacao;
 
             _duplicatas = new List<Duplicata>();
             _notasFiscais = new List<NotaFiscal>();

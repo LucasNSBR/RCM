@@ -22,9 +22,9 @@ namespace RCM.Domain.Models.ChequeModels.ChequeStates
             Cliente = cliente;
         }
 
-        public override void Bloquear(Cheque cheque)
+        public override void Bloquear(Cheque cheque, DateTime dataEvento)
         {
-            cheque.MudarEstado(new ChequeBloqueado());
+            cheque.MudarEstado(new ChequeBloqueado(dataEvento));
         }
 
         public override void Compensar(Cheque cheque, DateTime dataEvento)

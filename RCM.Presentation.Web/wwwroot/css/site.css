@@ -53,15 +53,14 @@ footer {
     margin-bottom: 15px!important;
     background-color: white;
     height: 100%;
-    /*max-height: 450px;*/
 }
 
-#user-menu li a {
+#user-menu div a {
     color: white!important;
     background-color: #9c27b0;
 }
 
-    #user-menu li a:hover {
+    #user-menu div a:hover {
         color: white !important;
         background-color: #7d218d;
         transition: background-color 0.2s linear;
@@ -80,8 +79,6 @@ tbody tr {
     cursor: pointer;
 }
 
-
-/* QR code generator */
 #qrCode {
     margin: 15px;
 }
@@ -141,6 +138,8 @@ tbody tr {
     height: 100%;
     padding: 0px;
     background-color: #1a2228;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 #sidebar .collection-item {
@@ -155,7 +154,6 @@ tbody tr {
         background-color: #9c27b0 !important;
         color: white!important;
 }
-
 
 #homeButton {
     font-weight: 300;
@@ -379,6 +377,10 @@ tbody tr {
     color: #3cb05e;
 }
 
+.bg-purple {
+    background-color: #9c27b0;
+}
+
 .bg-success {
     background-color: #b8fac9;
 }
@@ -391,8 +393,6 @@ tbody tr {
     background-color: #faa9a9;
 }
 
-
-/* Remove the input number spinner */
 input[type='number'] {
     -moz-appearance: textfield;
 }
@@ -549,27 +549,92 @@ dt {
 
 .report-content {
     padding: 10px 25px 10px 25px;
-    background-color: white;
 }
 
 #report-header {
-    background-color: black;
+    background-color: #3e3e3e;
     color: white;
+    margin-bottom: 0px;
+}
+
+#report-customer tr label {
+    margin: 0px;
+}
+
+#report-customer table td {
+    padding-left: 10px;
+    padding-right: 10px;
+    border: 1px solid #c8c8c8;
+}
+
+#report-customer table {
+    border-spacing: 0px!important;
+    border-radius: 100px !important;
+}
+
+#report-customer tr td {
+    padding: 5px 10px 5px 10px;
+}
+
+#report-customer tr p {
+    margin: 0px;
 }
 
 #report-table thead {
-    background-color: black;
+    background-color: #3e3e3e;
     color: white;
 }
 
-#report-table tr:nth-child(even) {
-    background-color: #e9e9e9;
+#report-table tr {
+    border: 1px solid #b5b5b5;
 }
 
-#report-table tbody tr:nth-child(odd) {
-    background-color: #d1d1d1;
+#report-table tr {
+    text-align: right;
+}
+
+#report-table tr td {
+    border: 1px solid #c8c8c8;
+    padding: 5px 10px 5px 10px;
 }
 
 .w-75 {
     width: 75%;
+}
+
+.modal-content * {
+    color: black;
+}
+
+#dav-header {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+/*NOTIFICATIONS EXPERIMENT*/
+#notifications-container {
+    padding: 5px;
+    font-size: 12px;
+    text-align: center;
+    width: 100%;
+    top: 0;
+    display: none;
+}
+
+    #notifications-container .notifications-container-body {
+        position: relative;
+        padding: 10px 0px 10px 0px;
+    }
+
+#notifications-detail-collapsible {
+    display: none;
+}
+
+#notifications-dismissable {
+    position: absolute;
+    z-index: 1;
+    top: 10%;
+    right: 5%;
+    font-size: 20px;
+    cursor: pointer;
 }

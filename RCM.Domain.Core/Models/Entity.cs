@@ -32,6 +32,7 @@ namespace RCM.Domain.Core.Models
             }
         }
 
+
         public Entity()
         {
             Id = Guid.NewGuid();
@@ -52,7 +53,7 @@ namespace RCM.Domain.Core.Models
 
         public void AddDomainError(string description, string code = null)
         {
-            _errors.Add(new DomainError(code, description));
+            _errors.Add(new DomainError(description, code));
         }
 
         public override bool Equals(object obj)

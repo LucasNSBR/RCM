@@ -16,8 +16,7 @@ namespace RCM.Domain.Validators.VendaCommandValidators
         private void ValidateDesconto()
         {
             RuleFor(pv => pv.Desconto)
-                .Must((pv, d) => ValidateDesconto(pv))
-                .WithMessage("O desconto deve estar em um formato válido.");
+                .Must((pv, d) => ValidateDesconto(pv));
         }
 
         private bool ValidateDesconto(AttachVendaProdutoCommand command)
@@ -29,16 +28,13 @@ namespace RCM.Domain.Validators.VendaCommandValidators
         private void ValidateProdutoId()
         {
             RuleFor(pv => pv.ProdutoId)
-                .NotEmpty()
-                .WithMessage("O Id do produto não pode estar vazio.");
+                .NotEmpty();
         }
 
         private void ValidateQuantidade()
         {
             RuleFor(pv => pv.Quantidade)
-                .NotEmpty()
-                .InclusiveBetween(0, 100)
-                .WithMessage("A quantidade não pode estar vazia.");
+                .InclusiveBetween(1, 100);
         }
     }
 }

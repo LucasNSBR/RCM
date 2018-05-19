@@ -5,17 +5,23 @@ namespace RCM.Domain.Validators.ChequeCommandValidators
 {
     public class RepassarChequeCommandValidator : ChequeCommandValidator<RepassarChequeCommand>
     {
-        void ValidateRepasseClienteId()
-        {
-            RuleFor(ch => ch.ClienteId)
-                .NotEmpty()
-                .WithMessage("O cheque deve estar relacionado a um cliente.");
-        }
-
         public RepassarChequeCommandValidator()
         {
             ValidateId();
             ValidateDataRepasse();
+        }
+
+        private void ValidateRepasseClienteId()
+        {
+            RuleFor(ch => ch.ClienteId)
+                .NotEmpty();
+        }
+
+        private void ValidateDataRepasse()
+        {
+            RuleFor(ch => ch.DataEvento)
+                .NotEmpty()
+                .GreaterThanOrEqualTo(d => d.DataEmissao);
         }
     }
 }

@@ -8,7 +8,6 @@ using RCM.Domain.Models.ProdutoModels;
 using RCM.Domain.Models.VendaModels;
 using RCM.Domain.Repositories;
 using RCM.Domain.UnitOfWork;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -43,7 +42,6 @@ namespace RCM.Domain.CommandHandlers.VendaCommandHandlers
 
             Cliente cliente = _clienteRepository.GetById(command.ClienteId);
             Venda venda = new Venda(command.DataVenda, command.Detalhes, cliente);
-
             _vendaRepository.Add(venda);
 
             if (Commit())
@@ -62,7 +60,6 @@ namespace RCM.Domain.CommandHandlers.VendaCommandHandlers
 
             Cliente cliente = _clienteRepository.GetById(command.VendaId);
             Venda venda = new Venda(command.VendaId, command.DataVenda, command.Detalhes, cliente);
-
             _vendaRepository.Update(venda);
 
             if (Commit())
@@ -98,7 +95,6 @@ namespace RCM.Domain.CommandHandlers.VendaCommandHandlers
 
             Venda venda = _vendaRepository.GetById(command.VendaId);
             Produto produto = _produtoRepository.GetById(command.ProdutoId);
-
             venda.AdicionarProduto(produto, command.Desconto, command.Acrescimo, command.Quantidade);
 
             if (NotifyModelErrors(venda.Errors))
@@ -121,7 +117,6 @@ namespace RCM.Domain.CommandHandlers.VendaCommandHandlers
 
             Venda venda = _vendaRepository.GetById(command.VendaId);
             Produto produto = _produtoRepository.GetById(command.ProdutoId);
-
             venda.RemoverProduto(produto);
 
             if (NotifyModelErrors(venda.Errors))

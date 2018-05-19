@@ -1,9 +1,10 @@
-﻿using System;
+﻿using RCM.Domain.Core.Models;
+using System;
 using System.Linq.Expressions;
 
 namespace RCM.Domain.Specifications
 {
-    public class AndSpecification<T> : BaseSpecification<T>, ISpecification<T> where T : class
+    public class AndSpecification<T> : BaseSpecification<T>, ISpecification<T> where T : Entity<T>
     {
         private readonly ISpecification<T> _left;
         private readonly ISpecification<T> _right;

@@ -25,30 +25,7 @@
                         <a asp-action="Index" asp-controller="Home" asp-area="" class="brand-logo white-text font-italic">RCM</a>
                         <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
 
-                        <!-- PC Sidebar -->
-                        <ul id="nav-mobile" class="right hide-on-med-and-down">
-                            @await Component.InvokeAsync("UserInformation")
-                        </ul>
-
-                        <!-- Mobile Sidebar-->
-                        <ul class="side-nav" id="mobile-demo">
-                            <li>
-                                <a asp-action="Index" asp-controller="Settings">
-                                    <i class="material-icons left">notifications</i>Notifications
-                                </a>
-                            </li>
-                            <li>
-                                <a asp-action="Index" asp-controller="Settings">
-                                    <i class="material-icons left">settings</i>Settings
-                                </a>
-                            </li>
-                            <li>
-                                <a asp-action="Index" asp-controller="Login" asp-area="">
-                                    <i class="material-icons left">account_circle</i>Login
-                                </a>
-                            </li>
-                        </ul>
-
+                        @await Component.InvokeAsync("UserInformation")
                     </div>
                 </nav>
             </div>
@@ -67,9 +44,9 @@
                 <div class="col l4 offset-l2 s12">
                     <h5 class="white-text">Links</h5>
                     <ul>
-                        <li><a class="grey-text text-lighten-3" href="#!">Login</a></li>
-                        <li><a class="grey-text text-lighten-3" href="#!">Criar Conta</a></li>
-                        <li><a class="grey-text text-lighten-3 font-bold" href="#!">Github</a></li>
+                        <li><a class="grey-text text-lighten-3" asp-action="Login" asp-controller="Accounts">Login</a></li>
+                        <li><a class="grey-text text-lighten-3" asp-action="Register" asp-controller="Accounts">Criar Conta</a></li>
+                        <li><a class="grey-text text-lighten-3 font-bold" href="https://github.com/LucasNSBR/RCM">Github</a></li>
                     </ul>
                 </div>
             </div>
@@ -81,6 +58,7 @@
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/materialize/js/materialize.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/js/notifications.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
@@ -94,6 +72,7 @@
                 asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
+        <script src="~/js/notifications.min.js" asp-append-version="true"></script>
     </environment>
 
     <script>

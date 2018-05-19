@@ -1,10 +1,10 @@
-﻿using System;
-using System.Linq;
-using System.Linq.Expressions;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using RCM.Domain.Models.VendaModels;
 using RCM.Domain.Repositories;
 using RCM.Infra.Data.Context;
+using System;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace RCM.Infra.Data.Repositories
 {

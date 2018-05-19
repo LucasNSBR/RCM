@@ -12,8 +12,7 @@ namespace RCM.Infra.Data.EntityTypeConfig
                 .HasKey(b => b.Id);
 
             builder.Property(b => b.CodigoCompensacao)
-                .IsRequired()
-                .HasMaxLength(4);
+                .IsRequired();
 
             builder.Property(b => b.Nome)
                 .IsRequired()

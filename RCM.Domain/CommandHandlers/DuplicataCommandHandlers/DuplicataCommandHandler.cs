@@ -2,12 +2,11 @@
 using RCM.Domain.Commands.DuplicataCommands;
 using RCM.Domain.Constants;
 using RCM.Domain.Core.Commands;
-using RCM.Domain.Core.Errors;
 using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.Events.DuplicataEvents;
-using RCM.Domain.Models;
 using RCM.Domain.Models.DuplicataModels;
 using RCM.Domain.Models.FornecedorModels;
+using RCM.Domain.Models.ValueObjects;
 using RCM.Domain.Repositories;
 using RCM.Domain.UnitOfWork;
 using System.Threading;
@@ -25,7 +24,7 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
         private readonly IDuplicataRepository _duplicataRepository;
         private readonly IFornecedorRepository _fornecedorRepository;
 
-        public DuplicataCommandHandler(IFornecedorRepository fornecedorRepository, IDuplicataRepository duplicataRepository, IMediatorHandler mediator, IUnitOfWork unitOfWork) : 
+        public DuplicataCommandHandler(IDuplicataRepository duplicataRepository, IFornecedorRepository fornecedorRepository, IMediatorHandler mediator, IUnitOfWork unitOfWork) : 
                                                                                                                 base(mediator, unitOfWork)
         {
             _duplicataRepository = duplicataRepository;
@@ -48,7 +47,6 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
 
             Fornecedor fornecedor = _fornecedorRepository.GetById(command.FornecedorId);
             Duplicata duplicata = new Duplicata(command.NumeroDocumento, command.DataEmissao, command.DataVencimento, fornecedor, command.Valor, command.Observacao);
-
             _duplicataRepository.Add(duplicata);
 
             if (Commit())
@@ -73,7 +71,6 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
 
             Fornecedor fornecedor = _fornecedorRepository.GetById(command.FornecedorId);
             Duplicata duplicata = new Duplicata(command.Id, command.NumeroDocumento, command.DataEmissao, command.DataVencimento, fornecedor, command.Valor, command.Observacao);
-
             _duplicataRepository.Update(duplicata);
 
             if (Commit())
@@ -110,6 +107,7 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
             Duplicata duplicata = _duplicataRepository.GetById(command.Id);
             Pagamento pagamento = new Pagamento(command.DataPagamento, command.ValorPago);
             duplicata.Pagar(pagamento);
+
             _duplicataRepository.Update(duplicata);
 
             if (Commit()) 

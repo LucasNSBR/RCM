@@ -18,7 +18,7 @@ namespace RCM.Domain.CommandHandlers.BancoCommandHandlers
     {
         private readonly IBancoRepository _bancoRepository;
 
-        public BancoCommandHandler(IMediatorHandler mediator, IBancoRepository bancoRepository, IUnitOfWork unitOfWork) : 
+        public BancoCommandHandler(IBancoRepository bancoRepository, IMediatorHandler mediator, IUnitOfWork unitOfWork) : 
                                                                                                 base(mediator, unitOfWork)
         {
             _bancoRepository = bancoRepository;

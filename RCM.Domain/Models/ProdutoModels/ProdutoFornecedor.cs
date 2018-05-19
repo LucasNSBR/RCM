@@ -9,8 +9,11 @@ namespace RCM.Domain.Models.ProdutoModels
         public Produto Produto { get; private set; }
         public Guid FornecedorId { get; private set; }
         public Fornecedor Fornecedor { get; private set; }
+
         public decimal PrecoCusto { get; private set; }
+
         public ProdutoDisponibilidadeEnum Disponibilidade { get; private set; }
+
 
         protected ProdutoFornecedor() { }
 

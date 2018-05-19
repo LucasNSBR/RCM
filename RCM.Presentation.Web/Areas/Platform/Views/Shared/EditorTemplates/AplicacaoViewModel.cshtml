@@ -1,4 +1,4 @@
-﻿@model RCM.Application.ViewModels.AplicacaoViewModel
+﻿@model RCM.Application.ViewModels.ProdutoViewModels.AplicacaoViewModel
 
 <p class="px-1 font-bold lead">
     Informação geral
@@ -7,26 +7,26 @@
 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 <div class="row">
     <div class="input-field col s12 m6">
-        <label asp-for="Ano"></label>
-        <input asp-for="Ano" class="input-field" data-length="4"/>
-        <span asp-validation-for="Ano" class="text-danger"></span>
+        <label asp-for="CarroAno"></label>
+        <input asp-for="CarroAno" class="input-field" data-length="4"/>
+        <span asp-validation-for="CarroAno" class="text-danger"></span>
     </div>
     <div class="input-field col s12 m6">
-        <label asp-for="Marca"></label>
-        <input asp-for="Marca" class="input-field" data-length="100" />
-        <span asp-validation-for="Marca" class="text-danger"></span>
+        <label asp-for="CarroMarca"></label>
+        <input asp-for="CarroMarca" class="input-field" data-length="100" />
+        <span asp-validation-for="CarroMarca" class="text-danger"></span>
     </div>
 </div>
 <div class="row">
     <div class="input-field col s12 m6">
-        <label asp-for="Modelo"></label>
-        <input asp-for="Modelo" class="input-field" data-length="250" />
-        <span asp-validation-for="Modelo" class="text-danger"></span>
+        <label asp-for="CarroModelo"></label>
+        <input asp-for="CarroModelo" class="input-field" data-length="250" />
+        <span asp-validation-for="CarroModelo" class="text-danger"></span>
     </div>
     <div class="input-field col s12 m6">
-        <label asp-for="Motor"></label>
-        <input asp-for="Motor" class="input-field" data-length="100" />
-        <span asp-validation-for="Motor" class="text-danger"></span>
+        <label asp-for="CarroMotor"></label>
+        <input asp-for="CarroMotor" class="input-field" data-length="100" />
+        <span asp-validation-for="CarroMotor" class="text-danger"></span>
     </div>
 </div>
 <div class="row">

@@ -9,31 +9,27 @@ namespace RCM.Domain.Validators.VendaCommandValidators
         protected void ValidateVendaId()
         {
             RuleFor(d => d.VendaId)
-                .NotEmpty()
-                .WithMessage("O Id da venda não deve estar vazio.");
+                .NotEmpty();
         }
 
-        public void ValidateDataVenda()
+        protected void ValidateDataVenda()
         {
             RuleFor(d => d.DataVenda)
                 .NotEmpty()
                 .GreaterThanOrEqualTo(DateTime.Now.AddDays(-7))
-                .LessThanOrEqualTo(DateTime.Now)
-                .WithMessage("A data da venda deve estar em um formato válido.");
+                .LessThanOrEqualTo(DateTime.Now);
         }
 
-        public void ValidateClienteId()
+        protected void ValidateClienteId()
         {
             RuleFor(d => d.ClienteId)
-                .NotEmpty()
-                .WithMessage("A venda deve estar relacionada a um cliente.");
+                .NotEmpty();
         }
-        
-        public void ValidateDetalhes()
+
+        protected void ValidateDetalhes()
         {
             RuleFor(d => d.Detalhes)
-                .MaximumLength(1000)
-                .WithMessage("Os detalhes da venda devem ter até 1000 caracteres.");
+                .MaximumLength(1000);
         }
     }
 }

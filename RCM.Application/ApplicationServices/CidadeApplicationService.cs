@@ -16,15 +16,15 @@ namespace RCM.Application.ApplicationServices
 {
     public class CidadeApplicationService : ICidadeApplicationService
     {
-        private readonly IMediatorHandler _mediator;
-        private readonly IMapper _mapper;
         private readonly ICidadeRepository _cidadeRepository;
+        private readonly IMapper _mapper;
+        private readonly IMediatorHandler _mediator;
 
-        public CidadeApplicationService(IMediatorHandler mediator, IMapper mapper, ICidadeRepository cidadeRepository)
+        public CidadeApplicationService(ICidadeRepository cidadeRepository, IMediatorHandler mediator, IMapper mapper)
         {
-            _mediator = mediator;
-            _mapper = mapper;
             _cidadeRepository = cidadeRepository;
+            _mapper = mapper;
+            _mediator = mediator;
         }
 
         public IQueryable<CidadeViewModel> Get(Expression<Func<Cidade, bool>> expression = null)

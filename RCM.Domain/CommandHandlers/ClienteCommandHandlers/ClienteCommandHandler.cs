@@ -3,9 +3,9 @@ using RCM.Domain.Commands.ClienteCommands;
 using RCM.Domain.Core.Commands;
 using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.Events.ClienteEvents;
-using RCM.Domain.Models;
 using RCM.Domain.Models.CidadeModels;
 using RCM.Domain.Models.ClienteModels;
+using RCM.Domain.Models.ValueObjects;
 using RCM.Domain.Repositories;
 using RCM.Domain.UnitOfWork;
 using System.Threading;
@@ -21,7 +21,7 @@ namespace RCM.Domain.CommandHandlers.ClienteCommandHandlers
         private readonly IClienteRepository _clienteRepository;
         private readonly ICidadeRepository _cidadeRepository;
 
-        public ClienteCommandHandler(IMediatorHandler mediator, IClienteRepository clienteRepository, ICidadeRepository cidadeRepository, IUnitOfWork unitOfWork) : 
+        public ClienteCommandHandler(IClienteRepository clienteRepository, ICidadeRepository cidadeRepository, IMediatorHandler mediator, IUnitOfWork unitOfWork) : 
                                                                                                         base(mediator, unitOfWork)
         {
             _clienteRepository = clienteRepository;
@@ -38,9 +38,8 @@ namespace RCM.Domain.CommandHandlers.ClienteCommandHandlers
 
             Cidade cidade = _cidadeRepository.GetById(command.EnderecoCidadeId);
             Contato contato = new Contato(command.ContatoCelular, command.ContatoEmail, command.ContatoTelefoneComercial, command.ContatoTelefoneResidencial, command.ContatoObservacao);
-            Endereco endereco = new Endereco(command.EnderecoNumero, command.EnderecoRua, command.EnderecoBairro, command.EnderecoComplemento, cidade, command.EnderecoCEP);
+            Endereco endereco = new Endereco(command.EnderecoRua, command.EnderecoNumero, command.EnderecoBairro, command.EnderecoComplemento, cidade, command.EnderecoCEP);
             Documento documento = new Documento(command.DocumentoCadastroNacional, command.DocumentoCadastroEstadual);
-
             Cliente cliente = new Cliente(command.Nome, command.Tipo, command.Pontuacao, documento, contato, endereco, command.Descricao);
 
             _clienteRepository.Add(cliente);
@@ -61,9 +60,10 @@ namespace RCM.Domain.CommandHandlers.ClienteCommandHandlers
 
             Cidade cidade = _cidadeRepository.GetById(command.EnderecoCidadeId);
             Contato contato = new Contato(command.ContatoCelular, command.ContatoEmail, command.ContatoTelefoneComercial, command.ContatoTelefoneResidencial, command.ContatoObservacao);
-            Endereco endereco = new Endereco(command.EnderecoNumero, command.EnderecoRua, command.EnderecoBairro, command.EnderecoComplemento, cidade, command.EnderecoCEP);
+            Endereco endereco = new Endereco(command.EnderecoRua, command.EnderecoNumero, command.EnderecoBairro, command.EnderecoComplemento, cidade, command.EnderecoCEP);
             Documento documento = new Documento(command.DocumentoCadastroNacional, command.DocumentoCadastroEstadual);
             Cliente cliente = new Cliente(command.Id, command.Nome, command.Tipo, command.Pontuacao, documento, contato, endereco, command.Descricao);
+
             _clienteRepository.Update(cliente);
 
             if (Commit())

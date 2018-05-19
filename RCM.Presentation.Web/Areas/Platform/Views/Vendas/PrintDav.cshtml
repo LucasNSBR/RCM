@@ -8,38 +8,37 @@
     ViewData["Title"] = "Documento Auxiliar de Venda";
 }
 
+<div class="row bg-purple mb-0">
+    <div class="col s12">
+        <p class="font-bold center py-0 white-text lead" id="dav-header">
+            Documento Auxiliar de Venda
+        </p>
+    </div>
+</div>
 <div class="row" id="report-header">
-    <div class="col s2">
+    <div class="col s3">
         <h3 class="center">
             RCM
         </h3>
     </div>
     <div class="col s4 my-1">
         <span>
-            Model.Empresa
+            @Model.Empresa.NomeFantasia
         </span>
-        <br/>
+        <br />
         <span>
-            Model.CNPJ
+            @Model.Empresa.Documento.CadastroNacional
         </span>
-        <br/>
+        <br />
         <span>
-            Model.Endereco
+            @($"{Model.Empresa.Endereco.Rua}, {Model.Empresa.Endereco.Numero}, {Model.Empresa.Endereco.Bairro}")
         </span>
-        <br/>
+        <br />
         <span>
-            Model.Contato 
+            @($"{Model.Empresa.Contato.TelefoneComercial}")
         </span>
     </div>
-    <div class="col s2 my-1">
-        <p class="right-align my-0">
-            Id da Venda:
-        </p>
-        <p class="right-align my-0">
-            Data da Venda:
-        </p>
-    </div>
-    <div class="col s4 my-1">
+    <div class="col s4 my-1 offset-s1">
         <p class="right-align my-0">
             @Model.Venda.Id
         </p>
@@ -48,36 +47,112 @@
         </p>
     </div>
 </div>
-<div class="row">
-    <div class="col s12">
-        <h5>Id da Venda:</h5>
-        <p>#@Model.Venda.Id</p>
+<div class="row" id="report-customer">
+    <div class="col s12 no-padding">
+        <table>
+            <tr>
+                <td colspan="2">
+                    <label>
+                        Nome
+                    </label>
+                    <p>
+                        @Model.Cliente.Nome
+                    </p>
+                </td>
+                <td colspan="2">
+                    <label>
+                        CPF/CNPJ
+                    </label>
+                    <p>
+                        @(Model.Cliente?.Documento?.CadastroNacional ?? "Não informado")
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>
+                        Endereço
+                    </label>
+                    <p>
+                        @((Model.Cliente.Endereco?.Rua ?? Model.Cliente.Endereco?.Numero.ToString() ?? Model.Cliente.Endereco?.Bairro) ?? "Não informado")
+                    </p>
+                </td>
+                <td>
+                    <label>
+                        Cidade
+                    </label>
+                    <p>
+                        @($"{Model.Cliente.Endereco?.Cidade?.Nome ?? "Não informada"}")
+                    </p>
+                </td>
+                <td>
+                    <label>
+                        CEP
+                    </label>
+                    <p>
+                        @($"{Model.Cliente.Endereco?.CEP ?? "Não informado"}")
+                    </p>
+                </td>
+                <td>
+                    <label>
+                        Estado
+                    </label>
+                    <p>
+                        @($"{Model.Cliente.Endereco?.Cidade?.Estado?.Nome ?? "Não informado"}")
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>
+                        Celular
+                    </label>
+                    <p>
+                        @($"{Model.Cliente.Contato?.Celular ?? "Não informado"}")
+                    </p>
+                </td>
+                <td>
+                    <label>
+                        Telefone Residencial
+                    </label>
+                    <p>
+                        @($"{Model.Cliente.Contato?.TelefoneResidencial ?? "Não informado"}")
+                    </p>
+                </td>
+                <td colspan="2">
+                    <label>
+                        Email
+                    </label>
+                    <p>
+                        @($"{Model.Cliente.Contato?.Email ?? "Não informado"}")
+                    </p>
+                </td>
+            </tr>
+        </table>
     </div>
-    <div class="col s12">
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus suscipit nunc venenatis eros bibendum finibus. Fusce lacus ligula, mattis eu pretium a, blandit vel sem. Mauris leo erat, aliquet in leo in, bibendum vulputate purus. Curabitur convallis metus nulla, eget vestibulum lorem dignissim sit amet. Nunc molestie eu massa eu egestas. Aenean vitae hendrerit elit. Vivamus nunc odio, consequat vel elementum iaculis, condimentum ac libero. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris eu imperdiet ipsum. Mauris porta nisl a condimentum gravida. Vivamus varius porttitor hendrerit. Sed sem neque, tincidunt cursus sagittis porta, vulputate eu elit. Phasellus eget maximus dui. Nulla rutrum neque justo, sed convallis turpis finibus eget. Phasellus efficitur felis eget orci rutrum ullamcorper.
-        </p>
-    </div>
-    <div class="col s12 mt-2">
+</div>
+
+<div class="row" id="report-body">
+    <div class="col s12 mt-2 no-padding">
         <table id="report-table">
             <thead>
                 <tr>
-                    <th>
+                    <th class="px-1">
                         @Html.DisplayNameFor(model => model.Venda.Produtos.FirstOrDefault().Produto.Nome)
                     </th>
-                    <th>
+                    <th class="center">
                         @Html.DisplayNameFor(model => model.Venda.Produtos.FirstOrDefault().PrecoVenda)
                     </th>
-                    <th>
+                    <th class="center">
                         @Html.DisplayNameFor(model => model.Venda.Produtos.FirstOrDefault().Quantidade)
                     </th>
-                    <th>
+                    <th class="center">
                         @Html.DisplayNameFor(model => model.Venda.Produtos.FirstOrDefault().Desconto)
                     </th>
-                    <th>
+                    <th class="center">
                         @Html.DisplayNameFor(model => model.Venda.Produtos.FirstOrDefault().Acrescimo)
                     </th>
-                    <th>
+                    <th class="center">
                         @Html.DisplayNameFor(model => model.Venda.Produtos.FirstOrDefault().PrecoFinal)
                     </th>
                 </tr>
@@ -91,25 +166,25 @@
                                 @Html.DisplayFor(modelItem => item.Produto.Nome)
                             </bold>
                             <br />
-                            <span class="small">
+                            <span class="small text-muted">
                                 Referência: @Html.DisplayFor(modelItem => item.Produto.ReferenciaFabricante)
                             </span>
                             <br />
-                            <span class="small">
+                            <span class="small text-muted">
                                 Marca: @Html.DisplayFor(modelItem => item.Produto.Marca.Nome)
                             </span>
                             <br />
-                            <span class="small">
-                                Id: @Html.DisplayFor(modelItem => item.Produto.Id)
+                            <span class="small text-muted">
+                                @Html.DisplayFor(modelItem => item.Produto.Id)
                             </span>
                         </td>
-                        <td>
+                        <td class="center">
                             @Html.DisplayFor(modelItem => item.PrecoVenda)
                         </td>
-                        <td>
+                        <td class="center">
                             @Html.DisplayFor(modelItem => item.Quantidade)
                         </td>
-                        <td>
+                        <td class="center">
                             @if (item.Desconto == 0)
                             {
                                 <span class="font-italic">Nenhum</span>
@@ -119,7 +194,7 @@
                                 @Html.DisplayFor(modelItem => item.Desconto)
                             }
                         </td>
-                        <td>
+                        <td class="center">
                             @if (item.Desconto == 0)
                             {
                                 <span class="font-italic">Nenhum</span>
@@ -129,7 +204,7 @@
                                 @Html.DisplayFor(modelItem => item.Acrescimo)
                             }
                         </td>
-                        <td>
+                        <td class="center"> 
                             @Html.DisplayFor(modelItem => item.PrecoFinal)
                         </td>
                     </tr>
@@ -137,28 +212,29 @@
             </tbody>
         </table>
     </div>
-</div>
-<div class="row mt-2">
-    <div class="col s6">
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus suscipit nunc venenatis eros bibendum finibus. Fusce lacus ligula, mattis eu pretium a, blandit vel sem. Mauris leo erat, aliquet in leo in, bibendum vulputate purus. Curabitur convallis metus nulla, eget vestibulum lorem dignissim sit amet. Nunc molestie eu massa eu egestas. Aenean vitae hendrerit elit.
-        </p>
-    </div>
-    <div class="col s3 offset-s2">
-        <p class="lead">Quantidade de Produtos: </p>
-        <p class="lead">Valor Total da Venda: </p>
-    </div>
-    <div class="col s1 right-align">
-        <p class="lead">@Model.Venda.QuantidadeProdutos</p>
-        <p class="lead">@Model.Venda.TotalVenda.ToString("c")</p>
+    <div class="row">
+        <div class="col s4 offset-s8">
+            <p class="right mb-0 lead">Quantidade de Produtos: @Model.Venda.QuantidadeProdutos</p>
+            <p class="right mt-0 lead">Valor Total da Venda: @Model.Venda.TotalVenda.ToString("c")</p>
+        </div>
     </div>
 </div>
-<div class="row mt-max" id="report-footer">
-    <hr class="w-75"/>
+
+<div class="row mt-5" id="report-footer">
+    <hr class="w-75" />
     <p class="center small">Assinatura do Cliente</p>
 </div>
-
+<div>
+    <div class="col s6">
+        <p class="center text-muted">
+            Token de validação: @Guid.NewGuid().ToString().Replace("-", "")
+        </p>
+        <p class="center font-italic text-muted">
+            Não é válido como documento fiscal. É vedada a autenticação desse documento.
+        </p>
+    </div>
+</div>
 
 <script>
-                                                    //window.print();
+    //window.print();
 </script>

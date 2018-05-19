@@ -7,7 +7,7 @@
 <float-action-button controller="Bancos"></float-action-button>
 
 <div class="form-container col s12 m12">
-    <form>
+    @*<form>
         @await Component.InvokeAsync("SearchBar", new Dictionary<string, string>() { { "Nome", "nome" }, { "Código de Compensação", "codigoCompensacao" } })
 
         <div id="advancedSearch" class="col s12 m12">
@@ -19,7 +19,7 @@
                 </div>
             </div>
         </div>
-    </form>
+    </form>*@
 
     @if (Model.Any())
     {

@@ -19,8 +19,7 @@ namespace RCM.Infra.Data.EntityTypeConfig
                 .HasForeignKey(pf => pf.FornecedorId);
 
             builder.Property(pf => pf.PrecoCusto)
-                .IsRequired()
-                .HasMaxLength(4);
+                .IsRequired();
 
             builder.Property(pf => pf.Disponibilidade)
                 .IsRequired();

@@ -76,7 +76,10 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             var result = await _rcmUserManager.ChangePasswordAsync(user, changePasswordViewModel.CurrentPassword, changePasswordViewModel.NewPassword);
 
             if (result.Succeeded)
+            {
+                NotifyCommandResultSuccess();
                 return RedirectToAction(nameof(Index));
+            }
             else
                 result.Errors.ToList().ForEach(e => NotifyIdentityError(e.Description));
 
@@ -89,40 +92,26 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             var result = await _rcmUserManager.SetTwoFactorEnabledAsync(user, enabled: true);
 
             if (result.Succeeded)
+            {
+                NotifyCommandResultSuccess();
                 return RedirectToAction(nameof(Index));
+            }
             else
                 result.Errors.ToList().ForEach(e => NotifyIdentityError(e.Description));
 
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult DisableTwoFactorAuth()
+        public async Task<IActionResult> DisableTwoFactorAuth()
         {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DisableTwoFactorAuth(DisableTwoFactorAuthViewModel viewModel)
-        {
-            if (!ModelState.IsValid)
-            {
-                NotifyModelStateErrors();
-                return View(viewModel);
-            }
-
             var user = await GetUserAsync();
-            var canDisable = await _rcmUserManager.GenerateUserTokenAsync(user, "Disable2FA", "This token will disable two factor auth");
-            //if (!canDisable.Succeeded)
-            //{
-            //    NotifyIdentityError("Houve um erro ao validar sua tentativa, tente novamente.");
-            //    return View(viewModel);
-            //}
-
             var result = await _rcmUserManager.SetTwoFactorEnabledAsync(user, enabled: false);
 
             if (result.Succeeded)
+            {
+                NotifyCommandResultSuccess();
                 return RedirectToAction(nameof(Index));
+            }
             else
                 result.Errors.ToList().ForEach(e => NotifyIdentityError(e.Description));
 
@@ -140,11 +129,6 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         {
             var emailTemplate = _emailGenerator.GenerateAccountConfirmationEmail(email, code);
             return _emailDispatcher.SendEmailAsync(emailTemplate);
-        }
-
-        private void NotifyIdentityError(string description)
-        {
-            _domainNotificationHandler.AddNotification(new AuthenticationErrorNotification(description));
         }
         #endregion
     }

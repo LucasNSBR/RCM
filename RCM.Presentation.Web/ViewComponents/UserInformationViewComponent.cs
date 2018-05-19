@@ -18,12 +18,13 @@ namespace RCM.Presentation.Web.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var user = await _rcmUserManager.GetUserAsync(_httpContextAccessor.HttpContext.User);
+            if (_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
+            {
+                var user = await _rcmUserManager.GetUserAsync(_httpContextAccessor.HttpContext.User);
+                return View(user);
+            }
 
-            if (!_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated || user == null)
-                return View("NotLogged");
-            
-            return View(user);
+            return View("NotLogged");
         }
     }
 }

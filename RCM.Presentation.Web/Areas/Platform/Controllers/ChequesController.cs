@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RCM.Application.ApplicationInterfaces;
-using RCM.Application.ViewModels;
+using RCM.Application.ViewModels.ChequeViewModels;
 using RCM.Domain.Core.Extensions;
 using RCM.Domain.DomainNotificationHandlers;
 using RCM.Domain.Models.ChequeModels;
@@ -173,7 +173,20 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         }
 
         [Authorize(Policy = "ActiveUser")]
-        public async Task<IActionResult> Bloquear(Guid id)
+        public IActionResult Bloquear(Guid id)
+        {
+            var estadoChequeViewModel = new EstadoChequeViewModel()
+            {
+                ChequeId = id
+            };
+
+            return View(estadoChequeViewModel);
+        }
+
+        [Authorize(Policy = "ActiveUser")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Bloquear(Guid id, EstadoChequeViewModel estadoCheque)
         {
             var commandResult = await _chequeApplicationService.BloquearCheque(id);
 
@@ -223,6 +236,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             return View(estadoCheque);
         }
 
+        [Authorize(Policy = "ActiveUser")]
         public IActionResult Repassar(Guid id)
         {
             var estadoChequeViewModel = new EstadoChequeViewModel()
@@ -326,7 +340,6 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
 
             return View(estadoCheque);
         }
-
 
         public JsonResult GetClientes()
         {

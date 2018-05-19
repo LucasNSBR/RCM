@@ -31,8 +31,7 @@ namespace RCM.Infra.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("CodigoCompensacao")
-                        .HasMaxLength(4);
+                    b.Property<int>("CodigoCompensacao");
 
                     b.Property<string>("Nome")
                         .IsRequired()
@@ -58,7 +57,7 @@ namespace RCM.Infra.Data.Migrations
 
                     b.Property<string>("Conta")
                         .IsRequired()
-                        .HasMaxLength(6);
+                        .HasMaxLength(10);
 
                     b.Property<DateTime>("DataEmissao");
 
@@ -73,8 +72,7 @@ namespace RCM.Infra.Data.Migrations
                     b.Property<string>("Observacao")
                         .HasMaxLength(1000);
 
-                    b.Property<decimal>("Valor")
-                        .HasMaxLength(4);
+                    b.Property<decimal>("Valor");
 
                     b.HasKey("Id");
 
@@ -159,8 +157,7 @@ namespace RCM.Infra.Data.Migrations
                     b.Property<string>("Observacao")
                         .HasMaxLength(1000);
 
-                    b.Property<decimal>("Valor")
-                        .HasMaxLength(4);
+                    b.Property<decimal>("Valor");
 
                     b.HasKey("Id");
 
@@ -215,12 +212,12 @@ namespace RCM.Infra.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Descricao")
+                        .HasMaxLength(1000);
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(100);
-
-                    b.Property<string>("Observacao")
-                        .HasMaxLength(1000);
 
                     b.Property<int>("Tipo");
 
@@ -328,8 +325,7 @@ namespace RCM.Infra.Data.Migrations
 
                     b.Property<Guid?>("OrdemServicoId");
 
-                    b.Property<decimal>("PrecoVenda")
-                        .HasMaxLength(4);
+                    b.Property<decimal>("PrecoVenda");
 
                     b.Property<string>("ReferenciaAuxiliar")
                         .HasMaxLength(50);
@@ -374,8 +370,7 @@ namespace RCM.Infra.Data.Migrations
 
                     b.Property<int>("Disponibilidade");
 
-                    b.Property<decimal>("PrecoCusto")
-                        .HasMaxLength(4);
+                    b.Property<decimal>("PrecoCusto");
 
                     b.HasKey("ProdutoId", "FornecedorId");
 
@@ -397,13 +392,11 @@ namespace RCM.Infra.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(1000);
 
-                    b.Property<int>("QuantidadeProdutos")
-                        .HasMaxLength(2);
+                    b.Property<int>("QuantidadeProdutos");
 
                     b.Property<int>("Status");
 
-                    b.Property<decimal>("TotalVenda")
-                        .HasMaxLength(5);
+                    b.Property<decimal>("TotalVenda");
 
                     b.HasKey("Id");
 
@@ -418,18 +411,15 @@ namespace RCM.Infra.Data.Migrations
 
                     b.Property<Guid>("VendaId");
 
-                    b.Property<decimal>("Acrescimo")
-                        .HasMaxLength(4);
+                    b.Property<decimal>("Acrescimo");
 
-                    b.Property<decimal>("Desconto")
-                        .HasMaxLength(4);
+                    b.Property<decimal>("Desconto");
 
                     b.Property<decimal>("PrecoFinal");
 
                     b.Property<decimal>("PrecoVenda");
 
-                    b.Property<int>("Quantidade")
-                        .HasMaxLength(4);
+                    b.Property<int>("Quantidade");
 
                     b.HasKey("ProdutoId", "VendaId");
 
@@ -528,7 +518,7 @@ namespace RCM.Infra.Data.Migrations
 
             modelBuilder.Entity("RCM.Domain.Models.ClienteModels.Cliente", b =>
                 {
-                    b.OwnsOne("RCM.Domain.Models.Contato", "Contato", b1 =>
+                    b.OwnsOne("RCM.Domain.Models.ValueObjects.Contato", "Contato", b1 =>
                         {
                             b1.Property<Guid>("ClienteId");
 
@@ -556,11 +546,11 @@ namespace RCM.Infra.Data.Migrations
 
                             b1.HasOne("RCM.Domain.Models.ClienteModels.Cliente")
                                 .WithOne("Contato")
-                                .HasForeignKey("RCM.Domain.Models.Contato", "ClienteId")
+                                .HasForeignKey("RCM.Domain.Models.ValueObjects.Contato", "ClienteId")
                                 .OnDelete(DeleteBehavior.Cascade);
                         });
 
-                    b.OwnsOne("RCM.Domain.Models.Documento", "Documento", b1 =>
+                    b.OwnsOne("RCM.Domain.Models.ValueObjects.Documento", "Documento", b1 =>
                         {
                             b1.Property<Guid>("ClienteId");
 
@@ -578,11 +568,11 @@ namespace RCM.Infra.Data.Migrations
 
                             b1.HasOne("RCM.Domain.Models.ClienteModels.Cliente")
                                 .WithOne("Documento")
-                                .HasForeignKey("RCM.Domain.Models.Documento", "ClienteId")
+                                .HasForeignKey("RCM.Domain.Models.ValueObjects.Documento", "ClienteId")
                                 .OnDelete(DeleteBehavior.Cascade);
                         });
 
-                    b.OwnsOne("RCM.Domain.Models.Endereco", "Endereco", b1 =>
+                    b.OwnsOne("RCM.Domain.Models.ValueObjects.Endereco", "Endereco", b1 =>
                         {
                             b1.Property<Guid>("ClienteId");
 
@@ -621,7 +611,7 @@ namespace RCM.Infra.Data.Migrations
 
                             b1.HasOne("RCM.Domain.Models.ClienteModels.Cliente")
                                 .WithOne("Endereco")
-                                .HasForeignKey("RCM.Domain.Models.Endereco", "ClienteId")
+                                .HasForeignKey("RCM.Domain.Models.ValueObjects.Endereco", "ClienteId")
                                 .OnDelete(DeleteBehavior.Cascade);
                         });
                 });
@@ -637,7 +627,7 @@ namespace RCM.Infra.Data.Migrations
                         .WithMany("Duplicatas")
                         .HasForeignKey("NotaFiscalId");
 
-                    b.OwnsOne("RCM.Domain.Models.Pagamento", "Pagamento", b1 =>
+                    b.OwnsOne("RCM.Domain.Models.ValueObjects.Pagamento", "Pagamento", b1 =>
                         {
                             b1.Property<Guid>("DuplicataId");
 
@@ -651,14 +641,14 @@ namespace RCM.Infra.Data.Migrations
 
                             b1.HasOne("RCM.Domain.Models.DuplicataModels.Duplicata")
                                 .WithOne("Pagamento")
-                                .HasForeignKey("RCM.Domain.Models.Pagamento", "DuplicataId")
+                                .HasForeignKey("RCM.Domain.Models.ValueObjects.Pagamento", "DuplicataId")
                                 .OnDelete(DeleteBehavior.Cascade);
                         });
                 });
 
             modelBuilder.Entity("RCM.Domain.Models.EmpresaModels.Empresa", b =>
                 {
-                    b.OwnsOne("RCM.Domain.Models.Contato", "Contato", b1 =>
+                    b.OwnsOne("RCM.Domain.Models.ValueObjects.Contato", "Contato", b1 =>
                         {
                             b1.Property<Guid?>("EmpresaId");
 
@@ -686,17 +676,18 @@ namespace RCM.Infra.Data.Migrations
 
                             b1.HasOne("RCM.Domain.Models.EmpresaModels.Empresa")
                                 .WithOne("Contato")
-                                .HasForeignKey("RCM.Domain.Models.Contato", "EmpresaId")
+                                .HasForeignKey("RCM.Domain.Models.ValueObjects.Contato", "EmpresaId")
                                 .OnDelete(DeleteBehavior.Cascade);
                         });
 
-                    b.OwnsOne("RCM.Domain.Models.Documento", "Documento", b1 =>
+                    b.OwnsOne("RCM.Domain.Models.ValueObjects.Documento", "Documento", b1 =>
                         {
                             b1.Property<Guid?>("EmpresaId");
 
                             b1.Property<string>("CadastroEstadual")
+                                .IsRequired()
                                 .HasColumnName("InscricaoEstadual")
-                                .HasMaxLength(11);
+                                .HasMaxLength(12);
 
                             b1.Property<string>("CadastroNacional")
                                 .IsRequired()
@@ -707,11 +698,11 @@ namespace RCM.Infra.Data.Migrations
 
                             b1.HasOne("RCM.Domain.Models.EmpresaModels.Empresa")
                                 .WithOne("Documento")
-                                .HasForeignKey("RCM.Domain.Models.Documento", "EmpresaId")
+                                .HasForeignKey("RCM.Domain.Models.ValueObjects.Documento", "EmpresaId")
                                 .OnDelete(DeleteBehavior.Cascade);
                         });
 
-                    b.OwnsOne("RCM.Domain.Models.Endereco", "Endereco", b1 =>
+                    b.OwnsOne("RCM.Domain.Models.ValueObjects.Endereco", "Endereco", b1 =>
                         {
                             b1.Property<Guid?>("EmpresaId");
 
@@ -724,7 +715,8 @@ namespace RCM.Infra.Data.Migrations
                                 .HasColumnName("EnderecoCEP")
                                 .HasMaxLength(8);
 
-                            b1.Property<Guid>("CidadeId");
+                            b1.Property<Guid>("CidadeId")
+                                .HasColumnName("EnderecoCidadeId");
 
                             b1.Property<string>("Complemento")
                                 .HasColumnName("EnderecoComplemento")
@@ -750,14 +742,14 @@ namespace RCM.Infra.Data.Migrations
 
                             b1.HasOne("RCM.Domain.Models.EmpresaModels.Empresa")
                                 .WithOne("Endereco")
-                                .HasForeignKey("RCM.Domain.Models.Endereco", "EmpresaId")
+                                .HasForeignKey("RCM.Domain.Models.ValueObjects.Endereco", "EmpresaId")
                                 .OnDelete(DeleteBehavior.Cascade);
                         });
                 });
 
             modelBuilder.Entity("RCM.Domain.Models.FornecedorModels.Fornecedor", b =>
                 {
-                    b.OwnsOne("RCM.Domain.Models.Contato", "Contato", b1 =>
+                    b.OwnsOne("RCM.Domain.Models.ValueObjects.Contato", "Contato", b1 =>
                         {
                             b1.Property<Guid?>("FornecedorId");
 
@@ -785,15 +777,16 @@ namespace RCM.Infra.Data.Migrations
 
                             b1.HasOne("RCM.Domain.Models.FornecedorModels.Fornecedor")
                                 .WithOne("Contato")
-                                .HasForeignKey("RCM.Domain.Models.Contato", "FornecedorId")
+                                .HasForeignKey("RCM.Domain.Models.ValueObjects.Contato", "FornecedorId")
                                 .OnDelete(DeleteBehavior.Cascade);
                         });
 
-                    b.OwnsOne("RCM.Domain.Models.Documento", "Documento", b1 =>
+                    b.OwnsOne("RCM.Domain.Models.ValueObjects.Documento", "Documento", b1 =>
                         {
                             b1.Property<Guid?>("FornecedorId");
 
                             b1.Property<string>("CadastroEstadual")
+                                .IsRequired()
                                 .HasColumnName("DocumentoEstadual")
                                 .HasMaxLength(14);
 
@@ -806,11 +799,11 @@ namespace RCM.Infra.Data.Migrations
 
                             b1.HasOne("RCM.Domain.Models.FornecedorModels.Fornecedor")
                                 .WithOne("Documento")
-                                .HasForeignKey("RCM.Domain.Models.Documento", "FornecedorId")
+                                .HasForeignKey("RCM.Domain.Models.ValueObjects.Documento", "FornecedorId")
                                 .OnDelete(DeleteBehavior.Cascade);
                         });
 
-                    b.OwnsOne("RCM.Domain.Models.Endereco", "Endereco", b1 =>
+                    b.OwnsOne("RCM.Domain.Models.ValueObjects.Endereco", "Endereco", b1 =>
                         {
                             b1.Property<Guid?>("FornecedorId");
 
@@ -823,7 +816,8 @@ namespace RCM.Infra.Data.Migrations
                                 .HasColumnName("EnderecoCEP")
                                 .HasMaxLength(8);
 
-                            b1.Property<Guid>("CidadeId");
+                            b1.Property<Guid>("CidadeId")
+                                .HasColumnName("EnderecoCidadeId");
 
                             b1.Property<string>("Complemento")
                                 .HasColumnName("EnderecoComplemento")
@@ -849,7 +843,7 @@ namespace RCM.Infra.Data.Migrations
 
                             b1.HasOne("RCM.Domain.Models.FornecedorModels.Fornecedor")
                                 .WithOne("Endereco")
-                                .HasForeignKey("RCM.Domain.Models.Endereco", "FornecedorId")
+                                .HasForeignKey("RCM.Domain.Models.ValueObjects.Endereco", "FornecedorId")
                                 .OnDelete(DeleteBehavior.Cascade);
                         });
                 });
@@ -871,26 +865,26 @@ namespace RCM.Infra.Data.Migrations
 
             modelBuilder.Entity("RCM.Domain.Models.ProdutoModels.Aplicacao", b =>
                 {
-                    b.OwnsOne("RCM.Domain.Models.Carro", "Carro", b1 =>
+                    b.OwnsOne("RCM.Domain.Models.ValueObjects.Carro", "Carro", b1 =>
                         {
                             b1.Property<Guid>("AplicacaoId");
 
                             b1.Property<int>("Ano")
-                                .HasColumnName("Ano")
+                                .HasColumnName("CarroAno")
                                 .HasMaxLength(4);
 
                             b1.Property<string>("Marca")
                                 .IsRequired()
-                                .HasColumnName("Marca")
+                                .HasColumnName("CarroMarca")
                                 .HasMaxLength(100);
 
                             b1.Property<string>("Modelo")
                                 .IsRequired()
-                                .HasColumnName("Modelo")
+                                .HasColumnName("CarroModelo")
                                 .HasMaxLength(250);
 
                             b1.Property<string>("Motor")
-                                .HasColumnName("Motor")
+                                .HasColumnName("CarroMotor")
                                 .HasMaxLength(100);
 
                             b1.Property<string>("Observacao")
@@ -901,7 +895,7 @@ namespace RCM.Infra.Data.Migrations
 
                             b1.HasOne("RCM.Domain.Models.ProdutoModels.Aplicacao")
                                 .WithOne("Carro")
-                                .HasForeignKey("RCM.Domain.Models.Carro", "AplicacaoId")
+                                .HasForeignKey("RCM.Domain.Models.ValueObjects.Carro", "AplicacaoId")
                                 .OnDelete(DeleteBehavior.Cascade);
                         });
                 });

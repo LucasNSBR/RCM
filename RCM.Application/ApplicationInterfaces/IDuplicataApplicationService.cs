@@ -1,4 +1,5 @@
 ﻿using RCM.Application.ViewModels;
+using RCM.Application.ViewModels.ValueObjectViewModels;
 using RCM.Domain.Core.Commands;
 using RCM.Domain.Models.DuplicataModels;
 using System.Threading.Tasks;

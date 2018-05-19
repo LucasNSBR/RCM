@@ -1,4 +1,5 @@
 ﻿using RCM.Domain.Core.Models;
+using RCM.Domain.Models.ValueObjects;
 using System;
 using System.Collections.Generic;
 
@@ -6,7 +7,7 @@ namespace RCM.Domain.Models.ProdutoModels
 {
     public class Aplicacao : Entity<Aplicacao>
     {
-        public virtual Carro Carro { get; set; }
+        public virtual Carro Carro { get; private set; }
 
         private List<ProdutoAplicacao> _produtos;
         public virtual IReadOnlyList<ProdutoAplicacao> Produtos
@@ -16,6 +17,7 @@ namespace RCM.Domain.Models.ProdutoModels
                 return _produtos;
             }
         }
+
 
         protected Aplicacao() { }
 

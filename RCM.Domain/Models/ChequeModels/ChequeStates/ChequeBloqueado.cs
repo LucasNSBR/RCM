@@ -12,14 +12,16 @@ namespace RCM.Domain.Models.ChequeModels.ChequeStates
                 return EstadoChequeEnum.Bloqueado;
             }
         }
+        
+        protected ChequeBloqueado() { }
 
-        public ChequeBloqueado() : base(DateTime.Now)
+        public ChequeBloqueado(DateTime dataEvento) : base(dataEvento)
         {
         }
 
-        public override void Bloquear(Cheque cheque)
+        public override void Bloquear(Cheque cheque, DateTime dataEvento)
         {
-            cheque.MudarEstado(new ChequeBloqueado());
+            cheque.MudarEstado(new ChequeBloqueado(dataEvento));
         }
 
         public override void Compensar(Cheque cheque, DateTime dataEvento)

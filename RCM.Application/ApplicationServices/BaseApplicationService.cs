@@ -18,7 +18,6 @@ namespace RCM.Application.ApplicationServices
         protected IMapper _mapper;
         protected IMediatorHandler _mediator;
 
-
         public BaseApplicationService(IBaseRepository<TModel> baseRepository, IMapper mapper, IMediatorHandler mediator)
         {
             _baseRepository = baseRepository;
@@ -33,7 +32,7 @@ namespace RCM.Application.ApplicationServices
 
         public IQueryable<TViewModel> Get(Expression<Func<TModel, bool>> expression)
         {
-            return _baseRepository.Get(expression).AsQueryable().ProjectTo<TViewModel>();
+            return _baseRepository.Get(expression).ProjectTo<TViewModel>();
         }
 
         public TViewModel GetById(Guid id)
@@ -42,9 +41,9 @@ namespace RCM.Application.ApplicationServices
             return model;
         }
 
-        public virtual Task<CommandResult> Add(TViewModel viewModel) { throw new ArgumentException("Direct base calling is not allowed. You need to override this method."); }
-        public virtual Task<CommandResult> Remove(TViewModel viewModel){ throw new ArgumentException("Direct base calling is not allowed. You need to override this method."); }
-        public virtual Task<CommandResult> Update(TViewModel viewModel) { throw new ArgumentException("Direct base calling is not allowed. You need to override this method."); }
+        public virtual Task<CommandResult> Add(TViewModel viewModel) { throw new InvalidOperationException("Direct base calling is not allowed. You need to override this method."); }
+        public virtual Task<CommandResult> Remove(TViewModel viewModel){ throw new InvalidOperationException("Direct base calling is not allowed. You need to override this method."); }
+        public virtual Task<CommandResult> Update(TViewModel viewModel) { throw new InvalidOperationException("Direct base calling is not allowed. You need to override this method."); }
 
         public void Dispose()
         {

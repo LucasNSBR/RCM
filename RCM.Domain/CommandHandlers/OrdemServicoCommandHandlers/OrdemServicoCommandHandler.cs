@@ -62,7 +62,7 @@ namespace RCM.Domain.CommandHandlers.OrdemServicoCommandHandlers
                 return Task.FromResult(_commandResponse);
             }
 
-            var ordemServico = new OrdemServico(cliente, command.Produtos);
+            OrdemServico ordemServico = new OrdemServico(cliente, command.Produtos);
             _ordemServicoRepository.Update(ordemServico);
 
             if (Commit())
@@ -80,7 +80,6 @@ namespace RCM.Domain.CommandHandlers.OrdemServicoCommandHandlers
             }
 
             OrdemServico ordemServico = _ordemServicoRepository.GetById(command.Id);
-
             _ordemServicoRepository.Remove(ordemServico);
 
             if (Commit())

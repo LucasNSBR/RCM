@@ -1,4 +1,5 @@
 ﻿using RCM.Domain.Core.Models;
+using RCM.Domain.Models.ValueObjects;
 using System;
 
 namespace RCM.Domain.Models.EmpresaModels

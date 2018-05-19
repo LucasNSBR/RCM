@@ -8,10 +8,10 @@ namespace RCM.Domain.Validators.FornecedorCommandValidators
         {
             ValidateId();
             ValidateNome();
-            ValidateObservacao();
-            ValidateDocumento();
+            ValidateDescricao();
             ValidateContato();
             ValidateEndereco();
+            ValidateDocumento();
         }
     }
 }

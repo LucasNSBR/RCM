@@ -1,6 +1,6 @@
 ﻿@using RCM.Domain.Models.VendaModels
 
-@model RCM.Application.ViewModels.VendaViewModel
+@model RCM.Application.ViewModels.VendaViewModels.VendaViewModel
 
 <div class="row">
     <div class="col s12">
@@ -89,9 +89,9 @@
                                     <div class="collapsible-body">
                                         <strong>Id: </strong><span>@produto.ProdutoId</span><br />
                                         <strong>Estoque atual: </strong><span>@produto.Produto.Estoque</span><br />
-                                        <strong>Referência do Fabricante: </strong><span>@(produto.Produto.ReferenciaAuxiliar ?? "Referência Auxiliar não encontrada.")</span><br />
+                                        <strong>Referência do Fabricante: </strong><span>@(produto.Produto.ReferenciaFabricante ?? "Referência Auxiliar não encontrada.")</span><br />
                                         <strong>Referência Original: </strong><span>@(produto.Produto.ReferenciaOriginal ?? "Referência original não encontrada.")</span><br />
-                                        <strong>Referência Auxiliar: </strong><span>@produto.Produto.ReferenciaFabricante</span><br />
+                                        <strong>Referência Auxiliar: </strong><span>@produto.Produto.ReferenciaAuxiliar</span><br />
                                         <strong>Marca: </strong><span>@produto.Produto.Marca.Nome</span>
                                     </div>
                                 </li>

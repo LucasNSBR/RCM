@@ -1,17 +1,17 @@
-﻿using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
 using RCM.Domain.Commands.ProdutoCommands;
 using RCM.Domain.Core.Commands;
 using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.Events.ProdutoEvents;
-using RCM.Domain.Models;
 using RCM.Domain.Models.FornecedorModels;
 using RCM.Domain.Models.MarcaModels;
 using RCM.Domain.Models.ProdutoModels;
+using RCM.Domain.Models.ValueObjects;
 using RCM.Domain.Repositories;
 using RCM.Domain.UnitOfWork;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
 {
@@ -30,7 +30,7 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
         private readonly IAplicacaoRepository _aplicacaoRepository;
         private readonly IFornecedorRepository _fornecedorRepository;
 
-        public ProdutoCommandHandler(IMediatorHandler mediator, IProdutoRepository produtoRepository, IMarcaRepository marcaRepository, IAplicacaoRepository aplicacaoRepository, IFornecedorRepository fornecedorRepository, IUnitOfWork unitOfWork) :
+        public ProdutoCommandHandler(IProdutoRepository produtoRepository, IMarcaRepository marcaRepository, IAplicacaoRepository aplicacaoRepository, IFornecedorRepository fornecedorRepository, IMediatorHandler mediator, IUnitOfWork unitOfWork) :
                                                                                                         base(mediator, unitOfWork)
         {
             _produtoRepository = produtoRepository;
@@ -106,11 +106,11 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
 
             Aplicacao aplicacao = _aplicacaoRepository.GetById(command.AplicacaoId);
             Produto produto = _produtoRepository.GetById(command.ProdutoId);
-
             produto.AdicionarAplicacao(aplicacao);
+
             if (produto.ContainsErrors())
             {
-                NotifyModelErrors(produto.Errors.ToList());
+                NotifyModelErrors(produto.Errors);
                 return Response();
             }
 
@@ -133,8 +133,8 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
             Carro carro = new Carro(command.MarcaCarroAplicacao, command.ModeloCarroAplicacao, command.AnoCarroAplicacao, command.MotorCarroAplicacao, command.ObservacaoCarroAplicacao);
             Aplicacao aplicacao = new Aplicacao(carro);
             Produto produto = _produtoRepository.GetById(command.ProdutoId);
-
             produto.AdicionarAplicacao(aplicacao);
+
             _produtoRepository.Update(produto);
 
             if (Commit())
@@ -153,8 +153,8 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
 
             Aplicacao aplicacao = _aplicacaoRepository.GetById(command.AplicacaoId);
             Produto produto = _produtoRepository.GetById(command.ProdutoId);
-
             produto.RemoverAplicacao(aplicacao);
+
             _produtoRepository.Update(produto);
 
             if (Commit())
@@ -173,8 +173,8 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
 
             Produto produto = _produtoRepository.GetById(command.ProdutoId);
             Fornecedor fornecedor = _fornecedorRepository.GetById(command.FornecedorId);
-
             produto.AdicionarFornecedor(fornecedor, command.PrecoCusto, command.Disponibilidade);
+
             _produtoRepository.Update(produto);
 
             if (Commit())
@@ -193,8 +193,8 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
 
             Produto produto = _produtoRepository.GetById(command.ProdutoId);
             Fornecedor fornecedor = _fornecedorRepository.GetById(command.FornecedorId);
-
             produto.RemoverFornecedor(fornecedor);
+
             _produtoRepository.Update(produto);
 
             if (Commit())

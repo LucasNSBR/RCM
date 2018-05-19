@@ -1,4 +1,4 @@
-﻿using RCM.Application.ViewModels;
+﻿using RCM.Application.ViewModels.ChequeViewModels;
 using RCM.Domain.Core.Commands;
 using RCM.Domain.Models.ChequeModels;
 using System;

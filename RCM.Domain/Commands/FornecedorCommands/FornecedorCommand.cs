@@ -10,7 +10,7 @@ namespace RCM.Domain.Commands.FornecedorCommands
         public string Nome { get; set; }
         public FornecedorTipoEnum Tipo { get; set; }
         public string Observacao { get; set; }
-
+        
         public string ContatoCelular { get; set; }
         public string ContatoEmail { get; set; }
         public string ContatoTelefoneResidencial { get; set; }

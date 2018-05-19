@@ -10,7 +10,6 @@ using RCM.CrossCutting.Identity.Context;
 using RCM.CrossCutting.Identity.Models;
 using RCM.CrossCutting.IoC;
 using RCM.Infra.Data.Context;
-using RCM.Infra.Services.Email;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -58,15 +57,10 @@ namespace RCM.Presentation.Web
             services.AddAuthorization(cfg =>
             {
                 cfg.AddPolicy("ActiveUser", p => p.RequireClaim("ActiveUser", "True"));
+                cfg.AddPolicy("ActiveCompany", p => p.RequireClaim("ActiveCompany", "True"));
                 cfg.AddPolicy("Admin", p => p.RequireRole("Admin"));
                 cfg.AddPolicy("Manager", p => p.RequireRole("Admin", "Manager"));
                 cfg.AddPolicy("User", p => p.RequireRole("Admin", "User", "Manager"));
-            });
-
-            services.Configure<EmailClientConfiguration>(cfg =>
-            {
-                cfg.SendGridUser = Configuration["SendGrid:User"];
-                cfg.SendGridKey = Configuration["SendGrid:ApiKey"];
             });
             
             Bootstrapper.RegisterServices(services);

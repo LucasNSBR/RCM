@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using RCM.Application.ApplicationInterfaces;
-using RCM.Application.ViewModels;
+using RCM.Application.ViewModels.ProdutoViewModels;
 using RCM.Domain.Commands.ProdutoCommands;
 using RCM.Domain.Core.Commands;
 using RCM.Domain.Core.MediatorServices;
@@ -39,7 +39,7 @@ namespace RCM.Application.ApplicationServices
 
         public Task<CommandResult> AdicionarAplicacao(ProdutoViewModel produtoViewModel, AplicacaoViewModel aplicacaoViewModel)
         {
-            return _mediator.SendCommand(new AddProdutoAplicacaoCommand(produtoViewModel.Id, aplicacaoViewModel.Marca, aplicacaoViewModel.Modelo, aplicacaoViewModel.Ano, aplicacaoViewModel.Motor, aplicacaoViewModel.Observacao));
+            return _mediator.SendCommand(new AddProdutoAplicacaoCommand(produtoViewModel.Id, aplicacaoViewModel.CarroMarca, aplicacaoViewModel.CarroModelo, aplicacaoViewModel.CarroAno, aplicacaoViewModel.CarroMotor, aplicacaoViewModel.Observacao));
         }
 
         public Task<CommandResult> RemoverAplicacao(Guid produtoId, Guid aplicacaoId)

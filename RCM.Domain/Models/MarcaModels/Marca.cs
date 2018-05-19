@@ -19,6 +19,7 @@ namespace RCM.Domain.Models.MarcaModels
             }
         }
 
+
         protected Marca() { }
 
         public Marca(Guid id, string nome, string observacao = null)

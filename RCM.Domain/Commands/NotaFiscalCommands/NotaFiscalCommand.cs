@@ -1,7 +1,5 @@
 ﻿using RCM.Domain.Core.Commands;
-using RCM.Domain.Models.ProdutoModels;
 using System;
-using System.Collections.Generic;
 
 namespace RCM.Domain.Commands.NotaFiscalCommands
 {

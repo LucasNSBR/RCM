@@ -1,4 +1,5 @@
-﻿using RCM.Domain.Models.OrdemServicoModels;
+﻿using RCM.Application.ViewModels.ProdutoViewModels;
+using RCM.Domain.Models.OrdemServicoModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -13,7 +14,6 @@ namespace RCM.Application.ViewModels
 
         [Display(Name = "Status da Ordem de Serviço")]
         public OrdemServicoStatus Status { get; set; }
-
 
         [Display(Name = "Id do Cliente")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O cliente relacionado é requerido.")]

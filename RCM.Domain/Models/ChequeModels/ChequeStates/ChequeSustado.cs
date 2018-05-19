@@ -1,5 +1,4 @@
-﻿
-using RCM.Domain.Models.ClienteModels;
+﻿using RCM.Domain.Models.ClienteModels;
 using System;
 
 namespace RCM.Domain.Models.ChequeModels.ChequeStates
@@ -22,9 +21,9 @@ namespace RCM.Domain.Models.ChequeModels.ChequeStates
             Motivo = motivo;
         }
 
-        public override void Bloquear(Cheque cheque)
+        public override void Bloquear(Cheque cheque, DateTime dataEvento)
         {
-            cheque.MudarEstado(new ChequeBloqueado());
+            cheque.MudarEstado(new ChequeBloqueado(dataEvento));
         }
 
         public override void Compensar(Cheque cheque, DateTime dataEvento)

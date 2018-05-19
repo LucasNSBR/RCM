@@ -6,12 +6,19 @@ namespace RCM.Domain.Validators.ProdutoCommandValidators
 {
     public class AddProdutoAplicacaoCommandValidator : ProdutoCommandValidator<AddProdutoAplicacaoCommand>
     {
+        public AddProdutoAplicacaoCommandValidator()
+        {
+            ValidateId();
+            ValidateAno();
+            ValidateModelo();
+            ValidateMarca();
+        }
+
         private void ValidateAno()
         {
             RuleFor(ap => ap.AnoCarroAplicacao)
                 .NotEmpty()
-                .GreaterThanOrEqualTo(DateTime.Now.AddYears(-30).Year)
-                .WithMessage("O ano da aplicação deve estar em um formato válido.");
+                .GreaterThanOrEqualTo(DateTime.Now.AddYears(-30).Year);
         }
 
         private void ValidateModelo()
@@ -19,8 +26,7 @@ namespace RCM.Domain.Validators.ProdutoCommandValidators
             RuleFor(ap => ap.ModeloCarroAplicacao)
                 .NotEmpty()
                 .MinimumLength(3)
-                .MaximumLength(250)
-                .WithMessage("O modelo da aplicação deve ter entre 3 e 250 caracteres e não pode estar vazio.");
+                .MaximumLength(250);
         }
 
         private void ValidateMarca()
@@ -28,16 +34,7 @@ namespace RCM.Domain.Validators.ProdutoCommandValidators
             RuleFor(ap => ap.MarcaCarroAplicacao)
                 .NotEmpty()
                 .MinimumLength(2)
-                .MaximumLength(100)
-                .WithMessage("A marca deve ter entre 2 e 100 caracteres e não pode estar vazio.");
-        }
-
-        public AddProdutoAplicacaoCommandValidator()
-        {
-            ValidateId();
-            ValidateAno();
-            ValidateModelo();
-            ValidateMarca();
+                .MaximumLength(100);
         }
     }
 }

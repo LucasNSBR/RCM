@@ -1,4 +1,5 @@
-﻿using RCM.Domain.Core.Commands;
+﻿using MediatR;
+using RCM.Domain.Core.Commands;
 using RCM.Domain.Core.Errors;
 using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.Core.Models;
@@ -33,7 +34,7 @@ namespace RCM.Domain.CommandHandlers
             {
                 foreach (var error in commitResult.Errors)
                 {
-                    _commandResponse.AddError(new CommandError("Commit Error", error?.InnerException?.Message ?? error.Message));
+                    _commandResponse.AddError(new CommandError(error?.InnerException?.Message ?? error.Message, "Commit Error"));
                 }
             }
 
@@ -47,7 +48,7 @@ namespace RCM.Domain.CommandHandlers
 
             foreach (var error in errors.ToList())
             {
-                _commandResponse.AddError(new DomainError(error.Code, error.Description));
+                _commandResponse.AddError(new DomainError(error.Description, error.Code));
             }
 
             return true;
@@ -63,6 +64,14 @@ namespace RCM.Domain.CommandHandlers
             foreach (var error in command.ValidationResult.Errors)
             {
                 _commandResponse.AddError(new CommandError(error.ErrorMessage, error.ErrorCode));
+            }
+        }
+
+        protected void RaiseEvents(IReadOnlyList<INotification> events)
+        {
+            foreach (var @event in events)
+            {
+                _mediator.Publish(@event);
             }
         }
 

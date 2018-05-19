@@ -9,23 +9,20 @@ namespace RCM.Domain.Validators.OrdemServicoCommandValidators
         protected void ValidateId()
         {
             RuleFor(os => os.Id)
-                .NotEmpty()
-                .WithMessage("O Id do cliente não deve estar vazio.");
+                .NotEmpty();
         }
 
         protected void ValidateClienteId()
         {
             RuleFor(os => os.ClienteId)
-                .NotEmpty()
-                .WithMessage("A ordem de serviço deve estar relacionada a um cliente.");
+                .NotEmpty();
         }
 
         protected void ValidateDataEntrada()
         {
             RuleFor(os => os.DataEntrada)
                 .NotEmpty()
-                .LessThanOrEqualTo(DateTime.Now)
-                .WithMessage("A data de entrada deve estar em um formato válido.");
+                .LessThanOrEqualTo(DateTime.Now);
         }
     }
 }

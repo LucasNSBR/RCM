@@ -1,9 +1,10 @@
-﻿using System;
+﻿using RCM.Domain.Core.Models;
+using System;
 using System.Linq.Expressions;
 
 namespace RCM.Domain.Specifications
 {
-    public abstract class BaseSpecification<T> : ISpecification<T> where T : class
+    public abstract class BaseSpecification<T> : ISpecification<T> where T : Entity<T>
     {
         public ISpecification<T> AndNot(ISpecification<T> other)
         {

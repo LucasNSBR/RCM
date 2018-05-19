@@ -50,13 +50,9 @@
                 Ou faça login usando um provedor externo
             </p>
             <div class="row">
-                <a asp-action="ExternalLogin" asp-route-provider="Google" asp-route-returnUrl="@TempData["returnUrl"]" class="btn waves-effect google-plus-button col s12 m8">
+                <a asp-action="ExternalLogin" asp-route-provider="Google" asp-route-returnUrl="@TempData["returnUrl"]" class="btn google-plus-button col s12 m8">
                     Google+
                 </a>
-
-                <button class="btn waves-effect facebook-button col s12 m8 mt-1">
-                    Facebook
-                </button>
             </div>
         </div>
     </div>

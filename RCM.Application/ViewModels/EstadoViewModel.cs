@@ -8,15 +8,15 @@ namespace RCM.Application.ViewModels
     {
         [Key]
         [Display(Name = "Id")]
-        public Guid Id { get; set; }
-
-        [Display(Name = "Nome")]
-        public string Nome { get; set; }
+        public Guid Id { get; private set; }
 
         [Display(Name = "Sigla")]
-        public string Sigla { get; set; }
+        public string Sigla { get; private set; }
+
+        [Display(Name = "Nome")]
+        public string Nome { get; private set; }
 
         [Display(Name = "Cidades")]
-        public List<CidadeViewModel> Cidades { get; set; }
+        public List<CidadeViewModel> Cidades { get; private set; }
     }
 }

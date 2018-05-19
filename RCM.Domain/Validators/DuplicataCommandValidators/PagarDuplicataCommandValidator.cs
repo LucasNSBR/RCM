@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using RCM.Domain.Commands.DuplicataCommands;
+using System;
 
 namespace RCM.Domain.Validators.DuplicataCommandValidators
 {
@@ -12,18 +13,17 @@ namespace RCM.Domain.Validators.DuplicataCommandValidators
             ValidateDataPagamento();
         }
 
-        public void ValidateValorPago()
+        private void ValidateValorPago()
         {
             RuleFor(d => d.ValorPago)
-                .NotEmpty()
-                .WithMessage("O valor pago não deve estar vazia.");
+                .NotEmpty();
         }
 
-        public void ValidateDataPagamento()
+        private void ValidateDataPagamento()
         {
             RuleFor(d => d.DataPagamento)
                 .NotEmpty()
-                .WithMessage("A data de pagamento não deve estar vazia.");
+                .LessThanOrEqualTo(DateTime.Now);
         }
     }
 }

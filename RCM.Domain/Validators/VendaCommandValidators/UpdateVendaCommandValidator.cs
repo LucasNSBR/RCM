@@ -8,8 +8,8 @@ namespace RCM.Domain.Validators.VendaCommandValidators
         {
             ValidateVendaId();
             ValidateDataVenda();
-            ValidateDetalhes();
             ValidateClienteId();
+            ValidateDetalhes();
         }
     }
 }

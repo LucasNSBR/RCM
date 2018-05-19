@@ -1,4 +1,5 @@
 ﻿using RCM.Application.ViewModels;
+using RCM.Application.ViewModels.VendaViewModels;
 
 namespace RCM.Presentation.Web.ViewModels
 {

@@ -10,14 +10,14 @@ namespace RCM.Infra.Data.EntityTypeConfig
         {
             builder.HasKey(k => new { k.ProdutoId, k.VendaId });
 
-            builder.Property(pv => pv.Acrescimo)
-                .HasMaxLength(4);
+            builder.Property(pv => pv.PrecoVenda)
+                .IsRequired();
 
-            builder.Property(pv => pv.Desconto)
-                .HasMaxLength(4);
+            builder.Property(pv => pv.PrecoFinal)
+                .IsRequired();
 
             builder.Property(pv => pv.Quantidade)
-                .HasMaxLength(4);
+                .IsRequired();
        }
     }
 }

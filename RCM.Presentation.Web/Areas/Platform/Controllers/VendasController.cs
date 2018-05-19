@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RCM.Application.ApplicationInterfaces;
-using RCM.Application.ViewModels;
+using RCM.Application.ViewModels.VendaViewModels;
 using RCM.Domain.Core.Extensions;
 using RCM.Domain.DomainNotificationHandlers;
 using RCM.Domain.Models.VendaModels;
 using RCM.Presentation.Web.Controllers;
 using RCM.Presentation.Web.Extensions;
+using RCM.Presentation.Web.Filters;
 using RCM.Presentation.Web.ViewModels;
 using System;
 using System.Linq;
@@ -15,7 +16,6 @@ using System.Threading.Tasks;
 namespace RCM.Presentation.Web.Areas.Platform.Controllers
 {
     [Authorize]
-    [Authorize(Policy = "ActiveUser")]
     [Area("Platform")]
     public class VendasController : BaseController
     {
@@ -69,11 +69,15 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             return View(venda);
         }
 
+        [ClaimAuthorization(ClaimName = "ActiveCompany", RedirectActionName = "Unattached", RedirectControllerName = "Empresa", RedirectAreaName = "Platform")]
+        [Authorize(Policy = "ActiveUser")]
         public IActionResult Create()
         {
             return View();
         }
 
+        [Authorize(Policy = "ActiveUser")]
+        [ClaimAuthorization(ClaimName = "ActiveCompany", RedirectActionName = "Unattached", RedirectControllerName = "Empresa", RedirectAreaName = "Platform")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(VendaViewModel venda)
@@ -97,6 +101,8 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             return View(venda);
         }
 
+        [Authorize(Policy = "ActiveUser")]
+        [ClaimAuthorization(ClaimName = "ActiveCompany", RedirectActionName = "Unattached", RedirectControllerName = "Empresa", RedirectAreaName = "Platform")]
         public IActionResult Edit(Guid id)
         {
             var venda = _vendaApplicationService.GetById(id);
@@ -106,6 +112,8 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             return View(venda);
         }
 
+        [Authorize(Policy = "ActiveUser")]
+        [ClaimAuthorization(ClaimName = "ActiveCompany", RedirectActionName = "Unattached", RedirectControllerName = "Empresa", RedirectAreaName = "Platform")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, VendaViewModel venda)
@@ -129,6 +137,8 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             return View(venda);
         }
 
+        [Authorize(Policy = "ActiveUser")]
+        [ClaimAuthorization(ClaimName = "ActiveCompany", RedirectActionName = "Unattached", RedirectControllerName = "Empresa", RedirectAreaName = "Platform")]
         public IActionResult Delete(Guid id)
         {
             var venda = _vendaApplicationService.GetById(id);
@@ -138,6 +148,8 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             return View(venda);
         }
 
+        [Authorize(Policy = "ActiveUser")]
+        [ClaimAuthorization(ClaimName = "ActiveCompany", RedirectActionName = "Unattached", RedirectControllerName = "Empresa", RedirectAreaName = "Platform")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(Guid id, VendaViewModel venda)
@@ -155,6 +167,8 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             return View(venda);
         }
 
+        [Authorize(Policy = "ActiveCompany")]
+        [Authorize(Policy = "ActiveUser")]
         public IActionResult AttachProduto(Guid id)
         {
             VendaProdutoViewModel vendaProduto = new VendaProdutoViewModel()
@@ -165,6 +179,8 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             return View(vendaProduto);
         }
 
+        [Authorize(Policy = "ActiveUser")]
+        [ClaimAuthorization(ClaimName = "ActiveCompany", RedirectActionName = "Unattached", RedirectControllerName = "Empresa", RedirectAreaName = "Platform")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AttachProduto(VendaProdutoViewModel vendaProduto)
@@ -188,6 +204,8 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             return View(vendaProduto);
         }
 
+        [Authorize(Policy = "ActiveUser")]
+        [ClaimAuthorization(ClaimName = "ActiveCompany", RedirectActionName = "Unattached", RedirectControllerName = "Empresa", RedirectAreaName = "Platform")]
         public async Task<IActionResult> RemoveProduto(Guid vendaId, Guid produtoId)
         {
             var commandResult = await _vendaApplicationService.RemoveProduto(vendaId, produtoId);
@@ -200,6 +218,8 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             return RedirectToAction(nameof(Details), new { id = vendaId });
         }
 
+        [Authorize(Policy = "ActiveUser")]
+        [ClaimAuthorization(ClaimName = "ActiveCompany", RedirectActionName = "Unattached", RedirectControllerName = "Empresa", RedirectAreaName = "Platform")]
         public async Task<IActionResult> Checkout(Guid id)
         {
             var commandResult = await _vendaApplicationService.FinalizarVenda(id);
@@ -209,9 +229,11 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             else
                 NotifyCommandResultErrors(commandResult.Errors);
 
-            return RedirectToAction(nameof(Details), new { id = id });
+            return RedirectToAction(nameof(Details), new { id });
         }
 
+        [Authorize(Policy = "ActiveUser")]
+        [ClaimAuthorization(ClaimName = "ActiveCompany", RedirectActionName = "Unattached", RedirectControllerName = "Empresa", RedirectAreaName = "Platform")]
         public IActionResult PrintDav(Guid id)
         {
             var venda = _vendaApplicationService.GetById(id);

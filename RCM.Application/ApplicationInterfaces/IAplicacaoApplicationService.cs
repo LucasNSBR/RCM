@@ -1,4 +1,4 @@
-﻿using RCM.Application.ViewModels;
+﻿using RCM.Application.ViewModels.ProdutoViewModels;
 using System;
 using System.Linq;
 

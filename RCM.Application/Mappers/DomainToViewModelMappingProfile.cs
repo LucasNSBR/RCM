@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
 using RCM.Application.ViewModels;
-using RCM.Domain.Models;
+using RCM.Application.ViewModels.ChequeViewModels;
+using RCM.Application.ViewModels.ProdutoViewModels;
+using RCM.Application.ViewModels.ValueObjectViewModels;
+using RCM.Application.ViewModels.VendaViewModels;
 using RCM.Domain.Models.BancoModels;
 using RCM.Domain.Models.ChequeModels;
 using RCM.Domain.Models.ChequeModels.ChequeStates;
@@ -13,6 +16,7 @@ using RCM.Domain.Models.MarcaModels;
 using RCM.Domain.Models.NotaFiscalModels;
 using RCM.Domain.Models.OrdemServicoModels;
 using RCM.Domain.Models.ProdutoModels;
+using RCM.Domain.Models.ValueObjects;
 using RCM.Domain.Models.VendaModels;
 using System.Linq;
 
@@ -22,43 +26,43 @@ namespace RCM.Application.Mappers
     {
         public DomainToViewModelMappingProfile()
         {
-            CreateMap<Cliente, ClienteViewModel>();
-            CreateMap<NotaFiscal, NotaFiscalViewModel>();
+            CreateMap<Banco, BancoViewModel>();
+            CreateMap<Cheque, ChequeViewModel>();
+            CreateMap<ChequeBloqueado, EstadoChequeViewModel>();
+            CreateMap<ChequeCompensado, EstadoChequeViewModel>();
+            CreateMap<ChequeDevolvido, EstadoChequeViewModel>();
+            CreateMap<ChequeSustado, EstadoChequeViewModel>();
+            CreateMap<ChequeRepassado, EstadoChequeViewModel>();
             CreateMap<Cidade, CidadeViewModel>();
+            CreateMap<Cliente, ClienteViewModel>();
+            CreateMap<Contato, ContatoViewModel>();
+            CreateMap<Endereco, EnderecoViewModel>();
             CreateMap<Estado, EstadoViewModel>();
             CreateMap<EstadoCheque, EstadoChequeViewModel>();
-            CreateMap<ChequeBloqueado, EstadoChequeViewModel>();
-            CreateMap<ChequeRepassado, EstadoChequeViewModel>();
-            CreateMap<ChequeCompensado, EstadoChequeViewModel>();
-            CreateMap<ChequeSustado, EstadoChequeViewModel>();
-            CreateMap<ChequeDevolvido, EstadoChequeViewModel>();
-            CreateMap<Cheque, ChequeViewModel>();
-            CreateMap<Endereco, EnderecoViewModel>();
-            CreateMap<Contato, ContatoViewModel>();
             CreateMap<Fornecedor, FornecedorViewModel>();
-            CreateMap<Banco, BancoViewModel>();
-            CreateMap<OrdemServico, OrdemServicoViewModel>();
             CreateMap<Marca, MarcaViewModel>();
-            CreateMap<ProdutoFornecedor, ProdutoFornecedorViewModel>();
+            CreateMap<NotaFiscal, NotaFiscalViewModel>();
+            CreateMap<OrdemServico, OrdemServicoViewModel>();
             CreateMap<Pagamento, PagamentoViewModel>();
+            CreateMap<ProdutoFornecedor, ProdutoFornecedorViewModel>();
             CreateMap<Venda, VendaViewModel>();
             CreateMap<VendaProduto, VendaProdutoViewModel>();
+
+            CreateMap<Aplicacao, AplicacaoViewModel>()
+               .ProjectUsing(a => new AplicacaoViewModel
+               {
+                   Id = a.Id,
+                   CarroAno = a.Carro.Ano,
+                   CarroMarca = a.Carro.Marca,
+                   CarroModelo = a.Carro.Modelo,
+                   CarroMotor = a.Carro.Motor,
+                   Observacao = a.Carro.Observacao
+               });
 
             CreateMap<Duplicata, DuplicataViewModel>()
                 .ForMember(p => p.Pagamento, cfg =>
                 {
                     cfg.MapFrom(d => (d.Pagamento.DataPagamento == null || d.Pagamento.ValorPago == null) ? null : d.Pagamento);
-                });
-
-            CreateMap<Aplicacao, AplicacaoViewModel>()
-                .ProjectUsing(a => new AplicacaoViewModel
-                {
-                    Id = a.Id,
-                    Ano = a.Carro.Ano,
-                    Marca = a.Carro.Marca,
-                    Modelo = a.Carro.Modelo,
-                    Motor = a.Carro.Motor,
-                    Observacao = a.Carro.Observacao
                 });
 
             CreateMap<Produto, ProdutoViewModel>()

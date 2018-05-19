@@ -14,26 +14,27 @@ using RCM.Domain.Models.OrdemServicoModels;
 using RCM.Domain.Models.ProdutoModels;
 using RCM.Domain.Models.VendaModels;
 using RCM.Infra.Data.EntityTypeConfig;
+using RCM.Infra.Data.Extensions;
 
 namespace RCM.Infra.Data.Context
 {
     public class RCMDbContext : DbContext
     {
         public DbSet<Aplicacao> Aplicacoes { get; set; }
-        public DbSet<Cheque> Cheques { get; set; }
-        public DbSet<Duplicata> Duplicatas { get; set; }
-        public DbSet<Cliente> Clientes { get; set; }
-        public DbSet<Fornecedor> Fornecedores { get; set; }
-        public DbSet<NotaFiscal> NotasFiscais { get; set; }
-        public DbSet<Cidade> Cidades { get; set; }
-        public DbSet<Estado> Estados { get; set; }
         public DbSet<Banco> Bancos { get; set; }
-        public DbSet<Produto> Produtos { get; set; }
-        public DbSet<OrdemServico> OrdensServico { get; set; }
-        public DbSet<Venda> Vendas { get; set; }
-        public DbSet<Marca> Marcas { get; set; }
+        public DbSet<Cheque> Cheques { get; set; }
+        public DbSet<Cidade> Cidades { get; set; }
+        public DbSet<Cliente> Clientes { get; set; }
+        public DbSet<Duplicata> Duplicatas { get; set; }
         public DbSet<Empresa> Empresa { get; set; }
+        public DbSet<Estado> Estados { get; set; }
         public DbSet<EstadoCheque> EstadosCheques { get; set; }
+        public DbSet<Fornecedor> Fornecedores { get; set; }
+        public DbSet<Marca> Marcas { get; set; }
+        public DbSet<NotaFiscal> NotasFiscais { get; set; }
+        public DbSet<OrdemServico> OrdensServico { get; set; }
+        public DbSet<Produto> Produtos { get; set; }
+        public DbSet<Venda> Vendas { get; set; }
 
         public RCMDbContext(DbContextOptions<RCMDbContext> options) : base(options)
         {
@@ -47,34 +48,19 @@ namespace RCM.Infra.Data.Context
             modelBuilder.ApplyConfiguration(new CidadeEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new ClienteEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new DuplicataEntityTypeConfig());
+            modelBuilder.ApplyConfiguration(new EmpresaEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new EstadoEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new FornecedorEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new MarcaEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new NotaFiscalEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new OrdemServicoEntityTypeConfig());
-            modelBuilder.ApplyConfiguration(new ProdutoEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new ProdutoAplicacaoEntityTypeConfig());
+            modelBuilder.ApplyConfiguration(new ProdutoEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new ProdutoFornecedorEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new VendaProdutoEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new VendaEntityTypeConfig());
-            modelBuilder.ApplyConfiguration(new EmpresaEntityTypeConfig());
 
-            ConfigureChequeEstado(modelBuilder);
-        }
-
-        private void ConfigureChequeEstado(ModelBuilder modelBuilder)
-        {
-            modelBuilder.ApplyConfiguration(new EstadoChequeEntityTypeConfig());
-
-            modelBuilder.Entity<ChequeBloqueado>().HasBaseType<EstadoCheque>();
-            modelBuilder.Entity<ChequeCompensado>().HasBaseType<EstadoCheque>();
-            modelBuilder.Entity<ChequeRepassado>().HasBaseType<EstadoCheque>();
-            modelBuilder.Entity<ChequeSustado>().HasBaseType<EstadoCheque>();
-
-            modelBuilder.Entity<ChequeSustado>().Property(m => m.Motivo).HasMaxLength(100).HasColumnName("Motivo");
-            modelBuilder.Entity<ChequeDevolvido>().Property(m => m.Motivo).HasMaxLength(100).HasColumnName("Motivo");
-
-            modelBuilder.Entity<ChequeDevolvido>().HasBaseType<EstadoCheque>();
+            modelBuilder.ConfigureChequeEstado();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

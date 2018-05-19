@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace RCM.Presentation.Web.Filters
 {
+    /// <summary>
+    /// Redirect user to a valid path if access a anonymous action if already authenticated
+    /// </summary>
     public class UnallowAuthorized : ActionFilterAttribute, IActionFilter
     {
         public string RedirectActionName { get; set; } 

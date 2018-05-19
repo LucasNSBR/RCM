@@ -5,8 +5,8 @@ namespace RCM.Domain.Commands.DuplicataCommands
 {
     public class PagarDuplicataCommand : DuplicataCommand
     {
-        public DateTime DataPagamento { get; private set; }
-        public decimal ValorPago { get; private set; }
+        public DateTime DataPagamento { get; set; }
+        public decimal ValorPago { get; set; }
         
         public PagarDuplicataCommand(Guid id, DateTime dataPagamento, decimal valorPago)
         {

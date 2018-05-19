@@ -3,30 +3,26 @@ using RCM.Domain.Commands.BancoCommands;
 
 namespace RCM.Domain.Validators.BancoCommandValidators
 {
-    public abstract class BancoCommandValidator<T> : AbstractValidator<T> where T : BancoCommand
+    public abstract class BancoCommandValidator<T> : LocalizedAbstractValidator<T> where T : BancoCommand
     {
         protected void ValidateId()
         {
             RuleFor(b => b.Id)
-                .NotEmpty()
-                .WithMessage("O Id do banco não pode estar vazio.");
+                .NotEmpty();
         }
 
         protected void ValidateCodigoCompensacao()
         {
             RuleFor(b => b.CodigoCompensacao)
                 .NotEmpty()
-                .InclusiveBetween(0, 9999)
-                .WithMessage("O código de compensação do banco deve ter até 4 caracteres e não pode estar vazio.");
+                .InclusiveBetween(0, 9999);
         }
 
         protected void ValidateName()
         {
             RuleFor(b => b.Nome)
                 .NotEmpty()
-                .MinimumLength(4)
-                .MaximumLength(50)
-                .WithMessage("O nome do banco deve ter entre 4 e 50 caracteres e não pode estar vazio.");
+                .Length(4, 50);
         }
     }
 }

@@ -15,6 +15,9 @@ namespace RCM.Infra.Data.EntityTypeConfig
                 .IsRequired()
                 .HasMaxLength(100);
 
+            builder.Property(p => p.Unidade)
+                .IsRequired();
+
             builder.Property(p => p.ReferenciaFabricante)
                 .HasMaxLength(25);
 
@@ -37,8 +40,7 @@ namespace RCM.Infra.Data.EntityTypeConfig
                 .HasMaxLength(4);
 
             builder.Property(p => p.PrecoVenda)
-                .IsRequired()
-                .HasMaxLength(4);
+                .IsRequired();
 
             builder.HasOne(p => p.Marca)
                 .WithMany(m => m.Produtos)

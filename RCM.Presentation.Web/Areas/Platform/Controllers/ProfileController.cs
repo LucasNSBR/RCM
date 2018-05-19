@@ -53,7 +53,10 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             var result = await _rcmUserManager.ChangeBasicInfoAsync(user, profileViewModel.FirstName, profileViewModel.LastName, profileViewModel.Age);
 
             if (result.Succeeded)
+            {
+                NotifyCommandResultSuccess();
                 return RedirectToAction(nameof(Index));
+            }
             else
                 result.Errors.ToList().ForEach(e => NotifyIdentityError(e.Description));
 
@@ -65,12 +68,6 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         {
             var user = await _rcmUserManager.GetUserAsync(_httpContextAccessor.HttpContext.User);
             return new ProfileViewModel(user);
-        }
-
-        private void NotifyIdentityError(string description)
-        {
-            _domainNotificationHandler.AddNotification(new AuthenticationErrorNotification(description));
-            TempData["Notifications"] = JsonConvert.SerializeObject(_domainNotificationHandler.GetNotifications());
         }
         #endregion
     }

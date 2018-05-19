@@ -9,12 +9,13 @@ namespace RCM.Domain.Models.ProdutoModels
     public class Produto : Entity<Produto>
     {
         public string Nome { get; private set; }
-        public string ReferenciaFabricante { get; private set; }
-        public string ReferenciaOriginal { get; private set; }
-        public string ReferenciaAuxiliar { get; private set; }
 
         public ProdutoUnidadeEnum Unidade { get; private set; }
 
+        public string ReferenciaFabricante { get; private set; }
+        public string ReferenciaOriginal { get; private set; }
+        public string ReferenciaAuxiliar { get; private set; }
+        
         private List<ProdutoAplicacao> _aplicacoes;
         public virtual IReadOnlyList<ProdutoAplicacao> Aplicacoes
         {
@@ -41,6 +42,7 @@ namespace RCM.Domain.Models.ProdutoModels
 
         public Guid MarcaId { get; private set; }
         public virtual Marca Marca { get; private set; }
+
 
         protected Produto() { }
 

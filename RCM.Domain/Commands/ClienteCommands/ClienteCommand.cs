@@ -1,5 +1,4 @@
-﻿
-using RCM.Domain.Core.Commands;
+﻿using RCM.Domain.Core.Commands;
 using RCM.Domain.Models.ClienteModels;
 using System;
 

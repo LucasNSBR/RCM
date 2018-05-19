@@ -10,7 +10,27 @@
 
 <div class="form-container col s12 m12">
     <form>
-        @await Component.InvokeAsync("SearchBar", new Dictionary<string, string>() { { "Identificação", "id" } })
+        <div class="col s12 m12">
+            <div class="row my-0 py-0">
+                <div class="input-field col s5 m5">
+                    <label for="vendaId">Id da Venda</label>
+                    <input name="vendaId" type="text" id="vendaId" />
+                </div>
+                <div class="input-field col s4 m3">
+                    <select>
+                        <option value="vendaId">Id da Venda</option>
+                    </select>
+                </div>
+                <div class="col s4 m4 pt-2 px-0 mx-0 max-percent-width">
+                    <a class="btn waves-effect purple left no-border col s1 m2" id="advancedSearchToggler">
+                        <i class="material-icons center">keyboard_arrow_down</i>
+                    </a><button type="submit" class="btn waves-effect purple no-border col s11 m10">
+                        <i class="material-icons right">search</i>
+                        Pesquisar
+                    </button>
+                </div>
+            </div>
+        </div>
 
         <div id="advancedSearch" class="col s12 m12">
             <div class="row">

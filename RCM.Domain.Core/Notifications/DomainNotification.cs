@@ -6,8 +6,10 @@ namespace RCM.Domain.Core.Notifications
     {
         public string Title { get; private set; }
         public string Body { get; private set; }
+
         public DomainNotificationType Type { get; private set; }
         
+
         public DomainNotification(string body)
         {
             Body = body;

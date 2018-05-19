@@ -1,9 +1,9 @@
-﻿using System;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using RCM.Domain.Models.ClienteModels;
 using RCM.Domain.Repositories;
 using RCM.Infra.Data.Context;
+using System;
+using System.Linq;
 
 namespace RCM.Infra.Data.Repositories
 {

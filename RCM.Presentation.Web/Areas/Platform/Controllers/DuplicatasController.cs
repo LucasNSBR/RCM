@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RCM.Application.ApplicationInterfaces;
 using RCM.Application.ViewModels;
+using RCM.Application.ViewModels.ValueObjectViewModels;
 using RCM.Domain.Core.Extensions;
 using RCM.Domain.DomainNotificationHandlers;
 using RCM.Domain.Models.DuplicataModels;

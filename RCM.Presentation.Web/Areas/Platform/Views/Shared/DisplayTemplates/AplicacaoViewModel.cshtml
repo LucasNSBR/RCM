@@ -1,4 +1,4 @@
-﻿@model RCM.Application.ViewModels.AplicacaoViewModel
+﻿@model RCM.Application.ViewModels.ProdutoViewModels.AplicacaoViewModel
 
 <p class="px-1 font-bold lead">
     Informação geral
@@ -12,30 +12,30 @@
         @Model.Id
     </dd>
     <dt>
-        <label asp-for="Marca"></label>
+        <label asp-for="CarroMarca"></label>
     </dt>
     <dd>
-        @Model.Marca
+        @Model.CarroMarca
     </dd>
     <dt>
-        <label asp-for="Modelo"></label>
+        <label asp-for="CarroModelo"></label>
     </dt>
     <dd>
-        @Model.Modelo
-    </dd>
-
-    <dt>
-        <label asp-for="Ano"></label>
-    </dt>
-    <dd>
-        @Model.Ano
+        @Model.CarroModelo
     </dd>
 
     <dt>
-        <label asp-for="Motor"></label>
+        <label asp-for="CarroAno"></label>
     </dt>
     <dd>
-        @Model.Motor
+        @Model.CarroAno
+    </dd>
+
+    <dt>
+        <label asp-for="CarroMotor"></label>
+    </dt>
+    <dd>
+        @Model.CarroMotor
     </dd>
 
     <dt>

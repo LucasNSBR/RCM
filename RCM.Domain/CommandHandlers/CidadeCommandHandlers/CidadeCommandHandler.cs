@@ -19,7 +19,8 @@ namespace RCM.Domain.CommandHandlers.CidadeCommandHandlers
         private readonly ICidadeRepository _cidadeRepository;
         private readonly IEstadoRepository _estadoRepository;
 
-        public CidadeCommandHandler(ICidadeRepository cidadeRepository, IEstadoRepository estadoRepository, IMediatorHandler mediator, IUnitOfWork unitOfWork) : base(mediator, unitOfWork)
+        public CidadeCommandHandler(ICidadeRepository cidadeRepository, IEstadoRepository estadoRepository, IMediatorHandler mediator, IUnitOfWork unitOfWork) : 
+                                                                                                                                        base(mediator, unitOfWork)
         {
             _cidadeRepository = cidadeRepository;
             _estadoRepository = estadoRepository;
@@ -35,7 +36,6 @@ namespace RCM.Domain.CommandHandlers.CidadeCommandHandlers
 
             Estado estado = _estadoRepository.GetById(command.EstadoId);
             Cidade cidade = new Cidade(command.Nome, estado);
-
             _cidadeRepository.Add(cidade);
 
             Commit();

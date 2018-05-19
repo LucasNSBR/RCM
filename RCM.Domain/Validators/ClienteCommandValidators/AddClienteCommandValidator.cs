@@ -8,9 +8,9 @@ namespace RCM.Domain.Validators.ClienteCommandValidators
         {
             ValidateNome();
             ValidateDescricao();
-            ValidateDocumento();
             ValidateContato();
             ValidateEndereco();
+            ValidateDocumento();
         }
     }
 }

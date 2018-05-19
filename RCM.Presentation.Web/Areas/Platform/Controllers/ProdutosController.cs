@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RCM.Application.ApplicationInterfaces;
-using RCM.Application.ViewModels;
+using RCM.Application.ViewModels.ProdutoViewModels;
 using RCM.Domain.Core.Extensions;
 using RCM.Domain.DomainNotificationHandlers;
 using RCM.Domain.Models.ProdutoModels;
@@ -300,9 +300,9 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         public JsonResult GetAplicacoes()
         {
             return Json(_aplicacaoApplicationService.Get()
-                .OrderBy(a => a.Marca)
-                .ThenBy(a => a.Modelo)
-                .ThenByDescending(a => a.Ano));
+                .OrderBy(a => a.CarroMarca)
+                .ThenBy(a => a.CarroModelo)
+                .ThenByDescending(a => a.CarroAno));
         }
 
         public JsonResult GetMarcas()

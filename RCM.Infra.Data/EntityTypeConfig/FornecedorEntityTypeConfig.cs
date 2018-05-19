@@ -18,20 +18,8 @@ namespace RCM.Infra.Data.EntityTypeConfig
             builder.Property(f => f.Tipo)
                 .IsRequired();
 
-            builder.Property(f => f.Observacao)
+            builder.Property(f => f.Descricao)
                 .HasMaxLength(1000);
-
-            builder.OwnsOne(e => e.Documento, cfg =>
-            {
-                cfg.Property(en => en.CadastroNacional)
-                    .IsRequired()
-                    .HasMaxLength(14)
-                    .HasColumnName("DocumentoNacional");
-
-                cfg.Property(en => en.CadastroEstadual)
-                    .HasMaxLength(14)
-                    .HasColumnName("DocumentoEstadual");
-            });
 
             builder.OwnsOne(c => c.Contato, cfg =>
             {
@@ -77,9 +65,26 @@ namespace RCM.Infra.Data.EntityTypeConfig
                     .HasMaxLength(250)
                     .HasColumnName("EnderecoComplemento");
 
+                cfg.Property(en => en.CidadeId)
+                    .IsRequired()
+                    .HasColumnName("EnderecoCidadeId");
+
                 cfg.Property(en => en.CEP)
                     .HasMaxLength(8)
                     .HasColumnName("EnderecoCEP");
+            });
+
+            builder.OwnsOne(e => e.Documento, cfg =>
+            {
+                cfg.Property(en => en.CadastroNacional)
+                    .IsRequired()
+                    .HasMaxLength(14)
+                    .HasColumnName("DocumentoNacional");
+
+                cfg.Property(en => en.CadastroEstadual)
+                    .IsRequired()
+                    .HasMaxLength(14)
+                    .HasColumnName("DocumentoEstadual");
             });
         }
     }

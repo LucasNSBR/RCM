@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using RCM.Application.ApplicationInterfaces;
-using RCM.Application.ViewModels;
+using RCM.Application.ViewModels.ChequeViewModels;
 using RCM.Domain.Commands.ChequeCommands;
 using RCM.Domain.Core.Commands;
 using RCM.Domain.Core.MediatorServices;

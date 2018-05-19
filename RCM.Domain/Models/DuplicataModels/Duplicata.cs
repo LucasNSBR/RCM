@@ -1,6 +1,7 @@
 ﻿using RCM.Domain.Core.Models;
 using RCM.Domain.Models.FornecedorModels;
 using RCM.Domain.Models.NotaFiscalModels;
+using RCM.Domain.Models.ValueObjects;
 using System;
 
 namespace RCM.Domain.Models.DuplicataModels
@@ -9,14 +10,19 @@ namespace RCM.Domain.Models.DuplicataModels
     {
         public string NumeroDocumento { get; private set; }
         public string Observacao { get; private set; }
+
         public Guid? NotaFiscalId { get; private set; }
         public virtual NotaFiscal NotaFiscal { get; private set; }
+
         public DateTime DataEmissao { get; private set; }
         public DateTime DataVencimento { get; private set; }
+        public decimal Valor { get; private set; }
+
         public Guid FornecedorId { get; private set; }
         public virtual Fornecedor Fornecedor { get; private set; }
-        public decimal Valor { get; private set; }
+
         public virtual Pagamento Pagamento { get; set; }
+
 
         protected Duplicata() { }
 

@@ -1,4 +1,4 @@
-﻿using RCM.Application.ViewModels;
+﻿using RCM.Application.ViewModels.VendaViewModels;
 using RCM.Domain.Core.Commands;
 using RCM.Domain.Models.VendaModels;
 using System;

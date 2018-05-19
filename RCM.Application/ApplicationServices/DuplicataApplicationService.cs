@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using RCM.Application.ApplicationInterfaces;
 using RCM.Application.ViewModels;
+using RCM.Application.ViewModels.ValueObjectViewModels;
 using RCM.Domain.Commands.DuplicataCommands;
 using RCM.Domain.Core.Commands;
 using RCM.Domain.Core.MediatorServices;

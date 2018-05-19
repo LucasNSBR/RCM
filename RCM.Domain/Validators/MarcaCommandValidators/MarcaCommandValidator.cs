@@ -8,16 +8,14 @@ namespace RCM.Domain.Validators.MarcaCommandValidators
         protected void ValidateId()
         {
             RuleFor(m => m.Id)
-                .NotEmpty()
-                .WithMessage("O Id da marca não deve estar vazio.");
+                .NotEmpty();
         }
 
         protected void ValidateNome()
         {
             RuleFor(m => m.Nome)
                 .NotEmpty()
-                .MaximumLength(100)
-                .WithMessage("O nome da marca deve ter até 100 caracteres e não deve estar em branco.");
+                .MaximumLength(100);
         }
     }
 }

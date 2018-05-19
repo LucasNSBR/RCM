@@ -18,6 +18,7 @@ namespace RCM.Domain.Models.VendaModels
         public decimal Acrescimo { get; private set; }
         public int Quantidade { get; private set; }
 
+
         protected VendaProduto() { }
 
         public VendaProduto(Venda venda, Produto produto)

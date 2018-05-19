@@ -1,13 +1,13 @@
-﻿using System;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using RCM.Application.ApplicationInterfaces;
-using RCM.Application.ViewModels;
+using RCM.Application.ViewModels.VendaViewModels;
 using RCM.Domain.Commands.VendaCommands;
 using RCM.Domain.Core.Commands;
 using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.Models.VendaModels;
 using RCM.Domain.Repositories;
+using System;
+using System.Threading.Tasks;
 
 namespace RCM.Application.ApplicationServices
 {

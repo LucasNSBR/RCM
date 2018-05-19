@@ -46,7 +46,7 @@ using RCM.Infra.Services.Email;
 
 namespace RCM.CrossCutting.IoC
 {
-    public class Bootstrapper
+    public sealed class Bootstrapper
     {
         public static void RegisterServices(IServiceCollection services)
         {
@@ -57,7 +57,6 @@ namespace RCM.CrossCutting.IoC
             RegisterCommands(services);
             RegisterEvents(services);
             RegisterNotifications(services);
-            RegisterIdentityServices(services);
         }
 
         private static void RegisterIntrastructureServices(IServiceCollection services)
@@ -86,7 +85,6 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<IDuplicataRepository, DuplicataRepository>();
             services.AddScoped<IEmpresaRepository, EmpresaRepository>();
-            services.AddScoped<IEstadoRepository, EstadoRepository>();
             services.AddScoped<IEstadoRepository, EstadoRepository>();
             services.AddScoped<IFornecedorRepository, FornecedorRepository>();
             services.AddScoped<IMarcaRepository, MarcaRepository>();
@@ -143,6 +141,8 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<IRequestHandler<PagarDuplicataCommand, CommandResult>, DuplicataCommandHandler>();
             services.AddScoped<IRequestHandler<EstornarDuplicataCommand, CommandResult>, DuplicataCommandHandler>();
 
+            services.AddScoped<IRequestHandler<AddOrUpdateEmpresaCommand, CommandResult>, EmpresaCommandHandler>();
+
             services.AddScoped<IRequestHandler<AddFornecedorCommand, CommandResult>, FornecedorCommandHandler>();
             services.AddScoped<IRequestHandler<UpdateFornecedorCommand, CommandResult>, FornecedorCommandHandler>();
             services.AddScoped<IRequestHandler<RemoveFornecedorCommand, CommandResult>, FornecedorCommandHandler>();
@@ -155,6 +155,10 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<IRequestHandler<UpdateNotaFiscalCommand, CommandResult>, NotaFiscalCommandHandler>();
             services.AddScoped<IRequestHandler<RemoveNotaFiscalCommand, CommandResult>, NotaFiscalCommandHandler>();
 
+            services.AddScoped<IRequestHandler<AddOrdemServicoCommand, CommandResult>, OrdemServicoCommandHandler>();
+            services.AddScoped<IRequestHandler<UpdateOrdemServicoCommand, CommandResult>, OrdemServicoCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoveOrdemServicoCommand, CommandResult>, OrdemServicoCommandHandler>();
+
             services.AddScoped<IRequestHandler<AddProdutoCommand, CommandResult>, ProdutoCommandHandler>();
             services.AddScoped<IRequestHandler<UpdateProdutoCommand, CommandResult>, ProdutoCommandHandler>();
             services.AddScoped<IRequestHandler<RemoveProdutoCommand, CommandResult>, ProdutoCommandHandler>();
@@ -163,12 +167,6 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<IRequestHandler<RemoveProdutoAplicacaoCommand, CommandResult>, ProdutoCommandHandler>();
             services.AddScoped<IRequestHandler<AttachFornecedorCommand, CommandResult>, ProdutoCommandHandler>();
             services.AddScoped<IRequestHandler<RemoveProdutoFornecedorCommand, CommandResult>, ProdutoCommandHandler>();
-
-            services.AddScoped<IRequestHandler<AddOrdemServicoCommand, CommandResult>, OrdemServicoCommandHandler>();
-            services.AddScoped<IRequestHandler<UpdateOrdemServicoCommand, CommandResult>, OrdemServicoCommandHandler>();
-            services.AddScoped<IRequestHandler<RemoveOrdemServicoCommand, CommandResult>, OrdemServicoCommandHandler>();
-
-            services.AddScoped<IRequestHandler<AddOrUpdateEmpresaCommand, CommandResult>, EmpresaCommandHandler>();
 
             services.AddScoped<IRequestHandler<AddVendaCommand, CommandResult>, VendaCommandHandler>();
             services.AddScoped<IRequestHandler<UpdateVendaCommand, CommandResult>, VendaCommandHandler>();
@@ -192,10 +190,6 @@ namespace RCM.CrossCutting.IoC
         private static void RegisterNotifications(IServiceCollection services)
         {
             services.AddScoped<IDomainNotificationHandler, DomainNotificationHandler>();
-        }
-
-        private static void RegisterIdentityServices(IServiceCollection services)
-        {
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using RCM.Domain.Commands.ChequeCommands;
+﻿using FluentValidation;
+using RCM.Domain.Commands.ChequeCommands;
 
 namespace RCM.Domain.Validators.ChequeCommandValidators
 {
@@ -9,6 +10,13 @@ namespace RCM.Domain.Validators.ChequeCommandValidators
             ValidateId();
             ValidateDataDevolucao();
             ValidateMotivo();
+        }
+
+        private void ValidateDataDevolucao()
+        {
+            RuleFor(ch => ch.DataEvento)
+                .NotEmpty()
+                .GreaterThanOrEqualTo(d => d.DataVencimento);
         }
     }
 }

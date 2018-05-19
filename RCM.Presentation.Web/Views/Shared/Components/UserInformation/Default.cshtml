@@ -1,15 +1,41 @@
 ﻿@model RCM.CrossCutting.Identity.Models.RCMIdentityUser
-
-<li>
-    <a class='dropdown-button white-text' href='#' data-activates='user-menu'><i class="material-icons left">keyboard_arrow_down</i>@Model.Email</a>
-</li>
-
-<ul id='user-menu' class='dropdown-content'>
-    <li><a asp-area="Platform" asp-controller="Clientes" asp-action="Index" class="font-bold">Acessar Plataforma</a></li>
-    <li><a asp-area="Platform" asp-controller="Settings" asp-action="Index">Ajustes</a></li>
-    <li><a asp-area="Platform" asp-controller="Profile" asp-action="Index">Perfil</a></li>
+<!-- PC Sidebar -->
+<ul id="nav-mobile" class="right hide-on-med-and-down">
+    <li>
+        <a class='dropdown-button white-text' href='#' data-activates='user-menu'><i class="material-icons left">keyboard_arrow_down</i>@Model.Email</a>
+    </li>
+    <li>
+        <div id='user-menu' class='dropdown-content'>
+            <div><a asp-area="Platform" asp-controller="Clientes" asp-action="Index" class="font-bold">Acessar Plataforma</a></div>
+            <div><a asp-area="Platform" asp-controller="Settings" asp-action="Index">Ajustes</a></div>
+            <div><a asp-area="Platform" asp-controller="Profile" asp-action="Index">Perfil</a></div>
+        </div>
+    </li>
+    <li>
+        <a asp-action="Logout" asp-controller="Accounts" asp-area="" class="white-text">Logout</a>
+    </li>
 </ul>
 
-<li>
-    <a asp-action="Logout" asp-controller="Accounts" asp-area="" class="white-text">Logout</a>
-</li>
+<!-- Mobile Sidebar-->
+<ul class="side-nav" id="mobile-demo">
+    <li>
+        <a asp-area="Platform" asp-controller="Clientes" asp-action="Index" class="font-bold">
+            <i class="material-icons left">launch</i> Acessar Plataforma
+        </a>
+    </li>
+    <li>
+        <a asp-area="Platform" asp-controller="Profile" asp-action="Index">
+            Perfil
+        </a>
+    </li>
+    <li>
+        <a asp-area="Platform" asp-controller="Settings" asp-action="Index">
+            Ajustes
+        </a>
+    </li>
+    <li>
+        <a asp-action="Logout" asp-controller="Accounts" asp-area="">
+            Logout
+        </a>
+    </li>
+</ul>

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using RCM.Domain.Core.Errors;
 using RCM.Domain.DomainNotificationHandlers;
@@ -24,8 +25,6 @@ namespace RCM.Presentation.Web.Controllers
             {
                 _domainNotificationHandler.AddNotification(new ModelErrorNotification(error.ErrorMessage));
             }
-
-            TempData["Notifications"] = JsonConvert.SerializeObject(_domainNotificationHandler.GetNotifications());
         }
 
         protected void NotifyCommandResultErrors(IReadOnlyList<Error> errors)
@@ -34,14 +33,27 @@ namespace RCM.Presentation.Web.Controllers
             {
                _domainNotificationHandler.AddNotification(new CommandErrorNotification(error.Code, error.Description));
             }
+        }
 
-            TempData["Notifications"] = JsonConvert.SerializeObject(_domainNotificationHandler.GetNotifications());
+        public void NotifyIdentityError(string description)
+        {
+            _domainNotificationHandler.AddNotification(new AuthenticationErrorNotification(description));
+        }
+
+        public void NotifyIdentityErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
+                _domainNotificationHandler.AddNotification(new AuthenticationErrorNotification(error.Description));
+            }
         }
 
         protected void NotifyCommandResultSuccess(string message = null)
         {
-            _domainNotificationHandler.AddNotification(new CommandSuccessNotification(message ?? "Comando executado com sucesso."));
-            TempData["Notifications"] = JsonConvert.SerializeObject(_domainNotificationHandler.GetNotifications());
+            //Will be deserialized on NotificationBarViewComponent
+            //Can't be added directly to DomainNotificationHandler because the action redirect lose the notifications data
+            var notificationJson = JsonConvert.SerializeObject(new CommandSuccessNotification(message ?? "Comando executado com sucesso."));
+            TempData["SuccessNotification"] = notificationJson;
         }
 
         public RedirectToActionResult RedirectToPlatform()

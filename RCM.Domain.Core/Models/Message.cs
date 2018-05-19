@@ -7,6 +7,7 @@ namespace RCM.Domain.Core.Models
     {
         public DateTime DateCreated { get; private set; }
 
+
         public Message()
         {
             DateCreated = DateTime.Now;

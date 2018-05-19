@@ -18,7 +18,7 @@ namespace RCM.Domain.CommandHandlers.NotaFiscalCommandHandlers
     {
         private readonly INotaFiscalRepository _notaFiscalRepository;
 
-        public NotaFiscalCommandHandler(IMediatorHandler mediator, INotaFiscalRepository notaFiscalRepository, IUnitOfWork unitOfWork) : 
+        public NotaFiscalCommandHandler(INotaFiscalRepository notaFiscalRepository, IMediatorHandler mediator, IUnitOfWork unitOfWork) : 
                                                                                                                 base(mediator, unitOfWork)
         {
             _notaFiscalRepository = notaFiscalRepository;

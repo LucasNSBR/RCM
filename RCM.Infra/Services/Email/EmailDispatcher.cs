@@ -1,6 +1,6 @@
-﻿using Microsoft.Extensions.Options;
-using RCM.Domain.Emails;
+﻿using RCM.Domain.Emails;
 using RCM.Domain.Services.Email;
+using RCM.Infra.Services.Constants;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using System.Linq;
@@ -8,15 +8,16 @@ using System.Threading.Tasks;
 
 namespace RCM.Infra.Services.Email
 {
+#pragma warning disable 414
     public class EmailDispatcher : IEmailDispatcher
     {
         private readonly string _sendGridUser;
         private readonly string _sendGridKey;
 
-        public EmailDispatcher(IOptions<EmailClientConfiguration> options)
+        public EmailDispatcher()
         {
-            _sendGridUser = options.Value.SendGridUser;
-            _sendGridKey = options.Value.SendGridKey;
+            _sendGridKey = EmailDispatcherConstants.SendGridKey;
+            _sendGridUser = EmailDispatcherConstants.SendGridUser;
         }
 
         public async Task SendEmailAsync(EmailTemplate template)
@@ -36,4 +37,5 @@ namespace RCM.Infra.Services.Email
             await client.SendEmailAsync(message);
         }
     }
+#pragma warning restore 414
 }

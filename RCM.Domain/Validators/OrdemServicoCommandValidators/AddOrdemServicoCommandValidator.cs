@@ -7,6 +7,7 @@ namespace RCM.Domain.Validators.OrdemServicoCommandValidators
         public AddOrdemServicoCommandValidator()
         {
             ValidateClienteId();
+            ValidateDataEntrada();
         }
     }
 }

@@ -18,7 +18,7 @@ namespace RCM.Domain.Models.ChequeModels.ChequeStates
             DataEvento = dataEvento;
         }
 
-        public abstract void Bloquear(Cheque cheque);
+        public abstract void Bloquear(Cheque cheque, DateTime dataEvento);
         public abstract void Compensar(Cheque cheque, DateTime dataEvento);
         public abstract void Repassar(Cheque cheque, DateTime dataEvento, Cliente cliente);
         public abstract void Sustar(Cheque cheque, DateTime dataEvento, string motivo);

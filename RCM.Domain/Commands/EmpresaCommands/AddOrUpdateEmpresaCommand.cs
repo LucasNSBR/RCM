@@ -22,12 +22,13 @@ namespace RCM.Domain.Commands.EmpresaCommands
             ContatoObservacao = contatoObservacao;
         }
 
-        public void AttachEndereco(int enderecoNumero, string enderecoRua, string enderecoBairro, string enderecoComplemento, string enderecoCEP)
+        public void AttachEndereco(int enderecoNumero, string enderecoRua, string enderecoBairro, string enderecoComplemento, Guid enderecoCidadeId, string enderecoCEP)
         {
             EnderecoNumero = enderecoNumero;
             EnderecoRua = enderecoRua;
             EnderecoBairro = enderecoBairro;
             EnderecoComplemento = enderecoComplemento;
+            EnderecoCidadeId = enderecoCidadeId;
             EnderecoCEP = enderecoCEP;
         }
 

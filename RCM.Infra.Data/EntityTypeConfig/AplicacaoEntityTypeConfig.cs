@@ -15,21 +15,21 @@ namespace RCM.Infra.Data.EntityTypeConfig
             {
                 cfg.Property(c => c.Ano)
                     .HasMaxLength(4)
-                    .HasColumnName("Ano");
+                    .HasColumnName("CarroAno");
 
                 cfg.Property(c => c.Marca)
                     .IsRequired()
                     .HasMaxLength(100)
-                    .HasColumnName("Marca");
+                    .HasColumnName("CarroMarca");
 
                 cfg.Property(c => c.Modelo)
                     .IsRequired()
                     .HasMaxLength(250)
-                    .HasColumnName("Modelo");
+                    .HasColumnName("CarroModelo");
 
                 cfg.Property(c => c.Motor)
                     .HasMaxLength(100)
-                    .HasColumnName("Motor");
+                    .HasColumnName("CarroMotor");
 
                 cfg.Property(c => c.Observacao)
                     .HasMaxLength(1000)

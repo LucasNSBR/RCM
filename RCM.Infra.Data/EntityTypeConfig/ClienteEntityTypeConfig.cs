@@ -18,24 +18,11 @@ namespace RCM.Infra.Data.EntityTypeConfig
             builder.Property(c => c.Tipo)
                 .IsRequired();
 
-            builder.Property(c => c.Pontuacao)
-                .IsRequired();
-
             builder.Property(c => c.Descricao)
                 .HasMaxLength(1000);
 
-            builder.OwnsOne(e => e.Documento, cfg =>
-            {
-                cfg.Property(en => en.CadastroNacional)
-                    .IsRequired()
-                    .HasMaxLength(14)
-                    .HasColumnName("DocumentoNacional");
-
-                cfg.Property(en => en.CadastroEstadual)
-                    .IsRequired()
-                    .HasMaxLength(14)
-                    .HasColumnName("DocumentoEstadual");
-            });
+            builder.Property(c => c.Pontuacao)
+                .IsRequired();
             
             builder.OwnsOne(c => c.Contato, cfg =>
             {
@@ -84,6 +71,19 @@ namespace RCM.Infra.Data.EntityTypeConfig
                 cfg.Property(en => en.CEP)
                     .HasMaxLength(8)
                     .HasColumnName("EnderecoCEP");
+            });
+
+            builder.OwnsOne(e => e.Documento, cfg =>
+            {
+                cfg.Property(en => en.CadastroNacional)
+                    .IsRequired()
+                    .HasMaxLength(14)
+                    .HasColumnName("DocumentoNacional");
+
+                cfg.Property(en => en.CadastroEstadual)
+                    .IsRequired()
+                    .HasMaxLength(14)
+                    .HasColumnName("DocumentoEstadual");
             });
         }
     }

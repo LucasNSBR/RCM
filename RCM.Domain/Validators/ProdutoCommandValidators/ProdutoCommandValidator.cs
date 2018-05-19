@@ -8,36 +8,31 @@ namespace RCM.Domain.Validators.ProdutoCommandValidators
         protected void ValidateId()
         {
             RuleFor(p => p.ProdutoId)
-                .NotEmpty()
-                .WithMessage("O Id do produto não pode estar vazio.");
+                .NotEmpty();
         }
 
         protected void ValidateNome()
         {
             RuleFor(p => p.Nome)
-                .NotEmpty()
-                .WithMessage("O nome do produto deve ter entre 5 e 100 caracteres e não deve estar vazio.");
+                .NotEmpty();
         }
 
         protected void ValidateUnidade()
         {
             RuleFor(p => p.Unidade)
-                .NotEmpty()
-                .WithMessage("O tipo de unidade não pode estar vazio.");
+                .NotEmpty();
         }
 
         protected void ValidateEstoque()
         {
             RuleFor(p => p.Estoque)
-                .NotEmpty()
-                .WithMessage("O estoque do produto não deve estar vazio.");
+                .NotEmpty();
         }
 
         protected void ValidatePrecoVenda()
         {
             RuleFor(p => p.PrecoVenda)
-                .NotEmpty()
-                .WithMessage("O preço de venda do produto não deve estar vazio.");
+                .NotEmpty();
         }
     }
 }

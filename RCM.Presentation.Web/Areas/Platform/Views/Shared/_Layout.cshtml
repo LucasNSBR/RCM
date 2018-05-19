@@ -28,45 +28,12 @@
                         <h6 class="d-inlineblock">@Html.Raw(DateTime.Now.ToLongDateString())</h6>
                         <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
 
-                        <!-- PC Sidebar -->
-                        <ul id="nav-mobile" class="right hide-on-med-and-down">
-                            <li id="notificationsSymbol">
-                                <a asp-action="Index" asp-controller="Settings">
-                                    <i class="material-icons center px-2">notifications</i>
-                                </a>
-                            </li>
-                            <li>
-                                <a asp-action="Index" asp-controller="Settings">
-                                    <i class="material-icons left">settings</i>
-                                    Ajustes
-                                </a>
-                            </li>
-
-                            @await Component.InvokeAsync("UserInformation")
-                        </ul>
-
-                        <!-- Mobile Sidebar-->
-                        <ul class="side-nav" id="mobile-demo">
-                            <li>
-                                <a asp-action="Index" asp-controller="Settings">
-                                    <i class="material-icons left">notifications</i>Notifications
-                                </a>
-                            </li>
-                            <li>
-                                <a asp-action="Index" asp-controller="Settings">
-                                    <i class="material-icons left">settings</i>Settings
-                                </a>
-                            </li>
-                            <li>
-                                <a asp-action="Index" asp-controller="Login">
-                                    <i class="material-icons left">account_circle</i>Login
-                                </a>
-                            </li>
-                        </ul>
-
+                        @await Component.InvokeAsync("UserInformation")
                     </div>
                 </nav>
             </div>
+            @await Component.InvokeAsync("NotificationsBar")
+
             <div class="platform-content">
                 @RenderBody()
             </div>
@@ -77,6 +44,7 @@
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/materialize/js/materialize.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/js/notifications.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
@@ -89,13 +57,13 @@
                 asp-fallback-src="~/lib/materialize/js/materialize.js"
                 asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
         </script>
-        <script src="~/js/site.min.js"></script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+        <script src="~/js/notifications.min.js" asp-append-version="true"></script>
     </environment>
     <script>
-            var notifications = '@(Json.Serialize(TempData["Notifications"]))'
             var currentUrl = '@Context.Request.Scheme' + '://' + '@Context.Request.Host' + '@Context.Request.Path';
             if ('@Context.Request.Path' == '/Platform')
-                currentUrl = currentUrl.concat('/Clientes')
+            currentUrl = currentUrl.concat('/Clientes')
     </script>
 
     @RenderSection("Scripts", required: false)

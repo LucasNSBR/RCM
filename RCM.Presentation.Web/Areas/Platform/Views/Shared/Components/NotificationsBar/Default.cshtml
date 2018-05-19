@@ -1,0 +1,34 @@
+﻿@using RCM.Domain.Core.Notifications;
+
+@model IEnumerable<RCM.Domain.Core.Notifications.DomainNotification>
+
+@if (Model.Any())
+{
+    bool error = Model.FirstOrDefault().Type == DomainNotificationType.Error;
+
+    <div id="notifications-container" class="@(error ? "bg-danger" : "bg-success")">
+        <div class="notifications-container-body">
+            <span>
+                @if (error)
+                {
+                    @(Model.Count() + " erros encontrados.")
+                    <a href="#" id="notifications-expand">Clique aqui para ver os detalhes</a>
+                }
+                else
+                {
+                    TempData["NotificationSuccess"] = "success";
+                    @(Model.FirstOrDefault().Title + " - " + Model.FirstOrDefault().Body)
+                }
+            </span>
+            <span id="notifications-dismissable">&times;</span>
+        </div>
+        <div id="notifications-detail-collapsible">
+            @foreach (var notification in Model)
+            {
+                <p class="font-italic">
+                    @notification.Title - @notification.Body
+                </p>
+            }
+        </div>
+    </div>
+}

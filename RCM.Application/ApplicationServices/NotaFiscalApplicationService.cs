@@ -12,7 +12,7 @@ namespace RCM.Application.ApplicationServices
 {
     public class NotaFiscalApplicationService : BaseApplicationService<NotaFiscal, NotaFiscalViewModel>, INotaFiscalApplicationService
     {
-        public NotaFiscalApplicationService(INotaFiscalRepository baseRepository, IMapper mapper, IMediatorHandler mediator) : base(baseRepository, mapper, mediator)
+        public NotaFiscalApplicationService(INotaFiscalRepository notaFiscalRepository, IMapper mapper, IMediatorHandler mediator) : base(notaFiscalRepository, mapper, mediator)
         {
         }
 

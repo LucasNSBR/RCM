@@ -19,6 +19,7 @@ namespace RCM.Domain.Models.BancoModels
             }
         }
 
+
         protected Banco() { }
 
         public Banco(Guid id, string nome, int codigoCompensacao)

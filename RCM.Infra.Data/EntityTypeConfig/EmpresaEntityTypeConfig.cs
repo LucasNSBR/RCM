@@ -29,7 +29,8 @@ namespace RCM.Infra.Data.EntityTypeConfig
                     .HasColumnName("CNPJ");
 
                 cfg.Property(en => en.CadastroEstadual)
-                    .HasMaxLength(11)
+                    .IsRequired()
+                    .HasMaxLength(12)
                     .HasColumnName("InscricaoEstadual");
             });
 
@@ -76,6 +77,10 @@ namespace RCM.Infra.Data.EntityTypeConfig
                 cfg.Property(en => en.Complemento)
                     .HasMaxLength(250)
                     .HasColumnName("EnderecoComplemento");
+
+                cfg.Property(en => en.CidadeId)
+                    .IsRequired()
+                    .HasColumnName("EnderecoCidadeId");
 
                 cfg.Property(en => en.CEP)
                     .HasMaxLength(8)

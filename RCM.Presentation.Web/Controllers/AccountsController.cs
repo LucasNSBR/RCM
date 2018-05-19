@@ -1,15 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using RCM.CrossCutting.Identity.Models;
 using RCM.CrossCutting.Identity.ViewModels;
 using RCM.Domain.DomainNotificationHandlers;
-using RCM.Domain.DomainNotifications;
 using RCM.Domain.Services.Email;
 using RCM.Presentation.Web.Filters;
 using System;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -60,8 +57,8 @@ namespace RCM.Presentation.Web.Controllers
                 return RedirectToPlatform();
             }
             else
-                identityResult.Errors.ToList().ForEach(e => NotifyIdentityError(e.Description));
-
+                NotifyIdentityErrors(identityResult);
+            
             return View(registerViewModel);
         }
 
@@ -167,8 +164,7 @@ namespace RCM.Presentation.Web.Controllers
                     return RedirectToAction(nameof(Login));
                 else
                 {
-                    identityResult.Errors.ToList().ForEach(e => NotifyIdentityError(e.Description));
-
+                    NotifyIdentityErrors(identityResult);
                     return View(resetPasswordViewModel);
                 }
             }
@@ -182,16 +178,19 @@ namespace RCM.Presentation.Web.Controllers
         public async Task<IActionResult> ConfirmEmail(string email, string code)
         {
             var user = await _rcmUserManager.FindByEmailAsync(email);
-            var result = await _rcmUserManager.ConfirmEmailAsync(user, code.Replace(" ", "+"));
+            var identityResult = await _rcmUserManager.ConfirmEmailAsync(user, code.Replace(" ", "+"));
 
-            if (result.Succeeded)
+            if (identityResult.Succeeded)
             {
-                var claimResult = await _rcmUserManager.AddClaimAsync(user, new Claim("ActiveUser", "True"));
+                if (!_httpContextAccessor.HttpContext.User.HasClaim(c => c.Type == "ActiveUser"))
+                {
+                    var claimResult = await _rcmUserManager.AddClaimAsync(user, new Claim("ActiveUser", "True"));
 
-                if (claimResult.Succeeded)
-                    return RedirectToAction(nameof(Login));
-                else
-                    claimResult.Errors.ToList().ForEach(e => NotifyIdentityError(e.Description));
+                    if (claimResult.Succeeded)
+                        return RedirectToAction(nameof(Login));
+                    else
+                        NotifyIdentityErrors(identityResult);
+                }
             }
 
             throw new Exception("Ocorreu um erro ao tentar validar a conta. É necessário pedir um novo e-mail de confirmação");
@@ -251,8 +250,8 @@ namespace RCM.Presentation.Web.Controllers
             var providerInfo = await _rcmSignInManager.GetExternalLoginInfoAsync();
             var user = new RCMIdentityUser(providerInfo.Principal.FindFirst(ClaimTypes.Email).Value, confirmationViewModel.FirstName, confirmationViewModel.LastName, confirmationViewModel.Age);
 
-            var result = await _rcmUserManager.CreateAsync(user);
-            if (result.Succeeded)
+            var identityResult = await _rcmUserManager.CreateAsync(user);
+            if (identityResult.Succeeded)
             {
                 var externalResult = await _rcmUserManager.AddLoginAsync(user, providerInfo);
                 if (externalResult.Succeeded)
@@ -263,7 +262,7 @@ namespace RCM.Presentation.Web.Controllers
                     return RedirectToAction(nameof(ExternalLogin));
                 }
                 else
-                    externalResult.Errors.ToList().ForEach(e => NotifyIdentityError(e.Description));
+                    NotifyIdentityErrors(identityResult);
             }
 
             return View(confirmationViewModel);
@@ -322,12 +321,6 @@ namespace RCM.Presentation.Web.Controllers
         }
 
         #region Helpers
-        private void NotifyIdentityError(string description)
-        {
-            _domainNotificationHandler.AddNotification(new AuthenticationErrorNotification(description));
-            TempData["Notifications"] = JsonConvert.SerializeObject(_domainNotificationHandler.GetNotifications());
-        }
-
         private Task SendAccountConfirmationEmailAsync(string email, string code)
         {
             var emailTemplate = _emailGenerator.GenerateAccountConfirmationEmail(email, code);

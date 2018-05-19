@@ -28,14 +28,13 @@ namespace RCM.Infra.Data.EntityTypeConfig
             builder.Property(d => d.DataVencimento)
                 .IsRequired();
 
+            builder.Property(d => d.Valor)
+                .IsRequired();
+
             builder.HasOne(d => d.Fornecedor)
                 .WithMany(f => f.Duplicatas)
                 .HasForeignKey(d => d.FornecedorId)
                 .IsRequired();
-
-            builder.Property(d => d.Valor)
-                .IsRequired()
-                .HasMaxLength(4);
 
             builder.OwnsOne(d => d.Pagamento, cfg => {
                 cfg.Property(d => d.DataPagamento).HasColumnName("DataPagamento");

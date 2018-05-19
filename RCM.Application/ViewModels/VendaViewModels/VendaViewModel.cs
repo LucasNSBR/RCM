@@ -2,9 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 
-namespace RCM.Application.ViewModels
+namespace RCM.Application.ViewModels.VendaViewModels
 {
     public class VendaViewModel
     {
@@ -13,19 +12,19 @@ namespace RCM.Application.ViewModels
         public Guid Id { get; set; }
 
         [Display(Name = "Data da Venda")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "A {0} é requerida.")]
         [DisplayFormat(ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true, DataFormatString = "{0:dd/MM/yyyy}")]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "O campo data da venda é requerido.")]
         public DateTime DataVenda { get; set; }
 
         [Display(Name = "Id do Cliente")]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "O cliente relacionado é requerido.")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "O {0} é requerido.")]
         public Guid ClienteId { get; set; }
 
         [Display(Name = "Cliente")]
         public ClienteViewModel Cliente { get; set; }
 
         [Display(Name = "Detalhes da Venda")]
-        [StringLength(1000, MinimumLength = 0, ErrorMessage = "Os detalhes da venda devem ter até 1000 caracteres")]
+        [StringLength(1000, MinimumLength = 0, ErrorMessage = "Os {0} devem ter até {1} caracteres")]
         public string Detalhes { get; set; }
 
         [Display(Name = "Produtos")]
@@ -40,11 +39,7 @@ namespace RCM.Application.ViewModels
 
         [Display(Name = "Status da Venda")]
         public VendaStatusEnum Status { get; set; }
-
-        #region Index View Helpers
-
-        #endregion
-
+        
         public VendaViewModel()
         {
             Produtos = Produtos ?? new List<VendaProdutoViewModel>();

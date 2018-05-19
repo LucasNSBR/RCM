@@ -2,7 +2,6 @@
 using RCM.Domain.Commands.ChequeCommands;
 using RCM.Domain.Constants;
 using RCM.Domain.Core.Commands;
-using RCM.Domain.Core.Errors;
 using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.Events.ChequeEvents;
 using RCM.Domain.Models.BancoModels;
@@ -117,7 +116,7 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
             Cheque cheque = _chequeRepository.GetById(command.Id);
             
             if (!NotifyNullCheckState(cheque))
-                cheque.Bloquear();
+                cheque.Bloquear(command.DataEvento);
 
             if (Commit())
                 _mediator.Publish(new UpdatedChequeEvent());
@@ -208,7 +207,7 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
             else
             {
                 NotifyCommandError(RequestErrorsMessageConstants.ChequeStateNull);
-                cheque.MudarEstado(new ChequeBloqueado());
+                cheque.MudarEstado(new ChequeBloqueado(DateTime.Now));
             }
 
             return true;

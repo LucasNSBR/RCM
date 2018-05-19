@@ -20,7 +20,7 @@ namespace RCM.Domain.Commands.ChequeCommands
 
         public override bool IsValid()
         {
-            ValidationResult = new AddChequeCommandValidation().Validate(this);
+            ValidationResult = new AddChequeCommandValidator().Validate(this);
             return ValidationResult.IsValid;
         }
     }
