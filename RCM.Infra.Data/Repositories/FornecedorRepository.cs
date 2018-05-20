@@ -16,6 +16,7 @@ namespace RCM.Infra.Data.Repositories
         public override Fornecedor GetById(Guid id)
         {
             return _dbSet
+                .AsNoTracking()
                 .Include(d => d.Duplicatas)
                 .Include(d => d.Endereco.Cidade)
                 .FirstOrDefault(f => f.Id == id);

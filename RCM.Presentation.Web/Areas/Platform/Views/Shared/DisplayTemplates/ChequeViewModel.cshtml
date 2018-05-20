@@ -157,29 +157,18 @@
                             <span class="font-italic text-danger">
                                 <i class="material-icons left">warning</i>Nenhum estado, evento ou situação foi encontrado para o cheque.
                             </span>
-                            <a class="modal-trigger" href="#bloqueioModal" id="bloquearCheque">Clique aqui para resolver</a>
+                            <a asp-action="Bloquear" asp-route-id="@Model.Id">Bloquear</a>
                         }
                     }
                 </dd>
             </dl>
             <div class="pt-1 px-1">
-                <a class="modal-trigger" href="#bloqueioModal" id="bloquearCheque">Bloquear</a><br />
+                <a asp-action="Bloquear" asp-route-id="@Model.Id">Bloquear</a><br />
                 <a asp-action="Compensar" asp-route-id="@Model.Id">Compensar</a><br />
                 <a asp-action="Repassar" asp-route-id="@Model.Id">Repassar</a><br />
                 <a asp-action="Devolver" asp-route-id="@Model.Id">Devolver</a><br />
                 <a asp-action="Sustar" asp-route-id="@Model.Id">Sustar</a><br />
             </div>
         </div>
-    </div>
-</div>
-
-<div id="bloqueioModal" class="modal">
-    <div class="modal-content">
-        <h4>Confirmar Bloqueio de Cheque</h4>
-        <p>O estado atual do cheque irá voltar para bloqueado. Tem certeza que deseja continuar com a operação?</p>
-    </div>
-    <div class="modal-footer">
-        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
-        <a asp-action="Bloquear" asp-route-id="@Model.Id" class="modal-action modal-close waves-effect waves-green btn-flat">Confirmar</a>
     </div>
 </div>

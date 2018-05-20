@@ -32,9 +32,9 @@ namespace RCM.Application.ApplicationServices
             return _mediator.SendCommand(new RemoveChequeCommand(viewModel.Id));
         }
 
-        public Task<CommandResult> BloquearCheque(Guid id)
+        public Task<CommandResult> BloquearCheque(Guid id, EstadoChequeViewModel viewModel)
         {
-            return _mediator.SendCommand(new BloquearChequeCommand(id));
+            return _mediator.SendCommand(new BloquearChequeCommand(id, viewModel.DataEvento));
         }
 
         public Task<CommandResult> CompensarCheque(Guid id, EstadoChequeViewModel viewModel)

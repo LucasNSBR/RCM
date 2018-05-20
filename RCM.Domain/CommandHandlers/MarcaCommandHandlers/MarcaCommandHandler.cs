@@ -62,7 +62,7 @@ namespace RCM.Domain.CommandHandlers.MarcaCommandHandlers
                 return Response();
             }
 
-            Marca marca = new Marca(command.Nome, command.Observacao);
+            Marca marca = _marcaRepository.GetById(command.Id);
             _marcaRepository.Remove(marca);
 
             Commit();

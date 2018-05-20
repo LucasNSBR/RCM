@@ -25,7 +25,8 @@ namespace RCM.Infra.Data.Repositories
         public Estado GetById(Guid id)
         {
             return _dbSet
-                .Find(id);
+                .AsNoTracking()
+                .FirstOrDefault(e => e.Id == id);
         }
     }
 }

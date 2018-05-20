@@ -188,7 +188,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Bloquear(Guid id, EstadoChequeViewModel estadoCheque)
         {
-            var commandResult = await _chequeApplicationService.BloquearCheque(id);
+            var commandResult = await _chequeApplicationService.BloquearCheque(id, estadoCheque);
 
             if (commandResult.Success)
             {
@@ -198,7 +198,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             else
                 NotifyCommandResultErrors(commandResult.Errors);
 
-            return RedirectToAction(nameof(Details), new { id });
+            return View(estadoCheque);
         }
 
         [Authorize(Policy = "ActiveUser")]

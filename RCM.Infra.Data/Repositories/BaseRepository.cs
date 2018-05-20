@@ -19,16 +19,6 @@ namespace RCM.Infra.Data.Repositories
             _dbSet = _dbContext.Set<TModel>();
         }
 
-        public virtual void Add(TModel model)
-        {
-            _dbSet.Add(model);
-        }
-
-        public virtual void Remove(TModel model)
-        {
-            _dbSet.Remove(model);
-        }
-
         public virtual IQueryable<TModel> Get()
         {
             return _dbSet.AsNoTracking();
@@ -44,11 +34,21 @@ namespace RCM.Infra.Data.Repositories
             return _dbSet.Find(id);
         }
 
-        public virtual void Update(TModel model)
+        public virtual void Add(TModel model)
         {
-            _dbSet.Update(model);
+            _dbSet.Add(model);
         }
 
+        public virtual void Update(TModel model)
+        {
+            _dbContext.Update(model);
+        }
+
+        public virtual void Remove(TModel model)
+        {
+            _dbSet.Remove(model);
+        }
+        
         public void Dispose()
         {
             _dbContext.Dispose();

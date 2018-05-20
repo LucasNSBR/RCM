@@ -42,5 +42,13 @@ namespace RCM.Infra.Data.Repositories
 
             return true;
         }
+
+        public override void Update(Cheque model)
+        {
+            //_dbContext.Attach(model);
+            _dbContext.Attach(model.EstadoCheque);
+
+            base.Update(model);
+        }
     }
 }

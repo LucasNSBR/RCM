@@ -5,9 +5,10 @@ namespace RCM.Domain.Commands.ChequeCommands
 {
     public class BloquearChequeCommand : ChequeCommand
     {
-        public BloquearChequeCommand(Guid id)
+        public BloquearChequeCommand(Guid id, DateTime dataEvento)
         {
             Id = id;
+            DataEvento = dataEvento;
         }
 
         public override bool IsValid()

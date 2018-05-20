@@ -18,12 +18,15 @@ namespace RCM.Infra.Data.Repositories
 
         public IQueryable<Aplicacao> Get()
         {
-            return _dbSet.AsNoTracking();
+            return _dbSet
+                .AsNoTracking();
         }
 
         public Aplicacao GetById(Guid id)
         {
-            return _dbSet.Find(id);
+            return _dbSet
+                .AsNoTracking()
+                .FirstOrDefault(a => a.Id == id);
         }
     }
 }

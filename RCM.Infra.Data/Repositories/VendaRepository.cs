@@ -17,21 +17,21 @@ namespace RCM.Infra.Data.Repositories
         public override IQueryable<Venda> Get(Expression<Func<Venda, bool>> expression)
         {
             return _dbSet
+                .AsNoTracking()
                 .Include(pv => pv.Produtos)
                 .ThenInclude(vp => vp.Produto)
                 .Include(pv => pv.Cliente)
-                .Where(expression)
-                .AsNoTracking();
+                .Where(expression);
         }
 
         public override Venda GetById(Guid id)
         {
             return _dbSet
+                .AsNoTracking()
                 .Include(pv => pv.Produtos)
                 .ThenInclude((VendaProduto vp) => vp.Produto)
                 .ThenInclude(m => m.Marca)
                 .Include(pv => pv.Cliente)
-                .AsNoTracking()
                 .FirstOrDefault(v => v.Id == id);
         }
     }

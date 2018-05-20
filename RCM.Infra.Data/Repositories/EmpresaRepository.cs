@@ -2,24 +2,22 @@
 using RCM.Domain.Models.EmpresaModels;
 using RCM.Domain.Repositories;
 using RCM.Infra.Data.Context;
-using System;
 using System.Linq;
 
 namespace RCM.Infra.Data.Repositories
 {
-    public class EmpresaRepository : IEmpresaRepository, IDisposable
+    public class EmpresaRepository : IEmpresaRepository
     {
-        private readonly RCMDbContext _dbContext;
+        private readonly DbSet<Empresa> _dbSet;
 
         public EmpresaRepository(RCMDbContext dbContext)
         {
-            _dbContext = dbContext;
+            _dbSet = dbContext.Empresa;
         }
 
         public Empresa Get()
         {
-            return _dbContext
-                .Empresa
+            return _dbSet
                 .AsNoTracking()
                 .FirstOrDefault();
         }
@@ -31,16 +29,10 @@ namespace RCM.Infra.Data.Repositories
             if (Get() != null)
             {
                 model = empresa;
-                _dbContext.Update(model);
+                _dbSet.Update(model);
             }
             else
-                _dbContext.Add(empresa);
-        }
-
-        public void Dispose()
-        {
-            _dbContext.Dispose();
-            GC.SuppressFinalize(_dbContext);
+                _dbSet.Add(empresa);
         }
     }
 }

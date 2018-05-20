@@ -118,6 +118,8 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
             if (!NotifyNullCheckState(cheque))
                 cheque.Bloquear(command.DataEvento);
 
+            _chequeRepository.Update(cheque);
+
             if (Commit())
                 _mediator.Publish(new UpdatedChequeEvent());
 
@@ -137,7 +139,9 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
 
             if (!NotifyNullCheckState(cheque))
                 cheque.Repassar(command.DataEvento, cliente);
-            
+
+            _chequeRepository.Update(cheque);
+
             if (Commit())
                 _mediator.Publish(new UpdatedChequeEvent());
 
@@ -155,6 +159,8 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
             Cheque cheque = _chequeRepository.GetById(command.Id);
             if (!NotifyNullCheckState(cheque))
                 cheque.Compensar(command.DataEvento);
+
+            _chequeRepository.Update(cheque);
 
             if (Commit())
                 _mediator.Publish(new UpdatedChequeEvent());
@@ -175,6 +181,8 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
             if (!NotifyNullCheckState(cheque))
                 cheque.Devolver(command.DataEvento, command.Motivo);
 
+            _chequeRepository.Update(cheque);
+
             if (Commit())
                 _mediator.Publish(new UpdatedChequeEvent());
 
@@ -193,7 +201,9 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
 
             if (!NotifyNullCheckState(cheque))
                 cheque.Sustar(command.DataEvento, command.Motivo);
-            
+
+            _chequeRepository.Update(cheque);
+
             if (Commit())
                 _mediator.Publish(new UpdatedChequeEvent());
 
