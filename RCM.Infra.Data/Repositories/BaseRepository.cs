@@ -29,8 +29,11 @@ namespace RCM.Infra.Data.Repositories
             return _dbSet.Where(expression).AsNoTracking();
         }
 
-        public virtual TModel GetById(Guid id)
+        public virtual TModel GetById(Guid id, bool loadRelatedData = true)
         {
+            if (loadRelatedData)
+                throw new InvalidOperationException("You need to override this method in order to include entity related data");
+
             return _dbSet.Find(id);
         }
 

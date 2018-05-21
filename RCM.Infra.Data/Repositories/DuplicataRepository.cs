@@ -13,13 +13,17 @@ namespace RCM.Infra.Data.Repositories
         {
         }
 
-        public override Duplicata GetById(Guid id)
+        public override Duplicata GetById(Guid id, bool loadRelatedData = true)
         {
-            return _dbSet
-                .AsNoTracking()
-                .Include(f => f.Fornecedor)
-                .Include(p => p.Pagamento)
-                .FirstOrDefault(d => d.Id == id);
+            if (loadRelatedData)
+            {
+                return _dbSet
+                    .Include(f => f.Fornecedor)
+                    .Include(p => p.Pagamento)
+                    .FirstOrDefault(d => d.Id == id);
+            }
+            else
+                return base.GetById(id, false);
         }
 
         public bool CheckNumeroDocumentoExists(string numeroDocumento, Guid fornecedorId, Guid novaDuplicataId)

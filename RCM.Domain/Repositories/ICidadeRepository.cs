@@ -9,7 +9,7 @@ namespace RCM.Domain.Repositories
     {
         IQueryable<Cidade> Get();
         IQueryable<Cidade> Get(Expression<Func<Cidade, bool>> expression);
-        Cidade GetById(Guid id);
+        Cidade GetById(Guid id, bool loadRelatedData = true);
         void Add(Cidade cidade);
         void Remove(Cidade cidade);
     }

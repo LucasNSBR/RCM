@@ -13,14 +13,18 @@ namespace RCM.Infra.Data.Repositories
         {
         }
 
-        public override Cheque GetById(Guid id)
+        public override Cheque GetById(Guid id, bool loadRelatedData = true)
         {
-            return _dbSet
-                .AsNoTracking()
-                .Include(b => b.Banco)
-                .Include(c => c.Cliente)
-                .Include(ec => ec.EstadoCheque)
-                .FirstOrDefault(ch => ch.Id == id);
+            if (loadRelatedData)
+            {
+                return _dbSet
+                    .Include(b => b.Banco)
+                    .Include(c => c.Cliente)
+                    .Include(ec => ec.EstadoCheque)
+                    .FirstOrDefault(ch => ch.Id == id);
+            }
+            else
+                return base.GetById(id, false);
         }
 
         public bool CheckNumeroChequeExists(string numeroDocumento, Guid clienteId, Guid bancoId, Guid novoChequeId)
@@ -30,25 +34,17 @@ namespace RCM.Infra.Data.Repositories
             var bancoIdSpecification = new ChequeBancoIdSpecification(bancoId);
 
             Cheque cheque = _dbSet
+                .AsNoTracking()
                 .Where(numeroDocumentoSpecification
                 .And(bancoIdSpecification)
                 .And(clienteIdSpecification)
                 .ToExpression())
-                .AsNoTracking()
                 .FirstOrDefault();
 
             if (cheque == null || novoChequeId == cheque.Id)
                 return false;
 
             return true;
-        }
-
-        public override void Update(Cheque model)
-        {
-            //_dbContext.Attach(model);
-            _dbContext.Attach(model.EstadoCheque);
-
-            base.Update(model);
         }
     }
 }

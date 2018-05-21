@@ -18,7 +18,6 @@ namespace RCM.Infra.Data.Repositories
         public Empresa Get()
         {
             return _dbSet
-                .AsNoTracking()
                 .FirstOrDefault();
         }
 

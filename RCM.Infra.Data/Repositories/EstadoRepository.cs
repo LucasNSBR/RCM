@@ -18,14 +18,12 @@ namespace RCM.Infra.Data.Repositories
 
         public IQueryable<Estado> Get()
         {
-            return _dbSet
-                .AsNoTracking();
+            return _dbSet;
         }
 
         public Estado GetById(Guid id)
         {
             return _dbSet
-                .AsNoTracking()
                 .FirstOrDefault(e => e.Id == id);
         }
     }

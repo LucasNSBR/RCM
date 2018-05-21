@@ -9,7 +9,14 @@ namespace RCM.Domain.Repositories
     {
         IQueryable<TModel> Get();
         IQueryable<TModel> Get(Expression<Func<TModel, bool>> expression);
-        TModel GetById(Guid id);
+
+        /// <summary>
+        /// Get Entity by Id and optionally load their navigation properties
+        /// </summary>
+        /// <param name="id">Id of the Entity</param>
+        /// <param name="loadRelatedData">Load Navigation properties from the Entity</param>
+        /// <returns></returns>
+        TModel GetById(Guid id, bool loadRelatedData = true);
 
         void Add(TModel model);
         void Update(TModel model);

@@ -52,8 +52,8 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
                 return Response();
             }
 
-            Banco banco = _bancoRepository.GetById(command.BancoId);
-            Cliente cliente = _clienteRepository.GetById(command.ClienteId);
+            Banco banco = _bancoRepository.GetById(command.BancoId, loadRelatedData: false);
+            Cliente cliente = _clienteRepository.GetById(command.ClienteId, loadRelatedData: false);
             Cheque cheque = new Cheque(banco, command.Agencia, command.Conta, command.NumeroCheque, cliente, command.DataEmissao, command.DataVencimento, command.Valor);
             _chequeRepository.Add(cheque);
 
@@ -77,8 +77,8 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
                 return Response();
             }
 
-            Banco banco = _bancoRepository.GetById(command.BancoId);
-            Cliente cliente = _clienteRepository.GetById(command.ClienteId);
+            Banco banco = _bancoRepository.GetById(command.BancoId, loadRelatedData: false);
+            Cliente cliente = _clienteRepository.GetById(command.ClienteId, loadRelatedData: false);
             Cheque cheque = new Cheque(command.Id, banco, command.Agencia, command.Conta, command.NumeroCheque, cliente, command.DataEmissao, command.DataVencimento, command.Valor);
             _chequeRepository.Update(cheque);
 

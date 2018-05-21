@@ -67,7 +67,7 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
                 return Response();
             }
 
-            Marca marca = _marcaRepository.GetById(command.MarcaId);
+            Marca marca = _marcaRepository.GetById(command.MarcaId, loadRelatedData: false);
             Produto produto = new Produto(command.ProdutoId, command.Nome, command.Unidade, command.Estoque, command.EstoqueMinimo, command.EstoqueIdeal, command.PrecoVenda, marca);
             produto.AdicionarReferencias(command.ReferenciaFabricante, command.ReferenciaOriginal, command.ReferenciaAuxiliar);
 

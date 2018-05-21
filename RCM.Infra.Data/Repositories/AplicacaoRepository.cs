@@ -25,7 +25,6 @@ namespace RCM.Infra.Data.Repositories
         public Aplicacao GetById(Guid id)
         {
             return _dbSet
-                .AsNoTracking()
                 .FirstOrDefault(a => a.Id == id);
         }
     }

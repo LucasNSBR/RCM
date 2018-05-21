@@ -19,22 +19,25 @@ namespace RCM.Infra.Data.Repositories
 
         public IQueryable<Cidade> Get()
         {
-            return _dbSet
-                .AsNoTracking();
+            return _dbSet.AsNoTracking();
         }
 
         public IQueryable<Cidade> Get(Expression<Func<Cidade, bool>> expression = null)
         {
             return _dbSet
-                .Where(expression)
-                .AsNoTracking();
+                .Where(expression).AsNoTracking();
         }
 
-        public Cidade GetById(Guid id)
+        public Cidade GetById(Guid id, bool loadRelatedData = true)
         {
-            return _dbSet
-                .Include(e => e.Estado)
-                .FirstOrDefault(e => e.Id == id);
+            if (loadRelatedData)
+            {
+                return _dbSet
+                    .Include(e => e.Estado)
+                    .FirstOrDefault(e => e.Id == id);
+            }
+            else
+                return _dbSet.Find(id);
         }
         
         public void Add(Cidade cidade)

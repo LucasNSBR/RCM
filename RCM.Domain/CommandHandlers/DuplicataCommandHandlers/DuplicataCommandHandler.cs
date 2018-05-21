@@ -45,7 +45,7 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
                 return Response();
             }
 
-            Fornecedor fornecedor = _fornecedorRepository.GetById(command.FornecedorId);
+            Fornecedor fornecedor = _fornecedorRepository.GetById(command.FornecedorId, loadRelatedData: false);
             Duplicata duplicata = new Duplicata(command.NumeroDocumento, command.DataEmissao, command.DataVencimento, fornecedor, command.Valor, command.Observacao);
             _duplicataRepository.Add(duplicata);
 
@@ -69,7 +69,7 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
                 return Response();
             }
 
-            Fornecedor fornecedor = _fornecedorRepository.GetById(command.FornecedorId);
+            Fornecedor fornecedor = _fornecedorRepository.GetById(command.FornecedorId, loadRelatedData: false);
             Duplicata duplicata = new Duplicata(command.Id, command.NumeroDocumento, command.DataEmissao, command.DataVencimento, fornecedor, command.Valor, command.Observacao);
             _duplicataRepository.Update(duplicata);
 

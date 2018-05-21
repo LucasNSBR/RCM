@@ -13,13 +13,17 @@ namespace RCM.Infra.Data.Repositories
         {
         }
 
-        public override Fornecedor GetById(Guid id)
+        public override Fornecedor GetById(Guid id, bool loadRelatedData = true)
         {
-            return _dbSet
-                .AsNoTracking()
-                .Include(d => d.Duplicatas)
-                .Include(d => d.Endereco.Cidade)
-                .FirstOrDefault(f => f.Id == id);
+            if (loadRelatedData)
+            {
+                return _dbSet
+                    .Include(d => d.Duplicatas)
+                    .Include(d => d.Endereco.Cidade)
+                    .FirstOrDefault(f => f.Id == id);
+            }
+            else
+                return base.GetById(id, false);
         }
     }
 }

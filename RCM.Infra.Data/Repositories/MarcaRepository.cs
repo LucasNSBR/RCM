@@ -13,11 +13,16 @@ namespace RCM.Infra.Data.Repositories
         {
         }
 
-        public override Marca GetById(Guid id)
+        public override Marca GetById(Guid id, bool loadRelatedData = true)
         {
-            return _dbSet
-                .AsNoTracking()
-                .FirstOrDefault(m => m.Id == id);
+            if (loadRelatedData)
+            {
+                return _dbSet
+                    .Include(m => m.Produtos)
+                    .FirstOrDefault(m => m.Id == id);
+            }
+            else
+                return base.GetById(id, false);
         }
     }
 }

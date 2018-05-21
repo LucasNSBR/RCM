@@ -13,12 +13,16 @@ namespace RCM.Infra.Data.Repositories
         {
         }
 
-        public override Banco GetById(Guid id)
+        public override Banco GetById(Guid id, bool loadRelatedData = true)
         {
-            return _dbSet
-                .AsNoTracking()
-                .Include(c => c.Cheques)
-                .FirstOrDefault(b => b.Id == id);
+            if (loadRelatedData)
+            {
+                return _dbSet
+                    .Include(c => c.Cheques)
+                    .FirstOrDefault(b => b.Id == id);
+            }
+            else
+                return base.GetById(id, false);
         }
     }
 }

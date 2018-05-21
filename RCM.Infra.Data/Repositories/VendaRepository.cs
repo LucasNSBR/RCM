@@ -24,15 +24,19 @@ namespace RCM.Infra.Data.Repositories
                 .Where(expression);
         }
 
-        public override Venda GetById(Guid id)
+        public override Venda GetById(Guid id, bool loadRelatedData = true)
         {
-            return _dbSet
-                .AsNoTracking()
-                .Include(pv => pv.Produtos)
-                .ThenInclude((VendaProduto vp) => vp.Produto)
-                .ThenInclude(m => m.Marca)
-                .Include(pv => pv.Cliente)
-                .FirstOrDefault(v => v.Id == id);
+            if (loadRelatedData)
+            {
+                return _dbSet
+                    .Include(pv => pv.Produtos)
+                    .ThenInclude((VendaProduto vp) => vp.Produto)
+                    .ThenInclude(m => m.Marca)
+                    .Include(pv => pv.Cliente)
+                    .FirstOrDefault(v => v.Id == id);
+            }
+            else
+                return base.GetById(id, false);
         }
     }
 }
