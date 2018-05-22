@@ -142,6 +142,7 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<IRequestHandler<EstornarDuplicataCommand, CommandResult>, DuplicataCommandHandler>();
 
             services.AddScoped<IRequestHandler<AddOrUpdateEmpresaCommand, CommandResult>, EmpresaCommandHandler>();
+            services.AddScoped<IRequestHandler<AttachEmpresaLogoCommand, CommandResult>, EmpresaCommandHandler>();
 
             services.AddScoped<IRequestHandler<AddFornecedorCommand, CommandResult>, FornecedorCommandHandler>();
             services.AddScoped<IRequestHandler<UpdateFornecedorCommand, CommandResult>, FornecedorCommandHandler>();

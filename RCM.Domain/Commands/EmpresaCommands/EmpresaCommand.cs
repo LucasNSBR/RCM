@@ -6,6 +6,8 @@ namespace RCM.Domain.Commands.EmpresaCommands
     public abstract class EmpresaCommand : Command
     {
         public Guid Id { get; set; }
+        public byte[] Logo { get; set; }
+
         public string RazaoSocial { get; set; }
         public string NomeFantasia { get; set; }
         public string Descricao { get; set; }

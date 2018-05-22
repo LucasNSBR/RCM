@@ -5,6 +5,12 @@ namespace RCM.Domain.Validators.EmpresaCommandValidators
 {
     public class EmpresaCommandValidator<T> : AbstractValidator<T> where T : EmpresaCommand
     {
+        protected void ValidateLogo()
+        {
+            RuleFor(e => e.Logo)
+                .NotEmpty();
+        }
+
         protected void ValidateRazaoSocial()
         {
             RuleFor(e => e.RazaoSocial)
@@ -29,11 +35,7 @@ namespace RCM.Domain.Validators.EmpresaCommandValidators
         protected void ValidateContato()
         {
             ValidateContatoNotEmpty();
-            ValidateContatoEmail();
-            ValidateContatoCelular();
-            ValidateContatoTelefoneComercial();
             ValidateContatoTelefoneResidencial();
-            ValidateContatoObservacao();
         }
 
         private void ValidateContatoNotEmpty()
@@ -43,40 +45,31 @@ namespace RCM.Domain.Validators.EmpresaCommandValidators
                 .WithMessage("Você deve preencher pelo menos um dos meios de contato.");
         }
 
-        private void ValidateContatoEmail()
-        {
-            RuleFor(c => c.ContatoEmail)
-                .EmailAddress()
-                .MaximumLength(100)
-                .WithMessage("O e-mail do cliente deve ter entre 10 e 100 caracteres e não deve estar vazio.");
-        }
-
         private void ValidateContatoTelefoneResidencial()
         {
-            RuleFor(c => c.ContatoTelefoneResidencial)
-                .MaximumLength(15)
-                .WithMessage("O telefone residencial do cliente deve ter entre 8 e 15 caracteres e não deve estar vazio.");
-        }
+            RuleSet("Contato", () =>
+            {
+                RuleFor(c => c.ContatoEmail)
+                    .EmailAddress()
+                    .MaximumLength(100)
+                    .WithMessage("O e-mail do cliente deve ter entre 10 e 100 caracteres e não deve estar vazio.");
 
-        private void ValidateContatoTelefoneComercial()
-        {
-            RuleFor(c => c.ContatoTelefoneComercial)
-                .MaximumLength(15)
-                .WithMessage("O telefone comercial do cliente deve ter entre 10 e 15 caracteres e não deve estar vazio.");
-        }
+                RuleFor(c => c.ContatoTelefoneResidencial)
+                    .MaximumLength(15)
+                    .WithMessage("O telefone residencial do cliente deve ter entre 8 e 15 caracteres e não deve estar vazio.");
 
-        private void ValidateContatoCelular()
-        {
-            RuleFor(c => c.ContatoCelular)
-                .MaximumLength(15)
-                .WithMessage("O celular do cliente deve ter entre 10 e 15 caracteres e não deve estar vazio.");
-        }
+                RuleFor(c => c.ContatoTelefoneComercial)
+                    .MaximumLength(15)
+                    .WithMessage("O telefone comercial do cliente deve ter entre 10 e 15 caracteres e não deve estar vazio.");
 
-        private void ValidateContatoObservacao()
-        {
-            RuleFor(c => c.ContatoObservacao)
-                .MaximumLength(250)
-                .WithMessage("A observação deve ter até 250 caracteres e não deve estar vazia.");
+                RuleFor(c => c.ContatoCelular)
+                    .MaximumLength(15)
+                    .WithMessage("O celular do cliente deve ter entre 10 e 15 caracteres e não deve estar vazio.");
+
+                RuleFor(c => c.ContatoObservacao)
+                    .MaximumLength(250)
+                    .WithMessage("A observação deve ter até 250 caracteres e não deve estar vazia.");
+            }); 
         }
 
         private bool ValidateContatoProperties(T command)

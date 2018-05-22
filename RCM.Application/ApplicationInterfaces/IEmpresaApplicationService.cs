@@ -8,5 +8,6 @@ namespace RCM.Application.ApplicationInterfaces
     {
         EmpresaViewModel Get();
         Task<CommandResult> AddOrUpdate(EmpresaViewModel viewModel);
+        Task<CommandResult> AttachLogo(byte[] logo);
     }
 }

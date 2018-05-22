@@ -40,6 +40,11 @@ namespace RCM.Presentation.Web.Controllers
             _domainNotificationHandler.AddNotification(new AuthenticationErrorNotification(description));
         }
 
+        public void NotifyError(string description)
+        {
+            _domainNotificationHandler.AddNotification(new CommandErrorNotification(description));
+        }
+
         public void NotifyIdentityErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)

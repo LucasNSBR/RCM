@@ -16,10 +16,19 @@
     </div>
 </div>
 <div class="row" id="report-header">
-    <div class="col s3">
-        <h3 class="center">
-            RCM
-        </h3>
+    <div class="col s3 center">
+        @{
+            var img = Convert.ToBase64String(Model.Empresa.Logo);
+        }
+
+        @if (img != string.Empty)
+        {
+            <img src="data:image/png;base64, @img" height="105" style="padding: 5px; margin-top: 5px"/>
+        }
+        else
+        {
+            <p class="bg-danger">Logomarca não adicionada.</p>
+        }
     </div>
     <div class="col s4 my-1">
         <span>
@@ -204,7 +213,7 @@
                                 @Html.DisplayFor(modelItem => item.Acrescimo)
                             }
                         </td>
-                        <td class="center"> 
+                        <td class="center">
                             @Html.DisplayFor(modelItem => item.PrecoFinal)
                         </td>
                     </tr>

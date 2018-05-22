@@ -10,10 +10,10 @@
     @Html.DisplayForModel()
 
     <div class="center pt-3">
-        <action-button asp-action="Update" asp-controller="Empresa" asp-area="Platform" asp-route-id="@Model.Id" icon-name="edit">Editar</action-button>
+        <action-button asp-action="Update" asp-controller="Empresa" asp-area="Platform" icon-name="edit">Editar</action-button>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Voltar para a lista</a>
+    <a asp-action="Index" asp-controller="Clientes" asp-area="Platform">Voltar para Início</a>
 </div>

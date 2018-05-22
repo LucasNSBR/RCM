@@ -37,5 +37,10 @@ namespace RCM.Application.ApplicationServices
 
             return _mediator.SendCommand(command);
         }
+
+        public Task<CommandResult> AttachLogo(byte[] logo)
+        {
+            return _mediator.SendCommand(new AttachEmpresaLogoCommand(logo));
+        }
     }
 }

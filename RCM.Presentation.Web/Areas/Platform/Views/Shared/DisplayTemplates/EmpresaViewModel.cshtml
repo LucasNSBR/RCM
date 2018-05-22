@@ -14,7 +14,26 @@
             Informação Geral
         </p>
         <div>
+            @{
+                var img = Convert.ToBase64String(Model.Logo);
+            }
+
             <dl class="detail-list">
+                <dt>
+                    <label asp-for="@Model.Logo"></label>
+                </dt>
+                <dd>
+                    @if (img != string.Empty)
+                    {
+                        <img src="data:image/png;base64, @img" height="250" class="materialboxed mb-1" />
+                        <a asp-action="AttachLogo" class="pt-1">Modificar logomarca</a>
+                    }
+                    else
+                    {
+                        <span>Logomarca não adicionada.</span>
+                        <a asp-action="AttachLogo">Clique aqui para adicionar</a>
+                    }
+                </dd>
                 <dt>
                     <label asp-for="@Model.Id"></label>
                 </dt>

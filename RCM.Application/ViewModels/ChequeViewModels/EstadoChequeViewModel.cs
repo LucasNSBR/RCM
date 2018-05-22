@@ -16,7 +16,7 @@ namespace RCM.Application.ViewModels.ChequeViewModels
         [Display(Name = "Data do Evento")]
         [DisplayFormat(ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true, DataFormatString = "{0:dd/MM/yyyy}")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "A {0} é requerida.")]
-        public DateTime DataEvento { get; set; }
+        public DateTime DataEvento { get; set; } = DateTime.Now;
 
         [Display(Name = "Motivo")]
         [StringLength(100, MinimumLength = 0, ErrorMessage = "O {0} deve ter até {1} caracteres.")]

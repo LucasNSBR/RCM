@@ -12,7 +12,7 @@ namespace RCM.Application.ViewModels.ValueObjectViewModels
         [Display(Name = "Data do Pagamento")]
         [DisplayFormat(ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true, DataFormatString = "{0:dd/MM/yyyy}")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "A {0} é requerida.")]
-        public DateTime DataPagamento { get; set; }
+        public DateTime DataPagamento { get; set; } = DateTime.Now;
 
         [Display(Name = "Valor Pago")]
         [DisplayFormat(ApplyFormatInEditMode = false, ConvertEmptyStringToNull = true, DataFormatString = "{0:c}")]

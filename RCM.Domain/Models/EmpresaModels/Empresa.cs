@@ -37,5 +37,10 @@ namespace RCM.Domain.Models.EmpresaModels
             Contato = contato;
             Endereco = endereco;
         }
+
+        public void AdicionarLogo(byte[] logo)
+        {
+            Logo = logo;
+        }
     }
 }

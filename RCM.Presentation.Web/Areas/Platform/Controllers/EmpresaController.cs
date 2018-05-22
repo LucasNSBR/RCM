@@ -6,6 +6,9 @@ using RCM.Application.ViewModels;
 using RCM.CrossCutting.Identity.Models;
 using RCM.Domain.DomainNotificationHandlers;
 using RCM.Presentation.Web.Controllers;
+using RCM.Presentation.Web.ViewModels;
+using System;
+using System.IO;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -61,10 +64,10 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         public async Task<IActionResult> Update(EmpresaViewModel empresa)
         {
             if (!ModelState.IsValid)
-            {
-                NotifyModelStateErrors();
-                return View(empresa);
-            }
+                {
+                    NotifyModelStateErrors();
+                    return View(empresa);
+                }
 
             var commandResult = await _empresaApplicationService.AddOrUpdate(empresa);
 
@@ -93,6 +96,62 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 NotifyCommandResultErrors(commandResult.Errors);
 
             return View(empresa);
+        }
+
+        [Authorize(Policy = "ActiveUser")]
+        [Authorize(Policy = "ActiveCompany")]
+        public IActionResult AttachLogo()
+        {
+            var empresa = _empresaApplicationService.Get();
+            if (empresa == null)
+                return NotFound();
+
+            return View();
+        }
+
+        [Authorize(Policy = "ActiveUser")]
+        [Authorize(Policy = "ActiveCompany")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AttachLogo(FormFile formFile)
+        {
+            if (!ModelState.IsValid)
+            {
+                NotifyModelStateErrors();
+                return View(formFile);
+            }
+
+            byte[] logo;
+
+            try
+            {
+                using(var memoryStream = new MemoryStream())
+                {
+                    var contentType = formFile.File.ContentType;
+                    if (contentType != "image/jpeg" && contentType != "image/jpg" && contentType != "image/png")
+                        throw new ArgumentException("Arquivo em formato inválido.");
+
+                    await formFile.File.CopyToAsync(memoryStream);
+                    logo = memoryStream.ToArray();
+                }
+            }
+            catch(Exception e)
+            {
+                NotifyError(e.Message);
+                return View(formFile);
+            }
+
+            var commandResult = await _empresaApplicationService.AttachLogo(logo);
+
+            if (commandResult.Success)
+            {
+                NotifyCommandResultSuccess();
+                return RedirectToAction(nameof(Details));
+            }
+            else
+                NotifyCommandResultErrors(commandResult.Errors);
+
+            return View(formFile);
         }
     }
 }

@@ -10,6 +10,7 @@ using RCM.Domain.Models.ChequeModels.ChequeStates;
 using RCM.Domain.Models.CidadeModels;
 using RCM.Domain.Models.ClienteModels;
 using RCM.Domain.Models.DuplicataModels;
+using RCM.Domain.Models.EmpresaModels;
 using RCM.Domain.Models.EstadoModels;
 using RCM.Domain.Models.FornecedorModels;
 using RCM.Domain.Models.MarcaModels;
@@ -36,6 +37,7 @@ namespace RCM.Application.Mappers
             CreateMap<Cidade, CidadeViewModel>();
             CreateMap<Cliente, ClienteViewModel>();
             CreateMap<Contato, ContatoViewModel>();
+            CreateMap<Empresa, EmpresaViewModel>();
             CreateMap<Endereco, EnderecoViewModel>();
             CreateMap<Estado, EstadoViewModel>();
             CreateMap<EstadoCheque, EstadoChequeViewModel>();

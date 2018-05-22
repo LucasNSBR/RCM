@@ -1,0 +1,38 @@
+﻿@model RCM.Presentation.Web.ViewModels.FormFile
+
+@{
+    ViewData["Title"] = "Adicionar Logomarca";
+}
+
+<h5>Adicionar logomarca da empresa</h5>
+
+<div class="form-container col s12 m12">
+    <form asp-action="AttachLogo" enctype="multipart/form-data">
+        <p class="px-1 font-bold lead">
+            Informação Geral
+        </p>
+
+        <div class="row">
+            <div class="col s12 m8">
+                <div class="file-field input-field">
+                    <p class="text-muted">A logomarca será utilizada e imprimida nos relatórios de vendas, ordens de serviços e documentos.</p>
+                    <div class="btn">
+                        <span>Selecionar Logomarca</span>
+                        <input asp-for="File" type="file" accept=".jpg, .jpeg, .png" class="mb-1">
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path" type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row pt-2 px-1">
+            <post-button>Confirmar</post-button>
+        </div>
+    </form>
+</div>
+
+<div>
+    <a asp-action="Index">Voltar para detalhes</a>
+</div>

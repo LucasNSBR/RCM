@@ -4,6 +4,7 @@
     $('select').material_select();
     $('.collapsible').collapsible();
     $('.modal').modal();
+    $('.materialboxed').materialbox();
 
     $('.datepicker').pickadate({
         selectMonths: true,
