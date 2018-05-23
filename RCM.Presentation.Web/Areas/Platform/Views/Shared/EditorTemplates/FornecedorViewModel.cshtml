@@ -129,14 +129,14 @@
         </div>
         <div class="row">
             <div class="input-field col s12 m6">
-                <input type="hidden" asp-for="EnderecoCidadeId" id="cidadeId" />
-                <select id="cidadeSelect"></select>
+                <input type="hidden" asp-for="EnderecoCidadeId" id="cidade-id" />
+                <select id="cidade-select"></select>
                 <label asp-for="EnderecoCidade"></label>
                 <span asp-validation-for="EnderecoCidadeId" class="text-danger"></span>
                 <a asp-action="Create" asp-controller="Cidades" target="_blank">Adicionar nova Cidade</a>
             </div>
             <div class="input-field col s12 m6 pt-1">
-                <button class="btn-flat mx-0 small" id="reload-fornecedores-button" type="button">
+                <button class="btn-flat mx-0 small" id="reload-cidades-button" type="button">
                     Recarregar lista
                 </button>
             </div>

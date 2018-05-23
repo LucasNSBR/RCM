@@ -271,7 +271,10 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             var commandResult = await _produtoApplicationService.AdicionarFornecedor(produtoFornecedor);
 
             if (commandResult.Success)
+            {
                 NotifyCommandResultSuccess();
+                return RedirectToAction(nameof(Details), new { id = produtoFornecedor.FornecedorId });
+            }
             else
                 NotifyCommandResultErrors(commandResult.Errors);
 

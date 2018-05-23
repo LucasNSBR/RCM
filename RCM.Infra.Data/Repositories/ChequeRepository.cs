@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RCM.Domain.Models.ChequeModels;
+using RCM.Domain.Models.ChequeModels.ChequeStates;
 using RCM.Domain.Repositories;
 using RCM.Infra.Data.Context;
 using System;
@@ -21,6 +22,7 @@ namespace RCM.Infra.Data.Repositories
                     .Include(b => b.Banco)
                     .Include(c => c.Cliente)
                     .Include(ec => ec.EstadoCheque)
+                    .ThenInclude(cl => (cl as ChequeRepassado).Cliente)
                     .FirstOrDefault(ch => ch.Id == id);
             }
             else

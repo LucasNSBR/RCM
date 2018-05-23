@@ -12,7 +12,6 @@
             Informação geral
         </p>
 
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="row">
             <div class="input-field col s12 m6">
                 <label asp-for="Nome"></label>
@@ -22,8 +21,8 @@
         </div>
         <div class="row">
             <div class="input-field col s12 m6">
-                <input type="hidden" asp-for="EstadoId" id="estadoId" />
-                <select id="estadoSelect"></select>
+                <input type="hidden" asp-for="EstadoId" id="estado-input" />
+                <select id="estado-select"></select>
                 <label asp-for="EstadoId"></label>
                 <span asp-validation-for="EstadoId" class="text-danger"></span>
             </div>
@@ -39,38 +38,21 @@
     <a asp-action="Index">Voltar para a lista</a>
 </div>
 
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/ajax-call.js"></script>
 
     <script>
-        var dropdown = $('#estadoSelect');
-        var estadosUrl = '@Url.Action("GetEstados", "Cidades")';
-        var estadoId = $('#estadoId').val();
+        var estadoUrl = '@Url.Action("GetEstados", "Cidades")';
+        var estadoSelect = $('#estado-select');
+        var estadoInput = $('#estado-input');
 
-        function reloadSelect() {
-            $.ajax({
-                method: "GET",
-                url: estadosUrl,
-            }).done(function (data) {
-                dropdown.empty();
+        reloadSelect(estadoUrl, estadoSelect, estadoInput);
 
-                $.each(data, function (index, item) {
-                    dropdown.append($("<option />").text(item.nome).val(item.id));
-                })
-
-                $(dropdown.find('option').each(function (index, item) {
-                    if (item.value === estadoId) {
-                        dropdown.prop('selectedIndex', index);
-                    }
-                }));
-
-                if (estadoId == "")
-                    $('#estadoId').val(dropdown.find('option').first().val());
-
-                dropdown.material_select();
-            });
-        }
-
-        reloadSelect();
+        $(estadoSelect).change(function () {
+            var optionId = $('#estado-select option:selected')[0].value;
+            $(estadoInput).val(optionId);
+        })
     </script>
 }

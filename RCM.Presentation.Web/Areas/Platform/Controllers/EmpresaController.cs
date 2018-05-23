@@ -9,6 +9,7 @@ using RCM.Presentation.Web.Controllers;
 using RCM.Presentation.Web.ViewModels;
 using System;
 using System.IO;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -20,15 +21,17 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
     public class EmpresaController : BaseController
     {
         private readonly IEmpresaApplicationService _empresaApplicationService;
+        private readonly ICidadeApplicationService _cidadeApplicationService;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly RCMUserManager _rcmUserManager;
         private readonly RCMSignInManager _rcmSignInManager;
 
         private RCMIdentityUser _user;
 
-        public EmpresaController(IEmpresaApplicationService empresaApplicationService, IHttpContextAccessor httpContextAccessor, RCMUserManager rcmUserManager, RCMSignInManager rcmSignInManager, IDomainNotificationHandler domainNotificationHandler) : base(domainNotificationHandler)
+        public EmpresaController(IEmpresaApplicationService empresaApplicationService, ICidadeApplicationService cidadeApplicationService, IHttpContextAccessor httpContextAccessor, RCMUserManager rcmUserManager, RCMSignInManager rcmSignInManager, IDomainNotificationHandler domainNotificationHandler) : base(domainNotificationHandler)
         {
             _empresaApplicationService = empresaApplicationService;
+            _cidadeApplicationService = cidadeApplicationService;
             _httpContextAccessor = httpContextAccessor;
             _rcmUserManager = rcmUserManager;
             _rcmSignInManager = rcmSignInManager;
@@ -156,6 +159,12 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 NotifyCommandResultErrors(commandResult.Errors);
 
             return View(formFile);
+        }
+
+        public JsonResult GetCidades()
+        {
+            return Json(_cidadeApplicationService.Get()
+                .OrderBy(e => e.Nome));
         }
     }
 }

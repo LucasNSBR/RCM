@@ -79,6 +79,9 @@ namespace RCM.Domain.Models.ChequeModels
 
         public void Bloquear(DateTime data)
         {
+            if (_estadoCheque == null)
+                _estadoCheque = new ChequeBloqueado(data);
+
             _estadoCheque.Bloquear(this, data);
         }
 

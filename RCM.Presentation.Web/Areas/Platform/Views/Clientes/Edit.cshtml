@@ -23,4 +23,22 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/ajax-call.js"></script>
+
+    <script>
+        var cidadeUrl = '@Url.Action("GetCidades", "Clientes")';
+        var cidadeDropdown = $('#cidade-select');
+        var cidadeInput = $('#cidade-id');
+
+        reloadSelect(cidadeUrl, cidadeDropdown, cidadeInput);
+
+        $('#reload-cidades-button').click(function () {
+            reloadSelect(cidadeUrl, cidadeDropdown, cidadeInput);
+        });
+
+        $(cidadeDropdown).change(function () {
+            var optionId = $('#cidade-select option:selected')[0].value;
+            $(cidadeInput).val(optionId);
+        })
+    </script>
 }

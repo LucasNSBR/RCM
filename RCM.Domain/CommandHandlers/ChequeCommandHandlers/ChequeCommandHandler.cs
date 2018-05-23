@@ -114,10 +114,7 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
             }
 
             Cheque cheque = _chequeRepository.GetById(command.Id);
-            
-            if (!NotifyNullCheckState(cheque))
-                cheque.Bloquear(command.DataEvento);
-
+            cheque.Bloquear(command.DataEvento);
             _chequeRepository.Update(cheque);
 
             if (Commit())
@@ -217,7 +214,7 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
             else
             {
                 NotifyCommandError(RequestErrorsMessageConstants.ChequeStateNull);
-                cheque.MudarEstado(new ChequeBloqueado(DateTime.Now));
+                cheque.Bloquear(DateTime.Now);
             }
 
             return true;

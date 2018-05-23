@@ -23,45 +23,22 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/ajax-call.js"></script>
 
     <script>
-        var dropdown = $('#clienteSelect');
-        var fornecedoresUrl = '@Url.Action("GetClientes", "Vendas")';
-        var fornecedorId = $('#clienteId').val();
+        var vendaUrl = '@Url.Action("GetClientes", "Vendas")';
+        var vendaDropdown = $('#venda-select');
+        var vendaInput = $('#venda-id');
 
-        function reloadSelect() {
-            $.ajax({
-                method: "GET",
-                url: fornecedoresUrl,
-            }).done(function (data) {
-                dropdown.empty();
-
-                $.each(data, function (index, item) {
-                    dropdown.append($("<option />").text(item.nome).val(item.id));
-                })
-
-                $(dropdown.find('option').each(function (index, item) {
-                    if (item.value === fornecedorId) {
-                        dropdown.prop('selectedIndex', index);
-                    }
-                }));
-
-                if (fornecedorId == "")
-                    $('#clienteId').val(dropdown.find('option').first().val());
-
-                dropdown.material_select();
-            });
-        }
-
-        reloadSelect();
+        reloadSelect(vendaUrl, vendaDropdown, vendaInput);
 
         $('#reload-clientes-button').click(function () {
-            reloadSelect();
+            reloadSelect(vendaUrl, vendaDropdown, vendaInput);
         });
 
-        $('#clienteSelect').change(function () {
-            var optionId = $('#clienteSelect option:selected')[0].value;
-            $('#clienteId').val(optionId);
-        })
+        $(vendaDropdown).change(function () {
+            var optionId = $('#venda-select option:selected')[0].value;
+            $(vendaInput).val(optionId);
+        });
     </script>
 }

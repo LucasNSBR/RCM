@@ -12,9 +12,9 @@
     <form asp-action="AttachSupplier">
         <div class="row">
             <div class="input-field col s12 m6">
-                <input type="hidden" asp-for="ProdutoId" id="produtoId" />
-                <input type="hidden" asp-for="FornecedorId" id="fornecedorId" />
-                <select id="fornecedorSelect"></select>
+                <input type="hidden" asp-for="ProdutoId" id="produto-id" />
+                <input type="hidden" asp-for="FornecedorId" id="fornecedor-id" />
+                <select id="fornecedor-select"></select>
                 <label asp-for="FornecedorId"></label>
                 <span asp-validation-for="FornecedorId" class="text-danger"></span>
                 <a asp-action="Create" asp-controller="Fornecedores">Adicionar nova fornecedor</a>
@@ -55,45 +55,22 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
+
+    <script src="~/js/ajax-call.js"></script>
+
     <script>
-        var fornecedoresUrl = '@Url.Action("GetFornecedores", "Produtos")';
-
-        function reloadSelect(dropdownName, url, inputId) {
-            var dropdown = $(dropdownName);
-            var fieldId = $(inputId).val();
-
-            $.ajax({
-                method: "GET",
-                url: url,
-            }).done(function (data) {
-                dropdown.empty();
-
-                $.each(data, function (index, item) {
-                    dropdown.append($("<option />").text(item.nome).val(item.id));
-                })
-
-                $(dropdown.find('option').each(function (index, item) {
-                    if (item.value === fieldId) {
-                        dropdown.prop('selectedIndex', index);
-                    }
-                }));
-
-                if (fieldId == "" || fieldId == "00000000-0000-0000-0000-000000000000")
-                    $(inputId).val(dropdown.find('option').first().val());
-
-                dropdown.material_select();
-            });
-        }
-
-        reloadSelect('#fornecedorSelect', fornecedoresUrl, '#fornecedorId');
+        var fornecedorUrl = '@Url.Action("GetFornecedores", "Produtos")';
+        var fornecedorDropdown = $('#fornecedor-select');
+        var fornecedorInput = $('#fornecedor-id');
+        reloadSelect(fornecedorUrl, fornecedorDropdown, fornecedorInput);
 
         $('#reload-fornecedores-button').click(function () {
-            reloadSelect('#fornecedorSelect', fornecedoresUrl, '#fornecedorId');
+            reloadSelect(fornecedorUrl, fornecedorDropdown, fornecedorInput);
         });
 
-        $('#fornecedorSelect').change(function () {
-            var optionId = $('#fornecedorSelect option:selected')[0].value;
-            $('#fornecedorId').val(optionId);
+        $(fornecedorDropdown).change(function () {
+            var optionId = $('#fornecedor-select option:selected')[0].value;
+            $(fornecedorInput).val(optionId);
         })
     </script>
 }

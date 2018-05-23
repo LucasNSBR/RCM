@@ -32,6 +32,7 @@ namespace RCM.Application.ViewModels.ProdutoViewModels
         public string Observacao { get; set; }
 
         [Display(Name = "Id do Produto")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "O {0} é requerido.")]
         public Guid ProdutoId { get; set; }
     }
 }

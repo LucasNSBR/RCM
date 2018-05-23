@@ -10,9 +10,9 @@
     <form asp-action="AttachApplication">
         <div class="row">
             <div class="input-field col s12 m6">
-                <input type="hidden" asp-for="ProdutoId"/>
-                <input type="hidden" asp-for="Id" id="aplicacaoId"/>
-                <select id="aplicacaoSelect"></select>
+                <input type="hidden" asp-for="ProdutoId" />
+                <input type="hidden" asp-for="Id" id="aplicacao-id" />
+                <select id="aplicacao-select"></select>
                 <label asp-for="Id"></label>
                 <span asp-validation-for="Id" class="text-danger"></span>
                 <a asp-action="CreateApplication" asp-route-id="@Model.ProdutoId">Adicionar nova aplicação</a>
@@ -39,7 +39,9 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
     <script>
-        var aplicacoesUrl = '@Url.Action("GetAplicacoes", "Produtos")';
+        var aplicacaoUrl = '@Url.Action("GetAplicacoes", "Produtos")';
+        var aplicacaoDropdown = $('#aplicacao-select');
+        var aplicacaoInput = $('#aplicacao-id');
 
         function reloadSelect(dropdownName, url, inputId) {
             var dropdown = $(dropdownName);
@@ -52,8 +54,8 @@
                 dropdown.empty();
 
                 $.each(data, function (index, item) {
-                    dropdown.append($("<option />").text(item.marca.
-                        concat(' ' + item.modelo + ' - ', item.motor + ' - ', item.ano)).val(item.id));
+                    dropdown.append($("<option />").text(item.carroMarca.
+                        concat(' ' + item.carroModelo + ' - ', item.carroMotor + ' - ', item.carroAno)).val(item.id));
                 })
 
                 $(dropdown.find('option').each(function (index, item) {
@@ -69,15 +71,15 @@
             });
         }
 
-        reloadSelect('#aplicacaoSelect', aplicacoesUrl, '#aplicacaoId');
+        reloadSelect(aplicacaoDropdown, aplicacaoUrl, aplicacaoInput);
 
         $('#reload-aplicacoes-button').click(function () {
-            reloadSelect('#aplicacaoSelect', aplicacoesUrl, '#aplicacaoId');
+            reloadSelect(aplicacaoDropdown, aplicacaoUrl, aplicacaoInput);
         });
 
-        $('#aplicacaoSelect').change(function () {
-            var optionId = $('#aplicacaoSelect option:selected')[0].value;
-            $('#aplicacaoId').val(optionId);
+        $(aplicacaoDropdown).change(function () {
+            var optionId = $('#aplicacao-select option:selected')[0].value;
+            $(aplicacaoInput).val(optionId);
         })
     </script>
 }

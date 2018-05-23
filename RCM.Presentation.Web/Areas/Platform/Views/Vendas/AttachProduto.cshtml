@@ -18,8 +18,8 @@
 
             <div class="row">
                 <div class="input-field col s12 m10">
-                    <input asp-for="ProdutoId" type="hidden" id="produtoId" />
-                    <select id="produtoSelect"></select>
+                    <input asp-for="ProdutoId" type="hidden" id="produto-id" />
+                    <select id="produto-select"></select>
                     <label asp-for="ProdutoId"></label>
                     <span asp-validation-for="ProdutoId" class="text-danger"></span>
                 </div>
@@ -95,8 +95,8 @@
 
     <script>
         var produtosUrl = '@Url.Action("GetProdutos", "Vendas")';
-        var dropdown = $('#produtoSelect');
-        var produtoId = $('#produtoId').val();
+        var dropdown = $('#produto-select');
+        var produtoId = $('#produto-id');
         var produtos = {};
         var produto;
         var precoVenda = 0;
@@ -147,10 +147,10 @@
             reloadSelect();
         });
 
-        $('#produtoSelect').change(function () {
-            var optionId = $('#produtoSelect option:selected')[0].value;
-            var selectedIndex = $('#produtoSelect option:selected').index();
-            $('#produtoId').val(optionId);
+        $('#produto-select').change(function () {
+            var optionId = $('#produto-select option:selected')[0].value;
+            var selectedIndex = $('#produto-select option:selected').index();
+            $(produtoId).val(optionId);
             produto = $(produtos)[selectedIndex];
 
             fillProduto();

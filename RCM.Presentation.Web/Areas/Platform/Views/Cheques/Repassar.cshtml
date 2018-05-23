@@ -12,8 +12,8 @@
 
         <div class="row">
             <div class="input-field col s12 m6">
-                <input asp-for="ClienteId" type="hidden" id="clienteId" />
-                <select id="clienteSelect"></select>
+                <input asp-for="ClienteId" type="hidden" id="cliente-id" />
+                <select id="cliente-select"></select>
                 <label asp-for="ClienteId"></label>
                 <span asp-validation-for="ClienteId" class="text-danger"></span>
                 <a asp-action="Create" asp-controller="Fornecedores" target="_blank">Adicionar novo Cliente</a>
@@ -38,48 +38,22 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-
+    <script src="~/js/ajax-call.js"></script>
+    
     <script>
-        var clientesUrl = '@Url.Action("GetClientes", "Cheques")';
+        var clienteUrl = '@Url.Action("GetClientes", "Cheques")';
+        var clienteDropdown = $('#cliente-select');
+        var clienteInput = $('#cliente-id');
 
-        function reloadSelect(dropdownName, url, inputId) {
-            var dropdown = $(dropdownName);
-            var fieldId = $(inputId).val();
-
-            $.ajax({
-                method: "GET",
-                url: url,
-            }).done(function (data) {
-                dropdown.empty();
-
-                $.each(data, function (index, item) {
-                    dropdown.append($("<option />").text(item.nome).val(item.id));
-                })
-
-                $(dropdown.find('option').each(function (index, item) {
-
-                    if (item.value === fieldId) {
-                        dropdown.prop('selectedIndex', index);
-                    }
-                }));
-
-                if (fieldId == '' || fieldId == '00000000-0000-0000-0000-000000000000')
-                    $(inputId).val(dropdown.find('option').first().val());
-
-
-                dropdown.material_select();
-            });
-        }
-
-        reloadSelect('#clienteSelect', clientesUrl, '#clienteId');
+        reloadSelect(clienteUrl, clienteDropdown, clienteInput);
 
         $('#reload-clientes-button').click(function () {
-            reloadSelect('#clienteSelect', clientesUrl, '#clienteId');
+            reloadSelect(clienteUrl, clienteDropdown, clienteInput);
         });
 
-        $('#clienteSelect').change(function () {
-            var optionId = $('#clienteSelect option:selected')[0].value;
-            $('#clienteId').val(optionId);
-        })
+        $(clienteDropdown).change(function () {
+            var optionId = $('#cliente-select option:selected')[0].value;
+            $(clienteInput).val(optionId);
+        });
     </script>
 }

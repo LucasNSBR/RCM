@@ -134,7 +134,7 @@
                                 case EstadoChequeEnum.Repassado:
                                     var clienteRepassado = Model.EstadoCheque.Cliente;
                                     <span>Repassado no dia @dataEvento</span><br />
-                                    <span>Cliente: </span><a asp-action="Details" asp-controller="Clientes" asp-route-id="@clienteRepassado.Id">@clienteRepassado.Nome</a>
+                                    <span>Repassado para </span><a asp-action="Details" asp-controller="Clientes" asp-route-id="@clienteRepassado.Id">@clienteRepassado.Nome</a>
                                     break;
                                 case EstadoChequeEnum.Sustado:
                                     var motivoSustado = Model.EstadoCheque.Motivo;
@@ -161,13 +161,17 @@
                     }
                 </dd>
             </dl>
-            <div class="pt-1 px-1">
-                <a asp-action="Bloquear" asp-route-id="@Model.Id">Bloquear</a><br />
-                <a asp-action="Compensar" asp-route-id="@Model.Id">Compensar</a><br />
-                <a asp-action="Repassar" asp-route-id="@Model.Id">Repassar</a><br />
-                <a asp-action="Devolver" asp-route-id="@Model.Id">Devolver</a><br />
-                <a asp-action="Sustar" asp-route-id="@Model.Id">Sustar</a><br />
-            </div>
+
+            @if (Model.EstadoCheque != null)
+            {
+                <div class="pt-1 px-1">
+                    <a asp-action="Bloquear" asp-route-id="@Model.Id">Bloquear</a><br />
+                    <a asp-action="Compensar" asp-route-id="@Model.Id">Compensar</a><br />
+                    <a asp-action="Repassar" asp-route-id="@Model.Id">Repassar</a><br />
+                    <a asp-action="Devolver" asp-route-id="@Model.Id">Devolver</a><br />
+                    <a asp-action="Sustar" asp-route-id="@Model.Id">Sustar</a><br />
+                </div>
+            }
         </div>
     </div>
 </div>

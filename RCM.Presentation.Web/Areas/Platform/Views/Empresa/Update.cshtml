@@ -23,36 +23,22 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/ajax-call.js"></script>
 
     <script>
-        var dropdown = $('#cidadeSelect');
-        var estadosUrl = '@Url.Action("GetCidades", "Clientes")';
-        var estadoId = $('#cidadeId').val();
+        var cidadeUrl = '@Url.Action("GetCidades", "Empresa")';
+        var cidadeDropdown = $('#cidade-select');
+        var cidadeInput = $('#cidade-id');
 
-        function reloadSelect() {
-            $.ajax({
-                method: "GET",
-                url: estadosUrl,
-            }).done(function (data) {
-                dropdown.empty();
+        reloadSelect(cidadeUrl, cidadeDropdown, cidadeInput);
 
-                $.each(data, function (index, item) {
-                    dropdown.append($("<option />").text(item.nome).val(item.id));
-                })
+        $('#reload-cidades-button').click(function () {
+            reloadSelect(cidadeUrl, cidadeDropdown, cidadeInput);
+        });
 
-                $(dropdown.find('option').each(function (index, item) {
-                    if (item.value === estadoId) {
-                        dropdown.prop('selectedIndex', index);
-                    }
-                }));
-
-                if (estadoId == "")
-                    $('#cidadeId').val(dropdown.find('option').first().val());
-
-                dropdown.material_select();
-            });
-        }
-
-        reloadSelect();
+        $(cidadeDropdown).change(function () {
+            var optionId = $('#cidade-select option:selected')[0].value;
+            $(cidadeInput).val(optionId);
+        })
     </script>
 }

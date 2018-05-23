@@ -23,59 +23,40 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/ajax-call.js"></script>
 
-<script>
-        var clientesUrl = '@Url.Action("GetClientes", "Cheques")';
-        var bancosUrl = '@Url.Action("GetBancos", "Cheques")';
+    <script>
+        //Clientes
+        var clienteUrl = '@Url.Action("GetClientes", "Cheques")';
+        var clienteDropdown = $('#cliente-select');
+        var clienteInput = $('#cliente-id');
 
-        function reloadSelect(dropdownName, url, inputId) {
-            var dropdown = $(dropdownName);
-            var fieldId = $(inputId).val();
-            
-            $.ajax({
-                method: "GET",
-                url: url,
-            }).done(function (data) {
-                dropdown.empty();
-
-                $.each(data, function (index, item) {
-                    dropdown.append($("<option />").text(item.nome).val(item.id));
-                })
-
-                $(dropdown.find('option').each(function (index, item) {
-                    
-                    if (item.value === fieldId) {
-                        dropdown.prop('selectedIndex', index);
-                    }
-                }));
-
-                if (fieldId == "") 
-                    $(inputId).val(dropdown.find('option').first().val());
-                
-
-                dropdown.material_select();
-            });
-        }
-
-        reloadSelect('#clienteSelect', clientesUrl, '#clienteId');
-        reloadSelect('#bancoSelect', bancosUrl, '#bancoId');
+        reloadSelect(clienteUrl, clienteDropdown, clienteInput);
 
         $('#reload-clientes-button').click(function () {
-            reloadSelect('#clienteSelect', clientesUrl, '#clienteId');
+            reloadSelect(clienteUrl, clienteDropdown, clienteInput);
         });
+
+        $(clienteDropdown).change(function () {
+            var optionId = $('#cliente-select option:selected')[0].value;
+            $(clienteInput).val(optionId);
+        });
+
+
+        //Bancos
+        var bancoUrl = '@Url.Action("GetBancos", "Cheques")';
+        var bancoDropdown = $('#banco-select');
+        var bancoInput = $('#banco-id');
+
+        reloadSelect(bancoUrl, bancoDropdown, bancoInput);
 
         $('#reload-bancos-button').click(function () {
-            reloadSelect('#bancoSelect', bancosUrl, '#bancoId');
+            reloadSelect(bancoUrl, bancoDropdown, bancoInput);
         });
 
-        $('#bancoSelect').change(function () {
-            var optionId = $('#bancoSelect option:selected')[0].value;
-            $('#bancoId').val(optionId);
-        })
-
-        $('#clienteSelect').change(function () {
-            var optionId = $('#clienteSelect option:selected')[0].value;
-            $('#clienteId').val(optionId);
-        })
-</script>
+        $(bancoDropdown).change(function () {
+            var optionId = $('#banco-select option:selected')[0].value;
+            $(bancoInput).val(optionId);
+        });
+    </script>
 }
