@@ -80,16 +80,16 @@
                         @Html.DisplayNameFor(model => model.Clientes.List.FirstOrDefault().Tipo)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Clientes.List.FirstOrDefault().Documento.CadastroNacional)
+                        @Html.DisplayNameFor(model => model.Clientes.List.FirstOrDefault().DocumentoCadastroNacional)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Clientes.List.FirstOrDefault().Documento.CadastroEstadual)
+                        @Html.DisplayNameFor(model => model.Clientes.List.FirstOrDefault().DocumentoCadastroEstadual)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Clientes.List.FirstOrDefault().Contato.Celular)
+                        @Html.DisplayNameFor(model => model.Clientes.List.FirstOrDefault().ContatoCelular)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Clientes.List.FirstOrDefault().Contato.TelefoneResidencial)
+                        @Html.DisplayNameFor(model => model.Clientes.List.FirstOrDefault().ContatoTelefoneResidencial)
                     </th>
                 </tr>
             </thead>
@@ -114,16 +114,16 @@
                             }
                         </td>
                         <td>
-                            @(item.Documento.CadastroNacional ?? "N/A")
+                            @(item.DocumentoCadastroNacional ?? "N/A")
                         </td>
                         <td>
-                            @(item.Documento.CadastroEstadual ?? "N/A")
+                            @(item.DocumentoCadastroEstadual ?? "N/A")
                         </td>
                         <td>
-                            @(item.Contato.Celular ?? "N/A")
+                            @(item.ContatoCelular ?? "N/A")
                         </td>
                         <td>
-                            @(item.Contato.TelefoneResidencial ?? "N/A")
+                            @(item.ContatoTelefoneResidencial ?? "N/A")
                         </td>
                     </tr>
                 }

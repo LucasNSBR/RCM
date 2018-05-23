@@ -31,9 +31,9 @@ namespace RCM.Application.ApplicationServices
         public Task<CommandResult> AddOrUpdate(EmpresaViewModel viewModel)
         {
             var command = new AddOrUpdateEmpresaCommand(viewModel.Id, viewModel.RazaoSocial, viewModel.NomeFantasia, viewModel.Descricao);
-            command.AttachContato(viewModel.Contato.Celular, viewModel.Contato.Email, viewModel.Contato.TelefoneComercial, viewModel.Contato.TelefoneResidencial, viewModel.Contato.Observacao);
-            command.AttachEndereco(viewModel.Endereco.Numero, viewModel.Endereco.Rua, viewModel.Endereco.Bairro, viewModel.Endereco.Complemento, viewModel.Endereco.CidadeId, viewModel.Endereco.CEP);
-            command.AttachDocumento(viewModel.Documento.CadastroNacional, viewModel.Documento.CadastroEstadual);
+            command.AttachContato(viewModel.ContatoCelular, viewModel.ContatoEmail, viewModel.ContatoTelefoneComercial, viewModel.ContatoTelefoneResidencial, viewModel.ContatoObservacao);
+            command.AttachEndereco(viewModel.EnderecoNumero, viewModel.EnderecoRua, viewModel.EnderecoBairro, viewModel.EnderecoComplemento, viewModel.EnderecoCidadeId, viewModel.EnderecoCEP);
+            command.AttachDocumento(viewModel.DocumentoCadastroNacional, viewModel.DocumentoCadastroEstadual);
 
             return _mediator.SendCommand(command);
         }

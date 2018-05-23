@@ -19,9 +19,9 @@ namespace RCM.Application.ApplicationServices
         public override Task<CommandResult> Add(FornecedorViewModel viewModel)
         {
             var command = new AddFornecedorCommand(viewModel.Nome, viewModel.Tipo, viewModel.Descricao);
-            command.AttachContato(viewModel.Contato.Celular, viewModel.Contato.Email, viewModel.Contato.TelefoneComercial, viewModel.Contato.TelefoneResidencial, viewModel.Contato.Observacao);
-            command.AttachEndereco(viewModel.Endereco.Numero, viewModel.Endereco.Rua, viewModel.Endereco.Bairro, viewModel.Endereco.Complemento, viewModel.Endereco.CidadeId, viewModel.Endereco.CEP);
-            command.AttachDocumento(viewModel.Documento.CadastroNacional, viewModel.Documento.CadastroEstadual);
+            command.AttachContato(viewModel.ContatoCelular, viewModel.ContatoEmail, viewModel.ContatoTelefoneComercial, viewModel.ContatoTelefoneResidencial, viewModel.ContatoObservacao);
+            command.AttachEndereco(viewModel.EnderecoNumero, viewModel.EnderecoRua, viewModel.EnderecoBairro, viewModel.EnderecoComplemento, viewModel.EnderecoCidadeId, viewModel.EnderecoCEP);
+            command.AttachDocumento(viewModel.DocumentoCadastroNacional, viewModel.DocumentoCadastroEstadual);
 
             return _mediator.SendCommand(command);
         }
@@ -29,9 +29,9 @@ namespace RCM.Application.ApplicationServices
         public override Task<CommandResult> Update(FornecedorViewModel viewModel)
         {
             var command = new UpdateFornecedorCommand(viewModel.Id, viewModel.Nome, viewModel.Tipo, viewModel.Descricao);
-            command.AttachContato(viewModel.Contato.Celular, viewModel.Contato.Email, viewModel.Contato.TelefoneComercial, viewModel.Contato.TelefoneResidencial, viewModel.Contato.Observacao);
-            command.AttachEndereco(viewModel.Endereco.Numero, viewModel.Endereco.Rua, viewModel.Endereco.Bairro, viewModel.Endereco.Complemento, viewModel.Endereco.CidadeId, viewModel.Endereco.CEP);
-            command.AttachDocumento(viewModel.Documento.CadastroNacional, viewModel.Documento.CadastroEstadual);
+            command.AttachContato(viewModel.ContatoCelular, viewModel.ContatoEmail, viewModel.ContatoTelefoneComercial, viewModel.ContatoTelefoneResidencial, viewModel.ContatoObservacao);
+            command.AttachEndereco(viewModel.EnderecoNumero, viewModel.EnderecoRua, viewModel.EnderecoBairro, viewModel.EnderecoComplemento, viewModel.EnderecoCidadeId, viewModel.EnderecoCEP);
+            command.AttachDocumento(viewModel.DocumentoCadastroNacional, viewModel.DocumentoCadastroEstadual);
 
             return _mediator.SendCommand(command);
         }

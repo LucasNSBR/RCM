@@ -44,17 +44,133 @@
                 <dd>
                     @Model.Nome
                 </dd>
-
-                @Html.DisplayFor(d => d.Documento)
+                <dt>
+                    <label asp-for="@Model.DocumentoCadastroNacional"></label>
+                </dt>
+                <dd>
+                    @Model.DocumentoCadastroNacional
+                </dd>
+                <dt>
+                    <label asp-for="@Model.DocumentoCadastroEstadual"></label>
+                </dt>
+                <dd>
+                    @Model.DocumentoCadastroEstadual
+                </dd>
             </dl>
         </div>
     </div>
+
     <div id="contato" class="col s12 m12">
-        @Html.DisplayFor(c => c.Contato)
+        <p class="px-1 font-bold lead">
+            Informação de Contato
+        </p>
+
+        <dl class="detail-list">
+            <dt>
+                <label asp-for="ContatoCelular"></label>
+            </dt>
+            <dd>
+                @if (Model.ContatoCelular != null)
+                {
+                    @Model.ContatoCelular
+                }
+                else
+                {
+                    <span class="font-italic text-warning"><i class="material-icons left">warning</i>Celular Alternativo não registrado.</span>
+                }
+            <dt>
+                <label asp-for="ContatoEmail"></label>
+            </dt>
+            <dd>
+                @Model.ContatoEmail
+            </dd>
+            <dt>
+                <label asp-for="ContatoTelefoneResidencial"></label>
+            </dt>
+            <dd>
+                @if (Model.ContatoTelefoneResidencial != null)
+                {
+                    @Model.ContatoTelefoneResidencial
+                }
+                else
+                {
+                    <span class="font-italic text-warning"><i class="material-icons left">warning</i>Telefone Alternativo não registrado.</span>
+                }
+            </dd>
+            <dt>
+                <label asp-for="ContatoTelefoneComercial"></label>
+            </dt>
+            <dd>
+                @Model.ContatoTelefoneComercial
+            </dd>
+            <dt>
+                <label asp-for="ContatoObservacao"></label>
+            </dt>
+            <dd>
+                @if (Model.ContatoObservacao != null)
+                {
+                    @Model.ContatoObservacao
+                }
+                else
+                {
+                    <span class="font-italic text-warning"><i class="material-icons left">warning</i>Observação não registrada.</span>
+                }
+            </dd>
+        </dl>
     </div>
+
     <div id="endereco" class="col s12 m12">
-        @Html.DisplayFor(e => e.Endereco)
+        <p class="px-1 font-bold lead">
+            Informação de Endereço
+        </p>
+
+        <dl class="detail-list">
+            <dt>
+                <label asp-for="EnderecoRua"></label>
+            </dt>
+            <dd>
+                @Model.EnderecoRua
+            </dd>
+            <dt>
+                <label asp-for="EnderecoNumero"></label>
+            </dt>
+            <dd>
+                @Model.EnderecoNumero
+            </dd>
+            <dt>
+                <label asp-for="EnderecoBairro"></label>
+            </dt>
+            <dd>
+                @Model.EnderecoBairro
+            </dd>
+            <dt>
+                <label asp-for="@Model.EnderecoComplemento"></label>
+            </dt>
+            <dd>
+                @if (Model.EnderecoComplemento != null)
+                {
+                    @Model.EnderecoComplemento
+                }
+                else
+                {
+                    <span class="font-italic text-warning"><i class="material-icons left">warning</i>Complemento não registrado.</span>
+                }
+            </dd>
+            <dt>
+                <label asp-for="EnderecoCEP"></label>
+            </dt>
+            <dd>
+                @Model.EnderecoCEP
+            </dd>
+            <dt>
+                <label asp-for="@Model.EnderecoCidade"></label>
+            </dt>
+            <dd>
+                @Model.EnderecoCidade.Nome
+            </dd>
+        </dl>
     </div>
+
     <div id="duplicatas" class="col s12 m12">
         <div>
             <p class="px-1 font-bold lead">
@@ -67,7 +183,7 @@
                 <dd>
                     @if (Model.Duplicatas.Any())
                     {
-                        <a asp-action="Index" asp-route-name="@Model.Nome" asp-controller="Duplicatas">@Model.Duplicatas.Count Duplicatas foram encontrados</a>
+                        <a asp-action="Index" asp-route-name="@Model.Nome" asp-controller="Duplicatas">@Model.Duplicatas.Count Duplicatas foram encontradas</a>
                     }
                     else
                     {

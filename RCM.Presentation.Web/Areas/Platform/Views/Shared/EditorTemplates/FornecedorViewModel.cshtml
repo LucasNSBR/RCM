@@ -2,29 +2,144 @@
 
 @model RCM.Application.ViewModels.FornecedorViewModel
 
-<p class="px-1 font-bold lead">
-    Informação Geral
-</p>
+<div class="row">
+    <div class="col s12">
+        <ul class="tabs tabs-fixed-width">
+            <li class="tab col s3"><a href="#geral" class="active">Geral</a></li>
+            <li class="tab col s3"><a href="#contato">Contato</a></li>
+            <li class="tab col s3"><a href="#endereco">Endereço</a></li>
+        </ul>
+    </div>
 
-<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-<div class="row">
-    <div class="input-field col s12 m6">
-        <label asp-for="Nome"></label>
-        <input asp-for="Nome" class="input-field" id="nome" data-length="100" />
-        <span asp-validation-for="Nome" class="text-danger"></span>
+    <div id="geral" class="col s12 m12">
+        <p class="px-1 font-bold lead">
+            Informação Geral
+        </p>
+
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="Nome"></label>
+                <input asp-for="Nome" class="input-field" id="nome" data-length="100" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 m6">
+                <label asp-for="Tipo"></label>
+                <select asp-for="Tipo" asp-items="@(new SelectList(Enum.GetNames(typeof(FornecedorTipoEnum))).ToList())"></select>
+                <span asp-validation-for="Tipo" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="Descricao"></label>
+                <input asp-for="Descricao" class="input-field" id="nome" data-length="100" />
+                <span asp-validation-for="Descricao" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="DocumentoCadastroNacional">CPF/CNPJ</label>
+                <input asp-for="DocumentoCadastroNacional" class="input-field" data-length="14" />
+                <span asp-validation-for="DocumentoCadastroNacional" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="DocumentoCadastroEstadual">RG/Inscrição Estadual</label>
+                <input asp-for="DocumentoCadastroEstadual" class="input-field" data-length="12" />
+                <span asp-validation-for="DocumentoCadastroEstadual" class="text-danger"></span>
+            </div>
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class="col s12 m6">
-        <label asp-for="Tipo"></label>
-        <select asp-for="Tipo" asp-items="@(new SelectList(Enum.GetNames(typeof(FornecedorTipoEnum))).ToList())"></select>
-        <span asp-validation-for="Tipo" class="text-danger"></span>
+
+    <div id="contato" class="col s12 m12">
+        <p class="px-1 font-bold lead">
+            Informação de Contato
+        </p>
+
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="ContatoCelular"></label>
+                <input asp-for="ContatoCelular" class="input-field" data-length="15" />
+                <span asp-validation-for="ContatoCelular" class="text-danger"></span>
+            </div>
+            <div class="input-field col s12 m6">
+                <label asp-for="ContatoEmail"></label>
+                <input asp-for="ContatoEmail" class="input-field" data-length="100" />
+                <span asp-validation-for="ContatoEmail" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="ContatoTelefoneResidencial"></label>
+                <input asp-for="ContatoTelefoneResidencial" class="input-field" data-length="15" />
+                <span asp-validation-for="ContatoTelefoneResidencial" class="text-danger"></span>
+            </div>
+            <div class="input-field col s12 m6">
+                <label asp-for="ContatoTelefoneComercial"></label>
+                <input asp-for="ContatoTelefoneComercial" class="input-field" data-length="15" />
+                <span asp-validation-for="ContatoTelefoneComercial" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m12">
+                <label asp-for="ContatoObservacao"></label>
+                <textarea asp-for="ContatoObservacao" class="materialize-textarea" data-length="250"></textarea>
+                <span asp-validation-for="ContatoObservacao" class="text-danger"></span>
+            </div>
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class="input-field col s12 m6">
-        <label asp-for="Descricao"></label>
-        <input asp-for="Descricao" class="input-field" id="nome" data-length="100" />
-        <span asp-validation-for="Descricao" class="text-danger"></span>
+
+    <div id="endereco" class="col s12 m12">
+        <p class="px-1 font-bold lead">
+            Informação de Endereço
+        </p>
+
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="EnderecoRua"></label>
+                <input asp-for="EnderecoRua" class="input-field" data-length="100" />
+                <span asp-validation-for="EnderecoRua" class="text-danger"></span>
+            </div>
+            <div class="input-field col s12 m6">
+                <label asp-for="EnderecoNumero"></label>
+                <input asp-for="EnderecoNumero" class="input-field" data-length="4" />
+                <span asp-validation-for="EnderecoNumero" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="EnderecoBairro"></label>
+                <input asp-for="EnderecoBairro" class="input-field" data-length="25" />
+                <span asp-validation-for="EnderecoBairro" class="text-danger"></span>
+            </div>
+            <div class="input-field col s12 m6">
+                <label asp-for="EnderecoCEP"></label>
+                <input asp-for="EnderecoCEP" class="input-field" data-length="8" />
+                <span asp-validation-for="EnderecoCEP" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m12">
+                <label asp-for="EnderecoComplemento"></label>
+                <textarea asp-for="EnderecoComplemento" class="materialize-textarea" data-length="250"></textarea>
+                <span asp-validation-for="EnderecoComplemento" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <input type="hidden" asp-for="EnderecoCidadeId" id="cidadeId" />
+                <select id="cidadeSelect"></select>
+                <label asp-for="EnderecoCidade"></label>
+                <span asp-validation-for="EnderecoCidadeId" class="text-danger"></span>
+                <a asp-action="Create" asp-controller="Cidades" target="_blank">Adicionar nova Cidade</a>
+            </div>
+            <div class="input-field col s12 m6 pt-1">
+                <button class="btn-flat mx-0 small" id="reload-fornecedores-button" type="button">
+                    Recarregar lista
+                </button>
+            </div>
+        </div>
     </div>
 </div>

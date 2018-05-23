@@ -69,13 +69,13 @@
                         @Html.DisplayNameFor(model => model.Fornecedores.List.FirstOrDefault().Tipo)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Fornecedores.List.FirstOrDefault().Documento.CadastroNacional)
+                        @Html.DisplayNameFor(model => model.Fornecedores.List.FirstOrDefault().DocumentoCadastroNacional)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Fornecedores.List.FirstOrDefault().Documento.CadastroEstadual)
+                        @Html.DisplayNameFor(model => model.Fornecedores.List.FirstOrDefault().DocumentoCadastroEstadual)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Fornecedores.List.FirstOrDefault().Contato.TelefoneComercial)
+                        @Html.DisplayNameFor(model => model.Fornecedores.List.FirstOrDefault().ContatoTelefoneComercial)
                     </th>
                 </tr>
             </thead>
@@ -100,10 +100,13 @@
                             }
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Documento.CadastroNacional)
+                            @Html.DisplayFor(modelItem => item.DocumentoCadastroNacional)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Documento.CadastroEstadual)
+                            @Html.DisplayFor(modelItem => item.DocumentoCadastroEstadual)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ContatoTelefoneComercial)
                         </td>
                     </tr>
                 }

@@ -8,42 +8,10 @@
 
 <div class="form-container col s12 m12">
     <form asp-action="Update" enctype="multipart/form-data">
-        <div class="row">
-            <div class="col s12">
-                <ul class="tabs tabs-fixed-width">
-                    <li class="tab col s3"><a href="#geral" class="active">Geral</a></li>
-                    <li class="tab col s3"><a href="#contato">Contato</a></li>
-                    <li class="tab col s3"><a href="#endereco">Endereço</a></li>
-                </ul>
-            </div>
-            <div id="geral" class="col s12 m12">
-                @Html.EditorForModel()
+        @Html.EditorForModel()
 
-                <div class="row">
-                    <div class="input-field col s12 m6">
-                        <label asp-for="Documento.CadastroNacional">CNPJ</label>
-                        <input asp-for="Documento.CadastroNacional" class="input-field" data-length="14" />
-                        <span asp-validation-for="Documento.CadastroNacional" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12 m6">
-                        <label asp-for="Documento.CadastroEstadual">Inscrição Estadual</label>
-                        <input asp-for="Documento.CadastroEstadual" class="input-field" data-length="12" />
-                        <span asp-validation-for="Documento.CadastroEstadual" class="text-danger"></span>
-                    </div>
-                </div>
-            </div>
-            <div id="contato" class="col s12 m12">
-                @Html.EditorFor(c => c.Contato)
-            </div>
-            <div id="endereco" class="col s12 m12">
-                @Html.EditorFor(c => c.Endereco)
-            </div>
-
-            <div class="row pt-2 px-1">
-                <post-button>Confirmar</post-button>
-            </div>
+        <div class="row pt-2 px-1">
+            <post-button>Confirmar</post-button>
         </div>
     </form>
 </div>

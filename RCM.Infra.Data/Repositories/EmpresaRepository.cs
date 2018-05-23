@@ -19,6 +19,8 @@ namespace RCM.Infra.Data.Repositories
         {
             return _dbSet
                 .AsNoTracking()
+                .Include(e => e.Endereco)
+                .ThenInclude(en => en.Cidade)
                 .FirstOrDefault();
         }
 

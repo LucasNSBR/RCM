@@ -36,9 +36,7 @@ namespace RCM.Application.Mappers
             CreateMap<ChequeRepassado, EstadoChequeViewModel>();
             CreateMap<Cidade, CidadeViewModel>();
             CreateMap<Cliente, ClienteViewModel>();
-            CreateMap<Contato, ContatoViewModel>();
             CreateMap<Empresa, EmpresaViewModel>();
-            CreateMap<Endereco, EnderecoViewModel>();
             CreateMap<Estado, EstadoViewModel>();
             CreateMap<EstadoCheque, EstadoChequeViewModel>();
             CreateMap<Fornecedor, FornecedorViewModel>();

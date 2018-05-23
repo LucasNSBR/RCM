@@ -21,15 +21,6 @@
             <dt>
                 <label asp-for="Id"></label>
             </dt>
-            <dd>
-                @Model.Id
-            </dd>
-            <dt>
-                <label asp-for="Nome"></label>
-            </dt>
-            <dd>
-                @Model.Nome
-            </dd>
             <dt>
                 <label asp-for="Tipo"></label>
             </dt>
@@ -41,6 +32,47 @@
                 else
                 {
                     <span>Pessoa jurídica</span>
+                }
+            </dd>
+            <dd>
+                @Model.Id
+            </dd>
+            <dt>
+                <label asp-for="Nome"></label>
+            </dt>
+            <dd>
+                @Model.Nome
+            </dd>
+            <dt>
+                <label asp-for="@Model.DocumentoCadastroNacional"></label>
+            </dt>
+            <dd>
+                @if (!string.IsNullOrWhiteSpace(Model.DocumentoCadastroNacional))
+                {
+                    @Model.DocumentoCadastroNacional
+                }
+                else
+                {
+                    <span class="font-italic text-warning">
+                        <i class="material-icons left">warning</i>
+                        CPF/CNPJ não registrado.
+                    </span>
+                }
+            </dd>
+            <dt>
+                <label asp-for="@Model.DocumentoCadastroEstadual"></label>
+            </dt>
+            <dd>
+                @if (!string.IsNullOrWhiteSpace(Model.DocumentoCadastroEstadual))
+                {
+                    @Model.DocumentoCadastroEstadual
+                }
+                else
+                {
+                    <span class="font-italic text-warning">
+                        <i class="material-icons left">warning</i>
+                        RG/Inscrição Estadual não registrado.
+                    </span>
                 }
             </dd>
             <dt>
@@ -65,17 +97,160 @@
                     </span>
                 }
             </dd>
-
-            @Html.DisplayFor(d => d.Documento)
         </dl>
     </div>
 
     <div id="contato" class="col s12 m12">
-        @Html.DisplayFor(c => c.Contato)
+        <p class="px-1 font-bold lead">
+            Informação de Contato
+        </p>
+
+        <dl class="detail-list">
+            <dt>
+                <label asp-for="ContatoCelular"></label>
+            </dt>
+            <dd>
+                @if (Model.ContatoCelular != null)
+                {
+                    @Model.ContatoCelular
+                }
+                else
+                {
+                    <span class="font-italic text-warning"><i class="material-icons left">warning</i>Celular não registrado.</span>
+                }
+            <dt>
+                <label asp-for="ContatoEmail"></label>
+            </dt>
+            <dd>
+                @if (Model.ContatoEmail != null)
+                {
+                    @Model.ContatoEmail
+                }
+                else
+                {
+                    <span class="font-italic text-warning"><i class="material-icons left">warning</i>Email não registrado.</span>
+                }
+            </dd>
+            <dt>
+                <label asp-for="ContatoTelefoneResidencial"></label>
+            </dt>
+            <dd>
+                @if (Model.ContatoTelefoneResidencial != null)
+                {
+                    @Model.ContatoTelefoneResidencial
+                }
+                else
+                {
+                    <span class="font-italic text-warning"><i class="material-icons left">warning</i>Telefone Residencial não registrado.</span>
+                }
+            </dd>
+            <dt>
+                <label asp-for="ContatoTelefoneComercial"></label>
+            </dt>
+            <dd>
+                @if (Model.ContatoTelefoneComercial != null)
+                {
+                    @Model.ContatoTelefoneComercial
+                }
+                else
+                {
+                    <span class="font-italic text-warning"><i class="material-icons left">warning</i>Telefone Comercial não registrado.</span>
+                }
+            </dd>
+            <dt>
+                <label asp-for="ContatoObservacao"></label>
+            </dt>
+            <dd>
+                @if (Model.ContatoObservacao != null)
+                {
+                    @Model.ContatoObservacao
+                }
+                else
+                {
+                    <span class="font-italic text-warning"><i class="material-icons left">warning</i>Observação não registrada.</span>
+                }
+            </dd>
+        </dl>
     </div>
 
     <div id="endereco" class="col s12 m12">
-        @Html.DisplayFor(c => c.Endereco)
+        <p class="px-1 font-bold lead">
+            Informação de Endereço
+        </p>
+
+        <dl class="detail-list">
+            <dt>
+                <label asp-for="EnderecoRua"></label>
+            </dt>
+            <dd>
+                @if (Model.EnderecoRua != null)
+                {
+                    @Model.EnderecoRua
+                }
+                else
+                {
+                    <span class="font-italic text-warning"><i class="material-icons left">warning</i>Rua não registrada.</span>
+                }
+            </dd>
+            <dt>
+                <label asp-for="EnderecoNumero"></label>
+            </dt>
+            <dd>
+                @if (Model.EnderecoNumero == default(int))
+                {
+                    @Model.EnderecoNumero
+                }
+                else
+                {
+                    <span class="font-italic text-warning"><i class="material-icons left">warning</i>Número não registrado.</span>
+                }
+            </dd>
+            <dt>
+                <label asp-for="EnderecoBairro"></label>
+            </dt>
+            <dd>
+                @if (Model.EnderecoBairro != null)
+                {
+                    @Model.EnderecoBairro
+                }
+                else
+                {
+                    <span class="font-italic text-warning"><i class="material-icons left">warning</i>Bairro não registrado.</span>
+                }
+            </dd>
+            <dt>
+                <label asp-for="@Model.EnderecoComplemento"></label>
+            </dt>
+            <dd>
+                @if (Model.EnderecoComplemento != null)
+                {
+                    @Model.EnderecoComplemento
+                }
+                else
+                {
+                    <span class="font-italic text-warning"><i class="material-icons left">warning</i>Complemento não registrado.</span>
+                }
+            </dd>
+            <dt>
+                <label asp-for="EnderecoCEP"></label>
+            </dt>
+            <dd>
+                @if (Model.EnderecoCEP != null)
+                {
+                    @Model.EnderecoCEP
+                }
+                else
+                {
+                    <span class="font-italic text-warning"><i class="material-icons left">warning</i>CEP não registrado.</span>
+                }
+            </dd>
+            <dt>
+                <label asp-for="@Model.EnderecoCidade"></label>
+            </dt>
+            <dd>
+                @Model.EnderecoCidade.Nome
+            </dd>
+        </dl>
     </div>
 
     <div id="cheques" class="col s12 m12">

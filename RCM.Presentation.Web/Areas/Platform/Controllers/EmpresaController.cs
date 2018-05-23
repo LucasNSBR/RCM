@@ -128,8 +128,12 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 using(var memoryStream = new MemoryStream())
                 {
                     var contentType = formFile.File.ContentType;
+                    var size = formFile.File.Length;
+
+                    if (formFile.File.Length > (3 * 1024 * 1024))
+                        throw new ArgumentException("O tamanho do arquivo deve ser de até 3MB.");
                     if (contentType != "image/jpeg" && contentType != "image/jpg" && contentType != "image/png")
-                        throw new ArgumentException("Arquivo em formato inválido.");
+                        throw new ArgumentException("Arquivo deve estar em um formato inválido (jpg, jpeg ou png).");
 
                     await formFile.File.CopyToAsync(memoryStream);
                     logo = memoryStream.ToArray();

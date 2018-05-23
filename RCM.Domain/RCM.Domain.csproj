@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <Folder Include="Commands\FornecedorCommands\" />
-    <Folder Include="Validators\ValueObjectValidators\" />
   </ItemGroup>
 
   <ItemGroup>
