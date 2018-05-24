@@ -1,4 +1,4 @@
-﻿using RCM.Domain.Models.ClienteModels;
+﻿using RCM.Domain.Models.FornecedorModels;
 using System;
 
 namespace RCM.Domain.Models.ChequeModels.ChequeStates
@@ -20,7 +20,7 @@ namespace RCM.Domain.Models.ChequeModels.ChequeStates
 
         public abstract void Bloquear(Cheque cheque, DateTime dataEvento);
         public abstract void Compensar(Cheque cheque, DateTime dataEvento);
-        public abstract void Repassar(Cheque cheque, DateTime dataEvento, Cliente cliente);
+        public abstract void Repassar(Cheque cheque, DateTime dataEvento, Fornecedor fornecedor);
         public abstract void Sustar(Cheque cheque, DateTime dataEvento, string motivo);
         public abstract void Devolver(Cheque cheque, DateTime dataEvento, string motivo);
     }

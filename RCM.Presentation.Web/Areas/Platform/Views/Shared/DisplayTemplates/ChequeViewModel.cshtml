@@ -132,7 +132,7 @@
                                     <span>Compensado no dia @dataEvento</span>
                                     break;
                                 case EstadoChequeEnum.Repassado:
-                                    var clienteRepassado = Model.EstadoCheque.Cliente;
+                                    var clienteRepassado = Model.EstadoCheque.Fornecedor;
                                     <span>Repassado no dia @dataEvento</span><br />
                                     <span>Repassado para </span><a asp-action="Details" asp-controller="Clientes" asp-route-id="@clienteRepassado.Id">@clienteRepassado.Nome</a>
                                     break;

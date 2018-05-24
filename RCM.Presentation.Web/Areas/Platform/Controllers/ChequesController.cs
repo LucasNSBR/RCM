@@ -22,13 +22,15 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         private readonly IChequeApplicationService _chequeApplicationService;
         private readonly IBancoApplicationService _bancoApplicationService;
         private readonly IClienteApplicationService _clienteApplicationService;
+        private readonly IFornecedorApplicationService _fornecedorApplicationService;
 
-        public ChequesController(IChequeApplicationService chequeApplicationService, IClienteApplicationService clienteApplicationService, IBancoApplicationService bancoApplicationService, IDomainNotificationHandler domainNotificationHandler) :
+        public ChequesController(IChequeApplicationService chequeApplicationService, IClienteApplicationService clienteApplicationService, IBancoApplicationService bancoApplicationService, IFornecedorApplicationService fornecedorApplicationService, IDomainNotificationHandler domainNotificationHandler) :
                                                                                                                     base(domainNotificationHandler)
         {
             _chequeApplicationService = chequeApplicationService;
             _bancoApplicationService = bancoApplicationService;
             _clienteApplicationService = clienteApplicationService;
+            _fornecedorApplicationService = fornecedorApplicationService;
         }
 
         public IActionResult Index(Guid? clienteId = null, string minValor = null, string maxValor = null, string agencia = null, string conta = null, string numeroCheque = null, string dataEmissao = null, string dataVencimento = null, string situacao = null, int pageNumber = 1, int pageSize = 20)
@@ -350,6 +352,12 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         public JsonResult GetBancos()
         {
             return Json(_bancoApplicationService.Get()
+                .OrderBy(b => b.Nome));
+        }
+
+        public JsonResult GetFornecedores()
+        {
+            return Json(_fornecedorApplicationService.Get()
                 .OrderBy(b => b.Nome));
         }
     }

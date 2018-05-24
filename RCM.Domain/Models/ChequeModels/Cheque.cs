@@ -2,6 +2,7 @@
 using RCM.Domain.Models.BancoModels;
 using RCM.Domain.Models.ChequeModels.ChequeStates;
 using RCM.Domain.Models.ClienteModels;
+using RCM.Domain.Models.FornecedorModels;
 using System;
 
 namespace RCM.Domain.Models.ChequeModels
@@ -90,9 +91,9 @@ namespace RCM.Domain.Models.ChequeModels
             _estadoCheque.Compensar(this, data);
         }
 
-        public void Repassar(DateTime data, Cliente cliente)
+        public void Repassar(DateTime data, Fornecedor fornecedor)
         {
-            _estadoCheque.Repassar(this, data, cliente);
+            _estadoCheque.Repassar(this, data, fornecedor);
         }
 
         public void Sustar(DateTime data, string motivo)

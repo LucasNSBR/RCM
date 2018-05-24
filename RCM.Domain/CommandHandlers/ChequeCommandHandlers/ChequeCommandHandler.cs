@@ -8,6 +8,7 @@ using RCM.Domain.Models.BancoModels;
 using RCM.Domain.Models.ChequeModels;
 using RCM.Domain.Models.ChequeModels.ChequeStates;
 using RCM.Domain.Models.ClienteModels;
+using RCM.Domain.Models.FornecedorModels;
 using RCM.Domain.Repositories;
 using RCM.Domain.UnitOfWork;
 using System;
@@ -29,13 +30,15 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
         private readonly IChequeRepository _chequeRepository;
         private readonly IBancoRepository _bancoRepository;
         private readonly IClienteRepository _clienteRepository;
+        private readonly IFornecedorRepository _fornecedorRepository;
 
-        public ChequeCommandHandler(IChequeRepository chequeRepository, IBancoRepository bancoRepository, IClienteRepository clienteRepository, IMediatorHandler mediator, IUnitOfWork unitOfWork) : 
+        public ChequeCommandHandler(IChequeRepository chequeRepository, IBancoRepository bancoRepository, IClienteRepository clienteRepository, IFornecedorRepository fornecedorRepository, IMediatorHandler mediator, IUnitOfWork unitOfWork) : 
                                                                                                     base(mediator, unitOfWork)
         {
             _chequeRepository = chequeRepository;
             _bancoRepository = bancoRepository;
             _clienteRepository = clienteRepository;
+            _fornecedorRepository = fornecedorRepository;
         }
 
         public Task<CommandResult> Handle(AddChequeCommand command, CancellationToken cancellationToken)
@@ -132,10 +135,10 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
             }
 
             Cheque cheque = _chequeRepository.GetById(command.Id);
-            Cliente cliente = _clienteRepository.GetById(command.ClienteRepassadoId);
+            Fornecedor fornecedor = _fornecedorRepository.GetById(command.FornecedorRepassadoId);
 
             if (!NotifyNullCheckState(cheque))
-                cheque.Repassar(command.DataEvento, cliente);
+                cheque.Repassar(command.DataEvento, fornecedor);
 
             _chequeRepository.Update(cheque);
 

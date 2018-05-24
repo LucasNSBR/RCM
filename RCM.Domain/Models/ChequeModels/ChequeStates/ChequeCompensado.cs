@@ -1,5 +1,5 @@
 ﻿using System;
-using RCM.Domain.Models.ClienteModels;
+using RCM.Domain.Models.FornecedorModels;
 
 namespace RCM.Domain.Models.ChequeModels.ChequeStates
 {
@@ -29,9 +29,9 @@ namespace RCM.Domain.Models.ChequeModels.ChequeStates
             cheque.MudarEstado(new ChequeCompensado(dataEvento));
         }
 
-        public override void Repassar(Cheque cheque, DateTime dataEvento, Cliente cliente)
+        public override void Repassar(Cheque cheque, DateTime dataEvento, Fornecedor fornecedor)
         {
-            cheque.MudarEstado(new ChequeRepassado(dataEvento, cliente));
+            cheque.MudarEstado(new ChequeRepassado(dataEvento, fornecedor));
         }
 
         public override void Sustar(Cheque cheque, DateTime dataEvento, string motivo)

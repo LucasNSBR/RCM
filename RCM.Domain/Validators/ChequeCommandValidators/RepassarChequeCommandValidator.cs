@@ -8,12 +8,13 @@ namespace RCM.Domain.Validators.ChequeCommandValidators
         public RepassarChequeCommandValidator()
         {
             ValidateId();
+            ValidateRepasseFornecedorId();
             ValidateDataRepasse();
         }
 
-        private void ValidateRepasseClienteId()
+        private void ValidateRepasseFornecedorId()
         {
-            RuleFor(ch => ch.ClienteId)
+            RuleFor(ch => ch.FornecedorRepassadoId)
                 .NotEmpty();
         }
 

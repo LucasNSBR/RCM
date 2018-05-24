@@ -22,11 +22,11 @@ namespace RCM.Application.ViewModels.ChequeViewModels
         [StringLength(100, MinimumLength = 0, ErrorMessage = "O {0} deve ter até {1} caracteres.")]
         public string Motivo { get; set; }
 
-        [Display(Name = "Id do Cliente")]
+        [Display(Name = "Id do Fornecedor")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O {0} é requerido.")]
-        public Guid ClienteId { get; set; }
+        public Guid FornecedorId { get; set; }
 
-        [Display(Name = "Cliente")]
-        public ClienteViewModel Cliente { get; set; }
+        [Display(Name = "Fornecedor")]
+        public FornecedorViewModel Fornecedor { get; set; }
     }
 }

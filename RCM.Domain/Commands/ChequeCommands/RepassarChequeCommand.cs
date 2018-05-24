@@ -5,12 +5,12 @@ namespace RCM.Domain.Commands.ChequeCommands
 {
     public class RepassarChequeCommand : ChequeCommand
     {
-        public Guid ClienteRepassadoId { get; set; }
+        public Guid FornecedorRepassadoId { get; set; }
 
-        public RepassarChequeCommand(Guid id, DateTime dataEvento, Guid clienteRepassadoId)
+        public RepassarChequeCommand(Guid id, DateTime dataEvento, Guid fornecedorRepassadoId)
         {
             Id = id;
-            ClienteRepassadoId = clienteRepassadoId;
+            FornecedorRepassadoId = fornecedorRepassadoId;
             DataEvento = dataEvento;
         }
 

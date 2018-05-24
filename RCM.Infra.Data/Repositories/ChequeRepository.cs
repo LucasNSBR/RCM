@@ -22,7 +22,7 @@ namespace RCM.Infra.Data.Repositories
                     .Include(b => b.Banco)
                     .Include(c => c.Cliente)
                     .Include(ec => ec.EstadoCheque)
-                    .ThenInclude(cl => (cl as ChequeRepassado).Cliente)
+                    .ThenInclude(cl => (cl as ChequeRepassado).Fornecedor)
                     .FirstOrDefault(ch => ch.Id == id);
             }
             else

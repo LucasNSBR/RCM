@@ -44,7 +44,7 @@ namespace RCM.Application.ApplicationServices
 
         public Task<CommandResult> RepassarCheque(Guid id, EstadoChequeViewModel viewModel)
         {
-            return _mediator.SendCommand(new RepassarChequeCommand(id, viewModel.DataEvento, viewModel.ClienteId));
+            return _mediator.SendCommand(new RepassarChequeCommand(id, viewModel.DataEvento, viewModel.FornecedorId));
         }
 
         public Task<CommandResult> DevolverCheque(Guid id, EstadoChequeViewModel viewModel)
