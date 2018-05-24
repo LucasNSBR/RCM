@@ -30,6 +30,10 @@ namespace RCM.Infra.Data.Repositories
 
             if (Get() != null)
             {
+                //ReAdd logo since the AddOrUpdateEmpresaCommand don't carry Logo property
+                if (empresa.Logo == null && model.Logo != null)
+                    empresa.AdicionarLogo(model.Logo);
+
                 model = empresa;
                 _dbSet.Update(model);
             }
