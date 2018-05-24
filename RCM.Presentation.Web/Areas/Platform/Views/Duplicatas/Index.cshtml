@@ -41,12 +41,12 @@
                     <label for="maxValor">Valor máximo</label>
                 </div>
                 <div class="input-field col s12 m3">
-                    <input asp-for="DataEmissao" name="dataEmissao" type="text" class="datepicker" id="dataEmissao" />
-                    <label for="dataEmissao">Data de Emissão</label>
+                    <input asp-for="DataInicial" name="dataInicial" type="text" class="datepicker" id="dataInicial" />
+                    <label for="dataInicial">Data de Venc. Inicial</label>
                 </div>
                 <div class="input-field col s12 m3">
-                    <input asp-for="DataVencimento" name="dataVencimento" type="text" class="datepicker" id="dataVencimento" />
-                    <label for="dataVencimento">Data de Vencimento</label>
+                    <input asp-for="DataFinal" name="dataFinal" type="text" class="datepicker" id="dataFinal" />
+                    <label for="dataFinal">Data de Venc. Final</label>
                 </div>
                 <div class="input-field col s12 m6">
                     <select name="fornecedorId" asp-for="FornecedorId" asp-items="@(new SelectList(Model.Fornecedores, "Id", "Nome"))" id="fornecedorId">
@@ -173,8 +173,8 @@
                          { "minValor", Model.MinValor?.ToString() },
                          { "maxValor", Model.MaxValor?.ToString() },
                          { "numeroDocumento", Model.NumeroDocumento?.ToString() },
-                         { "dataEmissao", Model.DataEmissao?.ToString() },
-                         { "dataVencimento", Model.DataVencimento?.ToString() },
+                         { "dataEmissao", Model.DataInicial?.ToString() },
+                         { "dataVencimento", Model.DataFinal?.ToString() },
                          { "pageSize", Model.Duplicatas.PageSize.ToString() },
                     };
 

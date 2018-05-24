@@ -15,8 +15,8 @@ namespace RCM.Presentation.Web.ViewModels
         public string NumeroDocumento { get; set; }
         public string MinValor { get; set; }
         public string MaxValor { get; set; }
-        public string DataEmissao { get; set; }
-        public string DataVencimento { get; set; }
+        public string DataInicial { get; set; }
+        public string DataFinal { get; set; }
 
         public int TotalResultados { get; set; }
         public decimal ValorTotalResultados { get; set; }

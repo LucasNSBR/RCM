@@ -6,24 +6,24 @@ namespace RCM.Domain.Models.DuplicataModels
 {
     public class DuplicataDataSpecification : BaseSpecification<Duplicata>, ISpecification<Duplicata>
     {
-        private readonly DateTime? _dataEmissao;
-        private readonly DateTime? _dataVencimento;
+        private readonly DateTime? _dataInicial;
+        private readonly DateTime? _dataFinal;
 
-        public DuplicataDataSpecification(DateTime? dataEmissao, DateTime? dataVencimento)
+        public DuplicataDataSpecification(DateTime? dataInicial, DateTime? dataFinal)
         {
-            _dataEmissao = dataEmissao;
-            _dataVencimento = dataVencimento;
+            _dataInicial = dataInicial;
+            _dataFinal = dataFinal;
         }
 
         public override Expression<Func<Duplicata, bool>> ToExpression()
         {
-            if (_dataEmissao != null && _dataVencimento != null)
-                return d => d.DataEmissao >= _dataEmissao.Value && d.DataVencimento <= _dataVencimento.Value;
+            if (_dataInicial != null && _dataFinal != null)
+                return d => d.DataVencimento >= _dataInicial.Value && d.DataVencimento <= _dataFinal.Value;
 
-            if (_dataEmissao != null)
-                return d => d.DataEmissao >= _dataEmissao.Value;
-            if (_dataVencimento != null)
-                return d => d.DataVencimento <= _dataVencimento.Value;
+            if (_dataInicial != null)
+                return d => d.DataVencimento >= _dataInicial.Value;
+            if (_dataFinal != null)
+                return d => d.DataVencimento <= _dataFinal.Value;
 
             return d => true;
         }

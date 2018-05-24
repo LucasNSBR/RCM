@@ -30,14 +30,14 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             _fornecedorApplicationService = fornecedorApplicationService;
         }
 
-        public IActionResult Index(bool? apenasNaoPagas, bool? apenasVencidas, Guid? fornecedorId, string numeroDocumento = null, string minValor = null, string maxValor = null, string dataEmissao = null, string dataVencimento = null, int pageNumber = 1, int pageSize = 20)
+        public IActionResult Index(bool? apenasNaoPagas, bool? apenasVencidas, Guid? fornecedorId, string numeroDocumento = null, string minValor = null, string maxValor = null, string dataInicial = null, string dataFinal = null, int pageNumber = 1, int pageSize = 20)
         {
             var pagaSpecification = new DuplicataNaoPagaSpecification(apenasNaoPagas);
             var vencidaSpecification = new DuplicataVencidaSpecification(apenasVencidas);
             var fornecedorIdSpecification = new DuplicataFornecedorIdSpecification(fornecedorId);
             var numeroDocumentoSpecification = new DuplicataNumeroDocumentoSpecification(numeroDocumento);
             var valorSpecification = new DuplicataValorSpecification(minValor.ToDecimal(), maxValor.ToDecimal());
-            var dataSpecification = new DuplicataDataSpecification(dataEmissao.ToDateTime(), dataVencimento.ToDateTime());
+            var dataSpecification = new DuplicataDataSpecification(dataInicial.ToDateTime(), dataFinal.ToDateTime());
 
             var list = _duplicataApplicationService.Get(pagaSpecification
                 .And(vencidaSpecification)
@@ -59,8 +59,8 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 MaxValor = maxValor,
                 FornecedorId = fornecedorId,
                 NumeroDocumento = numeroDocumento,
-                DataEmissao = dataEmissao,
-                DataVencimento = dataVencimento,
+                DataInicial = dataInicial,
+                DataFinal = dataFinal,
                 TotalResultados = list.ToList().Count(),
                 ValorTotalResultados = list.ToList().Sum(d => d.Valor),
                 ValorTotalVencidas = list.ToList().Where(d => d.Vencido).Sum(d => d.Valor)
