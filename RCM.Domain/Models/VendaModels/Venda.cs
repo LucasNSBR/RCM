@@ -1,4 +1,5 @@
-﻿using RCM.Domain.Core.Models;
+﻿using Newtonsoft.Json;
+using RCM.Domain.Core.Models;
 using RCM.Domain.Models.ClienteModels;
 using RCM.Domain.Models.ProdutoModels;
 using System;
@@ -27,6 +28,22 @@ namespace RCM.Domain.Models.VendaModels
         public decimal TotalVenda { get; private set; }
 
         public VendaStatusEnum Status { get; private set; }
+
+        internal string _parcelas; 
+        public List<Parcela> Parcelas
+        {
+            get
+            {
+                if (_parcelas == null)
+                    return null;
+
+                return JsonConvert.DeserializeObject<List<Parcela>>(_parcelas);
+            }
+            private set
+            {
+                _parcelas = JsonConvert.SerializeObject(value);
+            }
+        }
 
 
         protected Venda() { }
@@ -120,6 +137,11 @@ namespace RCM.Domain.Models.VendaModels
                 AddDomainError("A venda já foi finalizada.");
 
             return this;
+        }
+
+        public void AdicionarParcelas(List<Parcela> parcelas)
+        {
+            Parcelas = parcelas;
         }
     }
 }

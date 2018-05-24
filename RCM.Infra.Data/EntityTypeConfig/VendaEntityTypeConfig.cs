@@ -34,6 +34,10 @@ namespace RCM.Infra.Data.EntityTypeConfig
 
             builder.Property(v => v.Status)
                 .IsRequired();
+
+            builder.Property("_parcelas");
+
+            builder.Ignore(v => v.Parcelas);
         }
     }
 }
