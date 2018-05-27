@@ -39,10 +39,8 @@ namespace RCM.Application.ViewModels.VendaViewModels
 
         [Display(Name = "Status da Venda")]
         public VendaStatusEnum Status { get; set; }
-        
-        public VendaViewModel()
-        {
-            Produtos = Produtos ?? new List<VendaProdutoViewModel>();
-        }
+
+        [Display(Name = "Condições de Pagamento")]
+        public CondicaoPagamentoViewModel CondicaoPagamento { get; set; }
     }
 }

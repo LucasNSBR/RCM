@@ -175,6 +175,7 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<IRequestHandler<AttachVendaProdutoCommand, CommandResult>, VendaCommandHandler>();
             services.AddScoped<IRequestHandler<RemoveVendaProdutoCommand, CommandResult>, VendaCommandHandler>();
             services.AddScoped<IRequestHandler<FinalizarVendaCommand, CommandResult>, VendaCommandHandler>();
+            services.AddScoped<IRequestHandler<PagarParcelaVendaCommand, CommandResult>, VendaCommandHandler>();
         }
 
         private static void RegisterEvents(IServiceCollection services)

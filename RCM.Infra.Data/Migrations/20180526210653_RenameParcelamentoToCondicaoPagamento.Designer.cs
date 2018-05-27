@@ -17,9 +17,10 @@ using System;
 namespace RCM.Infra.Data.Migrations
 {
     [DbContext(typeof(RCMDbContext))]
-    partial class RCMDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180526210653_RenameParcelamentoToCondicaoPagamento")]
+    partial class RenameParcelamentoToCondicaoPagamento
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -389,6 +390,7 @@ namespace RCM.Infra.Data.Migrations
                     b.Property<DateTime>("DataVenda");
 
                     b.Property<string>("Detalhes")
+                        .IsRequired()
                         .HasMaxLength(1000);
 
                     b.Property<int>("QuantidadeProdutos");

@@ -33,6 +33,9 @@ namespace RCM.Infra.Data.Repositories
                     .ThenInclude((VendaProduto vp) => vp.Produto)
                     .ThenInclude(m => m.Marca)
                     .Include(pv => pv.Cliente)
+                    .ThenInclude(c => c.Endereco)
+                    .ThenInclude(e => e.Cidade)
+                    .ThenInclude(ci => ci.Estado)
                     .FirstOrDefault(v => v.Id == id);
             }
             else

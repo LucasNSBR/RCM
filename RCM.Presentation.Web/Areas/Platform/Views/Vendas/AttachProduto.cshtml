@@ -129,8 +129,9 @@
                     }
                 }));
 
-                if (produtoId == "" || produtoId == "00000000-0000-0000-0000-000000000000") {
-                    $('#produtoId').val(dropdown.find('option').first().val());
+                if ($(produtoId).val() == "" || $(produtoId).val() == "00000000-0000-0000-0000-000000000000") {
+
+                    $(produtoId).val(dropdown.find('option').first().val());
                     produto = $(produtos)[0];
                 }
 
@@ -147,7 +148,7 @@
             reloadSelect();
         });
 
-        $('#produto-select').change(function () {
+        $(dropdown).change(function () {
             var optionId = $('#produto-select option:selected')[0].value;
             var selectedIndex = $('#produto-select option:selected').index();
             $(produtoId).val(optionId);

@@ -45,7 +45,6 @@ namespace RCM.Application.Mappers
             CreateMap<OrdemServico, OrdemServicoViewModel>();
             CreateMap<Pagamento, PagamentoViewModel>();
             CreateMap<ProdutoFornecedor, ProdutoFornecedorViewModel>();
-            CreateMap<Venda, VendaViewModel>();
             CreateMap<VendaProduto, VendaProdutoViewModel>();
 
             CreateMap<Aplicacao, AplicacaoViewModel>()
@@ -65,6 +64,13 @@ namespace RCM.Application.Mappers
                     cfg.MapFrom(d => (d.Pagamento.DataPagamento == null || d.Pagamento.ValorPago == null) ? null : d.Pagamento);
                 });
 
+            CreateMap<CondicaoPagamento, CondicaoPagamentoViewModel>()
+                .ForMember(p => p.Parcelas, cfg =>
+                {
+                    cfg.MapFrom(p => p.Parcelas ?? null);
+                });
+
+
             CreateMap<Produto, ProdutoViewModel>()
                 .ForMember(a => a.Aplicacoes, cfg =>
                 {
@@ -73,6 +79,12 @@ namespace RCM.Application.Mappers
                 .ForMember(pf => pf.ProdutoFornecedores, cfg =>
                 {
                     cfg.MapFrom(p => p.Fornecedores);
+                });
+
+            CreateMap<Venda, VendaViewModel>()
+                .ForMember(p => p.CondicaoPagamento, cfg =>
+                {
+                    cfg.MapFrom(v => v.CondicaoPagamento ?? null);
                 });
         }
     }

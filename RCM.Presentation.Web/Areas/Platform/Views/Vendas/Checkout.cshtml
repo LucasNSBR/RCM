@@ -1,0 +1,125 @@
+﻿@model RCM.Application.ViewModels.VendaViewModels.CondicaoPagamentoViewModel
+
+@{
+    ViewData["Title"] = "Fechar Venda";
+}
+
+<h5>Fechar Venda</h5>
+
+<div class="form-container col s12 m12">
+    <form asp-action="Checkout">
+        <div class="col s12 m6">
+            <p class="px-1 font-bold lead">
+                Condições de Pagamento
+            </p>
+
+            <div class="row mb-1">
+                <div class="col s12 m9">
+                    <select asp-for="TipoVenda" id="tipo-venda-select">
+                        <option value="0">Venda à Vista</option>
+                        <option value="1">Venda a Prazo</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="venda-prazo-container">
+                <input type="hidden" asp-for="VendaId" />
+                <div class="row mb-0">
+                    <div class="input-field col s12 m9">
+                        <select asp-for="QuantidadeParcelas">
+                            <option value="1">1x</option>
+                            <option value="2">2x</option>
+                            <option value="3">3x</option>
+                            <option value="4">4x</option>
+                            <option value="5">5x</option>
+                            <option value="6">6x</option>
+                        </select>
+                        <label for="QuantidadeParcelas">Quantidade de Parcelas</label>
+                    </div>
+                </div>
+                <div class="row mb-0">
+                    <div class="input-field col s12 m9">
+                        <select asp-for="IntervaloVencimento">
+                            <option value="7">7 dias</option>
+                            <option value="14">14 dias</option>
+                            <option value="21">21 dias</option>
+                            <option value="30">30 dias</option>
+                        </select>
+                        <label for="IntervaloVencimento">Intervalo entre os Vencimentos</label>
+                    </div>
+                </div>
+                <div class="row" id="entrada-container">
+                    <div class="col s12 m9 pb-2">
+                        <input type="checkbox" id="entrada-checkbox" />
+                        <label for="entrada-checkbox">O cliente deu valor de entrada</label>
+                    </div>
+                    <div class="input-field col s12 m9" id="entrada-div">
+                        <label asp-for="ValorEntrada"></label>
+                        <input asp-for="ValorEntrada" class="input-field" />
+                        <span asp-validation-for="ValorEntrada" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row pt-2 px-1">
+                <post-button>Confirmar</post-button>
+            </div>
+        </div>
+    </form>
+
+    <div class="col s12 m6">
+        <dl class="detail-list">
+            <dt>
+                <label asp-for="@Model.VendaId"></label>
+            </dt>
+            <dd>
+                @Model.VendaId
+            </dd>
+            <dt>
+                <label asp-for="@Model.Venda.Cliente"></label>
+            </dt>
+            <dd>
+                <a asp-action="Details" asp-controller="Clientes" asp-route-id="@Model.Venda.ClienteId">@Model.Venda.Cliente.Nome</a>
+            </dd>
+            <dt>
+                <label asp-for="@Model.Venda.QuantidadeProdutos"></label>
+            </dt>
+            <dd>
+                @Model.Venda.QuantidadeProdutos
+            </dd>
+            <dt>
+                <label asp-for="@Model.Venda.TotalVenda"></label>
+            </dt>
+            <dd>
+                @Model.Venda.TotalVenda.ToString("c")
+            </dd>
+        </dl>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Details" asp-route-id="@Model.VendaId">Voltar para Detalhes</a>
+</div>
+
+
+@section Scripts {
+    <script>
+        $('#tipo-venda-select').change(function () {
+            var value = $("#tipo-venda-select").val();
+
+            if (value == 1) {
+                $('#venda-prazo-container').slideDown('slow');
+            } else {
+                $('#venda-prazo-container').slideUp('slow');
+            }
+        })
+
+        $('#entrada-checkbox').change(function () {
+            if ($(this).prop('checked')) {
+                $('#entrada-div').slideDown('slow');
+            } else {
+                $('#entrada-div').slideUp('slow');
+            }
+        });
+    </script>
+}

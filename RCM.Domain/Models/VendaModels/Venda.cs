@@ -29,19 +29,19 @@ namespace RCM.Domain.Models.VendaModels
 
         public VendaStatusEnum Status { get; private set; }
 
-        internal string _parcelas; 
-        public List<Parcela> Parcelas
+        private string _condicaoPagamento; 
+        public CondicaoPagamento CondicaoPagamento
         {
             get
             {
-                if (_parcelas == null)
+                if (_condicaoPagamento == null)
                     return null;
 
-                return JsonConvert.DeserializeObject<List<Parcela>>(_parcelas);
+                return JsonConvert.DeserializeObject<CondicaoPagamento>(_condicaoPagamento);
             }
             private set
             {
-                _parcelas = JsonConvert.SerializeObject(value);
+                _condicaoPagamento = JsonConvert.SerializeObject(value);
             }
         }
 
@@ -123,25 +123,59 @@ namespace RCM.Domain.Models.VendaModels
                 AddDomainError("O produto ainda não foi adicionado à venda.");
         }
 
-        public Venda Finalizar()
+        public Venda Finalizar(TipoVenda tipoVenda, int quantidadeParcelas, int intervaloVencimento, decimal valorEntrada)
         {
             if (!_produtos.Any())
-            {
                 AddDomainError("Não é possível finalizar a venda sem nenhum item.");
-                return null;
-            }
 
-            if (Status == VendaStatusEnum.Aberta)
-                Status = VendaStatusEnum.Fechada;
-            else
+            if (TotalVenda <= 0)
+                AddDomainError("Não é possível finalizar uma venda com valor total zerado ou negativo.");
+
+            if (Status == VendaStatusEnum.Fechada)
                 AddDomainError("A venda já foi finalizada.");
+
+            if (tipoVenda == TipoVenda.AVista)
+                CondicaoPagamento = ConfigurarVendaVista(TotalVenda);
+            else
+                CondicaoPagamento = ConfigurarVendaPrazo(TotalVenda, quantidadeParcelas, intervaloVencimento, valorEntrada);
+
+            Status = VendaStatusEnum.Fechada;
 
             return this;
         }
 
-        public void AdicionarParcelas(List<Parcela> parcelas)
+        private CondicaoPagamento ConfigurarVendaVista(decimal totalVenda)
         {
-            Parcelas = parcelas;
+            //Setup a payment object without Installments and initial payment value (Entrada) = total sell value
+            return new CondicaoPagamento(TipoVenda.AVista, totalVenda, valorEntrada: totalVenda);
+        }
+        
+        private CondicaoPagamento ConfigurarVendaPrazo(decimal totalVenda, int quantidadeParcelas, int intervaloVencimento, decimal entrada)
+        {
+            decimal valorParcela = (totalVenda - entrada) / quantidadeParcelas;
+            List<Parcela> parcelas = new List<Parcela>();
+
+            //Setup Installments based on Index and Interval
+            for (int i = 1; i <= quantidadeParcelas; i++)
+            {
+                Parcela parcela = new Parcela(i, DateTime.Now.AddDays(intervaloVencimento * i), valorParcela);
+                parcelas.Add(parcela);
+            };
+
+            return new CondicaoPagamento(TipoVenda.APrazo, totalVenda, quantidadeParcelas, intervaloVencimento, entrada, parcelas);
+        }
+
+        public void PagarParcela(int parcelaId)
+        {
+            var index = parcelaId - 1;
+
+            List<Parcela> parcelas = CondicaoPagamento.Parcelas.ToList();
+            Parcela oldParcela = parcelas[index];
+
+            parcelas[index] = new Parcela(parcelaId, oldParcela.DataVencimento, oldParcela.Valor, DateTime.Now);
+
+            //Trigger Parcelamento setter in order to serialize new value
+            CondicaoPagamento = new CondicaoPagamento(TipoVenda.APrazo, TotalVenda, CondicaoPagamento.QuantidadeParcelas, CondicaoPagamento.IntervaloVencimento, CondicaoPagamento.ValorEntrada, parcelas);
         }
     }
 }

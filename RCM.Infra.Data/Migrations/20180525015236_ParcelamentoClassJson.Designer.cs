@@ -17,9 +17,10 @@ using System;
 namespace RCM.Infra.Data.Migrations
 {
     [DbContext(typeof(RCMDbContext))]
-    partial class RCMDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180525015236_ParcelamentoClassJson")]
+    partial class ParcelamentoClassJson
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -389,6 +390,7 @@ namespace RCM.Infra.Data.Migrations
                     b.Property<DateTime>("DataVenda");
 
                     b.Property<string>("Detalhes")
+                        .IsRequired()
                         .HasMaxLength(1000);
 
                     b.Property<int>("QuantidadeProdutos");
@@ -397,8 +399,8 @@ namespace RCM.Infra.Data.Migrations
 
                     b.Property<decimal>("TotalVenda");
 
-                    b.Property<string>("_condicaoPagamento")
-                        .HasColumnName("CondicaoPagamento");
+                    b.Property<string>("_parcelamento")
+                        .HasColumnName("ParcelamentoObject");
 
                     b.HasKey("Id");
 

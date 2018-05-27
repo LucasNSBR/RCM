@@ -38,7 +38,7 @@ namespace RCM.Domain.Models.VendaModels
             Quantidade = quantidade;
 
             PrecoVenda = produto.PrecoVenda;
-            PrecoFinal = (PrecoVenda - Desconto + Acrescimo) * Quantidade;
+            PrecoFinal = (PrecoVenda * Quantidade) - Desconto + Acrescimo;
         }
 
         public bool Equals(VendaProduto other)

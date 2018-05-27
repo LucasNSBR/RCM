@@ -19,7 +19,6 @@ namespace RCM.Infra.Data.EntityTypeConfig
                 .HasForeignKey(v => v.ClienteId);
 
             builder.Property(v => v.Detalhes)
-                .IsRequired()
                 .HasMaxLength(1000);
 
             builder.HasMany(v => v.Produtos)
@@ -35,9 +34,10 @@ namespace RCM.Infra.Data.EntityTypeConfig
             builder.Property(v => v.Status)
                 .IsRequired();
 
-            builder.Property("_parcelas");
+            builder.Property("_condicaoPagamento")
+                .HasColumnName("CondicaoPagamento");
 
-            builder.Ignore(v => v.Parcelas);
+            builder.Ignore(v => v.CondicaoPagamento);
         }
     }
 }

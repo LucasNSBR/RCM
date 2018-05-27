@@ -19,7 +19,8 @@ namespace RCM.Domain.CommandHandlers.VendaCommandHandlers
                                        IRequestHandler<RemoveVendaCommand, CommandResult>,
                                        IRequestHandler<AttachVendaProdutoCommand, CommandResult>,
                                        IRequestHandler<RemoveVendaProdutoCommand, CommandResult>,
-                                       IRequestHandler<FinalizarVendaCommand, CommandResult>
+                                       IRequestHandler<FinalizarVendaCommand, CommandResult>,
+                                       IRequestHandler<PagarParcelaVendaCommand, CommandResult>
     {
         private readonly IVendaRepository _vendaRepository;
         private readonly IClienteRepository _clienteRepository;
@@ -40,7 +41,7 @@ namespace RCM.Domain.CommandHandlers.VendaCommandHandlers
                 return Response();
             }
 
-            Cliente cliente = _clienteRepository.GetById(command.ClienteId);
+            Cliente cliente = _clienteRepository.GetById(command.ClienteId, loadRelatedData: false);
             Venda venda = new Venda(command.DataVenda, command.Detalhes, cliente);
             _vendaRepository.Add(venda);
 
@@ -58,7 +59,7 @@ namespace RCM.Domain.CommandHandlers.VendaCommandHandlers
                 return Response();
             }
 
-            Cliente cliente = _clienteRepository.GetById(command.VendaId);
+            Cliente cliente = _clienteRepository.GetById(command.VendaId, loadRelatedData: false);
             Venda venda = new Venda(command.VendaId, command.DataVenda, command.Detalhes, cliente);
             _vendaRepository.Update(venda);
 
@@ -76,7 +77,7 @@ namespace RCM.Domain.CommandHandlers.VendaCommandHandlers
                 return Response();
             }
 
-            Venda venda = _vendaRepository.GetById(command.VendaId);
+            Venda venda = _vendaRepository.GetById(command.VendaId, loadRelatedData: false);
             _vendaRepository.Remove(venda);
 
             if (Commit())
@@ -138,7 +139,28 @@ namespace RCM.Domain.CommandHandlers.VendaCommandHandlers
             }
 
             Venda venda = _vendaRepository.GetById(command.VendaId);
-            venda.Finalizar();
+            venda.Finalizar(command.TipoVenda, command.QuantidadeParcelas, command.IntervaloVencimento, command.ValorEntrada);
+
+            if (NotifyModelErrors(venda.Errors))
+                return Response();
+            else
+                _vendaRepository.Update(venda);
+
+            Commit();
+
+            return Response();
+        }
+
+        public Task<CommandResult> Handle(PagarParcelaVendaCommand command, CancellationToken cancellationToken)
+        {
+            if (!command.IsValid())
+            {
+                NotifyCommandErrors(command);
+                return Response();
+            }
+
+            Venda venda = _vendaRepository.GetById(command.VendaId, loadRelatedData: false);
+            venda.PagarParcela(command.ParcelaId);
 
             if (NotifyModelErrors(venda.Errors))
                 return Response();

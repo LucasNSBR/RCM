@@ -6,26 +6,39 @@ using RCM.Domain.Models.ValueObjects;
 using RCM.Domain.Models.VendaModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace RCM.Tests
 {
     [TestClass]
     public class VendaParcelaTests
     {
-        [TestMethod]
-        public void TestParcela()
-        {
-            var cliente = GetCliente();
+        //[TestMethod]
+        //public void TestParcela()
+        //{
+        //    var cliente = GetCliente();
 
-            var parcelas = new List<Parcela>();
-            parcelas.Add(new Parcela(1, DateTime.Now.AddDays(7), 1500));
-            parcelas.Add(new Parcela(2, DateTime.Now.AddDays(7).AddDays(7), 1500));
-            parcelas.Add(new Parcela(3, DateTime.Now.AddDays(7).AddDays(7).AddDays(7), 1500));
+        //    var parcelas = new List<Parcela>();
+        //    parcelas.Add(new Parcela(1, DateTime.Now.AddDays(7), 1500));
+        //    parcelas.Add(new Parcela(2, DateTime.Now.AddDays(7).AddDays(7), 1500));
+        //    parcelas.Add(new Parcela(3, DateTime.Now.AddDays(7).AddDays(7).AddDays(7), 1500));
 
-            var venda = new Venda(DateTime.Now, "Sem detalhes", cliente);
-            venda.AdicionarParcelas(parcelas);
-            Assert.AreEqual(3, venda.Parcelas.Count);
-        }
+        //    var venda = new Venda(DateTime.Now, "Sem detalhes", cliente);
+        //    //venda.AdicionarParcelas(parcelas);
+        //    Assert.AreEqual(3, venda.Parcelamento.Count);
+        //}
+
+        //[TestMethod]
+        //public void TestConfiguraParcelas()
+        //{
+        //    var cliente = GetCliente();
+        //    var venda = new Venda(DateTime.Now, "Sem detalhes", cliente);
+
+        //    var list = venda.CriarParcelas(4, 30, 1000);
+
+        //    Assert.AreEqual(DateTime.Now.AddDays(30).Date, list.First().DataVencimento.Date);
+        //}
+
 
         public Cliente GetCliente()
         {

@@ -1,4 +1,6 @@
-﻿@{
+﻿@using RCM.Domain.Models.VendaModels;
+
+@{
     Layout = "_Report";
 }
 
@@ -23,7 +25,7 @@
 
         @if (img != string.Empty)
         {
-            <img src="data:image/png;base64, @img" height="105" style="padding: 5px; margin-top: 5px"/>
+            <img src="data:image/png;base64, @img" height="105" ; width="175" style="padding: 5px; margin-top: 5px" />
         }
         else
         {
@@ -36,15 +38,15 @@
         </span>
         <br />
         <span>
-            @Model.Empresa.Documento.CadastroNacional
+            @Model.Empresa.DocumentoCadastroNacional
         </span>
         <br />
         <span>
-            @($"{Model.Empresa.Endereco.Rua}, {Model.Empresa.Endereco.Numero}, {Model.Empresa.Endereco.Bairro}")
+            @($"{Model.Empresa.EnderecoRua}, {Model.Empresa.EnderecoNumero}, {Model.Empresa.EnderecoBairro}")
         </span>
         <br />
         <span>
-            @($"{Model.Empresa.Contato.TelefoneComercial}")
+            @($"{Model.Empresa.ContatoTelefoneComercial}")
         </span>
     </div>
     <div class="col s4 my-1 offset-s1">
@@ -73,7 +75,7 @@
                         CPF/CNPJ
                     </label>
                     <p>
-                        @(Model.Cliente?.Documento?.CadastroNacional ?? "Não informado")
+                        @(Model.Cliente?.DocumentoCadastroNacional ?? "Não informado")
                     </p>
                 </td>
             </tr>
@@ -83,7 +85,7 @@
                         Endereço
                     </label>
                     <p>
-                        @((Model.Cliente.Endereco?.Rua ?? Model.Cliente.Endereco?.Numero.ToString() ?? Model.Cliente.Endereco?.Bairro) ?? "Não informado")
+                        @((Model.Cliente.EnderecoRua ?? Model.Cliente.EnderecoNumero.ToString() ?? Model.Cliente.EnderecoBairro) ?? "Não informado")
                     </p>
                 </td>
                 <td>
@@ -91,7 +93,7 @@
                         Cidade
                     </label>
                     <p>
-                        @($"{Model.Cliente.Endereco?.Cidade?.Nome ?? "Não informada"}")
+                        @($"{Model.Cliente.EnderecoCidade?.Nome ?? "Não informada"}")
                     </p>
                 </td>
                 <td>
@@ -99,7 +101,7 @@
                         CEP
                     </label>
                     <p>
-                        @($"{Model.Cliente.Endereco?.CEP ?? "Não informado"}")
+                        @($"{Model.Cliente.EnderecoCEP ?? "Não informado"}")
                     </p>
                 </td>
                 <td>
@@ -107,7 +109,7 @@
                         Estado
                     </label>
                     <p>
-                        @($"{Model.Cliente.Endereco?.Cidade?.Estado?.Nome ?? "Não informado"}")
+                        @($"{Model.Cliente.EnderecoCidade?.Estado?.Nome ?? "Não informado"}")
                     </p>
                 </td>
             </tr>
@@ -117,7 +119,7 @@
                         Celular
                     </label>
                     <p>
-                        @($"{Model.Cliente.Contato?.Celular ?? "Não informado"}")
+                        @($"{Model.Cliente.ContatoCelular ?? "Não informado"}")
                     </p>
                 </td>
                 <td>
@@ -125,7 +127,7 @@
                         Telefone Residencial
                     </label>
                     <p>
-                        @($"{Model.Cliente.Contato?.TelefoneResidencial ?? "Não informado"}")
+                        @($"{Model.Cliente.ContatoTelefoneResidencial ?? "Não informado"}")
                     </p>
                 </td>
                 <td colspan="2">
@@ -133,10 +135,86 @@
                         Email
                     </label>
                     <p>
-                        @($"{Model.Cliente.Contato?.Email ?? "Não informado"}")
+                        @($"{Model.Cliente.ContatoEmail ?? "Não informado"}")
                     </p>
                 </td>
             </tr>
+        </table>
+    </div>
+</div>
+
+<div class="row" id="report-payment">
+    <div class="col s12 no-padding">
+        <table>
+            <tr>
+                <td colspan="2">
+                    <label>
+                        Condição de Pagamento
+                    </label>
+                    <p>
+                        @if (Model.Venda.CondicaoPagamento.TipoVenda == TipoVenda.AVista)
+                        {
+                            @("Venda à Vista");
+                        }
+                        else
+                        {
+                            @("Venda a Prazo");
+                        }
+                    </p>
+                </td>
+                <td colspan="2">
+                    <label>
+                        Valores de Entrada
+                    </label>
+                    <p>
+                        @Model.Venda.CondicaoPagamento.ValorEntrada.ToString("c")
+                    </p>
+                </td>
+            </tr>
+            @if (Model.Venda.CondicaoPagamento.Parcelas.Any())
+            {
+                <tr>
+                    <td colspan="3">
+                        <label>
+                            Quantidade de Parcelas
+                        </label>
+                        <p>
+                            @Model.Venda.CondicaoPagamento.QuantidadeParcelas
+                        </p>
+                    </td>
+                </tr>
+
+                @foreach (var parcela in Model.Venda.CondicaoPagamento.Parcelas)
+                {
+                    <tr>
+                        <td>
+                            <label>
+                                Número da Parcela
+                            </label>
+                            <p>
+                                @parcela.Numero
+                            </p>
+                        </td>
+                        <td>
+                            <label>
+                                Vencimento da Parcela
+                            </label>
+                            <p>
+                                @parcela.DataVencimento.ToShortDateString()
+                            </p>
+                        </td>
+
+                        <td>
+                            <label>
+                                Valor da Parcela
+                            </label>
+                            <p>
+                                @parcela.Valor.ToString("c")
+                            </p>
+                        </td>
+                    </tr>
+                }
+            }
         </table>
     </div>
 </div>
@@ -204,7 +282,7 @@
                             }
                         </td>
                         <td class="center">
-                            @if (item.Desconto == 0)
+                            @if (item.Acrescimo == 0)
                             {
                                 <span class="font-italic">Nenhum</span>
                             }

@@ -75,7 +75,7 @@
                         @Html.DisplayNameFor(model => model.Vendas.List.FirstOrDefault().Cliente.Nome)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Vendas.List.FirstOrDefault().Cliente.Documento.CadastroNacional)
+                        @Html.DisplayNameFor(model => model.Vendas.List.FirstOrDefault().Cliente.DocumentoCadastroNacional)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Vendas.List.FirstOrDefault().DataVenda)
@@ -88,6 +88,9 @@
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Vendas.List.FirstOrDefault().Status)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Vendas.List.FirstOrDefault().CondicaoPagamento)
                     </th>
                 </tr>
             </thead>
@@ -102,7 +105,7 @@
                             @Html.DisplayFor(modelItem => item.Cliente.Nome)
                         </td>
                         <td>
-                            @(string.IsNullOrWhiteSpace(item.Cliente.Documento.CadastroNacional) ? "Não cadastrado" : item.Cliente.Documento.CadastroNacional)
+                            @(string.IsNullOrWhiteSpace(item.Cliente.DocumentoCadastroNacional) ? "Não cadastrado" : item.Cliente.DocumentoCadastroNacional)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.DataVenda)
@@ -115,6 +118,16 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            @if (item.Status == VendaStatusEnum.Aberta)
+                            {
+                                @("Indefinidas")
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(modelItem => item.CondicaoPagamento.TipoVenda)
+                            }
                         </td>
                     </tr>
                 }
@@ -137,10 +150,10 @@
             }
 
             @Html.Partial("_Pagination", new ViewDataDictionary(this.ViewData)
-            {
-                { "listHelper", listHelper },
-                { "queryStringHelper", queryStringHelper }
-            })
+    {
+        { "listHelper", listHelper },
+        { "queryStringHelper", queryStringHelper }
+    })
         </div>
     }
     else

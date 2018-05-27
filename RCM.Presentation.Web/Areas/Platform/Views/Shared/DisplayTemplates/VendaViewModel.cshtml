@@ -7,6 +7,7 @@
         <ul class="tabs tabs-fixed-width">
             <li class="tab col s3"><a href="#geral" class="active">Geral</a></li>
             <li class="tab col s3"><a href="#produtos">Produtos</a></li>
+            <li class="tab col s3"><a href="#pagamento">Condições de Pagamento</a></li>
         </ul>
     </div>
 
@@ -139,11 +140,129 @@
                         <span class="lead-2 text-success">Essa venda já foi finalizada.</span>
                         <br />
                         <a asp-action="PrintDAV" asp-route-id="@Model.Id" target="_blank">
-                            Imprimir Documento Auxiliar de Venda    
+                            Imprimir Documento Auxiliar de Venda
                         </a>
                     }
                 </div>
             </div>
         }
+    </div>
+    <div id="pagamento" class="col s12 m12">
+        <div>
+            <p class="px-1 font-bold lead">
+                Informação sobre Pagamento
+            </p>
+            <div>
+                @if (Model.Status == VendaStatusEnum.Fechada)
+                {
+                    if (Model.CondicaoPagamento.TipoVenda == TipoVenda.AVista)
+                    {
+                        <dl class="detail-list">
+                            <dt>
+                                <label asp-for="@Model.CondicaoPagamento.TipoVenda"></label>
+                            </dt>
+                            <dd>
+                                @("Pagamento à Vista")
+                            </dd>
+                            <dt>
+                                <label>Descrição dos Valores</label>
+                            </dt>
+                            <dd>
+                                <span class="font-bold lead text-success">Todos os valores dessa venda já foram quitados.</span>
+                            </dd>
+                        </dl>
+                    }
+
+                    if (Model.CondicaoPagamento.TipoVenda == TipoVenda.APrazo)
+                    {
+                        <dl class="detail-list">
+                            <dt>
+                                <label asp-for="@Model.CondicaoPagamento.TipoVenda"></label>
+                            </dt>
+                            <dd>
+                                @("Pagamento a Prazo")
+                            </dd>
+                            <dt>
+                                <label>Descrição dos Valores</label>
+                            </dt>
+                            <dd>
+                                @if (Model.CondicaoPagamento.ValorEntrada > 0)
+                                {
+                                    <p class="small my-0">
+                                        A entrada foi de @Model.CondicaoPagamento.ValorEntrada.ToString("c")
+                                    </p>
+                                }
+                                else
+                                {
+                                    <p class="small my-0">
+                                        Sem entrada
+                                    </p>
+                                }
+
+                                <p class="small mt-0">
+                                    O valor total da venda foi de @Model.TotalVenda.ToString("c")
+                                </p>
+
+                                <div>
+                                    @if (Model.CondicaoPagamento.ValorRestante > 0)
+                                    {
+                                        <p class="small">
+                                            O valor total pago até agora foi de @Model.CondicaoPagamento.ValorPago.ToString("c")
+                                        </p>
+                                        <p class="font-bold lead text-danger">O valor restante é de @Model.CondicaoPagamento.ValorRestante.ToString("c")</p>
+                                    }
+                                    else
+                                    {
+                                        <p class="font-bold lead text-success">Todos os valores dessa venda já foram quitados.</p>
+                                    }
+                                </div>
+                            </dd>
+
+                            @if (Model.CondicaoPagamento.Parcelas.Any())
+                            {
+                                <dt>
+                                    <label asp-for="@Model.CondicaoPagamento"></label>
+                                </dt>
+                                <dd>
+                                    <ul class="collection" id="list-parcelas">
+                                        @foreach (var parcela in Model.CondicaoPagamento.Parcelas)
+                                        {
+                                            <li class="collection-item @(parcela.Vencida ? "bg-danger" : "") @(parcela.Paga ? "bg-success" : "")">
+                                                <div>
+                                                    Parcela @parcela.Numero - @parcela.DataVencimento.ToShortDateString()
+                                                    <span class="secondary-content">
+                                                        @parcela.Valor.ToString("c")
+                                                    </span>
+                                                    <br />
+
+                                                    @if (parcela.Paga)
+                                                    {
+                                                        <b class="text-black">
+                                                            Parcela paga - @(((DateTime)parcela.DataPagamento).ToShortDateString())
+                                                        </b>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a asp-action="PayInstallment" asp-route-vendaid="@Model.Id" asp-route-parcelaid="@parcela.Numero">Clique aqui para baixar a parcela</a>
+                                                    }
+                                                </div>
+                                            </li>
+                                        }
+                                    </ul>
+                                </dd>
+                            }
+                        </dl>
+                    }
+                }
+
+                @if (Model.Status == VendaStatusEnum.Aberta)
+                {
+                    <p class="text-danger">
+                        <i class="material-icons left">warning</i>
+                        Essa venda ainda não foi finalizada.
+                    </p>
+                }
+            </div>
+        </div>
     </div>
 </div>

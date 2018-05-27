@@ -220,16 +220,57 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
 
         [Authorize(Policy = "ActiveUser")]
         [ClaimAuthorization(ClaimName = "ActiveCompany", RedirectActionName = "Unattached", RedirectControllerName = "Empresa", RedirectAreaName = "Platform")]
-        public async Task<IActionResult> Checkout(Guid id)
+        public IActionResult Checkout(Guid id)
         {
-            var commandResult = await _vendaApplicationService.FinalizarVenda(id);
+            var venda = _vendaApplicationService.GetById(id);
+            if (venda == null)
+                return NotFound();
+
+            var parcelamento = new CondicaoPagamentoViewModel
+            {
+                VendaId = venda.Id,
+                Venda = venda
+            };
+
+            return View(parcelamento);
+        }
+
+        [Authorize(Policy = "ActiveUser")]
+        [ClaimAuthorization(ClaimName = "ActiveCompany", RedirectActionName = "Unattached", RedirectControllerName = "Empresa", RedirectAreaName = "Platform")]
+        [HttpPost]
+        public async Task<IActionResult> Checkout(Guid vendaId, CondicaoPagamentoViewModel condicaoPagamento)
+        {
+            if (!ModelState.IsValid)
+            {
+                NotifyModelStateErrors();
+                return View(condicaoPagamento);
+            }
+
+            var commandResult = await _vendaApplicationService.FinalizarVenda(vendaId, condicaoPagamento);
+
+            if (commandResult.Success)
+            {
+                NotifyCommandResultSuccess();
+                return RedirectToAction(nameof(Details), new { id = vendaId });
+            }
+            else
+                NotifyCommandResultErrors(commandResult.Errors);
+
+            return View(condicaoPagamento);
+        }
+
+        [Authorize(Policy = "ActiveUser")]
+        [ClaimAuthorization(ClaimName = "ActiveCompany", RedirectActionName = "Unattached", RedirectControllerName = "Empresa", RedirectAreaName = "Platform")]
+        public async Task<IActionResult> PayInstallment(Guid vendaId, int parcelaId)
+        {
+            var commandResult = await _vendaApplicationService.PagarParcela(vendaId, parcelaId);
 
             if (commandResult.Success)
                 NotifyCommandResultSuccess();
             else
                 NotifyCommandResultErrors(commandResult.Errors);
 
-            return RedirectToAction(nameof(Details), new { id });
+            return RedirectToAction(nameof(Details), new { id = vendaId });
         }
 
         [Authorize(Policy = "ActiveUser")]

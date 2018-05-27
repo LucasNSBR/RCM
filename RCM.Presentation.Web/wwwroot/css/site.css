@@ -378,19 +378,19 @@ tbody tr {
 }
 
 .bg-purple {
-    background-color: #9c27b0;
+    background-color: #9c27b0!important;
 }
 
 .bg-success {
-    background-color: #b8fac9;
+    background-color: #b8fac9!important;
 }
 
 .bg-warning {
-    background-color: #fff8a9;
+    background-color: #fff8a9!important;
 }
 
 .bg-danger {
-    background-color: #faa9a9;
+    background-color: #faa9a9!important;
 }
 
 input[type='number'] {
@@ -598,6 +598,28 @@ dt {
     padding: 5px 10px 5px 10px;
 }
 
+#report-payment thead {
+    background-color: #3e3e3e;
+    color: white;
+}
+
+#report-payment tr {
+    border: 1px solid #b5b5b5;
+}
+
+#report-payment tr {
+    text-align: right;
+}
+
+#report-payment tr td {
+    border: 1px solid #c8c8c8;
+    padding: 5px 10px 5px 10px;
+}
+
+#report-payment tr p {
+    margin: 0px;
+}
+
 .w-75 {
     width: 75%;
 }
@@ -638,4 +660,16 @@ dt {
     right: 5%;
     font-size: 20px;
     cursor: pointer;
+}
+
+#entrada-div {
+    display: none;
+}
+
+#entrada-container {
+    margin-top: 26px;
+}
+
+#venda-prazo-container {
+    display: none;
 }
