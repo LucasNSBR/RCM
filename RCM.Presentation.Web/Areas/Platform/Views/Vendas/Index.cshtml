@@ -24,7 +24,8 @@
                 <div class="col s4 m4 pt-2 px-0 mx-0 max-percent-width">
                     <a class="btn waves-effect purple left no-border col s1 m2" id="advancedSearchToggler">
                         <i class="material-icons center">keyboard_arrow_down</i>
-                    </a><button type="submit" class="btn waves-effect purple no-border col s11 m10">
+                    </a>
+                    <button type="submit" class="btn waves-effect purple no-border col s11 m10">
                         <i class="material-icons right">search</i>
                         Pesquisar
                     </button>
@@ -126,7 +127,14 @@
                             }
                             else
                             {
-                                @Html.DisplayFor(modelItem => item.CondicaoPagamento.TipoVenda)
+                                if(item.CondicaoPagamento.TipoVenda == TipoVenda.APrazo)
+                                {
+                                    @("A Prazo")
+                                }
+                                else
+                                {
+                                    @("À Vista")
+                                }
                             }
                         </td>
                     </tr>

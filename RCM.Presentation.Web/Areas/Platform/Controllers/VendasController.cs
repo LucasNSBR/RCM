@@ -228,6 +228,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
 
             var parcelamento = new CondicaoPagamentoViewModel
             {
+                Venda = venda,
                 VendaId = venda.Id,
             };
 

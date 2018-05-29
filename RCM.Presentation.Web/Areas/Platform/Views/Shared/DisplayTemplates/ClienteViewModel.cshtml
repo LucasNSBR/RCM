@@ -21,6 +21,9 @@
             <dt>
                 <label asp-for="Id"></label>
             </dt>
+            <dd>
+                @Model.Id
+            </dd>
             <dt>
                 <label asp-for="Tipo"></label>
             </dt>
@@ -33,9 +36,6 @@
                 {
                     <span>Pessoa jurídica</span>
                 }
-            </dd>
-            <dd>
-                @Model.Id
             </dd>
             <dt>
                 <label asp-for="Nome"></label>

@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using RCM.Domain.Commands.VendaCommands;
+using System;
 
 namespace RCM.Domain.Validators.VendaCommandValidators
 {
@@ -20,10 +21,8 @@ namespace RCM.Domain.Validators.VendaCommandValidators
         public void ValidateDataPagamento()
         {
             RuleFor(v => v.DataPagamento)
-                .Must((command, date) =>
-                {
-                    return command.DataPagamento > command.DataVenda;
-                })
+                .GreaterThan(DateTime.Now.AddDays(-7))
+                .LessThan(DateTime.Now.AddDays(7))
                 .WithMessage("A data desse pagamento deve ser maior que a data de abertura da venda");
         }
     }

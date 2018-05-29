@@ -4,15 +4,9 @@
     Informação geral
 </p>
 
-<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 <div class="row">
     <div class="input-field col s12 m6">
         <input asp-for="ChequeId" type="hidden" id="chequeId" />
-        <span asp-validation-for="ChequeId" class="text-danger"></span>
-    </div>
-</div>
-<div class="row">
-    <div class="input-field col s12 m6">
         <label asp-for="DataEvento"></label>
         <input asp-for="DataEvento" type="text" class="datepicker" id="dataEvento" />
         <span asp-validation-for="DataEvento" class="text-danger"></span>

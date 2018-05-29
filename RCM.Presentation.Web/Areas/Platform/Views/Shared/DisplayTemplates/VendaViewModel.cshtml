@@ -30,6 +30,12 @@
                 @Model.Status
             </dd>
             <dt>
+                <label asp-for="DataVenda"></label>
+            </dt>
+            <dd>
+                @Model.DataVenda.ToShortDateString() <span class="font-italic small text-muted">(@Model.DataVenda.ToLongDateString())</span>
+            </dd>
+            <dt>
                 <label asp-for="Detalhes"></label>
             </dt>
             <dd>
