@@ -160,7 +160,7 @@ namespace RCM.Domain.CommandHandlers.VendaCommandHandlers
             }
 
             Venda venda = _vendaRepository.GetById(command.VendaId, loadRelatedData: false);
-            venda.PagarParcela(command.ParcelaId);
+            venda.PagarParcela(command.ParcelaId, command.DataPagamento);
 
             if (NotifyModelErrors(venda.Errors))
                 return Response();

@@ -165,14 +165,14 @@ namespace RCM.Domain.Models.VendaModels
             return new CondicaoPagamento(TipoVenda.APrazo, totalVenda, quantidadeParcelas, intervaloVencimento, entrada, parcelas);
         }
 
-        public void PagarParcela(int parcelaId)
+        public void PagarParcela(int parcelaId, DateTime dataPagamento)
         {
             var index = parcelaId - 1;
 
             List<Parcela> parcelas = CondicaoPagamento.Parcelas.ToList();
             Parcela oldParcela = parcelas[index];
 
-            parcelas[index] = new Parcela(parcelaId, oldParcela.DataVencimento, oldParcela.Valor, DateTime.Now);
+            parcelas[index] = new Parcela(parcelaId, oldParcela.DataVencimento, oldParcela.Valor, dataPagamento);
 
             //Trigger Parcelamento setter in order to serialize new value
             CondicaoPagamento = new CondicaoPagamento(TipoVenda.APrazo, TotalVenda, CondicaoPagamento.QuantidadeParcelas, CondicaoPagamento.IntervaloVencimento, CondicaoPagamento.ValorEntrada, parcelas);

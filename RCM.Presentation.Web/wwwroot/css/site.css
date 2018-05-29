@@ -530,7 +530,7 @@ dt {
     background-color: #9c27b0;
 }
 
-#input-preco-venda, #input-preco-final {
+#input-preco-venda, #input-preco-final, #input-numero-parcela {
     border-bottom: dotted 1px;
     color: lightslategray;
 }

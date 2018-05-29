@@ -70,6 +70,9 @@ namespace RCM.Application.Mappers
                     cfg.MapFrom(p => p.Parcelas ?? null);
                 });
 
+            CreateMap<Parcela, ParcelaViewModel>()
+                .ForMember(p => p.Venda, cfg => cfg.Ignore())
+                .ForMember(p => p.VendaId, cfg => cfg.Ignore());
 
             CreateMap<Produto, ProdutoViewModel>()
                 .ForMember(a => a.Aplicacoes, cfg =>

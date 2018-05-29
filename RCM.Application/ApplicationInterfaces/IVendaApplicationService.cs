@@ -11,6 +11,6 @@ namespace RCM.Application.ApplicationInterfaces
         Task<CommandResult> AttachProduto(VendaProdutoViewModel viewModel);
         Task<CommandResult> RemoveProduto(Guid vendaId, Guid produtoId);
         Task<CommandResult> FinalizarVenda(Guid vendaId, CondicaoPagamentoViewModel viewModel);
-        Task<CommandResult> PagarParcela(Guid vendaId, int parcelaId);
+        Task<CommandResult> PagarParcela(Guid vendaId, ParcelaViewModel viewModel);
     }
 }

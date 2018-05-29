@@ -1,0 +1,44 @@
+﻿@model RCM.Application.ViewModels.VendaViewModels.ParcelaViewModel
+
+@{
+    ViewData["Title"] = "Pagar Parcela";
+}
+
+<h5>Pagamento de duplicata</h5>
+
+<div class="form-container col s12 m12">
+    <form asp-action="PayInstallment">
+        <p class="px-1 font-bold lead">
+            Informação geral
+        </p>
+
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="Numero"></label>
+                <input asp-for="Numero" type="text" readonly id="input-numero-parcela" />
+                <span asp-validation-for="Numero" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <input asp-for="VendaId" type="hidden" />
+                <label asp-for="DataPagamento"></label>
+                <input asp-for="DataPagamento" type="text" class="datepicker" />
+                <span asp-validation-for="DataPagamento" class="text-danger"></span>
+            </div>
+        </div>
+        
+        <div class="row pt-2 px-1">
+            <post-button>Confirmar</post-button>
+        </div>
+    </form>
+</div>
+
+<div>
+    <a asp-action="Details" asp-route-id="@Model.VendaId">Voltar para detalhes</a>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

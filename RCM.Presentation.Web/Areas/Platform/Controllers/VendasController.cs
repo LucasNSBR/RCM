@@ -229,7 +229,6 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             var parcelamento = new CondicaoPagamentoViewModel
             {
                 VendaId = venda.Id,
-                Venda = venda
             };
 
             return View(parcelamento);
@@ -238,6 +237,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         [Authorize(Policy = "ActiveUser")]
         [ClaimAuthorization(ClaimName = "ActiveCompany", RedirectActionName = "Unattached", RedirectControllerName = "Empresa", RedirectAreaName = "Platform")]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Checkout(Guid vendaId, CondicaoPagamentoViewModel condicaoPagamento)
         {
             if (!ModelState.IsValid)
@@ -261,9 +261,28 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
 
         [Authorize(Policy = "ActiveUser")]
         [ClaimAuthorization(ClaimName = "ActiveCompany", RedirectActionName = "Unattached", RedirectControllerName = "Empresa", RedirectAreaName = "Platform")]
-        public async Task<IActionResult> PayInstallment(Guid vendaId, int parcelaId)
+        public IActionResult PayInstallment(Guid vendaId, int parcelaId)
         {
-            var commandResult = await _vendaApplicationService.PagarParcela(vendaId, parcelaId);
+            var venda = _vendaApplicationService.GetById(vendaId);
+            if (venda == null)
+                return NotFound();
+
+            var viewModel = new ParcelaViewModel
+            {
+                VendaId = vendaId,
+                Numero = parcelaId
+            };
+
+            return View(viewModel);
+        }
+
+        [Authorize(Policy = "ActiveUser")]
+        [ClaimAuthorization(ClaimName = "ActiveCompany", RedirectActionName = "Unattached", RedirectControllerName = "Empresa", RedirectAreaName = "Platform")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> PayInstallment(Guid vendaId, ParcelaViewModel parcela)
+        {
+            var commandResult = await _vendaApplicationService.PagarParcela(vendaId, parcela);
 
             if (commandResult.Success)
                 NotifyCommandResultSuccess();
