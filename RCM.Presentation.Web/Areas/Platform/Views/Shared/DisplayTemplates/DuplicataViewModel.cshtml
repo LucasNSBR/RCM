@@ -5,7 +5,6 @@
         <ul class="tabs tabs-fixed-width">
             <li class="tab col s3"><a href="#geral" class="active">Geral</a></li>
             <li class="tab col s3"><a href="#vencimento">Emissão/Vencimento</a></li>
-            <li class="tab col s3"><a href="#notaFiscal">Nota Fiscal</a></li>
             <li class="tab col s3"><a href="#pagamento">Pagamento</a></li>
         </ul>
     </div>
@@ -29,6 +28,21 @@
                     @Model.NumeroDocumento
                 </dd>
                 <dt>
+                    <label asp-for="@Model.NotaFiscalId"></label>
+                </dt>
+                <dd>
+                    @if (Model.NotaFiscalId != null)
+                    {
+                        @Model.NotaFiscalId
+                    }
+                    else
+                    {
+                        <span class="font-italic text-warning">
+                            <i class="material-icons left">warning</i> Nota Fiscal não relacionada.
+                        </span>
+                    }
+                </dd>
+                <dt>
                     <label asp-for="@Model.Fornecedor"></label>
                 </dt>
                 <dd>
@@ -41,6 +55,21 @@
                 </dt>
                 <dd>
                     @Model.Valor.ToString("c")
+                </dd>
+                <dt>
+                    <label asp-for="@Model.Observacao"></label>
+                </dt>
+                <dd>
+                    @if (Model.Observacao != null)
+                    {
+                        @Model.Observacao
+                    }
+                    else
+                    {
+                        <span class="font-italic text-muted">
+                            Nenhuma observação registrada.
+                        </span>
+                    }
                 </dd>
             </dl>
         </div>
@@ -66,34 +95,6 @@
         </dl>
     </div>
 
-    <div id="notaFiscal" class="col s12 m12">
-        <div>
-            <p class="px-1 font-bold lead">
-                Informação sobre Nota Fiscal
-            </p>
-            <dl class="detail-list">
-                <dt>
-                    <label asp-for="@Model.NotaFiscal"></label>
-                </dt>
-                <dd>
-                    @if (Model.NotaFiscal != null)
-                    {
-                        <a asp-action="Details" asp-controller="NotasFiscais" asp-route-id="@Model.NotaFiscalId">
-                            @Model.NotaFiscal.NumeroDocumento
-                        </a>
-                    }
-                    else
-                    {
-                        <span class="font-italic text-warning">
-                            <i class="material-icons left">warning</i>
-                            Nenhuma nota fiscal relacionada.
-                        </span>
-                    }
-                </dd>
-            </dl>
-        </div>
-    </div>
-
     <div id="pagamento" class="col s12 m12">
         <div>
             <p class="px-1 font-bold lead">
@@ -111,7 +112,7 @@
                     else
                     {
                         <span class="font-italic text-warning">
-                            <i class="material-icons left">warning</i>Pagamento ainda não foi efetuado.
+                            <i class="material-icons left">warning</i> Pagamento ainda não foi efetuado.
                         </span>
                     }
                 </dd>

@@ -18,15 +18,14 @@ namespace RCM.Infra.Data.EntityTypeConfig
             builder.Property(d => d.Observacao)
                 .HasMaxLength(1000);
 
-            builder.HasOne(d => d.NotaFiscal)
-                .WithMany(n => n.Duplicatas)
-                .HasForeignKey(d => d.NotaFiscalId);
-
             builder.Property(d => d.DataEmissao)
                 .IsRequired();
 
             builder.Property(d => d.DataVencimento)
                 .IsRequired();
+
+            builder.Property(d => d.NotaFiscalId)
+                .HasMaxLength(6);
 
             builder.Property(d => d.Valor)
                 .IsRequired();

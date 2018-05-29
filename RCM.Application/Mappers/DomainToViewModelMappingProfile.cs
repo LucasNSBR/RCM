@@ -14,7 +14,6 @@ using RCM.Domain.Models.EmpresaModels;
 using RCM.Domain.Models.EstadoModels;
 using RCM.Domain.Models.FornecedorModels;
 using RCM.Domain.Models.MarcaModels;
-using RCM.Domain.Models.NotaFiscalModels;
 using RCM.Domain.Models.OrdemServicoModels;
 using RCM.Domain.Models.ProdutoModels;
 using RCM.Domain.Models.ValueObjects;
@@ -41,7 +40,6 @@ namespace RCM.Application.Mappers
             CreateMap<EstadoCheque, EstadoChequeViewModel>();
             CreateMap<Fornecedor, FornecedorViewModel>();
             CreateMap<Marca, MarcaViewModel>();
-            CreateMap<NotaFiscal, NotaFiscalViewModel>();
             CreateMap<OrdemServico, OrdemServicoViewModel>();
             CreateMap<Pagamento, PagamentoViewModel>();
             CreateMap<ProdutoFornecedor, ProdutoFornecedorViewModel>();

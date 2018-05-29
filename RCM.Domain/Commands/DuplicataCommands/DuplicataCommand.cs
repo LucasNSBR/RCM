@@ -11,7 +11,7 @@ namespace RCM.Domain.Commands.DuplicataCommands
         public DateTime DataEmissao { get; set; }
         public DateTime DataVencimento { get; set; }
         public Guid FornecedorId { get; set; }
-        public Guid? NotaFiscalId { get; set; }
+        public string NotaFiscalId { get; set; }
         public decimal Valor { get; set; }
     }
 }

@@ -10,6 +10,7 @@ namespace RCM.Domain.Validators.DuplicataCommandValidators
             ValidateObservacao();
             ValidateDataEmissao();
             ValidateDataVencimento();
+            ValidateNotaFiscalId();
             ValidateValor();
         }
     }

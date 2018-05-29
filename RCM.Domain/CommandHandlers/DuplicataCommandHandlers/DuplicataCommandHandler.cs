@@ -46,7 +46,7 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
             }
 
             Fornecedor fornecedor = _fornecedorRepository.GetById(command.FornecedorId, loadRelatedData: false);
-            Duplicata duplicata = new Duplicata(command.NumeroDocumento, command.DataEmissao, command.DataVencimento, fornecedor, command.Valor, command.Observacao);
+            Duplicata duplicata = new Duplicata(command.NumeroDocumento, command.DataEmissao, command.DataVencimento, fornecedor, command.Valor, command.NotaFiscalId, command.Observacao);
             _duplicataRepository.Add(duplicata);
 
             if (Commit())
@@ -70,7 +70,7 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
             }
 
             Fornecedor fornecedor = _fornecedorRepository.GetById(command.FornecedorId, loadRelatedData: false);
-            Duplicata duplicata = new Duplicata(command.Id, command.NumeroDocumento, command.DataEmissao, command.DataVencimento, fornecedor, command.Valor, command.Observacao);
+            Duplicata duplicata = new Duplicata(command.Id, command.NumeroDocumento, command.DataEmissao, command.DataVencimento, fornecedor, command.Valor, command.NotaFiscalId, command.Observacao);
             _duplicataRepository.Update(duplicata);
 
             if (Commit())

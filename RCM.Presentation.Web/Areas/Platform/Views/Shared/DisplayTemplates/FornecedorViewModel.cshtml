@@ -9,7 +9,6 @@
             <li class="tab col s3"><a href="#contato">Contato</a></li>
             <li class="tab col s3"><a href="#endereco">Endereço</a></li>
             <li class="tab col s3"><a href="#duplicatas">Duplicatas</a></li>
-            <li class="tab col s3"><a href="#notasfiscais">Notas Fiscais</a></li>
         </ul>
     </div>
 
@@ -190,33 +189,6 @@
                         <span class="font-italic text-warning">
                             <i class="material-icons left">warning</i>
                             Nenhuma Duplicata relacionada.
-                        </span>
-                    }
-                </dd>
-            </dl>
-        </div>
-    </div>
-    <div id="notasfiscais" class="col s12 m12">
-        <div>
-            <p class="px-1 font-bold lead">
-                Informação sobre Notas Fiscais
-            </p>
-
-            <dl class="detail-list">
-                <dt>
-                    <label asp-for="@Model.NotasFiscais"></label>
-                </dt>
-                <dd>
-                <dd>
-                    @if (Model.NotasFiscais.Any())
-                    {
-                        <a asp-action="Index" asp-route-name="@Model.Nome" asp-controller="NotasFiscais">@Model.NotasFiscais.Count Notas Fiscais foram encontrados</a>
-                    }
-                    else
-                    {
-                        <span class="font-italic text-warning">
-                            <i class="material-icons left">warning</i>
-                            Nenhuma Nota Fiscal relacionada.
                         </span>
                     }
                 </dd>

@@ -6,7 +6,6 @@
         <ul class="tabs tabs-fixed-width">
             <li class="tab col s3"><a href="#geral" class="active">Geral</a></li>
             <li class="tab col s3"><a href="#vencimento">Emissão/Vencimento</a></li>
-            <li class="tab col s3"><a href="#notaFiscal">Nota Fiscal</a></li>
             <li class="tab col s3"><a href="#fornecedor">Fornecedor</a></li>
         </ul>
     </div>
@@ -19,15 +18,29 @@
         <div class="row">
             <div class="input-field col s12 m6">
                 <label asp-for="NumeroDocumento"></label>
-                <input asp-for="NumeroDocumento" class="input-field" id="numeroDocumento" data-length="20"/>
+                <input asp-for="NumeroDocumento" class="input-field" id="numeroDocumento" data-length="20" />
                 <span asp-validation-for="NumeroDocumento" class="text-danger"></span>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12 m6">
+                <label asp-for="NotaFiscalId"></label>
+                <input asp-for="NotaFiscalId" class="input-field" id="notaFiscalId" data-length="6" />
+                <span asp-validation-for="NotaFiscalId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m6">
                 <label asp-for="Valor"></label>
-                <input asp-for="Valor" class="input-field" id="valor" data-val-number="O valor deve estar em um formato válido."/>
+                <input asp-for="Valor" class="input-field" id="valor" data-val-number="O valor deve estar em um formato válido." />
                 <span asp-validation-for="Valor" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="Observacao"></label>
+                <textarea asp-for="Observacao" class="materialize-textarea" data-length="1000"></textarea>
+                <span asp-validation-for="Observacao" class="text-danger"></span>
             </div>
         </div>
     </div>
@@ -49,20 +62,6 @@
                 <label asp-for="DataVencimento"></label>
                 <input asp-for="DataVencimento" type="text" class="datepicker" id="dataVencimento" />
                 <span asp-validation-for="DataVencimento" class="text-danger"></span>
-            </div>
-        </div>
-    </div>
-    
-    <div id="notaFiscal" class="col s12 m12">
-        <p class="px-1 font-bold lead">
-            Informações sobre Nota Fiscal
-        </p>
-
-        <div class="row">
-            <div class="input-field col s12 m6">
-                <label asp-for="NotaFiscalId"></label>
-                <input asp-for="NotaFiscalId" class="input-field" id="notaFiscalId" />
-                <span asp-validation-for="NotaFiscalId" class="text-danger"></span>
             </div>
         </div>
     </div>

@@ -1,6 +1,5 @@
 ﻿using RCM.Domain.Core.Models;
 using RCM.Domain.Models.FornecedorModels;
-using RCM.Domain.Models.NotaFiscalModels;
 using RCM.Domain.Models.ValueObjects;
 using System;
 
@@ -11,8 +10,7 @@ namespace RCM.Domain.Models.DuplicataModels
         public string NumeroDocumento { get; private set; }
         public string Observacao { get; private set; }
 
-        public Guid? NotaFiscalId { get; private set; }
-        public virtual NotaFiscal NotaFiscal { get; private set; }
+        public string NotaFiscalId { get; private set; }
 
         public DateTime DataEmissao { get; private set; }
         public DateTime DataVencimento { get; private set; }
@@ -26,19 +24,20 @@ namespace RCM.Domain.Models.DuplicataModels
 
         protected Duplicata() { }
 
-        public Duplicata(string numeroDocumento, DateTime dataEmissao, DateTime dataVencimento, Fornecedor fornecedor, decimal valor, string observacao = null)
+        public Duplicata(string numeroDocumento, DateTime dataEmissao, DateTime dataVencimento, Fornecedor fornecedor, decimal valor, string notaFiscalId, string observacao)
         {
             NumeroDocumento = numeroDocumento;
             DataEmissao = dataEmissao;
             DataVencimento = dataVencimento;
             Fornecedor = fornecedor;
             Valor = valor;
+            NotaFiscalId = notaFiscalId;
             Observacao = observacao ?? Observacao;
 
             Pagamento = new Pagamento();
         }
 
-        public Duplicata(Guid id, string numeroDocumento, DateTime dataEmissao, DateTime dataVencimento, Fornecedor fornecedor, decimal valor, string observacao = null)
+        public Duplicata(Guid id, string numeroDocumento, DateTime dataEmissao, DateTime dataVencimento, Fornecedor fornecedor, decimal valor, string notaFiscalId, string observacao)
         {
             Id = id;
             NumeroDocumento = numeroDocumento;
@@ -46,6 +45,7 @@ namespace RCM.Domain.Models.DuplicataModels
             DataVencimento = dataVencimento;
             Fornecedor = fornecedor;
             Valor = valor;
+            NotaFiscalId = notaFiscalId;
             Observacao = observacao ?? Observacao;
 
             Pagamento = new Pagamento();

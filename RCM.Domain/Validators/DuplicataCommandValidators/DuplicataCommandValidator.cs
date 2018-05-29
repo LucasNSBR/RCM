@@ -45,6 +45,12 @@ namespace RCM.Domain.Validators.DuplicataCommandValidators
                 .NotEmpty();
         }
 
+        protected void ValidateNotaFiscalId()
+        {
+            RuleFor(d => d.NotaFiscalId)
+                .MaximumLength(6);
+        }
+
         protected void ValidateValor()
         {
             RuleFor(d => d.Valor)

@@ -17,9 +17,10 @@ using System;
 namespace RCM.Infra.Data.Migrations
 {
     [DbContext(typeof(RCMDbContext))]
-    partial class RCMDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180529025607_RemoveNotaFiscal")]
+    partial class RemoveNotaFiscal
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -148,8 +149,7 @@ namespace RCM.Infra.Data.Migrations
 
                     b.Property<Guid>("FornecedorId");
 
-                    b.Property<string>("NotaFiscalId")
-                        .HasMaxLength(6);
+                    b.Property<string>("NotaFiscal");
 
                     b.Property<string>("NumeroDocumento")
                         .IsRequired()

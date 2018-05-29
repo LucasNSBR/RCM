@@ -5,7 +5,7 @@ namespace RCM.Domain.Commands.DuplicataCommands
 {
     public class AddDuplicataCommand : DuplicataCommand
     {
-        public AddDuplicataCommand(string numeroDocumento, string observacao, DateTime dataEmissao, DateTime dataVencimento, decimal valor, Guid fornecedorId, Guid? notaFiscalId)
+        public AddDuplicataCommand(string numeroDocumento, string observacao, DateTime dataEmissao, DateTime dataVencimento, decimal valor, Guid fornecedorId, string notaFiscalId)
         {
             NumeroDocumento = numeroDocumento;
             Observacao = observacao;

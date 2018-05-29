@@ -20,10 +20,7 @@ namespace RCM.Application.ViewModels
         public string Observacao { get; set; }
 
         [Display(Name = "Id da Nota Fiscal")]
-        public Guid? NotaFiscalId { get; set; }
-
-        [Display(Name = "Nota Fiscal")]
-        public NotaFiscalViewModel NotaFiscal { get; set; }
+        public string NotaFiscalId { get; set; }
 
         [Display(Name = "Emissão")]
         [DisplayFormat(ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true, DataFormatString = "{0:dd/MM/yyyy}")]

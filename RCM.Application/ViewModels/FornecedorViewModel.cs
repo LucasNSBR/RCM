@@ -27,9 +27,6 @@ namespace RCM.Application.ViewModels
         [Display(Name = "Duplicatas")]
         public List<DuplicataViewModel> Duplicatas { get; set; }
 
-        [Display(Name = "Notas Fiscais")]
-        public List<NotaFiscalViewModel> NotasFiscais { get; set; }
-
         #region Documento
         [Display(Name = "CPF/CNPJ")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O {0} é requerido.")]
