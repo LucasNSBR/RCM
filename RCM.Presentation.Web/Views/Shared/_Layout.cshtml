@@ -29,6 +29,8 @@
                     </div>
                 </nav>
             </div>
+            @await Component.InvokeAsync("NotificationsBar")
+
             <div class="body-content">
                 @RenderBody()
             </div>
