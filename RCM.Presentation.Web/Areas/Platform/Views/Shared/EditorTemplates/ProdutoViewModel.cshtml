@@ -7,7 +7,6 @@
         <ul class="tabs tabs-fixed-width">
             <li class="tab col s3"><a href="#geral" class="active">Geral</a></li>
             <li class="tab col s3"><a href="#estoque">Estoque</a></li>
-            <li class="tab col s3"><a href="#preco">Preço</a></li>
             <li class="tab col s3"><a href="#marca">Marca</a></li>
         </ul>
     </div>
@@ -81,18 +80,12 @@
                     <span asp-validation-for="EstoqueIdeal" class="text-danger"></span>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div id="preco" class="col s12 m12">
-        <p class="px-1 font-bold lead">
-            Informações sobre Preços
-        </p>
-        <div class="row">
-            <div class="input-field col s12 m6">
-                <label asp-for="PrecoVenda"></label>
-                <input asp-for="PrecoVenda" class="input-field" id="precoVenda" />
-                <span asp-validation-for="PrecoVenda" class="text-danger"></span>
+            <div class="row">
+                <div class="input-field col s12 m6">
+                    <label asp-for="PrecoVenda"></label>
+                    <input asp-for="PrecoVenda" class="input-field" id="precoVenda" />
+                    <span asp-validation-for="PrecoVenda" class="text-danger"></span>
+                </div>
             </div>
         </div>
     </div>

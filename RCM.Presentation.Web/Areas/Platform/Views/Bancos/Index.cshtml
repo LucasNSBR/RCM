@@ -12,7 +12,7 @@
             <div class="row my-0 py-0">
                 <div class="input-field col s5 m5">
                     <label for="nome">Nome do Banco</label>
-                    <input name="nome" type="text" id="searchInput"/>
+                    <input name="nome" type="text" id="searchInput" />
                 </div>
                 <div class="input-field col s4 m3">
                     <select id="propertyInput">
@@ -44,34 +44,36 @@
 
     @if (Model.Bancos.List.Any())
     {
-        <table class="highlight centered">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Bancos.List.FirstOrDefault().Nome)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Bancos.List.FirstOrDefault().CodigoCompensacao)
-                    </th>
-                </tr>
-            </thead>
-            <tbody class="table-body">
-                @foreach (var item in Model.Bancos.List)
-                {
+        <div class="mx-2">
+            <table class="highlight">
+                <thead>
                     <tr>
-                        <td class="d-hidden">
-                            @Html.DisplayFor(modelItem => item.Id)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Nome)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CodigoCompensacao)
-                        </td>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Bancos.List.FirstOrDefault().Nome)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Bancos.List.FirstOrDefault().CodigoCompensacao)
+                        </th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody class="table-body">
+                    @foreach (var item in Model.Bancos.List)
+                    {
+                        <tr>
+                            <td class="d-hidden">
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nome)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CodigoCompensacao)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
 
         <div class="col s12 m12">
             @{
@@ -85,10 +87,10 @@
             }
 
             @Html.Partial("_Pagination", new ViewDataDictionary(this.ViewData)
-            {
-                { "listHelper", listHelper },
-                { "queryStringHelper", queryStringHelper }
-            })
+        {
+            { "listHelper", listHelper },
+            { "queryStringHelper", queryStringHelper }
+        })
         </div>
     }
     else

@@ -18,6 +18,22 @@
         @Model.Nome
     </dd>
     <dt>
+        <label asp-for="Produtos"></label>
+    </dt>
+    <dd>
+        @if (Model.QuantidadeProdutos > 0)
+        {
+            <a asp-action="Index" asp-controller="Produtos" asp-route-marcaId="@Model.Id">@Model.QuantidadeProdutos produtos encontrados</a>
+        }
+        else
+        {
+            <span class="font-italic text-warning">
+                <i class="material-icons left">warning</i>
+                Nenhum produto encontrado.
+            </span>
+        }
+    </dd>
+    <dt>
         <label asp-for="Observacao"></label>
     </dt>
     <dd>

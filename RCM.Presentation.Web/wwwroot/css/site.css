@@ -309,8 +309,18 @@ tbody tr {
 }
 
 .mx-2 {
-    margin-right: 10px;
-    margin-left: 10px;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+.mx-3 {
+    margin-right: 30px;
+    margin-left: 30px;
+}
+
+.mx-4 {
+    margin-right: 40px;
+    margin-left: 40px;
 }
 
 .text-violet {
@@ -618,6 +628,14 @@ dt {
 
 #report-payment tr p {
     margin: 0px;
+}
+
+.w-25 {
+    width: 25%;
+}
+
+.w-50 {
+    width: 50%;
 }
 
 .w-75 {

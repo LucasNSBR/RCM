@@ -43,31 +43,42 @@
 
     @if (Model.Marcas.List.Any())
     {
-        <table class="highlight centered">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Marcas.List.FirstOrDefault().Nome)
-                    </th>
-                </tr>
-            </thead>
-            <tbody class="table-body">
-                @foreach (var item in Model.Marcas.List)
-                {
+        <div class="mx-2">
+            <table class="highlight">
+                <thead>
+                    <tr>
+                        <th class="w-25">
+                            @Html.DisplayNameFor(model => model.Marcas.List.FirstOrDefault().Nome)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Marcas.List.FirstOrDefault().Observacao)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Marcas.List.FirstOrDefault().QuantidadeProdutos)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="table-body">
+                    @foreach (var item in Model.Marcas.List)
+                    {
                     <tr>
                         <td class="d-hidden">
                             @Html.DisplayFor(modelItem => item.Id)
                         </td>
-                        <td>
+                        <td class="w-25">
                             @Html.DisplayFor(modelItem => item.Nome)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Observacao)
                         </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.QuantidadeProdutos)
+                        </td>
                     </tr>
-                }
-            </tbody>
-        </table>
+                    }
+                </tbody>
+            </table>
+        </div>
 
         <div class="col s12 m12">
             @{
@@ -80,10 +91,10 @@
             }
 
             @Html.Partial("_Pagination", new ViewDataDictionary(this.ViewData)
-            {
-                { "listHelper", listHelper },
-                { "queryStringHelper", queryStringHelper }
-            })
+        {
+            { "listHelper", listHelper },
+            { "queryStringHelper", queryStringHelper }
+        })
         </div>
     }
     else

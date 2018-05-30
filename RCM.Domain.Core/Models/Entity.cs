@@ -45,12 +45,7 @@ namespace RCM.Domain.Core.Models
         {
             _events.Add(notification);
         }
-
-        public bool ContainsErrors()
-        {
-            return _errors.Any();
-        }
-
+        
         public void AddDomainError(string description, string code = null)
         {
             _errors.Add(new DomainError(description, code));

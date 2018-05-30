@@ -62,22 +62,13 @@ namespace RCM.Application.ViewModels.ChequeViewModels
         public EstadoChequeViewModel EstadoCheque { get; set; }
 
         #region Index View Helpers
-        public bool ItemRequerAtencao
-        {
-            get
-            {
-                return DateTime.Now > DataVencimento &&
-                    (EstadoCheque == null ||
-                    EstadoCheque?.Estado == EstadoChequeEnum.Bloqueado);
-            }
-        }
-
         public bool ItemProblema
         {
             get
             {
                 return DateTime.Now > DataVencimento &&
                     (EstadoCheque == null ||
+                    EstadoCheque?.Estado == EstadoChequeEnum.Bloqueado ||
                     EstadoCheque?.Estado == EstadoChequeEnum.Devolvido ||
                     EstadoCheque?.Estado == EstadoChequeEnum.Sustado);
             }
@@ -87,10 +78,9 @@ namespace RCM.Application.ViewModels.ChequeViewModels
         {
             get
             {
-                return DateTime.Now > DataVencimento &&
-                    (EstadoCheque != null &&
+                return EstadoCheque != null &&
                     EstadoCheque?.Estado == EstadoChequeEnum.Repassado ||
-                    EstadoCheque?.Estado == EstadoChequeEnum.Compensado);
+                    EstadoCheque?.Estado == EstadoChequeEnum.Compensado;
             }
         }
         #endregion

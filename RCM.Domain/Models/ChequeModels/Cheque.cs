@@ -52,8 +52,6 @@ namespace RCM.Domain.Models.ChequeModels
             DataEmissao = dataEmissao;
             DataVencimento = dataVencimento;
             Valor = valor;
-
-            _estadoCheque = _estadoCheque ?? new ChequeBloqueado(DateTime.Now);
         }
 
         public Cheque(Banco banco, string agencia, string conta, string numeroCheque, Cliente cliente, DateTime dataEmissao, DateTime dataVencimento, decimal valor)
@@ -70,7 +68,7 @@ namespace RCM.Domain.Models.ChequeModels
             DataVencimento = dataVencimento;
             Valor = valor;
 
-            _estadoCheque = _estadoCheque ?? new ChequeBloqueado(DateTime.Now);
+            _estadoCheque = new ChequeBloqueado(DateTime.Now);
         }
 
         public void MudarEstado(EstadoCheque state)

@@ -123,7 +123,7 @@
                 })
 
                 $(dropdown.find('option').each(function (index, item) {
-                    if (item.value === produtoId) {
+                    if (item.value === $(produtoId).val()) {
                         dropdown.prop('selectedIndex', index);
                         produto = $(produtos)[index];
                     }

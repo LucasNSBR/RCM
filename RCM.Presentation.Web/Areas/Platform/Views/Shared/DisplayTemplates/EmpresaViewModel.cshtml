@@ -69,7 +69,16 @@
                     <label asp-for="@Model.Descricao"></label>
                 </dt>
                 <dd>
-                    @Model.Descricao
+                    @if (Model.Descricao != null)
+                    {
+                        @Model.Descricao
+                    }
+                    else
+                    {
+                        <span class="font-italic text-warning">
+                            <i class="material-icons left">warning</i> Descrição não registrada.
+                        </span>
+                    }
                 </dd>
             </dl>
         </div>
@@ -128,7 +137,9 @@
                 }
                 else
                 {
-                    <span class="font-italic text-warning"><i class="material-icons left">warning</i>Observação não registrada.</span>
+                    <span class="font-italic text-warning">
+                        <i class="material-icons left">warning</i> Observações de contato não registradas.
+                    </span>
                 }
             </dd>
         </dl>
@@ -168,7 +179,9 @@
                 }
                 else
                 {
-                    <span class="font-italic text-warning"><i class="material-icons left">warning</i>Complemento não registrado.</span>
+                    <span class="font-italic text-warning">
+                        <i class="material-icons left">warning</i> Complemento não registrado.
+                    </span>
                 }
             </dd>
             <dt>

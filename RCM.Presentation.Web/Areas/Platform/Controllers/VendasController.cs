@@ -106,7 +106,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         public IActionResult Edit(Guid id)
         {
             var venda = _vendaApplicationService.GetById(id);
-            if (venda == null)
+            if (venda == null || venda.Status == VendaStatusEnum.Fechada)
                 return NotFound();
 
             return View(venda);
@@ -286,11 +286,14 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             var commandResult = await _vendaApplicationService.PagarParcela(vendaId, parcela);
 
             if (commandResult.Success)
+            {
                 NotifyCommandResultSuccess();
+                return RedirectToAction(nameof(Details), new { id = vendaId });
+            }
             else
                 NotifyCommandResultErrors(commandResult.Errors);
 
-            return RedirectToAction(nameof(Details), new { id = vendaId });
+            return View(parcela);
         }
 
         [Authorize(Policy = "ActiveUser")]

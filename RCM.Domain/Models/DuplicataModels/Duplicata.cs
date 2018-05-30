@@ -47,8 +47,6 @@ namespace RCM.Domain.Models.DuplicataModels
             Valor = valor;
             NotaFiscalId = notaFiscalId;
             Observacao = observacao ?? Observacao;
-
-            Pagamento = new Pagamento();
         }
 
         public bool Vencida()

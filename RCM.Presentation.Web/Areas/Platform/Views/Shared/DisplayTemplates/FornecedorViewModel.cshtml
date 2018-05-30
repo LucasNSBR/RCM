@@ -30,11 +30,11 @@
                 <dd>
                     @if (Model.Tipo == FornecedorTipoEnum.PessoaFisica)
                     {
-                        <span>Pessoa física</span>
+                        <span>Pessoa Física</span>
                     }
                     else
                     {
-                        <span>Pessoa jurídica</span>
+                        <span>Pessoa Jurídica</span>
                     }
                 </dd>
                 <dt>
@@ -182,7 +182,7 @@
                 <dd>
                     @if (Model.Duplicatas.Any())
                     {
-                        <a asp-action="Index" asp-route-name="@Model.Nome" asp-controller="Duplicatas">@Model.Duplicatas.Count Duplicatas foram encontradas</a>
+                        <a asp-action="Index" asp-route-fornecedorId="@Model.Id" asp-controller="Duplicatas">@Model.Duplicatas.Count Duplicatas foram encontradas</a>
                     }
                     else
                     {

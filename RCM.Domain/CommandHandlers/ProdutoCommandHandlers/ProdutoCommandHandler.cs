@@ -9,7 +9,6 @@ using RCM.Domain.Models.ProdutoModels;
 using RCM.Domain.Models.ValueObjects;
 using RCM.Domain.Repositories;
 using RCM.Domain.UnitOfWork;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -108,13 +107,10 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
             Produto produto = _produtoRepository.GetById(command.ProdutoId);
             produto.AdicionarAplicacao(aplicacao);
 
-            if (produto.ContainsErrors())
-            {
-                NotifyModelErrors(produto.Errors);
+            if (NotifyModelErrors(produto.Errors))
                 return Response();
-            }
-
-            _produtoRepository.Update(produto);
+            else
+                _produtoRepository.Update(produto);
 
             if (Commit())
                 _mediator.Publish(new UpdatedProdutoEvent());
@@ -155,7 +151,10 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
             Produto produto = _produtoRepository.GetById(command.ProdutoId);
             produto.RemoverAplicacao(aplicacao);
 
-            _produtoRepository.Update(produto);
+            if (NotifyModelErrors(produto.Errors))
+                return Response();
+            else
+                _produtoRepository.Update(produto);
 
             if (Commit())
                 _mediator.Publish(new UpdatedProdutoEvent());
@@ -175,7 +174,10 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
             Fornecedor fornecedor = _fornecedorRepository.GetById(command.FornecedorId);
             produto.AdicionarFornecedor(fornecedor, command.PrecoCusto, command.Disponibilidade);
 
-            _produtoRepository.Update(produto);
+            if (NotifyModelErrors(produto.Errors))
+                return Response();
+            else
+                _produtoRepository.Update(produto);
 
             if (Commit())
                 _mediator.Publish(new UpdatedProdutoEvent());
@@ -195,7 +197,10 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
             Fornecedor fornecedor = _fornecedorRepository.GetById(command.FornecedorId);
             produto.RemoverFornecedor(fornecedor);
 
-            _produtoRepository.Update(produto);
+            if (NotifyModelErrors(produto.Errors))
+                return Response();
+            else
+                _produtoRepository.Update(produto);
 
             if (Commit())
                 _mediator.Publish(new UpdatedProdutoEvent());

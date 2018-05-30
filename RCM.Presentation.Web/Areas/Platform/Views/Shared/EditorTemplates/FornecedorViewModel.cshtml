@@ -33,7 +33,7 @@
         <div class="row">
             <div class="input-field col s12 m6">
                 <label asp-for="Descricao"></label>
-                <input asp-for="Descricao" class="input-field" id="nome" data-length="100" />
+                <textarea asp-for="Descricao" class="materialize-textarea" data-length="1000"></textarea>
                 <span asp-validation-for="Descricao" class="text-danger"></span>
             </div>
         </div>
@@ -47,7 +47,7 @@
         <div class="row">
             <div class="input-field col s12 m6">
                 <label asp-for="DocumentoCadastroEstadual">RG/Inscrição Estadual</label>
-                <input asp-for="DocumentoCadastroEstadual" class="input-field" data-length="12" />
+                <input asp-for="DocumentoCadastroEstadual" class="input-field" data-length="14" />
                 <span asp-validation-for="DocumentoCadastroEstadual" class="text-danger"></span>
             </div>
         </div>
@@ -104,7 +104,7 @@
             </div>
             <div class="input-field col s12 m6">
                 <label asp-for="EnderecoNumero"></label>
-                <input asp-for="EnderecoNumero" class="input-field" data-length="4" />
+                <input asp-for="EnderecoNumero" class="input-field" data-length="4" data-val-number="O número digitado é invalido." />
                 <span asp-validation-for="EnderecoNumero" class="text-danger"></span>
             </div>
         </div>

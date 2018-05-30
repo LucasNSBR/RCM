@@ -105,63 +105,65 @@
             </div>
         </div>
 
-        <table class="highlight centered">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Duplicatas.List.FirstOrDefault().NumeroDocumento)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Duplicatas.List.FirstOrDefault().DataEmissao)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Duplicatas.List.FirstOrDefault().DataVencimento)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Duplicatas.List.FirstOrDefault().Pagamento)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Duplicatas.List.FirstOrDefault().Fornecedor)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Duplicatas.List.FirstOrDefault().Valor)
-                    </th>
-                </tr>
-            </thead>
-            <tbody class="table-body">
-                @foreach (var item in Model.Duplicatas.List)
-                {
-                    <tr class="@(item.Vencido ? "bg-danger" : "") @(item.Pago ? "bg-success" : "")">
-                        <td class="d-hidden">
-                            @Html.DisplayFor(modelItem => item.Id)
-                        </td>
-                        <td>
-                            <input type="checkbox" class="input-field checkable" id="@("input-"+item.Id)" />
-                            <label for="@("input-"+@item.Id)"></label>
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.NumeroDocumento)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DataEmissao)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DataVencimento)
-                        </td>
-                        <td class="@(item.Pagamento == null ? "font-italic" : "")">
-                            @(item.Pagamento == null ? "Não paga" : item.Pagamento.DataPagamento.ToShortDateString())
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Fornecedor.Nome)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Valor)
-                        </td>
+        <div class="mx-2">
+            <table class="highlight">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Duplicatas.List.FirstOrDefault().NumeroDocumento)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Duplicatas.List.FirstOrDefault().DataEmissao)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Duplicatas.List.FirstOrDefault().DataVencimento)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Duplicatas.List.FirstOrDefault().Pagamento)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Duplicatas.List.FirstOrDefault().Fornecedor)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Duplicatas.List.FirstOrDefault().Valor)
+                        </th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody class="table-body">
+                    @foreach (var item in Model.Duplicatas.List)
+                    {
+                        <tr class="@(item.Vencido ? "bg-danger" : "") @(item.Pago ? "bg-success" : "")">
+                            <td class="d-hidden">
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                <input type="checkbox" class="input-field checkable" id="@("input-"+item.Id)" />
+                                <label for="@("input-"+@item.Id)"></label>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NumeroDocumento)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DataEmissao)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DataVencimento)
+                            </td>
+                            <td class="@(item.Pagamento == null ? "font-italic" : "")">
+                                @(item.Pagamento == null ? "Não paga" : item.Pagamento.DataPagamento.ToShortDateString())
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Fornecedor.Nome)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Valor)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
 
         <div class="col s12 m12">
             @{
@@ -182,10 +184,10 @@
             }
 
             @Html.Partial("_Pagination", new ViewDataDictionary(this.ViewData)
-            {
-                { "listHelper", listHelper },
-                { "queryStringHelper", queryStringHelper }
-            })
+        {
+            { "listHelper", listHelper },
+            { "queryStringHelper", queryStringHelper }
+        })
         </div>
     }
     else

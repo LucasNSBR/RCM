@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using RCM.Domain.Commands.FornecedorCommands;
 using RCM.Domain.Models.FornecedorModels;
+using System.Text.RegularExpressions;
 
 namespace RCM.Domain.Validators.FornecedorCommandValidators
 {
@@ -79,11 +80,11 @@ namespace RCM.Domain.Validators.FornecedorCommandValidators
         {
             RuleFor(f => f)
                 .Must(command => ValidateDocumentoCadastroNacional(command))
-                .WithMessage("O CPF/CNPJ deve estar em um formato válido.");
+                .WithMessage("O CPF deve ter até 11 caracteres e CNPJ deve ter até 14 caracteres.");
 
             RuleFor(f => f)
                 .Must(command => ValidateDocumentoCadastroEstadual(command))
-                .WithMessage("O RG/Inscrição Estadual deve estar em um formato válido.");
+                .WithMessage("O RG deve ter até 12 caracteres e Inscr. Estadual ter até 14 caracteres.");
         }
 
         private bool ValidateDocumentoCadastroNacional(FornecedorCommand command)

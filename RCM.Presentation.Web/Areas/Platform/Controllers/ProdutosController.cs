@@ -273,7 +273,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             if (commandResult.Success)
             {
                 NotifyCommandResultSuccess();
-                return RedirectToAction(nameof(Details), new { id = produtoFornecedor.FornecedorId });
+                return RedirectToAction(nameof(Details), new { id = produtoFornecedor.ProdutoId });
             }
             else
                 NotifyCommandResultErrors(commandResult.Errors);

@@ -73,7 +73,7 @@
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.Vendas.List.FirstOrDefault().Cliente.Nome)
+                        @Html.DisplayNameFor(model => model.Vendas.List.FirstOrDefault().Cliente)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Vendas.List.FirstOrDefault().Cliente.DocumentoCadastroNacional)
@@ -98,7 +98,7 @@
             <tbody class="table-body">
                 @foreach (var item in Model.Vendas.List)
                 {
-                    <tr>
+                    <tr class="@(item.ItemProblema ? "bg-danger" : "")@(item.ItemBom ? "bg-success" : "")">
                         <td class="d-hidden">
                             @Html.DisplayFor(modelItem => item.Id)
                         </td>

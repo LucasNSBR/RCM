@@ -22,5 +22,14 @@ namespace RCM.Application.ViewModels
 
         [Display(Name = "Produtos")]
         public List<ProdutoViewModel> Produtos { get; set; }
+
+        [Display(Name = "Quantidade de Produtos")]
+        public int QuantidadeProdutos
+        {
+            get
+            {
+                return Produtos?.Count ?? 0;
+            }
+        }
     }
 }

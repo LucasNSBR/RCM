@@ -61,6 +61,14 @@ namespace RCM.Domain.CommandHandlers.VendaCommandHandlers
 
             Cliente cliente = _clienteRepository.GetById(command.VendaId, loadRelatedData: false);
             Venda venda = new Venda(command.VendaId, command.DataVenda, command.Detalhes, cliente);
+
+            Venda oldVenda = _vendaRepository.GetById(command.VendaId);
+            if(oldVenda.Status == VendaStatusEnum.Fechada)
+            {
+                NotifyCommandError("Não é possível editar uma venda já finalizada.");
+                return Response();
+            }
+
             _vendaRepository.Update(venda);
 
             if (Commit())

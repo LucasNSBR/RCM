@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace RCM.Application.ViewModels.VendaViewModels
 {
@@ -42,5 +43,31 @@ namespace RCM.Application.ViewModels.VendaViewModels
 
         [Display(Name = "Condições de Pagamento")]
         public CondicaoPagamentoViewModel CondicaoPagamento { get; set; }
+
+        #region Index View Helpers
+        public bool ItemBom
+        {
+            get
+            {
+                if(Status == VendaStatusEnum.Fechada)
+                    return CondicaoPagamento.ValorRestante == 0;
+
+                return false;
+            }
+        }
+
+        public bool ItemProblema
+        {
+            get
+            {
+                if(Status == VendaStatusEnum.Fechada)
+                    return CondicaoPagamento
+                        .Parcelas
+                        .Any(p => DateTime.Now > p.DataVencimento && p.DataPagamento == null);
+
+                return false;
+            }
+        }
+        #endregion
     }
 }

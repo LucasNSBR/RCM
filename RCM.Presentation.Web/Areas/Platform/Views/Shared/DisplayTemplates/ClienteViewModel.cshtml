@@ -30,11 +30,11 @@
             <dd>
                 @if (Model.Tipo == ClienteTipoEnum.PessoaFisica)
                 {
-                    <span>Pessoa física</span>
+                    <span>Pessoa Física</span>
                 }
                 else
                 {
-                    <span>Pessoa jurídica</span>
+                    <span>Pessoa Jurídica</span>
                 }
             </dd>
             <dt>
@@ -196,14 +196,7 @@
                 <label asp-for="EnderecoNumero"></label>
             </dt>
             <dd>
-                @if (Model.EnderecoNumero == default(int))
-                {
-                    @Model.EnderecoNumero
-                }
-                else
-                {
-                    <span class="font-italic text-warning"><i class="material-icons left">warning</i>Número não registrado.</span>
-                }
+                @Model.EnderecoNumero
             </dd>
             <dt>
                 <label asp-for="EnderecoBairro"></label>
@@ -265,7 +258,7 @@
             <dd>
                 @if (Model.Cheques.Any())
                 {
-                    <a asp-action="Index" asp-route-clienteName="@Model.Nome" asp-controller="Cheques">@Model.Cheques.Count Cheques foram encontrados</a>
+                    <a asp-action="Index" asp-route-clienteId="@Model.Id" asp-controller="Cheques">@Model.Cheques.Count Cheques foram encontrados</a>
                 }
                 else
                 {

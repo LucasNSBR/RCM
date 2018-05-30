@@ -38,7 +38,7 @@ namespace RCM.Application.ViewModels
         public string DocumentoCadastroNacional { get; set; }
 
         [Display(Name = "RG/Inscrição Estadual")]
-        [StringLength(12, MinimumLength = 0, ErrorMessage = "O {0} deve ter até {1} caracteres.")]
+        [StringLength(14, MinimumLength = 0, ErrorMessage = "O {0} deve ter até {1} caracteres.")]
         public string DocumentoCadastroEstadual { get; set; }
         #endregion
 

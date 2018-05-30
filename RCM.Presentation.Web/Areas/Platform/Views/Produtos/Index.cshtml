@@ -61,65 +61,67 @@
 
     @if (Model.Produtos.List.Any())
     {
-        <table class="highlight centered">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Produtos.List.FirstOrDefault().Nome)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Produtos.List.FirstOrDefault().Estoque)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Produtos.List.FirstOrDefault().PrecoVenda)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Produtos.List.FirstOrDefault().Marca.Nome)
-                    </th>
-                </tr>
-            </thead>
-            <tbody class="table-body">
-                @foreach (var item in Model.Produtos.List)
-                {
-                    <tr class="@(item.ItemEstoqueRazoavel ? "bg-warning" : "") @(item.ItemEstoqueBaixo ? "bg-danger" : "")">
-                        <td class="d-hidden">
-                            @Html.DisplayFor(modelItem => item.Id)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Nome)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Estoque)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.PrecoVenda)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Marca.Nome)
-                        </td>
+        <div class="mx-2">
+            <table class="highlight">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Produtos.List.FirstOrDefault().Nome)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Produtos.List.FirstOrDefault().Estoque)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Produtos.List.FirstOrDefault().PrecoVenda)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Produtos.List.FirstOrDefault().Marca.Nome)
+                        </th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody class="table-body">
+                    @foreach (var item in Model.Produtos.List)
+                    {
+                        <tr class="@(item.ItemEstoqueRazoavel ? "bg-warning" : "") @(item.ItemEstoqueBaixo ? "bg-danger" : "")">
+                            <td class="d-hidden">
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nome)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Estoque)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PrecoVenda)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Marca.Nome)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
 
         <div class="col s12 m12">
             <ul class="pagination center pt-2">
                 @{
                     var queryStringHelper = new Dictionary<string, string>
-                    {
-                        { "marcaId", Model.MarcaId?.ToString() },
-                        { "minValor", Model.MinValor?.ToString() },
-                        { "maxValor", Model.MaxValor?.ToString() },
-                        { "minEstoque", Model.MinEstoque.ToString() },
-                        { "maxEstoque", Model.MaxEstoque.ToString() },
-                        { "nome", Model.Nome?.ToString() },
-                        { "pageSize", Model.Produtos.PageSize.ToString() },
-                    };
+                        {
+                            { "marcaId", Model.MarcaId?.ToString() },
+                            { "minValor", Model.MinValor?.ToString() },
+                            { "maxValor", Model.MaxValor?.ToString() },
+                            { "minEstoque", Model.MinEstoque.ToString() },
+                            { "maxEstoque", Model.MaxEstoque.ToString() },
+                            { "nome", Model.Nome?.ToString() },
+                            { "pageSize", Model.Produtos.PageSize.ToString() },
+                        };
 
-                   var listHelper = new Dictionary<string, string>().LoadPagination(Model.Produtos);
-            }
+                    var listHelper = new Dictionary<string, string>().LoadPagination(Model.Produtos);
+                }
 
-            @Html.Partial("_Pagination", new ViewDataDictionary(this.ViewData)
+                @Html.Partial("_Pagination", new ViewDataDictionary(this.ViewData)
             {
                 { "listHelper", listHelper },
                 { "queryStringHelper", queryStringHelper }

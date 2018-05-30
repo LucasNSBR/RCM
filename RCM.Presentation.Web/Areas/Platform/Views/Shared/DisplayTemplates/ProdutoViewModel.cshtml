@@ -136,10 +136,6 @@
                     @Model.EstoqueMinimo
                 </dd>
             </dl>
-
-            <p class="px-1 pt-1">
-                <a asp-action="Details" asp-controller="Produtos">Repor estoque</a>
-            </p>
         </div>
     </div>
 
@@ -159,7 +155,7 @@
                             @foreach (var aplicacao in Model.Aplicacoes)
                             {
                                 <li>
-                                    @{ var title = $"{aplicacao.CarroMarca} {aplicacao.CarroModelo} - {aplicacao.CarroMotor ?? "Sem informação de motor"}"; }
+                                    @{ var title = $"{aplicacao.CarroMarca} - {aplicacao.CarroModelo} - {aplicacao.CarroMotor ?? "Sem informação de motor"}"; }
                                     <div class="collapsible-header">
                                         <div class="col s11">
                                             @title
@@ -226,7 +222,6 @@
                                         <span>
                                             @("Disponibilidade: " + fornecedor.Disponibilidade)
                                         </span>
-                                        <p>@(fornecedor.Fornecedor?.Descricao ?? "Nenhuma observação relacionada.")</p>
                                     </div>
                                 </li>
                             }

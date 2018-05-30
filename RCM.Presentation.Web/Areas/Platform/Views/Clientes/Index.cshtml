@@ -70,67 +70,97 @@
 
     @if (Model.Clientes.List.Any())
     {
-        <table class="highlight">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Clientes.List.FirstOrDefault().Nome)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Clientes.List.FirstOrDefault().Tipo)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Clientes.List.FirstOrDefault().DocumentoCadastroNacional)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Clientes.List.FirstOrDefault().DocumentoCadastroEstadual)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Clientes.List.FirstOrDefault().ContatoCelular)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Clientes.List.FirstOrDefault().ContatoTelefoneResidencial)
-                    </th>
-                </tr>
-            </thead>
-            <tbody class="table-body">
-                @foreach (var item in Model.Clientes.List)
-                {
+        <div class="mx-2">
+            <table class="highlight">
+                <thead>
                     <tr>
-                        <td class="d-hidden">
-                            @Html.DisplayFor(modelItem => item.Id)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Nome)
-                        </td>
-                        <td>
-                            @if (item.Tipo == ClienteTipoEnum.PessoaFisica)
-                            {
-                                @Html.Raw("Pessoa Física")
-                            }
-                            else
-                            {
-                                @Html.Raw("Pessoa Jurídica")
-                            }
-                        </td>
-                        <td>
-                            @(item.DocumentoCadastroNacional ?? "N/A")
-                        </td>
-                        <td>
-                            @(item.DocumentoCadastroEstadual ?? "N/A")
-                        </td>
-                        <td>
-                            @(item.ContatoCelular ?? "N/A")
-                        </td>
-                        <td>
-                            @(item.ContatoTelefoneResidencial ?? "N/A")
-                        </td>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Clientes.List.FirstOrDefault().Nome)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Clientes.List.FirstOrDefault().Tipo)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Clientes.List.FirstOrDefault().DocumentoCadastroNacional)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Clientes.List.FirstOrDefault().DocumentoCadastroEstadual)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Clientes.List.FirstOrDefault().ContatoCelular)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Clientes.List.FirstOrDefault().ContatoTelefoneResidencial)
+                        </th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody class="table-body">
+                    @foreach (var item in Model.Clientes.List)
+                    {
+                        <tr>
+                            <td class="d-hidden">
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nome)
+                            </td>
+                            <td>
+                                @if (item.Tipo == ClienteTipoEnum.PessoaFisica)
+                                {
+                                    @Html.Raw("Pessoa Jurídica")
+                                }
+                                else
+                                {
+                                    @Html.Raw("Pessoa Física")
+                                }
+                            </td>
+                            <td>
+                                @if (item.DocumentoCadastroNacional != null)
+                                {
+                                    @item.DocumentoCadastroNacional
+                                }
+                                else
+                                {
+                                    <span class="font-italic">Não registrado</span>
+                                }
+                            </td>
+                            <td>
+                                @if (item.DocumentoCadastroEstadual != null)
+                                {
+                                    @item.DocumentoCadastroEstadual
+                                }
+                                else
+                                {
+                                    <span class="font-italic">Não registrado</span>
+                                }
+                            </td>
+                            <td>
+                                @if (item.ContatoCelular != null)
+                                {
+                                    @item.ContatoCelular
+                                }
+                                else
+                                {
+                                    <span class="font-italic">Não registrado</span>
+                                }
+                            </td>
+                            <td>
+                                @if (item.ContatoTelefoneResidencial != null)
+                                {
+                                    @item.ContatoTelefoneResidencial
+                                }
+                                else
+                                {
+                                    <span class="font-italic">Não registrado</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
 
-       <div class="col s12 m12">
+        <div class="col s12 m12">
             @{
                 var queryStringHelper = new Dictionary<string, string>
                 {

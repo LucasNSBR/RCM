@@ -1,4 +1,6 @@
-﻿@model RCM.Application.ViewModels.VendaViewModels.VendaViewModel
+﻿@using RCM.Domain.Models.VendaModels;
+
+@model RCM.Application.ViewModels.VendaViewModels.VendaViewModel
 
 @{
     ViewData["Title"] = $"Detalhes da Venda";
@@ -10,7 +12,15 @@
     @Html.DisplayForModel()
 
     <div class="center pt-3">
-        <action-button asp-action="Edit" asp-controller="Vendas" asp-area="Platform" asp-route-id="@Model.Id" icon-name="edit">Editar</action-button>
+        @if (Model.Status == VendaStatusEnum.Aberta)
+        {
+            <action-button asp-action="Edit" asp-controller="Vendas" asp-area="Platform" asp-route-id="@Model.Id" icon-name="edit">Editar</action-button>
+        }
+        else
+        {
+            <span class="px-2 font-italic text-muted">Não é possível editar uma venda finalizada</span>
+        }
+
         <action-button asp-action="Delete" asp-controller="Vendas" asp-area="Platform" asp-route-id="@Model.Id" icon-name="delete">Excluir</action-button>
     </div>
 </div>

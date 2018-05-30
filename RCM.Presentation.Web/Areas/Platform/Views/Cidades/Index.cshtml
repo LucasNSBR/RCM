@@ -69,9 +69,9 @@
             <div class="col s12 m12">
                 @{
                     var queryStringHelper = new Dictionary<string, string>
-                    {
-                        { "nome", Model.Nome },
-                    };
+                        {
+                            { "nome", Model.Nome },
+                        };
 
                     var listHelper = new Dictionary<string, string>().LoadPagination(Model.Cidades);
                 }

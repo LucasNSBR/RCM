@@ -36,16 +36,18 @@
                 @Model.DataVenda.ToShortDateString() <span class="font-italic small text-muted">(@Model.DataVenda.ToLongDateString())</span>
             </dd>
             <dt>
+                <label asp-for="Cliente"></label>
+            </dt>
+            <dd>
+                <a asp-action="Details" asp-controller="Clientes" asp-route-id="@Model.ClienteId">
+                    @Model.Cliente.Nome
+                </a>
+            </dd>
+            <dt>
                 <label asp-for="Detalhes"></label>
             </dt>
             <dd>
                 @(!string.IsNullOrWhiteSpace(Model.Detalhes) ? Model.Detalhes : "Nenhum detalhe relacionado.")
-            </dd>
-            <dt>
-                <label asp-for="Cliente"></label>
-            </dt>
-            <dd>
-                @Model.Cliente.Nome
             </dd>
         </dl>
     </div>
