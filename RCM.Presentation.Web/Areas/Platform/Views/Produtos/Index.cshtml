@@ -42,11 +42,11 @@
                     <label for="maxValor">Preço máximo</label>
                 </div>
                 <div class="input-field col s12 m3">
-                    <input asp-for="MinEstoque" name="MinEstoque" type="text" id="minEstoque" />
+                    <input asp-for="MinEstoque" name="minEstoque" type="text" id="minEstoque" />
                     <label for="minEstoque">Estoque mínimo</label>
                 </div>
                 <div class="input-field col s12 m3">
-                    <input asp-for="MaxEstoque" name="MaxEstoque" type="text" id="maxEstoque" />
+                    <input asp-for="MaxEstoque" name="maxEstoque" type="text" id="maxEstoque" />
                     <label for="maxEstoque">Estoque máximo</label>
                 </div>
                 <div class="input-field col s12 m6">
@@ -54,6 +54,22 @@
                         <option value="">Todos as Marcas</option>
                     </select>
                     <label for="marcaId">Escolher Marca</label>
+                </div>
+                <div class="input-field col s12 m6">
+                    <input asp-for="ProdutoId" name="produtoId" type="text" id="produtoId" />
+                    <label for="produtoId">Id do Produto</label>
+                </div>
+                <div class="input-field col s12 m4">
+                    <input asp-for="ReferenciaFabricante" name="referenciaFabricante" type="text" id="referenciaFabricante" />
+                    <label for="referenciaFabricante">Referência do Fabricante</label>
+                </div>
+                <div class="input-field col s12 m4">
+                    <input asp-for="ReferenciaOriginal" name="referenciaOriginal" type="text" id="referenciaOriginal" />
+                    <label for="produtoId">Referência Original</label>
+                </div>
+                <div class="input-field col s12 m4">
+                    <input asp-for="ReferenciaAuxiliar" name="referenciaAuxiliar" type="text" id="referenciaAuxiliar" />
+                    <label for="referenciaAuxiliar">Referência Auxiliar</label>
                 </div>
             </div>
         </div>
@@ -65,6 +81,9 @@
             <table class="highlight">
                 <thead>
                     <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Produtos.List.FirstOrDefault().Id)
+                        </th>
                         <th>
                             @Html.DisplayNameFor(model => model.Produtos.List.FirstOrDefault().Nome)
                         </th>
@@ -83,10 +102,10 @@
                     @foreach (var item in Model.Produtos.List)
                     {
                         <tr class="@(item.ItemEstoqueRazoavel ? "bg-warning" : "") @(item.ItemEstoqueBaixo ? "bg-danger" : "")">
-                            <td class="d-hidden">
+                            <td>
                                 @Html.DisplayFor(modelItem => item.Id)
                             </td>
-                            <td>
+                            <td style="width: 35%">
                                 @Html.DisplayFor(modelItem => item.Nome)
                             </td>
                             <td>
@@ -108,24 +127,29 @@
             <ul class="pagination center pt-2">
                 @{
                     var queryStringHelper = new Dictionary<string, string>
-                        {
-                            { "marcaId", Model.MarcaId?.ToString() },
-                            { "minValor", Model.MinValor?.ToString() },
-                            { "maxValor", Model.MaxValor?.ToString() },
-                            { "minEstoque", Model.MinEstoque.ToString() },
-                            { "maxEstoque", Model.MaxEstoque.ToString() },
-                            { "nome", Model.Nome?.ToString() },
-                            { "pageSize", Model.Produtos.PageSize.ToString() },
-                        };
+                            {
+                                { "marcaId", Model.MarcaId?.ToString() },
+                                { "minValor", Model.MinValor?.ToString() },
+                                { "maxValor", Model.MaxValor?.ToString() },
+                                { "minEstoque", Model.MinEstoque.ToString() },
+                                { "maxEstoque", Model.MaxEstoque.ToString() },
+                                { "nome", Model.Nome?.ToString() },
+                                { "referenciaFabricante", Model.ReferenciaFabricante?.ToString() },
+                                { "referenciaOriginal", Model.ReferenciaOriginal?.ToString() },
+                                { "referenciaAuxiliar", Model.ReferenciaAuxiliar?.ToString() },
+                                { "produtoId", Model.ProdutoId?.ToString() },
+                                { "pageSize", Model.Produtos.PageSize.ToString() },
+                            };
 
                     var listHelper = new Dictionary<string, string>().LoadPagination(Model.Produtos);
                 }
 
                 @Html.Partial("_Pagination", new ViewDataDictionary(this.ViewData)
-            {
-                { "listHelper", listHelper },
-                { "queryStringHelper", queryStringHelper }
-            })
+                {
+                    { "listHelper", listHelper },
+                    { "queryStringHelper", queryStringHelper }
+                })
+            </ul>
         </div>
     }
     else
