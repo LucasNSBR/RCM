@@ -28,6 +28,13 @@
 
         <div class="row">
             <div class="input-field col s12 m6">
+                <label asp-for="ReferenciaFornecedor"></label>
+                <input asp-for="ReferenciaFornecedor" class="input-field" />
+                <span asp-validation-for="ReferenciaFornecedor" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m6">
                 <label asp-for="PrecoCusto"></label>
                 <input asp-for="PrecoCusto" class="input-field" />
                 <span asp-validation-for="PrecoCusto" class="text-danger"></span>

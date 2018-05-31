@@ -172,7 +172,7 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
 
             Produto produto = _produtoRepository.GetById(command.ProdutoId);
             Fornecedor fornecedor = _fornecedorRepository.GetById(command.FornecedorId);
-            produto.AdicionarFornecedor(fornecedor, command.PrecoCusto, command.Disponibilidade);
+            produto.AdicionarFornecedor(fornecedor, command.ReferenciaFornecedor, command.PrecoCusto, command.Disponibilidade);
 
             if (NotifyModelErrors(produto.Errors))
                 return Response();

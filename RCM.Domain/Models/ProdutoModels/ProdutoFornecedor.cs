@@ -10,6 +10,7 @@ namespace RCM.Domain.Models.ProdutoModels
         public Guid FornecedorId { get; private set; }
         public Fornecedor Fornecedor { get; private set; }
 
+        public string ReferenciaFornecedor { get; private set; }
         public decimal PrecoCusto { get; private set; }
 
         public ProdutoDisponibilidadeEnum Disponibilidade { get; private set; }
@@ -23,10 +24,11 @@ namespace RCM.Domain.Models.ProdutoModels
             Fornecedor = fornecedor;
         }
 
-        public ProdutoFornecedor(Produto produto, Fornecedor fornecedor, decimal precoCusto, ProdutoDisponibilidadeEnum disponibilidade)
+        public ProdutoFornecedor(Produto produto, Fornecedor fornecedor, string referenciaFornecedor, decimal precoCusto, ProdutoDisponibilidadeEnum disponibilidade)
         {
             Produto = produto;
             Fornecedor = fornecedor;
+            ReferenciaFornecedor = referenciaFornecedor;
             Disponibilidade = disponibilidade;
             PrecoCusto = precoCusto;
         }

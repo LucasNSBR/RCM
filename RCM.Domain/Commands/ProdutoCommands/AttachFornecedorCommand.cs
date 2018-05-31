@@ -6,14 +6,16 @@ namespace RCM.Domain.Commands.ProdutoCommands
 {
     public class AttachFornecedorCommand : ProdutoCommand
     {
+        public string ReferenciaFornecedor { get; set; }
         public decimal PrecoCusto { get; set; }
         public ProdutoDisponibilidadeEnum Disponibilidade { get; set; }
         public Guid FornecedorId { get; set; }
 
-        public AttachFornecedorCommand(Guid id, Guid fornecedorId, decimal precoCusto, ProdutoDisponibilidadeEnum disponibilidade)
+        public AttachFornecedorCommand(Guid id, Guid fornecedorId, string referenciaFornecedor, decimal precoCusto, ProdutoDisponibilidadeEnum disponibilidade)
         {
             ProdutoId = id;
             FornecedorId = fornecedorId;
+            ReferenciaFornecedor = referenciaFornecedor;
             PrecoCusto = precoCusto;
             Disponibilidade = disponibilidade;
         }

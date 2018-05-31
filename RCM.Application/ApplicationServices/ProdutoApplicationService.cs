@@ -49,7 +49,7 @@ namespace RCM.Application.ApplicationServices
 
         public Task<CommandResult> AdicionarFornecedor(ProdutoFornecedorViewModel produtoFornecedorViewModel)
         {
-            return _mediator.SendCommand(new AttachFornecedorCommand(produtoFornecedorViewModel.ProdutoId, produtoFornecedorViewModel.FornecedorId, produtoFornecedorViewModel.PrecoCusto, produtoFornecedorViewModel.Disponibilidade));
+            return _mediator.SendCommand(new AttachFornecedorCommand(produtoFornecedorViewModel.ProdutoId, produtoFornecedorViewModel.FornecedorId, produtoFornecedorViewModel.ReferenciaFornecedor, produtoFornecedorViewModel.PrecoCusto, produtoFornecedorViewModel.Disponibilidade));
         }
 
         public Task<CommandResult> RemoverFornecedor(Guid produtoId, Guid fornecedorId)

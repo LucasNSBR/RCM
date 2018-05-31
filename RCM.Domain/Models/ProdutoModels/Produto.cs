@@ -82,11 +82,11 @@ namespace RCM.Domain.Models.ProdutoModels
             ReferenciaOriginal = referenciaOriginal ?? ReferenciaOriginal;
         }
 
-        public void AdicionarFornecedor(Fornecedor fornecedor, decimal precoCusto, ProdutoDisponibilidadeEnum disponibilidade)
+        public void AdicionarFornecedor(Fornecedor fornecedor, string referenciaFornecedor, decimal precoCusto, ProdutoDisponibilidadeEnum disponibilidade)
         {
             _fornecedores = _fornecedores ?? new List<ProdutoFornecedor>();
 
-            ProdutoFornecedor produtoFornecedor = new ProdutoFornecedor(this, fornecedor, precoCusto, disponibilidade);
+            ProdutoFornecedor produtoFornecedor = new ProdutoFornecedor(this, fornecedor, referenciaFornecedor, precoCusto, disponibilidade);
 
             if (!_fornecedores.Contains(produtoFornecedor))
                 _fornecedores.Add(produtoFornecedor);

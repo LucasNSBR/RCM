@@ -18,6 +18,9 @@ namespace RCM.Infra.Data.EntityTypeConfig
                 .WithMany(f => f.Produtos)
                 .HasForeignKey(pf => pf.FornecedorId);
 
+            builder.Property(pf => pf.ReferenciaFornecedor)
+                .HasMaxLength(25);
+
             builder.Property(pf => pf.PrecoCusto)
                 .IsRequired();
 

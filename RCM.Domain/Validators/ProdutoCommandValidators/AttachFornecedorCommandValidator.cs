@@ -25,6 +25,12 @@ namespace RCM.Domain.Validators.ProdutoCommandValidators
                 .NotEmpty();
         }
 
+        private void ValidateReferenciaFornecedor()
+        {
+            RuleFor(p => p.ReferenciaFornecedor)
+                .MaximumLength(25);
+        }
+
         private void ValidatePrecoCusto()
         {
             RuleFor(p => p.PrecoCusto)

@@ -20,6 +20,10 @@ namespace RCM.Application.ViewModels.ProdutoViewModels
         [Display(Name = "Fornecedor")]
         public FornecedorViewModel Fornecedor { get; set; }
 
+        [Display(Name = "Referência do Fornecedor")]
+        [StringLength(25, MinimumLength = 0, ErrorMessage = "A {0} deve ter até {1} caracteres.")]
+        public string ReferenciaFornecedor { get; set; }
+
         [Display(Name = "Preço de Custo")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O {0} é requerido.")]
         [DisplayFormat(ApplyFormatInEditMode = false, ConvertEmptyStringToNull = true, DataFormatString = "{0:c}")]
