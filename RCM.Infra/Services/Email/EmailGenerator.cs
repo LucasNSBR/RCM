@@ -1,15 +1,29 @@
 ﻿using RCM.Domain.Emails;
 using RCM.Domain.Models.EmailModels;
 using RCM.Domain.Services.Email;
+using RCM.Infra.Services.Constants;
 
 namespace RCM.Infra.Services.Email
 {
     public class EmailGenerator : IEmailGenerator
     {
+        private readonly string _accountConfirmationTemplateId;
+        private readonly string _resetPasswordTemplateId;
+        private readonly string _twoFactorAuthTemplateId;
+
+        public EmailGenerator()
+        {
+            _accountConfirmationTemplateId = EmailDispatcherConstants.SendGridAccountConfirmationEmailTemplateId;
+            _resetPasswordTemplateId = EmailDispatcherConstants.SendGridPasswordResetEmailTemplateId;
+            _twoFactorAuthTemplateId = EmailDispatcherConstants.SendGridTwoFactorAuthEmailTemplateId;
+        }
+
         public EmailTemplate GenerateAccountConfirmationEmail(string to, string callbackUrl)
         {
             var emailTemplate = new ConfirmAccountEmailTemplate(to, callbackUrl);
-            emailTemplate.SetSendGridTemplateId("e6b2144c-b3b0-40a2-931c-272201d6fc7a");
+
+            //SET SENDGRID TEMPLATE AND REPLACE SPECIFIED TERMS WITH VARIABLES IN EMAIL BODY
+            emailTemplate.SetSendGridTemplateId(_accountConfirmationTemplateId);
             emailTemplate.AddSendGridSubstitutions("-to-", to);
             emailTemplate.AddSendGridSubstitutions("-code-", callbackUrl);
 
@@ -19,7 +33,8 @@ namespace RCM.Infra.Services.Email
         public EmailTemplate GeneratePasswordResetEmail(string to, string callbackUrl)
         {
             var emailTemplate = new ResetPasswordEmailTemplate(to, callbackUrl);
-            emailTemplate.SetSendGridTemplateId("aa74fc08-e40a-4889-9f05-d92d46704918");
+
+            emailTemplate.SetSendGridTemplateId(_resetPasswordTemplateId);
             emailTemplate.AddSendGridSubstitutions("-to-", to);
             emailTemplate.AddSendGridSubstitutions("-code-", callbackUrl);
 
@@ -29,7 +44,8 @@ namespace RCM.Infra.Services.Email
         public EmailTemplate GenerateTwoFactorAuthenticationEmail(string to, string code)
         {
             var emailTemplate = new ResetPasswordEmailTemplate(to, code);
-            emailTemplate.SetSendGridTemplateId("3ebb8487-45be-44f6-8525-bfcd4fb28b43");
+            
+            emailTemplate.SetSendGridTemplateId(_resetPasswordTemplateId);
             emailTemplate.AddSendGridSubstitutions("-to-", to);
             emailTemplate.AddSendGridSubstitutions("-code-", code);
 
