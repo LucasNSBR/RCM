@@ -54,6 +54,7 @@ namespace RCM.Presentation.Web.Controllers
                 var code = await _rcmUserManager.GenerateEmailConfirmationTokenAsync(user);
                 await SendAccountConfirmationEmailAsync(user.Email, code);
 
+                await _rcmSignInManager.SignInAsync(user, isPersistent: false);
                 return RedirectToPlatform();
             }
             else
