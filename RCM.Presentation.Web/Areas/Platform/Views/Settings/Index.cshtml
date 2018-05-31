@@ -49,17 +49,19 @@
             }
             else
             {
-                <span>Visualizar informações.</span>
+                <span>Nenhuma permissão especial.</span>
             }
         </dd>
-
-        <dt class="pt-3 lead font-bold">
-            <label>Outras operações</label>
-        </dt>
-        <dd>
-            <a asp-action="ChangePassword">Alterar senha</a>
-        </dd>
     </dl>
+
+    <div class="px-1 pt-2 pb-2">
+        <div>
+            <a asp-action="Index" asp-controller="Users">Permissões de usuários</a>
+        </div>
+        <div>
+            <a asp-action="ChangePassword">Alterar minha senha</a>
+        </div>
+    </div>
 </div>
 
 <div>

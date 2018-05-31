@@ -1,0 +1,60 @@
+﻿@model RCM.CrossCutting.Identity.ViewModels.UserViewModel
+
+@{
+    ViewData["Title"] = "Operações de Usuário";
+}
+
+<h5>Operações de Usuário - @Model.User.Email</h5>
+
+<div class="form-container col m12 s12">
+    <p class="px-1 font-bold lead">
+        Informação sobre Permissão
+    </p>
+
+    <dl class="detail-list">
+        <dt>
+            <label>Nome</label>
+        </dt>
+        <dd>
+            @($"{Model.User.FirstName} {Model.User.LastName}")
+        </dd>
+        <dt>
+            <label>Permissões</label>
+        </dt>
+        <dd>
+            @foreach (var role in Model.Roles)
+            {
+                <span>
+                    @role
+                </span>
+                <br />
+            }
+        </dd>
+    </dl>
+
+    <div class="px-1 pt-2 pb-1">
+        @if (!Model.Roles.Contains("Admin"))
+        {
+            <a asp-action="AddToRole" asp-route-role="Admin" asp-route-id="@Model.User.Id">Tornar Administrador</a>
+        }
+        else
+        {
+            <span class="font-italic text-muted">Não é possível remover a permissão de administrador de outro administrador</span>
+        }
+
+        <br />
+
+        @if (!Model.Roles.Contains("Manager"))
+        {
+            <a asp-action="AddToRole" asp-route-role="Manager" asp-route-id="@Model.User.Id">Tornar Gerente</a>
+        }
+        else
+        {
+            <a asp-action="RemoveFromRole" asp-route-role="Manager" asp-route-id="@Model.User.Id">Remover Permissão de Gerente</a>
+        }
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Voltar para a lista</a>
+</div>

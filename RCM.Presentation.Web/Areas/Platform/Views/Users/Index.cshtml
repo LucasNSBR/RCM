@@ -1,0 +1,48 @@
+﻿@model IEnumerable<RCM.CrossCutting.Identity.ViewModels.UserViewModel>
+
+@{
+    ViewData["Title"] = "Usuários - Índice";
+}
+
+<h5>Lista de Usuários</h5>
+
+<div class="form-container col s12 m12">
+    <p class="px-1 font-bold lead">
+        Permissões de Usuários
+    </p>
+
+    <dl class="detail-list">
+        <dt>
+            <label>Usuários</label>
+        </dt>
+        <dd>
+            @if (Model.Any())
+            {
+                <ul class="collection">
+                    @foreach (var user in Model)
+                    {
+                        <li class="collection-item">
+                            <p class="lead text-black mt-0">
+                                @($"{user.User.FirstName} {user.User.LastName}")
+                            </p>
+                            <span>
+                                @Html.DisplayFor(modelItem => user.User.Email)
+                            </span>
+                            <br />
+                            <a asp-action="Details" asp-route-id="@user.User.Id">
+                                Modificar Permissões
+                            </a>
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p class="px-1 col s12 m12">
+                    <i class="material-icons left">warning</i>
+                    Não existem outros usuários cadastrados.
+                </p>
+            }
+        </dd>
+    </dl>
+</div>

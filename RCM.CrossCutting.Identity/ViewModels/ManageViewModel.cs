@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using RCM.CrossCutting.Identity.Models;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace RCM.CrossCutting.Identity.ViewModels
@@ -11,9 +12,9 @@ namespace RCM.CrossCutting.Identity.ViewModels
         [Display(Name = "Confirmação de e-mail")]
         public bool ConfirmedEmail { get; set; }
 
-        [Display(Name = "Permissões")]
-        public ICollection<string> Roles { get; set; }
-
+        [Display(Name = "Minhas Permissões")]
+        public List<string> Roles { get; set; }
+        
         public ManageViewModel()
         {
             Roles = new List<string>();

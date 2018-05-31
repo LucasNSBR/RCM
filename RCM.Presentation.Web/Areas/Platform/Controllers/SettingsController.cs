@@ -4,10 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using RCM.CrossCutting.Identity.Models;
 using RCM.CrossCutting.Identity.ViewModels;
 using RCM.Domain.DomainNotificationHandlers;
-using RCM.Domain.DomainNotifications;
 using RCM.Domain.Services.Email;
 using RCM.Presentation.Web.Controllers;
-using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace RCM.Presentation.Web.Areas.Platform.Controllers
@@ -38,7 +37,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             {
                 ConfirmedEmail = await _rcmUserManager.IsEmailConfirmedAsync(user),
                 TwoFactorActivated = await _rcmUserManager.GetTwoFactorEnabledAsync(user),
-                Roles = await _rcmUserManager.GetRolesAsync(user)
+                Roles = (List<string>)await _rcmUserManager.GetRolesAsync(user),
             };
 
             return View(viewModel);
@@ -81,7 +80,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 return RedirectToAction(nameof(Index));
             }
             else
-                result.Errors.ToList().ForEach(e => NotifyIdentityError(e.Description));
+                NotifyIdentityErrors(result);
 
             return View(changePasswordViewModel);
         }
@@ -97,8 +96,8 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 return RedirectToAction(nameof(Index));
             }
             else
-                result.Errors.ToList().ForEach(e => NotifyIdentityError(e.Description));
-
+                NotifyIdentityErrors(result);
+            
             return RedirectToAction(nameof(Index));
         }
 
@@ -113,7 +112,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                 return RedirectToAction(nameof(Index));
             }
             else
-                result.Errors.ToList().ForEach(e => NotifyIdentityError(e.Description));
+                NotifyIdentityErrors(result);
 
             return RedirectToAction(nameof(Index));
         }
