@@ -62,7 +62,7 @@ namespace RCM.Presentation.Web
                 cfg.AddPolicy("Manager", p => p.RequireRole("Admin", "Manager"));
                 cfg.AddPolicy("User", p => p.RequireRole("Admin", "User", "Manager"));
             });
-            
+
             Bootstrapper.RegisterServices(services);
         }
 
@@ -87,6 +87,11 @@ namespace RCM.Presentation.Web
                         name: "accounts",
                         template: "Accounts/",
                         defaults: new { controller = "Accounts", action = "Login" });
+
+                    routes.MapRoute(
+                        name: "googleLogin",
+                        template: "Accounts/Login/Google",
+                        defaults: new { controller = "Accounts", action = "ExternalLogin", provider = "Google" });
 
                     routes.MapRoute(
                         name: "platform",
