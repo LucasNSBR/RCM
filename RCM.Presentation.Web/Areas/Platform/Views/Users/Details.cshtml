@@ -22,12 +22,19 @@
             <label>Permissões</label>
         </dt>
         <dd>
+            @if (Model.Roles.Any())
+            {
             @foreach (var role in Model.Roles)
             {
                 <span>
                     @role
                 </span>
                 <br />
+            }
+            }
+            else
+            {
+                <span class="font-italic">Nenhuma permissão encontrada.</span>
             }
         </dd>
     </dl>

@@ -8,7 +8,6 @@
             <li class="tab col s3"><a href="#geral" class="active">Geral</a></li>
             <li class="tab col s3"><a href="#endereco">Endereço</a></li>
             <li class="tab col s3"><a href="#contato">Contato</a></li>
-            <li class="tab col s3"><a href="#cheques">Cheques</a></li>
         </ul>
     </div>
 
@@ -80,6 +79,22 @@
             </dt>
             <dd>
                 @Model.Pontuacao
+            </dd>
+            <dt>
+                <label asp-for="Cheques"></label>
+            </dt>
+            <dd>
+                @if (Model.Cheques.Any())
+                {
+                    <a asp-action="Index" asp-route-clienteId="@Model.Id" asp-controller="Cheques">@Model.Cheques.Count Cheques foram encontrados</a>
+                }
+                else
+                {
+                    <span class="font-italic text-warning">
+                        <i class="material-icons left">warning</i>
+                        Nenhum cheque relacionado.
+                    </span>
+                }
             </dd>
             <dt>
                 <label asp-for="Descricao"></label>
@@ -242,31 +257,6 @@
             </dt>
             <dd>
                 @Model.EnderecoCidade.Nome
-            </dd>
-        </dl>
-    </div>
-
-    <div id="cheques" class="col s12 m12">
-        <p class="px-1 font-bold lead">
-            Informações sobre Cheques
-        </p>
-
-        <dl class="detail-list">
-            <dt>
-                <label asp-for="Cheques"></label>
-            </dt>
-            <dd>
-                @if (Model.Cheques.Any())
-                {
-                    <a asp-action="Index" asp-route-clienteId="@Model.Id" asp-controller="Cheques">@Model.Cheques.Count Cheques foram encontrados</a>
-                }
-                else
-                {
-                    <span class="font-italic text-warning">
-                        <i class="material-icons left">warning</i>
-                        Nenhum cheque relacionado.
-                    </span>
-                }
             </dd>
         </dl>
     </div>
