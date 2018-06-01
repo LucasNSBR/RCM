@@ -217,6 +217,9 @@
                                     </div>
                                     <div class="collapsible-body">
                                         <span>
+                                            @("Referência do Fornecedor: " + (fornecedor.ReferenciaFornecedor ?? "Referência não cadastrada"))
+                                        </span><br />
+                                        <span>
                                             @("Preço de custo: " + fornecedor.PrecoCusto.ToString("c"))
                                         </span><br />
                                         <span>
