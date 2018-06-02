@@ -53,7 +53,7 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
             _produtoRepository.Add(produto);
 
             if (Commit())
-                _mediator.Publish(new AddedProdutoEvent());
+                _mediator.PublishEvent(new AddedProdutoEvent(produto));
 
             return Response();
         }
@@ -73,7 +73,7 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
             _produtoRepository.Update(produto);
 
             if (Commit())
-                _mediator.Publish(new UpdatedProdutoEvent());
+                _mediator.PublishEvent(new UpdatedProdutoEvent(produto));
 
             return Response();
         }
@@ -90,7 +90,7 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
             _produtoRepository.Remove(produto);
 
             if (Commit())
-                _mediator.Publish(new RemovedProdutoEvent());
+                _mediator.PublishEvent(new RemovedProdutoEvent(produto));
 
             return Response();
         }
@@ -113,7 +113,7 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
                 _produtoRepository.Update(produto);
 
             if (Commit())
-                _mediator.Publish(new UpdatedProdutoEvent());
+                _mediator.PublishEvent(new UpdatedProdutoEvent(produto));
 
             return Response();
         }
@@ -134,7 +134,7 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
             _produtoRepository.Update(produto);
 
             if (Commit())
-                _mediator.Publish(new UpdatedProdutoEvent());
+                _mediator.PublishEvent(new UpdatedProdutoEvent(produto));
 
             return Response();
         }
@@ -157,7 +157,7 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
                 _produtoRepository.Update(produto);
 
             if (Commit())
-                _mediator.Publish(new UpdatedProdutoEvent());
+                _mediator.PublishEvent(new UpdatedProdutoEvent(produto));
 
             return Response();
         }
@@ -180,7 +180,7 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
                 _produtoRepository.Update(produto);
 
             if (Commit())
-                _mediator.Publish(new UpdatedProdutoEvent());
+                _mediator.PublishEvent(new UpdatedProdutoEvent(produto));
 
             return Response();
         }
@@ -203,7 +203,7 @@ namespace RCM.Domain.CommandHandlers.ProdutoCommandHandlers
                 _produtoRepository.Update(produto);
 
             if (Commit())
-                _mediator.Publish(new UpdatedProdutoEvent());
+                _mediator.PublishEvent(new UpdatedProdutoEvent(produto));
 
             return Response();
         }

@@ -45,7 +45,7 @@ namespace RCM.Domain.CommandHandlers.FornecedorCommandHandlers
             _fornecedorRepository.Add(fornecedor);
       
             if (Commit())
-                _mediator.Publish(new AddedFornecedorEvent());
+                _mediator.PublishEvent(new AddedFornecedorEvent(fornecedor));
 
             return Response();
         }
@@ -67,7 +67,7 @@ namespace RCM.Domain.CommandHandlers.FornecedorCommandHandlers
             _fornecedorRepository.Update(fornecedor);
 
             if (Commit())
-                _mediator.Publish(new UpdatedFornecedorEvent());
+                _mediator.PublishEvent(new UpdatedFornecedorEvent(fornecedor));
 
             return Response();
         }
@@ -84,7 +84,7 @@ namespace RCM.Domain.CommandHandlers.FornecedorCommandHandlers
             _fornecedorRepository.Remove(fornecedor);
 
             if (Commit())
-                _mediator.Publish(new RemovedFornecedorEvent());
+                _mediator.PublishEvent(new RemovedFornecedorEvent(fornecedor));
 
             return Response();
         }

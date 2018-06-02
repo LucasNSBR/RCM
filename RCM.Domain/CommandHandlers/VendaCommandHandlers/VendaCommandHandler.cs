@@ -46,7 +46,7 @@ namespace RCM.Domain.CommandHandlers.VendaCommandHandlers
             _vendaRepository.Add(venda);
 
             if (Commit())
-                _mediator.Publish(new AddedVendaEvent());
+                _mediator.PublishEvent(new AddedVendaEvent(venda));
 
             return Response();
         }
@@ -72,7 +72,7 @@ namespace RCM.Domain.CommandHandlers.VendaCommandHandlers
             _vendaRepository.Update(venda);
 
             if (Commit())
-                _mediator.Publish(new UpdatedVendaEvent());
+                _mediator.PublishEvent(new UpdatedVendaEvent(venda));
 
             return Response();
         }
@@ -89,7 +89,7 @@ namespace RCM.Domain.CommandHandlers.VendaCommandHandlers
             _vendaRepository.Remove(venda);
 
             if (Commit())
-                _mediator.Publish(new RemovedVendaEvent());
+                _mediator.PublishEvent(new RemovedVendaEvent(venda));
 
             return Response();
         }

@@ -31,14 +31,27 @@ using RCM.Domain.Commands.VendaCommands;
 using RCM.Domain.Core.Commands;
 using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.DomainNotificationHandlers;
+using RCM.Domain.EventHandlers;
+using RCM.Domain.EventHandlers.BancoEventHandlers;
 using RCM.Domain.EventHandlers.ChequeEventHandlers;
+using RCM.Domain.EventHandlers.ClienteEventHandlers;
+using RCM.Domain.EventHandlers.DuplicataEventHandlers;
+using RCM.Domain.EventHandlers.FornecedorEventHandlers;
+using RCM.Domain.EventHandlers.ProdutoEventHandlers;
 using RCM.Domain.EventHandlers.VendaEventHandlers;
+using RCM.Domain.Events.BancoEvents;
 using RCM.Domain.Events.ChequeEvents;
+using RCM.Domain.Events.ClienteEvents;
+using RCM.Domain.Events.DuplicataEvents;
+using RCM.Domain.Events.FornecedorEvents;
+using RCM.Domain.Events.ProdutoEvents;
 using RCM.Domain.Events.VendaEvents;
 using RCM.Domain.Repositories;
+using RCM.Domain.Repositories.EventRepositories;
 using RCM.Domain.Services.Email;
 using RCM.Domain.UnitOfWork;
 using RCM.Infra.Data.Repositories;
+using RCM.Infra.Data.Repositories.EventRepositories;
 using RCM.Infra.Data.UnitOfWork;
 using RCM.Infra.Services.Email;
 
@@ -51,9 +64,11 @@ namespace RCM.CrossCutting.IoC
             RegisterIntrastructureServices(services);
             RegisterMiscellaneous(services);
             RegisterRepositories(services);
+            RegisterEventRepositores(services);
             RegisterApplicationServices(services);
             RegisterCommands(services);
             RegisterEvents(services);
+            RegisterPersistenceEvents(services);
             RegisterNotifications(services);
         }
 
@@ -89,6 +104,11 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<IOrdemServicoRepository, OrdemServicoRepository>();
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
             services.AddScoped<IVendaRepository, VendaRepository>();
+        }
+
+        private static void RegisterEventRepositores(IServiceCollection services)
+        {
+            services.AddScoped<IEventRepository, EventRepository>();
         }
 
         private static void RegisterApplicationServices(IServiceCollection services)
@@ -170,11 +190,62 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<IRequestHandler<PagarParcelaVendaCommand, CommandResult>, VendaCommandHandler>();
         }
 
+        private static void RegisterPersistenceEvents(IServiceCollection services)
+        {
+            services.AddScoped<INotificationHandler<AddedBancoEvent>, DomainEventPersistenceHandler>();
+            services.AddScoped<INotificationHandler<UpdatedBancoEvent>, DomainEventPersistenceHandler>();
+            services.AddScoped<INotificationHandler<RemovedBancoEvent>, DomainEventPersistenceHandler>();
+
+            services.AddScoped<INotificationHandler<AddedChequeEvent>, DomainEventPersistenceHandler>();
+            services.AddScoped<INotificationHandler<UpdatedChequeEvent>, DomainEventPersistenceHandler>();
+            services.AddScoped<INotificationHandler<RemovedChequeEvent>, DomainEventPersistenceHandler>();
+
+            services.AddScoped<INotificationHandler<AddedClienteEvent>, DomainEventPersistenceHandler>();
+            services.AddScoped<INotificationHandler<UpdatedClienteEvent>, DomainEventPersistenceHandler>();
+            services.AddScoped<INotificationHandler<RemovedClienteEvent>, DomainEventPersistenceHandler>();
+
+            services.AddScoped<INotificationHandler<AddedDuplicataEvent>, DomainEventPersistenceHandler>();
+            services.AddScoped<INotificationHandler<UpdatedDuplicataEvent>, DomainEventPersistenceHandler>();
+            services.AddScoped<INotificationHandler<RemovedDuplicataEvent>, DomainEventPersistenceHandler>();
+
+            services.AddScoped<INotificationHandler<AddedFornecedorEvent>, DomainEventPersistenceHandler>();
+            services.AddScoped<INotificationHandler<UpdatedFornecedorEvent>, DomainEventPersistenceHandler>();
+            services.AddScoped<INotificationHandler<RemovedFornecedorEvent>, DomainEventPersistenceHandler>();
+
+            services.AddScoped<INotificationHandler<AddedProdutoEvent>, DomainEventPersistenceHandler>();
+            services.AddScoped<INotificationHandler<UpdatedProdutoEvent>, DomainEventPersistenceHandler>();
+            services.AddScoped<INotificationHandler<RemovedProdutoEvent>, DomainEventPersistenceHandler>();
+
+            services.AddScoped<INotificationHandler<AddedVendaEvent>, DomainEventPersistenceHandler>();
+            services.AddScoped<INotificationHandler<UpdatedVendaEvent>, DomainEventPersistenceHandler>();
+            services.AddScoped<INotificationHandler<RemovedVendaEvent>, DomainEventPersistenceHandler>();
+        }
+
         private static void RegisterEvents(IServiceCollection services)
         {
+            services.AddScoped<INotificationHandler<AddedBancoEvent>, BancoEventHandler>();
+            services.AddScoped<INotificationHandler<UpdatedBancoEvent>, BancoEventHandler>();
+            services.AddScoped<INotificationHandler<RemovedBancoEvent>, BancoEventHandler>();
+
             services.AddScoped<INotificationHandler<AddedChequeEvent>, ChequeEventHandler>();
             services.AddScoped<INotificationHandler<UpdatedChequeEvent>, ChequeEventHandler>();
             services.AddScoped<INotificationHandler<RemovedChequeEvent>, ChequeEventHandler>();
+
+            services.AddScoped<INotificationHandler<AddedClienteEvent>, ClienteEventHandler>();
+            services.AddScoped<INotificationHandler<UpdatedClienteEvent>, ClienteEventHandler>();
+            services.AddScoped<INotificationHandler<RemovedClienteEvent>, ClienteEventHandler>();
+
+            services.AddScoped<INotificationHandler<AddedDuplicataEvent>, DuplicataEventHandler>();
+            services.AddScoped<INotificationHandler<UpdatedDuplicataEvent>, DuplicataEventHandler>();
+            services.AddScoped<INotificationHandler<RemovedDuplicataEvent>, DuplicataEventHandler>();
+
+            services.AddScoped<INotificationHandler<AddedFornecedorEvent>, FornecedorEventHandler>();
+            services.AddScoped<INotificationHandler<UpdatedFornecedorEvent>, FornecedorEventHandler>();
+            services.AddScoped<INotificationHandler<RemovedFornecedorEvent>, FornecedorEventHandler>();
+
+            services.AddScoped<INotificationHandler<AddedProdutoEvent>, ProdutoEventHandler>();
+            services.AddScoped<INotificationHandler<UpdatedProdutoEvent>, ProdutoEventHandler>();
+            services.AddScoped<INotificationHandler<RemovedProdutoEvent>, ProdutoEventHandler>();
 
             services.AddScoped<INotificationHandler<AddedVendaEvent>, VendaEventHandler>();
             services.AddScoped<INotificationHandler<UpdatedVendaEvent>, VendaEventHandler>();

@@ -30,6 +30,7 @@ namespace RCM.Presentation.Web
             services.AddMvc();
             services.AddMediatR();
             services.AddDbContext<RCMDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("RCMDatabase")));
+            services.AddDbContext<RCMEventDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("RCMDatabase")));
             services.AddDbContext<RCMIdentityDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("RCMDatabase")));
 
             services.AddIdentity<RCMIdentityUser, RCMIdentityRole>(cfg => ConfigureIdentity(cfg))

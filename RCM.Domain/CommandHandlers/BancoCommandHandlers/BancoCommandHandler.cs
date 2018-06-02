@@ -36,7 +36,7 @@ namespace RCM.Domain.CommandHandlers.BancoCommandHandlers
             _bancoRepository.Add(banco);
 
             if (Commit())
-                _mediator.Publish(new AddedBancoEvent());
+                _mediator.PublishEvent(new AddedBancoEvent(banco));
 
             return Response();
         }
@@ -53,7 +53,7 @@ namespace RCM.Domain.CommandHandlers.BancoCommandHandlers
             _bancoRepository.Update(banco);
 
             if (Commit())
-                _mediator.Publish(new UpdatedBancoEvent());
+                _mediator.PublishEvent(new UpdatedBancoEvent(banco));
 
             return Response();
         }
@@ -70,7 +70,7 @@ namespace RCM.Domain.CommandHandlers.BancoCommandHandlers
             _bancoRepository.Remove(banco);
 
             if (Commit())
-                _mediator.Publish(new RemovedBancoEvent());
+                _mediator.PublishEvent(new RemovedBancoEvent(banco));
 
             return Response();
         }

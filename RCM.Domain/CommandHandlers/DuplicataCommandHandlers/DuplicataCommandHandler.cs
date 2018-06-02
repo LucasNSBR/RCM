@@ -50,7 +50,7 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
             _duplicataRepository.Add(duplicata);
 
             if (Commit())
-                _mediator.Publish(new AddedDuplicataEvent());
+                _mediator.PublishEvent(new AddedDuplicataEvent(duplicata));
 
             return Response();
         }
@@ -74,7 +74,7 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
             _duplicataRepository.Update(duplicata);
 
             if (Commit())
-                _mediator.Publish(new UpdatedDuplicataEvent());
+                _mediator.PublishEvent(new UpdatedDuplicataEvent(duplicata));
 
             return Response();
         }
@@ -91,7 +91,7 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
             _duplicataRepository.Remove(duplicata);
 
             if (Commit())
-                _mediator.Publish(new RemovedDuplicataEvent());
+                _mediator.PublishEvent(new RemovedDuplicataEvent(duplicata));
 
             return Response();
         }
@@ -111,7 +111,7 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
             _duplicataRepository.Update(duplicata);
 
             if (Commit()) 
-                _mediator.Publish(new UpdatedDuplicataEvent());
+                _mediator.PublishEvent(new UpdatedDuplicataEvent(duplicata));
 
             return Response();
         }
@@ -129,7 +129,7 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
             _duplicataRepository.Update(duplicata);
 
             if (Commit())
-                _mediator.Publish(new UpdatedDuplicataEvent());
+                _mediator.PublishEvent(new UpdatedDuplicataEvent(duplicata));
 
             return Response();
         }

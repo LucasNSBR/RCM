@@ -2,7 +2,7 @@
 
 namespace RCM.Domain.Events.OrdemServico
 {
-    public abstract class OrdemServicoEvent : Event
+    public abstract class OrdemServicoEvent : DomainEvent
     {
     }
 }

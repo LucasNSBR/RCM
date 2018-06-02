@@ -61,7 +61,7 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
             _chequeRepository.Add(cheque);
 
             if (Commit())
-                _mediator.Publish(new AddedChequeEvent());
+                _mediator.PublishEvent(new AddedChequeEvent(cheque));
 
             return Response();
         }
@@ -86,7 +86,7 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
             _chequeRepository.Update(cheque);
 
             if (Commit())
-                _mediator.Publish(new UpdatedChequeEvent());
+                _mediator.PublishEvent(new UpdatedChequeEvent(cheque));
 
             return Response();
         }
@@ -103,7 +103,7 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
             _chequeRepository.Remove(cheque);
 
             if (Commit())
-                _mediator.Publish(new RemovedChequeEvent());
+                _mediator.PublishEvent(new RemovedChequeEvent(cheque));
 
             return Response();
         }
@@ -121,7 +121,7 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
             _chequeRepository.Update(cheque);
 
             if (Commit())
-                _mediator.Publish(new UpdatedChequeEvent());
+                _mediator.PublishEvent(new UpdatedChequeEvent(cheque));
 
             return Response();
         }
@@ -143,7 +143,7 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
             _chequeRepository.Update(cheque);
 
             if (Commit())
-                _mediator.Publish(new UpdatedChequeEvent());
+                _mediator.PublishEvent(new UpdatedChequeEvent(cheque));
 
             return Response();
         }
@@ -163,7 +163,7 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
             _chequeRepository.Update(cheque);
 
             if (Commit())
-                _mediator.Publish(new UpdatedChequeEvent());
+                _mediator.PublishEvent(new UpdatedChequeEvent(cheque));
 
             return Response();
         }
@@ -184,7 +184,7 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
             _chequeRepository.Update(cheque);
 
             if (Commit())
-                _mediator.Publish(new UpdatedChequeEvent());
+                _mediator.PublishEvent(new UpdatedChequeEvent(cheque));
 
             return Response();
         }
@@ -205,7 +205,7 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
             _chequeRepository.Update(cheque);
 
             if (Commit())
-                _mediator.Publish(new UpdatedChequeEvent());
+                _mediator.PublishEvent(new UpdatedChequeEvent(cheque));
 
             return Response();
         }

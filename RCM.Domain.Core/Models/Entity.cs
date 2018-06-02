@@ -3,7 +3,6 @@ using RCM.Domain.Core.Errors;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 
 namespace RCM.Domain.Core.Models
 {
@@ -54,7 +53,9 @@ namespace RCM.Domain.Core.Models
         public override bool Equals(object obj)
         {
             var other = obj as Entity<T>;
-            if (other.GetType() != GetType() || other == null) return false;
+
+            if (other == null) return false;
+            if (other.GetType() != GetType()) return false;
 
             if (ReferenceEquals(this, null)) return false;
             if (ReferenceEquals(this, obj)) return true;

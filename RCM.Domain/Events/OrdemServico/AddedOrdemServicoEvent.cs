@@ -2,5 +2,9 @@
 {
     public class AddedOrdemServicoEvent : OrdemServicoEvent
     {
+        public override void Normalize()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

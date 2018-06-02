@@ -71,7 +71,7 @@ namespace RCM.Domain.CommandHandlers
         {
             foreach (var @event in events)
             {
-                _mediator.Publish(@event);
+                _mediator.PublishEvent(@event);
             }
         }
 

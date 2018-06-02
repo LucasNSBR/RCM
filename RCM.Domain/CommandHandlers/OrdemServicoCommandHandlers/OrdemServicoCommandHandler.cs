@@ -47,7 +47,7 @@ namespace RCM.Domain.CommandHandlers.OrdemServicoCommandHandlers
             _ordemServicoRepository.Add(ordemServico);
 
             if (Commit())
-                _mediator.Publish(new AddedOrdemServicoEvent());
+                _mediator.PublishEvent(new AddedOrdemServicoEvent());
 
             return Response();
         }
@@ -66,7 +66,7 @@ namespace RCM.Domain.CommandHandlers.OrdemServicoCommandHandlers
             _ordemServicoRepository.Update(ordemServico);
 
             if (Commit())
-                _mediator.Publish(new UpdatedOrdemServicoEvent());
+                _mediator.PublishEvent(new UpdatedOrdemServicoEvent());
 
             return Response();
         }
@@ -83,7 +83,7 @@ namespace RCM.Domain.CommandHandlers.OrdemServicoCommandHandlers
             _ordemServicoRepository.Remove(ordemServico);
 
             if (Commit())
-                _mediator.Publish(new RemovedOrdemServicoEvent());
+                _mediator.PublishEvent(new RemovedOrdemServicoEvent());
 
             return Response();
         }

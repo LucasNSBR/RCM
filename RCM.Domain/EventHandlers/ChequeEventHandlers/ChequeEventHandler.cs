@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace RCM.Domain.EventHandlers.ChequeEventHandlers
 {
-    public class ChequeEventHandler : EventHandler,
+    public class ChequeEventHandler : DomainEventHandler<ChequeEvent>,
                                       INotificationHandler<AddedChequeEvent>,
                                       INotificationHandler<UpdatedChequeEvent>,
                                       INotificationHandler<RemovedChequeEvent>

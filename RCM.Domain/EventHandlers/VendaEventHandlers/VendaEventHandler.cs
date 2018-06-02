@@ -1,11 +1,11 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
 using RCM.Domain.Events.VendaEvents;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace RCM.Domain.EventHandlers.VendaEventHandlers
 {
-    public class VendaEventHandler : EventHandler,
+    public class VendaEventHandler : DomainEventHandler<VendaEvent>,
                                      INotificationHandler<AddedVendaEvent>,
                                      INotificationHandler<UpdatedVendaEvent>,
                                      INotificationHandler<RemovedVendaEvent>

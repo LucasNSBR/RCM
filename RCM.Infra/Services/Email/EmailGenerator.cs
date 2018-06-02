@@ -45,7 +45,7 @@ namespace RCM.Infra.Services.Email
         {
             var emailTemplate = new ResetPasswordEmailTemplate(to, code);
             
-            emailTemplate.SetSendGridTemplateId(_resetPasswordTemplateId);
+            emailTemplate.SetSendGridTemplateId(_twoFactorAuthTemplateId);
             emailTemplate.AddSendGridSubstitutions("-to-", to);
             emailTemplate.AddSendGridSubstitutions("-code-", code);
 

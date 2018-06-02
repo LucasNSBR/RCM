@@ -45,7 +45,7 @@ namespace RCM.Domain.CommandHandlers.ClienteCommandHandlers
             _clienteRepository.Add(cliente);
 
             if (Commit())
-                _mediator.Publish(new AddedClienteEvent());
+                _mediator.PublishEvent(new AddedClienteEvent(cliente));
             
             return Response();
         }
@@ -67,7 +67,7 @@ namespace RCM.Domain.CommandHandlers.ClienteCommandHandlers
             _clienteRepository.Update(cliente);
 
             if (Commit())
-                _mediator.Publish(new UpdatedClienteEvent());
+                _mediator.PublishEvent(new UpdatedClienteEvent(cliente));
 
             return Response();
         }
@@ -84,7 +84,7 @@ namespace RCM.Domain.CommandHandlers.ClienteCommandHandlers
             _clienteRepository.Remove(cliente);
 
             if (Commit())
-                _mediator.Publish(new RemovedClienteEvent());
+                _mediator.PublishEvent(new RemovedClienteEvent(cliente));
 
             return Response();
         }
