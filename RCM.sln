@@ -41,6 +41,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RCM.Infra.Data", "RCM.Infra
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RCM.Infra", "RCM.Infra\RCM.Infra.csproj", "{CAF59E38-FB85-42D8-8A84-9E6EC7F32D89}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sql", "sql", "{86EB60B3-0542-4CF3-8501-C41A3E0E25D9}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\database_generation_script.sql = ..\..\database_generation_script.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
