@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using RCM.Application.ApplicationInterfaces;
 using RCM.Application.ApplicationServices;
-using RCM.Application.EventServices;
 using RCM.Application.Mappers;
 using RCM.CrossCutting.MediatorServices;
 using RCM.Domain.CommandHandlers.BancoCommandHandlers;
@@ -65,10 +64,9 @@ namespace RCM.CrossCutting.IoC
             RegisterIntrastructureServices(services);
             RegisterMiscellaneous(services);
             RegisterRepositories(services);
-            RegisterEventRepositories(services);
+            RegisterEventRepositores(services);
             RegisterApplicationServices(services);
             RegisterCommands(services);
-            RegisterEventApplicationServices(services);
             RegisterEvents(services);
             RegisterPersistenceEvents(services);
             RegisterNotifications(services);
@@ -108,12 +106,7 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<IVendaRepository, VendaRepository>();
         }
 
-        private static void RegisterEventApplicationServices(IServiceCollection services)
-        {
-            services.AddScoped<IEventService, EventService>();
-        }
-
-        private static void RegisterEventRepositories(IServiceCollection services)
+        private static void RegisterEventRepositores(IServiceCollection services)
         {
             services.AddScoped<IEventRepository, EventRepository>();
         }

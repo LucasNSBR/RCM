@@ -14,15 +14,6 @@ namespace RCM.Infra.Data.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<NormalizedEvent>(ev =>
-            {
-                ev.HasKey(k => k.Id);
-                ev.Property(en => en.AggregateId);
-                ev.Property(en => en.DateCreated);
-                ev.Property(en => en.Type);
-                ev.Property(en => en.Data);
-            });
-
             modelBuilder.ApplyConfiguration(new EventEntityTypeConfiguration());
         }
     }

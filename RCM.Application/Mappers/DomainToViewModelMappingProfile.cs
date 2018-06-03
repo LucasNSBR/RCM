@@ -1,12 +1,9 @@
 ﻿using AutoMapper;
-using Newtonsoft.Json;
 using RCM.Application.ViewModels;
 using RCM.Application.ViewModels.ChequeViewModels;
-using RCM.Application.ViewModels.EventViewModels;
 using RCM.Application.ViewModels.ProdutoViewModels;
 using RCM.Application.ViewModels.ValueObjectViewModels;
 using RCM.Application.ViewModels.VendaViewModels;
-using RCM.Domain.Core.Events;
 using RCM.Domain.Models.BancoModels;
 using RCM.Domain.Models.ChequeModels;
 using RCM.Domain.Models.ChequeModels.ChequeStates;
@@ -21,7 +18,6 @@ using RCM.Domain.Models.OrdemServicoModels;
 using RCM.Domain.Models.ProdutoModels;
 using RCM.Domain.Models.ValueObjects;
 using RCM.Domain.Models.VendaModels;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace RCM.Application.Mappers
@@ -90,12 +86,6 @@ namespace RCM.Application.Mappers
                 .ForMember(p => p.CondicaoPagamento, cfg =>
                 {
                     cfg.MapFrom(v => v.CondicaoPagamento ?? null);
-                });
-
-            CreateMap<NormalizedEvent, NormalizedEventViewModel>()
-                .ForMember(nevm => nevm.Args, cfg =>
-                {
-                    cfg.MapFrom(ne => JsonConvert.DeserializeObject<Dictionary<string, object>>(ne.Data));
                 });
         }
     }
