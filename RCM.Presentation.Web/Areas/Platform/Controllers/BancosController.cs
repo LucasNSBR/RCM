@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RCM.Application.ApplicationInterfaces;
+using RCM.Application.EventServices;
 using RCM.Application.ViewModels;
 using RCM.Domain.DomainNotificationHandlers;
 using RCM.Domain.Models.BancoModels;
@@ -18,11 +19,13 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
     public class BancosController : BaseController
     {
         private readonly IBancoApplicationService _bancoApplicationService;
+        private readonly IEventService _eventService;
 
-        public BancosController(IBancoApplicationService bancoApplicationService, IDomainNotificationHandler domainNotificationHandler) :
+        public BancosController(IBancoApplicationService bancoApplicationService, IEventService eventService, IDomainNotificationHandler domainNotificationHandler) :
                                                                                                                 base(domainNotificationHandler)
         {
             _bancoApplicationService = bancoApplicationService;
+            _eventService = eventService;
         }
 
         public IActionResult Index(int? codigoCompensacao = null, string nome = null, int pageNumber = 1, int pageSize = 20)
