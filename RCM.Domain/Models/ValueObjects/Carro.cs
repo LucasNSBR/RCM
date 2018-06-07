@@ -4,7 +4,7 @@ namespace RCM.Domain.Models.ValueObjects
 {
     public class Carro : ValueObject
     {
-        public int Ano { get; private set; }
+        public int? Ano { get; private set; }
         public string Marca { get; private set; }
         public string Modelo { get; private set; }
         public string Motor { get; private set; }
@@ -19,7 +19,7 @@ namespace RCM.Domain.Models.ValueObjects
             Modelo = modelo;
         }
 
-        public Carro(string marca, string modelo, int ano, string motor = null, string observacao = null)
+        public Carro(string marca, string modelo, int? ano, string motor = null, string observacao = null)
         {
             Marca = marca;
             Modelo = modelo;

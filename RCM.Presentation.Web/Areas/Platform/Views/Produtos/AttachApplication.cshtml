@@ -9,18 +9,55 @@
 <div class="form-container col s12 m12">
     <form asp-action="AttachApplication">
         <div class="row">
-            <div class="input-field col s12 m6">
+            <div class="input-field col s12 m9">
                 <input type="hidden" asp-for="ProdutoId" />
                 <input type="hidden" asp-for="Id" id="aplicacao-id" />
                 <select id="aplicacao-select"></select>
                 <label asp-for="Id"></label>
                 <span asp-validation-for="Id" class="text-danger"></span>
-                <a asp-action="CreateApplication" asp-route-id="@Model.ProdutoId">Adicionar nova aplicação</a>
+                <a asp-action="CreateApplication" asp-route-id="@Model.ProdutoId" target="_blank">Adicionar nova aplicação</a>
             </div>
-            <div class="input-field col s12 m6 pt-1">
+            <div class="input-field col s12 m3 pt-1">
                 <button class="btn-flat mx-0 small" id="reload-aplicacoes-button" type="button">
                     Recarregar lista
                 </button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col s12 m12">
+                <dl class="detail-list">
+                    <dt>
+                        <label>Marca do Carro:</label>
+                    </dt>
+                    <dd>
+                        <span id="carroMarca"></span>
+                    </dd>
+                    <dt>
+                        <label>Modelo do Carro:</label>
+                    </dt>
+                    <dd>
+                        <span id="carroModelo"></span>
+                    </dd>
+                    <dt>
+                        <label>Ano do Carro:</label>
+                    </dt>
+                    <dd>
+                        <span id="carroAno"></span>
+                    </dd>
+                    <dt>
+                        <label>Especificação de Motor:</label>
+                    </dt>
+                    <dd>
+                        <span id="carroMotor"></span>
+                    </dd>
+                    <dt>
+                        <label>Observação:</label> 
+                    </dt>
+                    <dd>
+                        <span id="carroObservacao"></span>
+                    </dd>
+                </dl>
             </div>
         </div>
 
@@ -42,30 +79,43 @@
         var aplicacaoUrl = '@Url.Action("GetAplicacoes", "Produtos")';
         var aplicacaoDropdown = $('#aplicacao-select');
         var aplicacaoInput = $('#aplicacao-id');
+        var aplicacoes = {};
+        var aplicacao;
 
         function reloadSelect(dropdownName, url, inputId) {
             var dropdown = $(dropdownName);
             var fieldId = $(inputId).val();
-
+            
             $.ajax({
                 method: "GET",
                 url: url,
             }).done(function (data) {
+                aplicacoes = data;
                 dropdown.empty();
 
                 $.each(data, function (index, item) {
-                    dropdown.append($("<option />").text(item.carroMarca.
-                        concat(' ' + item.carroModelo + ' - ', item.carroMotor + ' - ', item.carroAno)).val(item.id));
+                    dropdown.append($("<option />").text(item.carroMarca
+                        .concat(' ')
+                        .concat(item.carroModelo)
+                        .concat(item.carroMotor != null ? ' - ' + item.carroMotor : "")
+                        .concat(item.carroAno != null ? ' - ' + item.carroAno : "")
+                        .concat(item.observacao != null ? ' - ' + item.observacao : "")
+                    ).val(item.id));
                 })
 
                 $(dropdown.find('option').each(function (index, item) {
                     if (item.value === fieldId) {
                         dropdown.prop('selectedIndex', index);
+                        aplicacao = $(aplicacoes)[index];
                     }
                 }));
 
-                if (fieldId == "" || fieldId == "00000000-0000-0000-0000-000000000000")
+                if (fieldId == "" || fieldId == "00000000-0000-0000-0000-000000000000") {
                     $(inputId).val(dropdown.find('option').first().val());
+                    aplicacao = $(aplicacoes)[0];
+                }
+
+                fillData();
 
                 dropdown.material_select();
             });
@@ -79,7 +129,20 @@
 
         $(aplicacaoDropdown).change(function () {
             var optionId = $('#aplicacao-select option:selected')[0].value;
+            var selectedIndex = $('#aplicacao-select option:selected').index();
+
             $(aplicacaoInput).val(optionId);
+            aplicacao = $(aplicacoes)[selectedIndex];
+            
+            fillData();
         })
+
+        function fillData() {
+            $('#carroMarca').text(aplicacao.carroMarca);
+            $('#carroModelo').text(aplicacao.carroModelo);
+            $('#carroAno').text(aplicacao.carroAno != null ? aplicacao.carroAno : "Nenhuma especificação de ano");
+            $('#carroMotor').text(aplicacao.carroMotor != null ? aplicacao.carroMotor : "Nenhum especificação de motor");
+            $('#carroObservacao').text(aplicacao.observacao != null ? aplicacao.observacao : "Nenhuma observação");
+        }
     </script>
 }

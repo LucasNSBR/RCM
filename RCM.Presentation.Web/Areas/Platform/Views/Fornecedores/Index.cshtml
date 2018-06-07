@@ -14,7 +14,7 @@
             <div class="row my-0 py-0">
                 <div class="input-field col s5 m5">
                     <label for="nome">Nome do Fornecedor</label>
-                    <input asp-for="Nome" name="nome" type="text" id="nome" />
+                    <input asp-for="Nome" class="input-field" />
                 </div>
                 <div class="input-field col s4 m3">
                     <select>
@@ -35,20 +35,15 @@
         <div id="advancedSearch" class="col s12 m12">
             <div class="row">
                 <div class="input-field col s12 m3">
-                    <input asp-for="CadastroNacional" name="cadastroNacional" type="text" class="input-field" id="cadastro-nacional" />
+                    <input asp-for="CadastroNacional" class="input-field" />
                     <label for="minValor">CNPJ/CPF</label>
                 </div>
                 <div class="input-field col s12 m3">
-                    <input asp-for="CadastroEstadual" name="cadastroEstadual" type="text" class="input-field" id="cadastro-estadual" />
+                    <input asp-for="CadastroEstadual" class="input-field" />
                     <label for="maxValor">RG/Inscrição Estadual</label>
                 </div>
                 <div class="input-field col s12 m6">
-                    @{
-                        var enumValues = from FornecedorTipoEnum enumValue in Enum.GetValues(typeof(FornecedorTipoEnum))
-                                         select new { name = enumValue.ToString(), value = (int)enumValue };
-                    }
-
-                    <select asp-for="Tipo" asp-items="@(new SelectList(enumValues, "value", "name"))" name="tipo" id="tipo">
+                    <select asp-for="Tipo" asp-items="@(new SelectList(Enum.GetNames(typeof(FornecedorTipoEnum)).ToList()))">
                         <option value="">Todos os tipos</option>
                     </select>
                     <label for="tipo">Tipo de Fornecedor</label>
@@ -118,7 +113,7 @@
                 var queryStringHelper = new Dictionary<string, string>
                 {
                     { "nome", Model.Nome },
-                    { "tipo", Model.Tipo.ToString() },
+                    { "tipo", Model.Tipo?.ToString() },
                     { "cadastroNacional", Model.CadastroNacional },
                     { "cadastroEstadual", Model.CadastroEstadual },
                     { "pageSize", Model.Fornecedores.PageSize.ToString() },

@@ -9,7 +9,7 @@ namespace RCM.Domain.Core.Events
         public Guid Id { get; private set; }
         public Guid AggregateId { get; protected set; }
 
-        public string Type { get; private set; }
+        public string Type { get; protected set; }
 
         public Dictionary<string, object> Args { get; private set; }
 

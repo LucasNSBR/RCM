@@ -1,0 +1,53 @@
+﻿@model IEnumerable<RCM.Application.ViewModels.EventViewModels.NormalizedEventViewModel>
+
+<div class="col s12 m12">
+    <p class="px-1 font-bold lead">
+        Histórico de Eventos
+    </p>
+
+    <dl class="detail-list">
+        <dt>
+            <label>Eventos</label>
+        </dt>
+        <dd>
+            @if (Model.Any())
+            {
+                <ul class="collapsible z-depth-0" data-collapsible="accordion">
+                    @foreach (var evento in Model)
+                    {
+                        <li>
+                            <div class="valign-wrapper collapsible-header collapsible-compact-header">
+                                <div class="col s10">
+                                    <p class="mb-0">Id: @evento.Id</p>
+                                    <p class="mt-0">Id do Objeto Raiz: @evento.AggregateId</p>
+                                    <p class="font-bold black-text">Tipo: @evento.Type</p>
+                                </div>
+                                <div class="col s2">
+                                    <p>Data da criação: @evento.DateCreated</p>
+                                </div>
+                            </div>
+                            <div class="collapsible-body">
+                                <ul class="collection">
+                                    @foreach (var argument in evento.Args)
+                                    {
+                                        <li class="collection-item">
+                                            <span class="teal-text">@argument.Key</span>
+                                            <span class="secondary-content">@(argument.Value ?? "null")</span>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <span class="font-italic text-warning">
+                    <i class="material-icons left">warning</i>
+                    Nenhum evento registrado para essa entidade.
+                </span>
+            }
+        </dd>
+    </dl>
+</div>

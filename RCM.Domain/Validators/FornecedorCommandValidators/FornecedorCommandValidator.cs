@@ -99,8 +99,11 @@ namespace RCM.Domain.Validators.FornecedorCommandValidators
 
         private bool ValidateDocumentoCadastroEstadual(FornecedorCommand command)
         {
-            var length = command.DocumentoCadastroEstadual.Length;
+            if (command.DocumentoCadastroEstadual == null)
+                return true;
 
+            var length = command.DocumentoCadastroEstadual.Length;
+            
             if (command.Tipo == FornecedorTipoEnum.PessoaFisica)
                 return length <= 12;
             else

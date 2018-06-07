@@ -7,5 +7,10 @@ namespace RCM.Domain.Events.DuplicataEvents
         public RemovedDuplicataEvent(Duplicata duplicata) : base(duplicata)
         {
         }
+
+        public override void Normalize()
+        {
+            Args.Add(nameof(Duplicata.Id), Duplicata.Id);
+        }
     }
 }

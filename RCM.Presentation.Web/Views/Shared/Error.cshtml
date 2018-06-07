@@ -1,22 +1,27 @@
-﻿@model ErrorViewModel
-@{
-    ViewData["Title"] = "Error";
+﻿@{
+    Layout = null;
 }
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Erro na requisição</title>
+    <link rel="stylesheet" href="~/lib/materialize/css/materialize.min.css" />
+    <link rel="stylesheet" href="~/css/site.min.css" />
+</head>
+<body style="height: 100%">
+    <div class="form-container col s12 m12 mx-2 mt-3">
+        <div class="row valign-wrapper">
+            <div class="col s12 m12 pt-2">
+                <h5 class="font-bold mx-2">Erro na Requisição</h5>
+                <h6 class="mx-2">Um erro ocorreu durante o processamento da sua requisição. Foi gerado um log deste erro e enviado para o servidor.</h6>
 
-@if (Model.ShowRequestId)
-{
-    <p>
-        <strong>Request ID:</strong> <code>@Model.RequestId</code>
-    </p>
-}
-
-<h3>Development Mode</h3>
-<p>
-    Swapping to <strong>Development</strong> environment will display more detailed information about the error that occurred.
-</p>
-<p>
-    <strong>Development environment should not be enabled in deployed applications</strong>, as it can result in sensitive information from exceptions being displayed to end users. For local debugging, development environment can be enabled by setting the <strong>ASPNETCORE_ENVIRONMENT</strong> environment variable to <strong>Development</strong>, and restarting the application.
-</p>
+                <div class="mx-2 mt-4">
+                    <a asp-action="Index" asp-controller="Home">Clique aqui para retornar para a página inicial</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

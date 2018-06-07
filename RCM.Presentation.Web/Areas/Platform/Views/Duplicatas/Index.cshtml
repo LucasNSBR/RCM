@@ -12,7 +12,7 @@
             <div class="row my-0 py-0">
                 <div class="input-field col s5 m5">
                     <label for="numeroDocumento">Número do Documento</label>
-                    <input asp-for="NumeroDocumento" name="numeroDocumento" type="text" id="numeroDocumento" />
+                    <input asp-for="NumeroDocumento" class="input-field" />
                 </div>
                 <div class="input-field col s4 m3">
                     <select>
@@ -33,23 +33,23 @@
         <div id="advancedSearch" class="col s12 m12">
             <div class="row">
                 <div class="input-field col s12 m3">
-                    <input asp-for="MinValor" name="minValor" type="text" class="input-field" id="minValor" />
+                    <input asp-for="MinValor" class="input-field" />
                     <label for="minValor">Valor mínimo</label>
                 </div>
                 <div class="input-field col s12 m3">
-                    <input asp-for="MaxValor" name="maxValor" type="text" class="input-field" id="maxValor" />
+                    <input asp-for="MaxValor" class="input-field" />
                     <label for="maxValor">Valor máximo</label>
                 </div>
                 <div class="input-field col s12 m3">
-                    <input asp-for="DataInicial" name="dataInicial" type="text" class="datepicker" id="dataInicial" />
+                    <input asp-for="DataInicial" type="text" class="datepicker" />
                     <label for="dataInicial">Data de Venc. Inicial</label>
                 </div>
                 <div class="input-field col s12 m3">
-                    <input asp-for="DataFinal" name="dataFinal" type="text" class="datepicker" id="dataFinal" />
+                    <input asp-for="DataFinal" type="text" class="datepicker" />
                     <label for="dataFinal">Data de Venc. Final</label>
                 </div>
                 <div class="input-field col s12 m6">
-                    <select name="fornecedorId" asp-for="FornecedorId" asp-items="@(new SelectList(Model.Fornecedores, "Id", "Nome"))" id="fornecedorId">
+                    <select asp-for="FornecedorId" asp-items="@(new SelectList(Model.Fornecedores, "Id", "Nome"))">
                         <option value="">Todos os fornecedores</option>
                     </select>
                     <label for="fornecedorId">Escolher Fornecedor</label>
@@ -215,6 +215,6 @@
 </div>
 
 @section Scripts {
-    <script src="~/js/select-and-sum.js"></script>
+    <script src="~/js/select-and-sum.min.js"></script>
 }
 

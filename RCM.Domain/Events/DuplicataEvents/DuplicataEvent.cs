@@ -10,12 +10,11 @@ namespace RCM.Domain.Events.DuplicataEvents
         public DuplicataEvent(Duplicata duplicata)
         {
             Duplicata = duplicata;
+            AggregateId = Duplicata.Id;
         }
 
         public override void Normalize()
         {
-            AggregateId = Duplicata.Id;
-
             Args.Add(nameof(Duplicata.NumeroDocumento), Duplicata.NumeroDocumento);
             Args.Add(nameof(Duplicata.NotaFiscalId), Duplicata.NotaFiscalId);
             Args.Add(nameof(Duplicata.Observacao), Duplicata.Observacao);

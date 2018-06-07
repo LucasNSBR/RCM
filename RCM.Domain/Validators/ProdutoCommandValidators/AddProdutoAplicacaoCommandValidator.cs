@@ -1,6 +1,5 @@
 ﻿using RCM.Domain.Commands.ProdutoCommands;
 using FluentValidation;
-using System;
 
 namespace RCM.Domain.Validators.ProdutoCommandValidators
 {
@@ -9,16 +8,8 @@ namespace RCM.Domain.Validators.ProdutoCommandValidators
         public AddProdutoAplicacaoCommandValidator()
         {
             ValidateId();
-            ValidateAno();
             ValidateModelo();
             ValidateMarca();
-        }
-
-        private void ValidateAno()
-        {
-            RuleFor(ap => ap.AnoCarroAplicacao)
-                .NotEmpty()
-                .GreaterThanOrEqualTo(DateTime.Now.AddYears(-30).Year);
         }
 
         private void ValidateModelo()
@@ -27,6 +18,14 @@ namespace RCM.Domain.Validators.ProdutoCommandValidators
                 .NotEmpty()
                 .MinimumLength(3)
                 .MaximumLength(250);
+        }
+
+        private void ValidateMotor()
+        {
+            RuleFor(ap => ap.MotorCarroAplicacao)
+                .NotEmpty()
+                .MinimumLength(2)
+                .MaximumLength(100);
         }
 
         private void ValidateMarca()

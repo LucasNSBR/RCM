@@ -10,12 +10,11 @@ namespace RCM.Domain.Events.BancoEvents
         public BancoEvent(Banco banco)
         {
             Banco = banco;
+            AggregateId = Banco.Id;
         }
 
         public override void Normalize()
         {
-            AggregateId = Banco.Id;
-
             Args.Add(nameof(Banco.CodigoCompensacao), Banco.CodigoCompensacao);
             Args.Add(nameof(Banco.Nome), Banco.Nome);
         }

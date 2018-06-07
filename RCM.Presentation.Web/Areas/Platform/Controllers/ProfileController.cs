@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using RCM.CrossCutting.Identity.Models;
 using RCM.CrossCutting.Identity.ViewModels;
 using RCM.Domain.DomainNotificationHandlers;
-using RCM.Domain.DomainNotifications;
 using RCM.Presentation.Web.Controllers;
 using System.Linq;
 using System.Threading.Tasks;

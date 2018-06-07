@@ -20,15 +20,15 @@ namespace RCM.Application.ViewModels.ProdutoViewModels
         [Required(AllowEmptyStrings = false, ErrorMessage = "A {0} é requerida.")]
         public ProdutoUnidadeEnum Unidade { get; set; }
 
-        [Display(Name = "Referência do Fabricante")]
+        [Display(Name = "Ref. do Fabricante")]
         [StringLength(25, MinimumLength = 0, ErrorMessage = "A {0} deve ter até {1} caracteres.")]
         public string ReferenciaFabricante { get; set; }
 
-        [Display(Name = "Referência Original")]
+        [Display(Name = "Ref. Original")]
         [StringLength(25, MinimumLength = 0, ErrorMessage = "A {0} deve ter até {1} caracteres.")]
         public string ReferenciaOriginal { get; set; }
 
-        [Display(Name = "Referência Auxiliar")]
+        [Display(Name = "Ref. Auxiliar")]
         [StringLength(50, MinimumLength = 0, ErrorMessage = "A {0} deve ter até {1} caracteres.")]
         public string ReferenciaAuxiliar { get; set; }
 

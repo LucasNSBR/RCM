@@ -21,7 +21,11 @@ namespace RCM.Application.ApplicationServices
 
         public IQueryable<AplicacaoViewModel> Get()
         {
-            return _aplicacaoRepository.Get().ProjectTo<AplicacaoViewModel>();
+            return _aplicacaoRepository.Get().ProjectTo<AplicacaoViewModel>()
+                .OrderBy(a => a.CarroMarca)
+                .ThenBy(a => a.CarroModelo)
+                .ThenBy(a => a.CarroMotor)
+                .ThenByDescending(a => a.CarroAno);
         }
 
         public AplicacaoViewModel GetById(Guid id)

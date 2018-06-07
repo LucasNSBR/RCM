@@ -24,6 +24,10 @@ footer {
     color: #3b3b3b !important;
 }
 
+.tabs-fixed-width {
+    overflow-x: hidden;
+}
+
 .platform-content {
     padding-top: 10px;
     padding-bottom: 15px;

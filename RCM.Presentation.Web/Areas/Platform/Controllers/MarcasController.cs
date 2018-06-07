@@ -23,7 +23,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             _marcaApplicationService = marcaApplicationService;
         }
 
-        public IActionResult Index(string nome = null, int pageNumber = 1, int pageSize = 20)
+        public IActionResult Index(string nome, int pageNumber = 1, int pageSize = 20)
         {
             var nomeSpecification = new MarcaNomeSpecification(nome);
 

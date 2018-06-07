@@ -12,17 +12,17 @@ namespace RCM.Domain.EventHandlers.FornecedorEventHandlers
     {
         public Task Handle(AddedFornecedorEvent notification, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            return Response();
         }
 
         public Task Handle(UpdatedFornecedorEvent notification, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            return Response();
         }
 
         public Task Handle(RemovedFornecedorEvent notification, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            return Response();
         }
     }
 }

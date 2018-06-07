@@ -12,7 +12,7 @@
             <div class="row my-0 py-0">
                 <div class="input-field col s5 m5">
                     <label for="nome">Nome do Produto</label>
-                    <input asp-for="Nome" name="nome" type="text" id="nome" />
+                    <input asp-for="Nome" />
                 </div>
                 <div class="input-field col s4 m3">
                     <select>
@@ -34,42 +34,58 @@
         <div id="advancedSearch" class="col s12 m12">
             <div class="row">
                 <div class="input-field col s12 m3">
-                    <input asp-for="MinValor" name="minValor" type="text" class="input-field" id="minValor" />
+                    <input asp-for="MinValor" class="input-field" />
                     <label for="minValor">Preço mínimo</label>
                 </div>
                 <div class="input-field col s12 m3">
-                    <input asp-for="MaxValor" name="maxValor" type="text" class="input-field" id="maxValor" />
+                    <input asp-for="MaxValor" class="input-field" />
                     <label for="maxValor">Preço máximo</label>
                 </div>
                 <div class="input-field col s12 m3">
-                    <input asp-for="MinEstoque" name="minEstoque" type="text" id="minEstoque" />
+                    <input asp-for="MinEstoque" class="input-field" />
                     <label for="minEstoque">Estoque mínimo</label>
                 </div>
                 <div class="input-field col s12 m3">
-                    <input asp-for="MaxEstoque" name="maxEstoque" type="text" id="maxEstoque" />
+                    <input asp-for="MaxEstoque" class="input-field" />
                     <label for="maxEstoque">Estoque máximo</label>
                 </div>
                 <div class="input-field col s12 m6">
-                    <select asp-for="MarcaId" name="marcaId" asp-items="@(new SelectList(Model.Marcas, "Id", "Nome"))" id="marcaId">
+                    <select asp-for="MarcaId" asp-items="@(new SelectList(Model.Marcas, "Id", "Nome"))">
                         <option value="">Todos as Marcas</option>
                     </select>
                     <label for="marcaId">Escolher Marca</label>
                 </div>
                 <div class="input-field col s12 m6">
-                    <input asp-for="ProdutoId" name="produtoId" type="text" id="produtoId" />
+                    <input asp-for="ProdutoId" class="input-field" />
                     <label for="produtoId">Id do Produto</label>
                 </div>
                 <div class="input-field col s12 m4">
-                    <input asp-for="ReferenciaFabricante" name="referenciaFabricante" type="text" id="referenciaFabricante" />
+                    <input asp-for="ReferenciaFabricante" class="input-field" />
                     <label for="referenciaFabricante">Referência do Fabricante</label>
                 </div>
                 <div class="input-field col s12 m4">
-                    <input asp-for="ReferenciaOriginal" name="referenciaOriginal" type="text" id="referenciaOriginal" />
+                    <input asp-for="ReferenciaOriginal" class="input-field" />
                     <label for="produtoId">Referência Original</label>
                 </div>
                 <div class="input-field col s12 m4">
-                    <input asp-for="ReferenciaAuxiliar" name="referenciaAuxiliar" type="text" id="referenciaAuxiliar" />
+                    <input asp-for="ReferenciaAuxiliar" class="input-field" />
                     <label for="referenciaAuxiliar">Referência Auxiliar</label>
+                </div>
+                <div class="input-field col s12 m2">
+                    <input asp-for="AplicacaoMarca" class="input-field" />
+                    <label for="referenciaFabricante">Marca de Aplicação</label>
+                </div>
+                <div class="input-field col s12 m2">
+                    <input asp-for="AplicacaoModelo" class="input-field" />
+                    <label for="produtoId">Modelo de Aplicação</label>
+                </div>
+                <div class="input-field col s12 m3">
+                    <input asp-for="AplicacaoMotor" class="input-field" />
+                    <label for="referenciaAuxiliar">Motores de Aplicação</label>
+                </div>
+                <div class="input-field col s12 m5">
+                    <input asp-for="AplicacaoObservacao" class="input-field" />
+                    <label for="referenciaAuxiliar">Ano/Observações da Aplicação</label>
                 </div>
             </div>
         </div>
@@ -82,10 +98,13 @@
                 <thead>
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.Produtos.List.FirstOrDefault().Id)
+                            @Html.DisplayNameFor(model => model.Produtos.List.FirstOrDefault().Nome)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Produtos.List.FirstOrDefault().Nome)
+                            @Html.DisplayNameFor(model => model.Produtos.List.FirstOrDefault().ReferenciaFabricante)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Produtos.List.FirstOrDefault().ReferenciaOriginal)
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.Produtos.List.FirstOrDefault().Estoque)
@@ -94,7 +113,7 @@
                             @Html.DisplayNameFor(model => model.Produtos.List.FirstOrDefault().PrecoVenda)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Produtos.List.FirstOrDefault().Marca.Nome)
+                            @Html.DisplayNameFor(model => model.Produtos.List.FirstOrDefault().Marca)
                         </th>
                     </tr>
                 </thead>
@@ -102,11 +121,31 @@
                     @foreach (var item in Model.Produtos.List)
                     {
                         <tr class="@(item.ItemEstoqueRazoavel ? "bg-warning" : "") @(item.ItemEstoqueBaixo ? "bg-danger" : "")">
-                            <td>
+                            <td class="d-hidden">
                                 @Html.DisplayFor(modelItem => item.Id)
                             </td>
-                            <td style="width: 35%">
+                            <td>
                                 @Html.DisplayFor(modelItem => item.Nome)
+                            </td>
+                            <td>
+                                @if (item.ReferenciaFabricante != null)
+                                {
+                                    @item.ReferenciaFabricante
+                                }
+                                else
+                                {
+                                    <span class="font-italic">Nulo</span>
+                                }
+                            </td>
+                            <td>
+                                @if (item.ReferenciaOriginal != null)
+                                {
+                                    @item.ReferenciaOriginal
+                                }
+                                else
+                                {
+                                    <span class="font-italic">Nulo</span>
+                                }
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Estoque)
@@ -127,19 +166,23 @@
             <ul class="pagination center pt-2">
                 @{
                     var queryStringHelper = new Dictionary<string, string>
-                            {
-                                { "marcaId", Model.MarcaId?.ToString() },
-                                { "minValor", Model.MinValor?.ToString() },
-                                { "maxValor", Model.MaxValor?.ToString() },
-                                { "minEstoque", Model.MinEstoque.ToString() },
-                                { "maxEstoque", Model.MaxEstoque.ToString() },
-                                { "nome", Model.Nome?.ToString() },
-                                { "referenciaFabricante", Model.ReferenciaFabricante?.ToString() },
-                                { "referenciaOriginal", Model.ReferenciaOriginal?.ToString() },
-                                { "referenciaAuxiliar", Model.ReferenciaAuxiliar?.ToString() },
-                                { "produtoId", Model.ProdutoId?.ToString() },
-                                { "pageSize", Model.Produtos.PageSize.ToString() },
-                            };
+                                    {
+                                        { "marcaId", Model.MarcaId?.ToString() },
+                                        { "minValor", Model.MinValor?.ToString() },
+                                        { "maxValor", Model.MaxValor?.ToString() },
+                                        { "minEstoque", Model.MinEstoque?.ToString() },
+                                        { "maxEstoque", Model.MaxEstoque?.ToString() },
+                                        { "nome", Model.Nome?.ToString() },
+                                        { "aplicacaoMarca", Model.AplicacaoMarca?.ToString() },
+                                        { "aplicacaoModelo", Model.AplicacaoModelo?.ToString() },
+                                        { "aplicacaoMotor", Model.AplicacaoMotor?.ToString() },
+                                        { "aplicacaoObservacao", Model.AplicacaoObservacao?.ToString() },
+                                        { "referenciaFabricante", Model.ReferenciaFabricante?.ToString() },
+                                        { "referenciaOriginal", Model.ReferenciaOriginal?.ToString() },
+                                        { "referenciaAuxiliar", Model.ReferenciaAuxiliar?.ToString() },
+                                        { "produtoId", Model.ProdutoId?.ToString() },
+                                        { "pageSize", Model.Produtos.PageSize.ToString() },
+                                    };
 
                     var listHelper = new Dictionary<string, string>().LoadPagination(Model.Produtos);
                 }

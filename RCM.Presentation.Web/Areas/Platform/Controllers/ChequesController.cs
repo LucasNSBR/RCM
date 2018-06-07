@@ -33,7 +33,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             _fornecedorApplicationService = fornecedorApplicationService;
         }
 
-        public IActionResult Index(Guid? clienteId = null, string minValor = null, string maxValor = null, string agencia = null, string conta = null, string numeroCheque = null, string dataEmissao = null, string dataVencimento = null, string situacao = null, int pageNumber = 1, int pageSize = 20)
+        public IActionResult Index(Guid? clienteId, string minValor, string maxValor, string agencia, string conta, string numeroCheque, string dataEmissao, string dataVencimento, string situacao, int pageNumber = 1, int pageSize = 20)
         {
             var clienteIdSpecification = new ChequeClienteIdSpecification(clienteId);
             var valorSpecification = new ChequeValorSpecification(minValor.ToDecimal(), maxValor.ToDecimal());

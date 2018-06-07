@@ -10,8 +10,7 @@ namespace RCM.Application.ViewModels.ProdutoViewModels
         public Guid Id { get; set; }
 
         [Display(Name = "Ano")]
-        [Range(0, 2019, ErrorMessage = "O {0} deve estar em um formáto válido.")]
-        public int CarroAno { get; set; }
+        public int? CarroAno { get; set; }
 
         [Display(Name = "Marca")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "A {0} é requerida.")]
@@ -24,6 +23,7 @@ namespace RCM.Application.ViewModels.ProdutoViewModels
         public string CarroModelo { get; set; }
 
         [Display(Name = "Motor")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "O {0} é requerido.")]
         [StringLength(100, ErrorMessage = "O {0} deve até {1} caracteres.")]
         public string CarroMotor { get; set; }
 

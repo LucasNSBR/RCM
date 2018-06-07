@@ -10,7 +10,6 @@ using RCM.Domain.Models.ClienteModels;
 using RCM.Domain.Models.DuplicataModels;
 using RCM.Domain.Models.FornecedorModels;
 using RCM.Domain.Models.MarcaModels;
-using RCM.Domain.Models.OrdemServicoModels;
 using RCM.Domain.Models.ProdutoModels;
 using RCM.Domain.Models.VendaModels;
 
@@ -27,7 +26,6 @@ namespace RCM.Application.Mappers
             CreateMap<DuplicataViewModel, Duplicata>();
             CreateMap<FornecedorViewModel, Fornecedor>();
             CreateMap<MarcaViewModel, Marca>();
-            CreateMap<OrdemServicoViewModel, OrdemServico>();
             CreateMap<ProdutoViewModel, Produto>();
             CreateMap<VendaViewModel, Venda>();
         }

@@ -25,7 +25,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             _bancoApplicationService = bancoApplicationService;
         }
 
-        public IActionResult Index(int? codigoCompensacao = null, string nome = null, int pageNumber = 1, int pageSize = 20)
+        public IActionResult Index(int? codigoCompensacao, string nome, int pageNumber = 1, int pageSize = 20)
         {
             var codigoCompensacaoSpecification = new BancoCodigoCompensacaoSpecification(codigoCompensacao);
             var nomeSpecification = new BancoNomeSpecification(nome);

@@ -32,7 +32,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             _fornecedorApplicationService = fornecedorApplicationService;
         }
 
-        public IActionResult Index(string produtoId, string nome, string referenciaFabricante, string referenciaOriginal, string referenciaAuxiliar, Guid? marcaId, string minValor, string maxValor, int? minEstoque, int? maxEstoque, int pageNumber = 1, int pageSize = 20)
+        public IActionResult Index(string produtoId, string nome, string aplicacaoMarca, string aplicacaoModelo, string aplicacaoMotor, string aplicacaoObservacao, string referenciaFabricante, string referenciaOriginal, string referenciaAuxiliar, Guid? marcaId, string minValor, string maxValor, int? minEstoque, int? maxEstoque, int pageNumber = 1, int pageSize = 20)
         {
             var idSpecification = new ProdutoIdSpecification(produtoId);
             var nomeSpecification = new ProdutoNomeSpecification(nome);
@@ -42,9 +42,17 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             var marcaIdSpecification = new ProdutoMarcaIdSpecification(marcaId);
             var valorSpecification = new ProdutoPrecoVendaSpecification(minValor.ToDecimal(), maxValor.ToDecimal());
             var estoqueSpecification = new ProdutoEstoqueSpecification(minEstoque, maxEstoque);
-            
+            var aplicacaoMarcaSpecification = new ProdutoAplicacaoMarcaSpecification(aplicacaoMarca);
+            var aplicacaoModeloSpecification = new ProdutoAplicacaoModeloSpecification(aplicacaoModelo);
+            var aplicacaoMotorSpecification = new ProdutoAplicacaoMotorSpecification(aplicacaoMotor);
+            var aplicacaoObservacaoSpecification = new ProdutoAplicacaoObservacaoSpecification(aplicacaoObservacao);
+
             var list = _produtoApplicationService.Get(idSpecification
                 .And(nomeSpecification)
+                .And(aplicacaoMarcaSpecification)
+                .And(aplicacaoModeloSpecification)
+                .And(aplicacaoMotorSpecification)
+                .And(aplicacaoObservacaoSpecification)
                 .And(referenciaFabricanteSpecification)
                 .And(referenciaOriginalSpecification)
                 .And(referenciaAuxiliarSpecification)
@@ -77,6 +85,14 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             var produto = _produtoApplicationService.GetById(id);
             if (produto == null)
                 return NotFound();
+
+            if (produto.Aplicacoes != null)
+            {
+                produto.Aplicacoes = produto.Aplicacoes.OrderBy(a => a.CarroMarca)
+                    .ThenBy(a => a.CarroModelo)
+                    .ThenBy(a => a.CarroMotor)
+                    .ToList();
+            }
 
             return View(produto);
         }
@@ -314,10 +330,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
 
         public JsonResult GetAplicacoes()
         {
-            return Json(_aplicacaoApplicationService.Get()
-                .OrderBy(a => a.CarroMarca)
-                .ThenBy(a => a.CarroModelo)
-                .ThenByDescending(a => a.CarroAno));
+            return Json(_aplicacaoApplicationService.Get());
         }
 
         public JsonResult GetMarcas()

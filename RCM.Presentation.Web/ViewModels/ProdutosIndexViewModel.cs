@@ -12,6 +12,11 @@ namespace RCM.Presentation.Web.ViewModels
 
         public string ProdutoId { get; set; }
         public string Nome { get; set; }
+        public string AplicacaoMarca { get; set; }
+        public string AplicacaoModelo { get; set; }
+        public string AplicacaoMotor { get; set; }
+        public int? AplicacaoAno { get; set; }
+        public string AplicacaoObservacao { get; set; }
         public string ReferenciaFabricante { get; set; }
         public string ReferenciaOriginal { get; set; }
         public string ReferenciaAuxiliar { get; set; }

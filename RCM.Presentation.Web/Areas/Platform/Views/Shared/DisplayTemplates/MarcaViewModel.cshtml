@@ -1,42 +1,57 @@
 ﻿@model RCM.Application.ViewModels.MarcaViewModel
 
-<p class="px-1 font-bold lead">
-    Informação geral
-</p>
+<div class="row">
+    <div class="col s12">
+        <ul class="tabs tabs-fixed-width">
+            <li class="tab col s3"><a href="#geral" class="active">Geral</a></li>
+            <li class="tab col s3"><a href="#evento">Eventos</a></li>
+        </ul>
+    </div>
 
-<dl class="detail-list">
-    <dt>
-        <label asp-for="Id">Identificação</label>
-    </dt>
-    <dd>
-        @Model.Id
-    </dd>
-    <dt>
-        <label asp-for="Nome"></label>
-    </dt>
-    <dd>
-        @Model.Nome
-    </dd>
-    <dt>
-        <label asp-for="Produtos"></label>
-    </dt>
-    <dd>
-        @if (Model.QuantidadeProdutos > 0)
-        {
-            <a asp-action="Index" asp-controller="Produtos" asp-route-marcaId="@Model.Id">@Model.QuantidadeProdutos produtos encontrados</a>
-        }
-        else
-        {
-            <span class="font-italic text-warning">
-                <i class="material-icons left">warning</i>
-                Nenhum produto encontrado.
-            </span>
-        }
-    </dd>
-    <dt>
-        <label asp-for="Observacao"></label>
-    </dt>
-    <dd>
-        @Model.Observacao
-    </dd>
-</dl>
+    <div id="geral" class="col s12 m12">
+        <p class="px-1 font-bold lead">
+            Informação geral
+        </p>
+
+        <dl class="detail-list">
+            <dt>
+                <label asp-for="Id">Identificação</label>
+            </dt>
+            <dd>
+                @Model.Id
+            </dd>
+            <dt>
+                <label asp-for="Nome"></label>
+            </dt>
+            <dd>
+                @Model.Nome
+            </dd>
+            <dt>
+                <label asp-for="Produtos"></label>
+            </dt>
+            <dd>
+                @if (Model.QuantidadeProdutos > 0)
+                {
+                    <a asp-action="Index" asp-controller="Produtos" asp-route-marcaId="@Model.Id">@Model.QuantidadeProdutos produtos encontrados</a>
+                }
+                else
+                {
+                    <span class="font-italic text-warning">
+                        <i class="material-icons left">warning</i>
+                        Nenhum produto encontrado.
+                    </span>
+                }
+            </dd>
+            <dt>
+                <label asp-for="Observacao"></label>
+            </dt>
+            <dd>
+                @Model.Observacao
+            </dd>
+        </dl>
+    </div>
+
+    <div id="evento" class="col s12 m12">
+        @await Component.InvokeAsync("EventsPanel", Model.Id)
+    </div>
+</div>

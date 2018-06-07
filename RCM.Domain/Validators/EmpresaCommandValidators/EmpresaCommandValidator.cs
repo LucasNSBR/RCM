@@ -91,7 +91,7 @@ namespace RCM.Domain.Validators.EmpresaCommandValidators
 
             RuleFor(c => c.DocumentoCadastroEstadual)
                 .NotEmpty()
-                .Length(12);
+                .Length(13);
         }
         #endregion
     }

@@ -7,6 +7,7 @@
             <li class="tab col s3"><a href="#estoque">Estoque</a></li>
             <li class="tab col s3"><a href="#aplicacao">Aplicações</a></li>
             <li class="tab col s3"><a href="#fornecedor">Fornecedor</a></li>
+            <li class="tab col s3"><a href="#evento">Eventos</a></li>
         </ul>
     </div>
 
@@ -151,23 +152,25 @@
                 <dd>
                     @if (Model.Aplicacoes.Any())
                     {
-                        <ul class="collapsible z-depth-0" data-collapsible="accordion">
+                        <ul class="collection">
                             @foreach (var aplicacao in Model.Aplicacoes)
                             {
-                                <li>
-                                    @{ var title = $"{aplicacao.CarroMarca} - {aplicacao.CarroModelo} - {aplicacao.CarroMotor ?? "Sem informação de motor"}"; }
-                                    <div class="collapsible-header">
-                                        <div class="col s11">
-                                            @title
-                                        </div>
-                                        <div class="col s1">
-                                            <a asp-action="RemoveApplication" asp-controller="Produtos" asp-route-aplicacaoId="@aplicacao.Id" asp-route-id="@Model.Id">
-                                                Remover
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="collapsible-body">
-                                        <p>@(aplicacao?.Observacao ?? "Nenhuma observação relacionada.")</p>
+                                <li class="collection-item my-0">
+                                    @{ var title = $"{aplicacao.CarroMarca} - {aplicacao.CarroModelo} - {aplicacao.CarroMotor ?? "Sem especificação de motor"}"; }
+
+                                    <p class="black-text my-0">
+                                        @title
+                                    </p>
+                                    <p class="my-0">
+                                        @(aplicacao.CarroAno?.ToString() ?? "Não se aplica a um ano específico")
+                                    </p>
+                                    <p class="my-0">
+                                        @(aplicacao.Observacao ?? "Sem Observações")
+                                    </p>
+                                    <div class="mt-1">
+                                        <a asp-action="RemoveApplication" asp-controller="Produtos" asp-route-aplicacaoId="@aplicacao.Id" asp-route-id="@Model.Id">
+                                            Remover
+                                        </a>
                                     </div>
                                 </li>
                             }
@@ -243,5 +246,9 @@
                 <a asp-action="AttachSupplier" asp-controller="Produtos" asp-route-id="@Model.Id">Relacionar Fornecedor</a>
             </p>
         </div>
+    </div>
+
+    <div id="evento" class="col s12 m12">
+        @await Component.InvokeAsync("EventsPanel", Model.Id)
     </div>
 </div>

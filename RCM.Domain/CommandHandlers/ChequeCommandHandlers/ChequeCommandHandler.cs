@@ -6,7 +6,6 @@ using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.Events.ChequeEvents;
 using RCM.Domain.Models.BancoModels;
 using RCM.Domain.Models.ChequeModels;
-using RCM.Domain.Models.ChequeModels.ChequeStates;
 using RCM.Domain.Models.ClienteModels;
 using RCM.Domain.Models.FornecedorModels;
 using RCM.Domain.Repositories;
@@ -121,7 +120,7 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
             _chequeRepository.Update(cheque);
 
             if (Commit())
-                _mediator.PublishEvent(new UpdatedChequeEvent(cheque));
+                _mediator.PublishEvent(new BlockedChequeEvent(cheque, cheque.EstadoCheque));
 
             return Response();
         }
@@ -143,7 +142,7 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
             _chequeRepository.Update(cheque);
 
             if (Commit())
-                _mediator.PublishEvent(new UpdatedChequeEvent(cheque));
+                _mediator.PublishEvent(new PassedChequeEvent(cheque, cheque.EstadoCheque, fornecedor));
 
             return Response();
         }
@@ -163,7 +162,7 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
             _chequeRepository.Update(cheque);
 
             if (Commit())
-                _mediator.PublishEvent(new UpdatedChequeEvent(cheque));
+                _mediator.PublishEvent(new PaidChequeEvent(cheque, cheque.EstadoCheque));
 
             return Response();
         }
@@ -184,7 +183,7 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
             _chequeRepository.Update(cheque);
 
             if (Commit())
-                _mediator.PublishEvent(new UpdatedChequeEvent(cheque));
+                _mediator.PublishEvent(new RefundedChequeEvent(cheque, cheque.EstadoCheque));
 
             return Response();
         }
@@ -205,7 +204,7 @@ namespace RCM.Domain.CommandHandlers.ChequeCommandHandlers
             _chequeRepository.Update(cheque);
 
             if (Commit())
-                _mediator.PublishEvent(new UpdatedChequeEvent(cheque));
+                _mediator.PublishEvent(new CanceledChequeEvent(cheque, cheque.EstadoCheque));
 
             return Response();
         }

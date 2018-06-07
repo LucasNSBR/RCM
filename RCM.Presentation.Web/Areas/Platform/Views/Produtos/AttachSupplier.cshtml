@@ -17,7 +17,7 @@
                 <select id="fornecedor-select"></select>
                 <label asp-for="FornecedorId"></label>
                 <span asp-validation-for="FornecedorId" class="text-danger"></span>
-                <a asp-action="Create" asp-controller="Fornecedores">Adicionar nova fornecedor</a>
+                <a asp-action="Create" asp-controller="Fornecedores">Adicionar novo fornecedor</a>
             </div>
             <div class="input-field col s12 m6 pt-1">
                 <button class="btn-flat mx-0 small" id="reload-fornecedores-button" type="button">
@@ -63,7 +63,7 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
 
-    <script src="~/js/ajax-call.js"></script>
+    <script src="~/js/ajax-call.min.js"></script>
 
     <script>
         var fornecedorUrl = '@Url.Action("GetFornecedores", "Produtos")';

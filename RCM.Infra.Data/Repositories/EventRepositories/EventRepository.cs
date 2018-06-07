@@ -1,7 +1,9 @@
-﻿using RCM.Domain.Core.Events;
+﻿using Newtonsoft.Json;
+using RCM.Domain.Core.Events;
 using RCM.Domain.Repositories.EventRepositories;
 using RCM.Infra.Data.Context;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace RCM.Infra.Data.Repositories.EventRepositories
@@ -19,11 +21,14 @@ namespace RCM.Infra.Data.Repositories.EventRepositories
         {
             return _dbContext
                 .DomainEvents
-                .Where(ne => ne.AggregateId == aggregateId);
+                .Where(ne => ne.AggregateId == aggregateId)
+                .OrderByDescending(ne => ne.DateCreated);
         }
 
-        public void Save(Guid id, Guid aggregateId, DateTime dateCreated, string type, string data)
+        public void Save(Guid id, Guid aggregateId, DateTime dateCreated, string type, Dictionary<string, object> args)
         {
+            string data = JsonConvert.SerializeObject(args);
+
             NormalizedEvent @event = new NormalizedEvent(id, aggregateId, dateCreated, type, data);
             _dbContext.Add(@event);
             _dbContext.SaveChanges();

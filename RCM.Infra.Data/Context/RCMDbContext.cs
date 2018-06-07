@@ -9,7 +9,6 @@ using RCM.Domain.Models.EmpresaModels;
 using RCM.Domain.Models.EstadoModels;
 using RCM.Domain.Models.FornecedorModels;
 using RCM.Domain.Models.MarcaModels;
-using RCM.Domain.Models.OrdemServicoModels;
 using RCM.Domain.Models.ProdutoModels;
 using RCM.Domain.Models.VendaModels;
 using RCM.Infra.Data.EntityTypeConfig;
@@ -30,7 +29,6 @@ namespace RCM.Infra.Data.Context
         public DbSet<EstadoCheque> EstadosCheques { get; set; }
         public DbSet<Fornecedor> Fornecedores { get; set; }
         public DbSet<Marca> Marcas { get; set; }
-        public DbSet<OrdemServico> OrdensServico { get; set; }
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<Venda> Vendas { get; set; }
 
@@ -50,7 +48,6 @@ namespace RCM.Infra.Data.Context
             modelBuilder.ApplyConfiguration(new EstadoEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new FornecedorEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new MarcaEntityTypeConfig());
-            modelBuilder.ApplyConfiguration(new OrdemServicoEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new ProdutoAplicacaoEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new ProdutoEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new ProdutoFornecedorEntityTypeConfig());

@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore.Storage.Internal;
 using Microsoft.EntityFrameworkCore.ValueGeneration;
 using RCM.Domain.Models.ClienteModels;
 using RCM.Domain.Models.FornecedorModels;
-using RCM.Domain.Models.OrdemServicoModels;
 using RCM.Domain.Models.ProdutoModels;
 using RCM.Domain.Models.VendaModels;
 using RCM.Infra.Data.Context;
@@ -60,8 +59,6 @@ namespace RCM.Infra.Data.Migrations
                         .HasMaxLength(10);
 
                     b.Property<DateTime>("DataEmissao");
-
-                    b.Property<DateTime?>("DataPagamento");
 
                     b.Property<DateTime>("DataVencimento");
 
@@ -242,28 +239,6 @@ namespace RCM.Infra.Data.Migrations
                     b.ToTable("Marcas");
                 });
 
-            modelBuilder.Entity("RCM.Domain.Models.OrdemServicoModels.OrdemServico", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<Guid>("ClienteId");
-
-                    b.Property<DateTime>("DataEntrada");
-
-                    b.Property<DateTime?>("DataSaida");
-
-                    b.Property<int>("Status");
-
-                    b.Property<decimal>("Total");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClienteId");
-
-                    b.ToTable("OrdensServico");
-                });
-
             modelBuilder.Entity("RCM.Domain.Models.ProdutoModels.Aplicacao", b =>
                 {
                     b.Property<Guid>("Id")
@@ -294,8 +269,6 @@ namespace RCM.Infra.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(100);
 
-                    b.Property<Guid?>("OrdemServicoId");
-
                     b.Property<decimal>("PrecoVenda");
 
                     b.Property<string>("ReferenciaAuxiliar")
@@ -312,8 +285,6 @@ namespace RCM.Infra.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("MarcaId");
-
-                    b.HasIndex("OrdemServicoId");
 
                     b.ToTable("Produtos");
                 });
@@ -529,12 +500,10 @@ namespace RCM.Infra.Data.Migrations
                             b1.Property<Guid>("ClienteId");
 
                             b1.Property<string>("CadastroEstadual")
-                                .IsRequired()
                                 .HasColumnName("DocumentoEstadual")
                                 .HasMaxLength(14);
 
                             b1.Property<string>("CadastroNacional")
-                                .IsRequired()
                                 .HasColumnName("DocumentoNacional")
                                 .HasMaxLength(14);
 
@@ -551,7 +520,6 @@ namespace RCM.Infra.Data.Migrations
                             b1.Property<Guid>("ClienteId");
 
                             b1.Property<string>("Bairro")
-                                .IsRequired()
                                 .HasColumnName("EnderecoBairro")
                                 .HasMaxLength(25);
 
@@ -565,12 +533,11 @@ namespace RCM.Infra.Data.Migrations
                                 .HasColumnName("EnderecoComplemento")
                                 .HasMaxLength(250);
 
-                            b1.Property<int>("Numero")
+                            b1.Property<int?>("Numero")
                                 .HasColumnName("EnderecoNumero")
                                 .HasMaxLength(4);
 
                             b1.Property<string>("Rua")
-                                .IsRequired()
                                 .HasColumnName("EnderecoRua")
                                 .HasMaxLength(100);
 
@@ -657,7 +624,7 @@ namespace RCM.Infra.Data.Migrations
                             b1.Property<string>("CadastroEstadual")
                                 .IsRequired()
                                 .HasColumnName("InscricaoEstadual")
-                                .HasMaxLength(12);
+                                .HasMaxLength(13);
 
                             b1.Property<string>("CadastroNacional")
                                 .IsRequired()
@@ -692,7 +659,8 @@ namespace RCM.Infra.Data.Migrations
                                 .HasColumnName("EnderecoComplemento")
                                 .HasMaxLength(250);
 
-                            b1.Property<int>("Numero")
+                            b1.Property<int?>("Numero")
+                                .IsRequired()
                                 .HasColumnName("EnderecoNumero")
                                 .HasMaxLength(4);
 
@@ -756,7 +724,6 @@ namespace RCM.Infra.Data.Migrations
                             b1.Property<Guid?>("FornecedorId");
 
                             b1.Property<string>("CadastroEstadual")
-                                .IsRequired()
                                 .HasColumnName("DocumentoEstadual")
                                 .HasMaxLength(14);
 
@@ -793,7 +760,8 @@ namespace RCM.Infra.Data.Migrations
                                 .HasColumnName("EnderecoComplemento")
                                 .HasMaxLength(250);
 
-                            b1.Property<int>("Numero")
+                            b1.Property<int?>("Numero")
+                                .IsRequired()
                                 .HasColumnName("EnderecoNumero")
                                 .HasMaxLength(4);
 
@@ -818,21 +786,13 @@ namespace RCM.Infra.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("RCM.Domain.Models.OrdemServicoModels.OrdemServico", b =>
-                {
-                    b.HasOne("RCM.Domain.Models.ClienteModels.Cliente", "Cliente")
-                        .WithMany()
-                        .HasForeignKey("ClienteId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("RCM.Domain.Models.ProdutoModels.Aplicacao", b =>
                 {
                     b.OwnsOne("RCM.Domain.Models.ValueObjects.Carro", "Carro", b1 =>
                         {
                             b1.Property<Guid>("AplicacaoId");
 
-                            b1.Property<int>("Ano")
+                            b1.Property<int?>("Ano")
                                 .HasColumnName("CarroAno")
                                 .HasMaxLength(4);
 
@@ -847,6 +807,7 @@ namespace RCM.Infra.Data.Migrations
                                 .HasMaxLength(250);
 
                             b1.Property<string>("Motor")
+                                .IsRequired()
                                 .HasColumnName("CarroMotor")
                                 .HasMaxLength(100);
 
@@ -869,10 +830,6 @@ namespace RCM.Infra.Data.Migrations
                         .WithMany("Produtos")
                         .HasForeignKey("MarcaId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("RCM.Domain.Models.OrdemServicoModels.OrdemServico")
-                        .WithMany("Produtos")
-                        .HasForeignKey("OrdemServicoId");
                 });
 
             modelBuilder.Entity("RCM.Domain.Models.ProdutoModels.ProdutoAplicacao", b =>

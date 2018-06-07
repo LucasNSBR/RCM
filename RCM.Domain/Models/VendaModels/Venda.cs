@@ -165,7 +165,7 @@ namespace RCM.Domain.Models.VendaModels
             return new CondicaoPagamento(TipoVenda.APrazo, totalVenda, quantidadeParcelas, intervaloVencimento, entrada, parcelas);
         }
 
-        public void PagarParcela(int parcelaId, DateTime dataPagamento)
+        public Parcela PagarParcela(int parcelaId, DateTime dataPagamento)
         {
             var index = parcelaId - 1;
 
@@ -176,6 +176,8 @@ namespace RCM.Domain.Models.VendaModels
 
             //Trigger Parcelamento setter in order to serialize new value
             CondicaoPagamento = new CondicaoPagamento(TipoVenda.APrazo, TotalVenda, CondicaoPagamento.QuantidadeParcelas, CondicaoPagamento.IntervaloVencimento, CondicaoPagamento.ValorEntrada, parcelas);
+
+            return parcelas[index];
         }
     }
 }

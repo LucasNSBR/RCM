@@ -6,9 +6,9 @@ namespace RCM.Domain.Models.ClienteModels
 {
     public class ClientePontuacaoSpecification : BaseSpecification<Cliente>, ISpecification<Cliente>
     {
-        private readonly int? _pontuacao;
+        private readonly string _pontuacao;
 
-        public ClientePontuacaoSpecification(int? pontuacao)
+        public ClientePontuacaoSpecification(string pontuacao)
         {
             _pontuacao = pontuacao;
         }
@@ -16,7 +16,7 @@ namespace RCM.Domain.Models.ClienteModels
         public override Expression<Func<Cliente, bool>> ToExpression()
         {
             if (_pontuacao != null)
-                return f => _pontuacao == (int)f.Pontuacao;
+                return f => _pontuacao == f.Pontuacao.ToString();
 
             return f => true;
         }

@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Newtonsoft.Json;
 using RCM.Domain.Core.Events;
 using RCM.Domain.Repositories.EventRepositories;
 using System.Threading;
@@ -20,13 +19,13 @@ namespace RCM.Domain.EventHandlers
         {
             @event.Normalize();
 
-            var data = JsonConvert.SerializeObject(@event.Args);
+            var args = @event.Args;
             var dateCreated = @event.DateCreated;
             var id = @event.Id;
             var aggregateId = @event.AggregateId;
             var type = @event.Type;
 
-            _eventRepository.Save(id, aggregateId, dateCreated, type, data);
+            _eventRepository.Save(id, aggregateId, dateCreated, type, args);
 
             return Task.CompletedTask;
         }

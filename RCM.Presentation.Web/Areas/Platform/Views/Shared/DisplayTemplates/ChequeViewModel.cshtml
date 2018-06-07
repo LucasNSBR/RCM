@@ -9,6 +9,7 @@
             <li class="tab col s3"><a href="#banco">Dados Bancários</a></li>
             <li class="tab col s3"><a href="#vencimento">Emissão/Vencimento</a></li>
             <li class="tab col s3"><a href="#situacao">Situação</a></li>
+            <li class="tab col s3"><a href="#evento">Eventos</a></li>
         </ul>
     </div>
 
@@ -173,5 +174,9 @@
                 </div>
             }
         </div>
+    </div>
+
+    <div id="evento" class="col s12 m12">
+        @await Component.InvokeAsync("EventsPanel", Model.Id)
     </div>
 </div>

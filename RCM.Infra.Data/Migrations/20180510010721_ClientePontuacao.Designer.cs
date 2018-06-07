@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using Microsoft.EntityFrameworkCore.ValueGeneration;
 using RCM.Domain.Models.ClienteModels;
-using RCM.Domain.Models.OrdemServicoModels;
+
 using RCM.Domain.Models.ProdutoModels;
 using RCM.Domain.Models.VendaModels;
 using RCM.Infra.Data.Context;

@@ -71,7 +71,7 @@ namespace RCM.Application.ViewModels
 
         [Display(Name = "Número")]
         [Range(0, 9999, ErrorMessage = "O {0} deve estar em um formato válido.")]
-        public int EnderecoNumero { get; set; }
+        public int? EnderecoNumero { get; set; }
 
         [Display(Name = "Bairro")]
         [StringLength(25, MinimumLength = 0, ErrorMessage = "O {0} deve ter até {1} caracteres.")]

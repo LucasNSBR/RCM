@@ -26,7 +26,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             _estadoApplicationService = estadoApplicationService;
         }
 
-        public IActionResult Index(string nome = null, int pageNumber = 1, int pageSize = 20)
+        public IActionResult Index(string nome, int pageNumber = 1, int pageSize = 20)
         {
             var nomeSpecification = new CidadeNomeSpecification(nome);
 

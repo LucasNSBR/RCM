@@ -30,7 +30,7 @@ namespace RCM.Infra.Data.EntityTypeConfig
 
                 cfg.Property(en => en.CadastroEstadual)
                     .IsRequired()
-                    .HasMaxLength(12)
+                    .HasMaxLength(13)
                     .HasColumnName("InscricaoEstadual");
             });
 

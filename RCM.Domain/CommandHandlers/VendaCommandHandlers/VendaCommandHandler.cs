@@ -46,7 +46,7 @@ namespace RCM.Domain.CommandHandlers.VendaCommandHandlers
             _vendaRepository.Add(venda);
 
             if (Commit())
-                _mediator.PublishEvent(new AddedVendaEvent(venda));
+                _mediator.PublishEvent(new AddedVendaEvent(venda, cliente));
 
             return Response();
         }
@@ -72,7 +72,7 @@ namespace RCM.Domain.CommandHandlers.VendaCommandHandlers
             _vendaRepository.Update(venda);
 
             if (Commit())
-                _mediator.PublishEvent(new UpdatedVendaEvent(venda));
+                _mediator.PublishEvent(new UpdatedVendaEvent(venda, cliente));
 
             return Response();
         }
@@ -111,7 +111,8 @@ namespace RCM.Domain.CommandHandlers.VendaCommandHandlers
             else
                 _vendaRepository.Update(venda);
 
-            Commit();
+            if (Commit())
+                _mediator.PublishEvent(new AddedVendaProdutoEvent(venda, produto));
 
             return Response();
         }
@@ -133,7 +134,8 @@ namespace RCM.Domain.CommandHandlers.VendaCommandHandlers
             else
                 _vendaRepository.Update(venda);
 
-            Commit();
+            if (Commit())
+                _mediator.PublishEvent(new RemovedVendaProdutoEvent(venda, produto));
 
             return Response();
         }
@@ -154,7 +156,8 @@ namespace RCM.Domain.CommandHandlers.VendaCommandHandlers
             else
                 _vendaRepository.Update(venda);
 
-            Commit();
+            if (Commit())
+                _mediator.PublishEvent(new CheckedOutVendaEvent(venda));
 
             return Response();
         }
@@ -168,14 +171,15 @@ namespace RCM.Domain.CommandHandlers.VendaCommandHandlers
             }
 
             Venda venda = _vendaRepository.GetById(command.VendaId, loadRelatedData: false);
-            venda.PagarParcela(command.ParcelaId, command.DataPagamento);
+            Parcela parcela = venda.PagarParcela(command.ParcelaId, command.DataPagamento);
 
             if (NotifyModelErrors(venda.Errors))
                 return Response();
             else
                 _vendaRepository.Update(venda);
 
-            Commit();
+            if (Commit())
+                _mediator.PublishEvent(new PaidInstallmentVendaEvent(venda, parcela));
 
             return Response();
         }

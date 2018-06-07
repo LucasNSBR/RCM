@@ -111,7 +111,7 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
             _duplicataRepository.Update(duplicata);
 
             if (Commit()) 
-                _mediator.PublishEvent(new UpdatedDuplicataEvent(duplicata));
+                _mediator.PublishEvent(new PaidDuplicataEvent(duplicata, pagamento));
 
             return Response();
         }
@@ -129,7 +129,7 @@ namespace RCM.Domain.CommandHandlers.DuplicataCommandHandlers
             _duplicataRepository.Update(duplicata);
 
             if (Commit())
-                _mediator.PublishEvent(new UpdatedDuplicataEvent(duplicata));
+                _mediator.PublishEvent(new RevertedPaymentDuplicataEvent(duplicata));
 
             return Response();
         }

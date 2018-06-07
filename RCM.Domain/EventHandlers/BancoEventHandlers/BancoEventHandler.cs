@@ -12,17 +12,17 @@ namespace RCM.Domain.EventHandlers.BancoEventHandlers
     {
         public Task Handle(AddedBancoEvent notification, CancellationToken cancellationToken)
         {
-            return Task.CompletedTask;
+            return Response();
         }
 
         public Task Handle(UpdatedBancoEvent notification, CancellationToken cancellationToken)
         {
-            return Task.CompletedTask;
+            return Response();
         }
 
         public Task Handle(RemovedBancoEvent notification, CancellationToken cancellationToken)
         {
-            return Task.CompletedTask;
+            return Response();
         }
     }
 }

@@ -7,5 +7,10 @@ namespace RCM.Domain.Events.FornecedorEvents
         public RemovedFornecedorEvent(Fornecedor fornecedor) : base(fornecedor)
         {
         }
+
+        public override void Normalize()
+        {
+            Args.Add(nameof(Fornecedor.Id), Fornecedor.Id);
+        }
     }
 }

@@ -12,10 +12,11 @@ namespace RCM.Application.ViewModels.EventViewModels
         [Display(Name = "Id do Objeto Raiz")]
         public Guid AggregateId { get; set; }
 
-        [Display(Name = "Tipo")]
+        [Display(Name = "Tipo de Evento")]
         public string Type { get; set; }
 
         [Display(Name = "Data da Criação")]
+        [DisplayFormat(ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime DateCreated { get; set; }
 
         [Display(Name = "Argumentos")]

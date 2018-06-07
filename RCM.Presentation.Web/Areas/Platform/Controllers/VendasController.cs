@@ -32,7 +32,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             _empresaApplicationService = empresaApplicationService;
         }
 
-        public IActionResult Index(Guid? clienteId, string minValor = null, string maxValor = null, string status = null, string dataInicial = null, string dataFinal = null, int pageNumber = 1, int pageSize = 20)
+        public IActionResult Index(Guid? clienteId, string minValor, string maxValor, string status, string dataInicial, string dataFinal, int pageNumber = 1, int pageSize = 20)
         {
             var clienteIdSpecification = new VendaClienteIdSpecification(clienteId);
             var valorSpecification = new VendaValorTotalSpecification(minValor.ToDecimal(), maxValor.ToDecimal());

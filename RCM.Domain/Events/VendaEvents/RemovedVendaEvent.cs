@@ -7,5 +7,10 @@ namespace RCM.Domain.Events.VendaEvents
         public RemovedVendaEvent(Venda venda) : base(venda)
         {
         }
+
+        public override void Normalize()
+        {
+            Args.Add(nameof(Venda.Id), Venda.Id);
+        }
     }
 }

@@ -10,12 +10,11 @@ namespace RCM.Domain.Events.VendaEvents
         public VendaEvent(Venda venda)
         {
             Venda = venda;
+            AggregateId = Venda.Id;
         }
 
         public override void Normalize()
         {
-            AggregateId = Venda.Id;
-
             Args.Add(nameof(Venda.Status), Venda.Status);
             Args.Add(nameof(Venda.DataVenda), Venda.DataVenda);
             Args.Add(nameof(Venda.ClienteId), Venda.ClienteId);

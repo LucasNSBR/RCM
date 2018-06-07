@@ -27,7 +27,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             _cidadeApplicationService = cidadeApplicationService;
         }
 
-        public IActionResult Index(string nome = null, int? tipo = null, int? pontuacao = null, string cadastroNacional = null, string cadastroEstadual = null, int pageNumber = 1, int pageSize = 20)
+        public IActionResult Index(string nome, string tipo, string pontuacao, string cadastroNacional, string cadastroEstadual, int pageNumber = 1, int pageSize = 20)
         {
             var nomeSpecification = new ClienteNomeSpecification(nome);
             var tipoSpecification = new ClienteTipoSpecification(tipo);

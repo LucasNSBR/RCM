@@ -2,6 +2,7 @@
 using RCM.Domain.Commands.MarcaCommands;
 using RCM.Domain.Core.Commands;
 using RCM.Domain.Core.MediatorServices;
+using RCM.Domain.Events.MarcaEvents;
 using RCM.Domain.Models.MarcaModels;
 using RCM.Domain.Repositories;
 using RCM.Domain.UnitOfWork;
@@ -33,7 +34,8 @@ namespace RCM.Domain.CommandHandlers.MarcaCommandHandlers
             Marca marca = new Marca(command.Nome, command.Observacao);
             _marcaRepository.Add(marca);
 
-            Commit();
+            if (Commit())
+                _mediator.PublishEvent(new AddedMarcaEvent(marca));
             
             return Response();
         }
@@ -49,7 +51,8 @@ namespace RCM.Domain.CommandHandlers.MarcaCommandHandlers
             Marca marca = new Marca(command.Id, command.Nome, command.Observacao);
             _marcaRepository.Update(marca);
 
-            Commit();
+            if (Commit())
+                _mediator.PublishEvent(new UpdatedMarcaEvent(marca));
 
             return Response();
         }
@@ -65,7 +68,8 @@ namespace RCM.Domain.CommandHandlers.MarcaCommandHandlers
             Marca marca = _marcaRepository.GetById(command.Id);
             _marcaRepository.Remove(marca);
 
-            Commit();
+            if (Commit())
+                _mediator.PublishEvent(new RemovedMarcaEvent(marca));
 
             return Response();
         }

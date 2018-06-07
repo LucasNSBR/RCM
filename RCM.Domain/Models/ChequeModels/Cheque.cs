@@ -22,7 +22,6 @@ namespace RCM.Domain.Models.ChequeModels
 
         public DateTime DataEmissao { get; private set; }
         public DateTime DataVencimento { get; private set; }
-        public DateTime? DataPagamento { get; private set; }
         public decimal Valor { get; private set; }
         
         private EstadoCheque _estadoCheque;

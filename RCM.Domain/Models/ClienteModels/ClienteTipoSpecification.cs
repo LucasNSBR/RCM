@@ -6,9 +6,9 @@ namespace RCM.Domain.Models.ClienteModels
 {
     public class ClienteTipoSpecification : BaseSpecification<Cliente>, ISpecification<Cliente>
     {
-        private readonly int? _tipo;
+        private readonly string _tipo;
 
-        public ClienteTipoSpecification(int? tipo)
+        public ClienteTipoSpecification(string tipo)
         {
             _tipo = tipo;
         }
@@ -16,7 +16,7 @@ namespace RCM.Domain.Models.ClienteModels
         public override Expression<Func<Cliente, bool>> ToExpression()
         {
             if (_tipo != null)
-                return f => _tipo == (int)f.Tipo;
+                return f => _tipo == f.Tipo.ToString();
 
             return f => true;
         }

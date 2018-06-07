@@ -7,5 +7,10 @@ namespace RCM.Domain.Events.BancoEvents
         public RemovedBancoEvent(Banco banco) : base(banco)
         {
         }
+
+        public override void Normalize()
+        {
+            Args.Add(nameof(Banco.Id), Banco.Id);
+        }
     }
 }

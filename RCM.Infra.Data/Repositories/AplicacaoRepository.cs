@@ -19,7 +19,11 @@ namespace RCM.Infra.Data.Repositories
         public IQueryable<Aplicacao> Get()
         {
             return _dbSet
-                .AsNoTracking();
+                .AsNoTracking()
+                .OrderBy(a => a.Carro.Marca)
+                .ThenBy(a => a.Carro.Modelo)
+                .ThenBy(a => a.Carro.Ano)
+                .ThenBy(a => a.Carro.Observacao);
         }
 
         public Aplicacao GetById(Guid id)

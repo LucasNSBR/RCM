@@ -87,10 +87,10 @@
             }
 
             @Html.Partial("_Pagination", new ViewDataDictionary(this.ViewData)
-        {
-            { "listHelper", listHelper },
-            { "queryStringHelper", queryStringHelper }
-        })
+            {
+                { "listHelper", listHelper },
+                { "queryStringHelper", queryStringHelper }
+            })
         </div>
     }
     else

@@ -102,7 +102,7 @@ namespace RCM.Domain.Validators.ClienteCommandValidators
         private bool ValidateDocumentoCadastroNacional(ClienteCommand command)
         {
             if (command.DocumentoCadastroNacional == null)
-                return false;
+                return true;
 
             if (command.Tipo == ClienteTipoEnum.PessoaFisica)
                 return command.DocumentoCadastroNacional.Length == 11;

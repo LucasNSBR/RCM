@@ -7,5 +7,10 @@ namespace RCM.Domain.Events.ClienteEvents
         public RemovedClienteEvent(Cliente cliente) : base(cliente)
         {
         }
+
+        public override void Normalize()
+        {
+            Args.Add(nameof(Cliente.Id), Cliente.Id);
+        }
     }
 }

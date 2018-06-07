@@ -12,17 +12,17 @@ namespace RCM.Domain.EventHandlers.ClienteEventHandlers
     {
         public Task Handle(AddedClienteEvent notification, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            return Response();
         }
 
         public Task Handle(UpdatedClienteEvent notification, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            return Response();
         }
 
         public Task Handle(RemovedClienteEvent notification, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            return Response();
         }
     }
 }

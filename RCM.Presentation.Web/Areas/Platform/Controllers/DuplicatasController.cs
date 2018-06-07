@@ -30,7 +30,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             _fornecedorApplicationService = fornecedorApplicationService;
         }
 
-        public IActionResult Index(bool? apenasNaoPagas, bool? apenasVencidas, Guid? fornecedorId, string numeroDocumento = null, string minValor = null, string maxValor = null, string dataInicial = null, string dataFinal = null, int pageNumber = 1, int pageSize = 20)
+        public IActionResult Index(bool? apenasNaoPagas, bool? apenasVencidas, Guid? fornecedorId, string numeroDocumento, string minValor, string maxValor, string dataInicial, string dataFinal, int pageNumber = 1, int pageSize = 20)
         {
             var pagaSpecification = new DuplicataNaoPagaSpecification(apenasNaoPagas);
             var vencidaSpecification = new DuplicataVencidaSpecification(apenasVencidas);

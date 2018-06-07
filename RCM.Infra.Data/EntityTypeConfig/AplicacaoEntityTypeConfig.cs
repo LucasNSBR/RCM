@@ -28,6 +28,7 @@ namespace RCM.Infra.Data.EntityTypeConfig
                     .HasColumnName("CarroModelo");
 
                 cfg.Property(c => c.Motor)
+                    .IsRequired()
                     .HasMaxLength(100)
                     .HasColumnName("CarroMotor");
 

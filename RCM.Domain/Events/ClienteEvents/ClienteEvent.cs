@@ -10,12 +10,11 @@ namespace RCM.Domain.Events.ClienteEvents
         public ClienteEvent(Cliente cliente)
         {
             Cliente = cliente;
+            AggregateId = Cliente.Id;
         }
 
         public override void Normalize()
         {
-            AggregateId = Cliente.Id;
-
             Args.Add(nameof(Cliente.Nome), Cliente.Nome);
             Args.Add(nameof(Cliente.Tipo), Cliente.Tipo);
             Args.Add(nameof(Cliente.Pontuacao), Cliente.Pontuacao);

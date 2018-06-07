@@ -7,7 +7,7 @@ namespace RCM.Domain.Models.ValueObjects
     public class Endereco : ValueObject
     {
         public string Rua { get; private set; }
-        public int Numero { get; private set; }
+        public int? Numero { get; private set; }
         public string Bairro { get; private set; }
         public string Complemento { get; private set; }
         public string CEP { get; private set; }
@@ -18,7 +18,7 @@ namespace RCM.Domain.Models.ValueObjects
 
         protected Endereco() { }
 
-        public Endereco(string rua, int numero, string bairro, string complemento, Cidade cidade, string cep)
+        public Endereco(string rua, int? numero, string bairro, string complemento, Cidade cidade, string cep)
         {
             Rua = rua;
             Numero = numero;

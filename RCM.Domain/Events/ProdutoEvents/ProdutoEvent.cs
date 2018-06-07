@@ -10,12 +10,11 @@ namespace RCM.Domain.Events.ProdutoEvents
         public ProdutoEvent(Produto produto)
         {
             Produto = produto;
+            AggregateId = Produto.Id;
         }
 
         public override void Normalize()
         {
-            AggregateId = Produto.Id;
-
             Args.Add(nameof(Produto.Nome), Produto.Nome);
             Args.Add(nameof(Produto.Unidade), Produto.Unidade);
             Args.Add(nameof(Produto.ReferenciaFabricante), Produto.ReferenciaFabricante);

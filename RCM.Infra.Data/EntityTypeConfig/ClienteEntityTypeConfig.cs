@@ -50,17 +50,14 @@ namespace RCM.Infra.Data.EntityTypeConfig
             builder.OwnsOne(e => e.Endereco, cfg =>
             {
                 cfg.Property(en => en.Numero)
-                    .IsRequired()
                     .HasMaxLength(4)
                     .HasColumnName("EnderecoNumero");
 
                 cfg.Property(en => en.Rua)
-                    .IsRequired()
                     .HasMaxLength(100)
                     .HasColumnName("EnderecoRua");
 
                 cfg.Property(en => en.Bairro)
-                    .IsRequired()
                     .HasMaxLength(25)
                     .HasColumnName("EnderecoBairro");
 
@@ -76,12 +73,10 @@ namespace RCM.Infra.Data.EntityTypeConfig
             builder.OwnsOne(e => e.Documento, cfg =>
             {
                 cfg.Property(en => en.CadastroNacional)
-                    .IsRequired()
                     .HasMaxLength(14)
                     .HasColumnName("DocumentoNacional");
 
                 cfg.Property(en => en.CadastroEstadual)
-                    .IsRequired()
                     .HasMaxLength(14)
                     .HasColumnName("DocumentoEstadual");
             });

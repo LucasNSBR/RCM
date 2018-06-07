@@ -56,7 +56,10 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         {
             var empresa = _empresaApplicationService.Get();
             if (empresa == null)
-                return View();
+                return View(new EmpresaViewModel
+                {
+                    Id = Guid.NewGuid()
+                });
 
             return View(empresa);
         }
@@ -67,10 +70,10 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         public async Task<IActionResult> Update(EmpresaViewModel empresa)
         {
             if (!ModelState.IsValid)
-                {
-                    NotifyModelStateErrors();
-                    return View(empresa);
-                }
+            {
+                NotifyModelStateErrors();
+                return View(empresa);
+            }
 
             var commandResult = await _empresaApplicationService.AddOrUpdate(empresa);
 
@@ -128,7 +131,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
 
             try
             {
-                using(var memoryStream = new MemoryStream())
+                using (var memoryStream = new MemoryStream())
                 {
                     var contentType = formFile.File.ContentType;
                     var size = formFile.File.Length;
@@ -142,7 +145,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
                     logo = memoryStream.ToArray();
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 NotifyError(e.Message);
                 return View(formFile);

@@ -4,6 +4,7 @@ using RCM.Domain.Repositories;
 using RCM.Infra.Data.Context;
 using System;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace RCM.Infra.Data.Repositories
 {
@@ -11,6 +12,12 @@ namespace RCM.Infra.Data.Repositories
     {
         public ProdutoRepository(RCMDbContext dbContext) : base(dbContext)
         {
+        }
+
+        public override IQueryable<Produto> Get(Expression<Func<Produto, bool>> expression)
+        {
+            return base.Get(expression)
+                .OrderBy(p => p.Nome);
         }
 
         public override Produto GetById(Guid id, bool includeRelatedData = true)

@@ -6,9 +6,9 @@ namespace RCM.Domain.Models.FornecedorModels
 {
     public class FornecedorTipoSpecification : BaseSpecification<Fornecedor>, ISpecification<Fornecedor>
     {
-        private readonly int? _tipo;
+        private readonly string _tipo;
 
-        public FornecedorTipoSpecification(int? tipo)
+        public FornecedorTipoSpecification(string tipo)
         {
             _tipo = tipo;
         }
@@ -16,7 +16,7 @@ namespace RCM.Domain.Models.FornecedorModels
         public override Expression<Func<Fornecedor, bool>> ToExpression()
         {
             if (_tipo != null)
-                return f => _tipo == (int)f.Tipo;
+                return f => _tipo == f.Tipo.ToString();
 
             return f => true;
         }

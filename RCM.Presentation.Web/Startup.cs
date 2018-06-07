@@ -19,7 +19,7 @@ namespace RCM.Presentation.Web
     public class Startup
     {
         public IConfiguration Configuration { get; }
-
+        
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -76,14 +76,28 @@ namespace RCM.Presentation.Web
                 DefaultRequestCulture = new RequestCulture("pt-BR"),
             });
 
-            app.UseDeveloperExceptionPage();
-            app.UseBrowserLink();
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseBrowserLink();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Error");
+                app.UseStatusCodePagesWithReExecute("/Error", "?statusCode={0}");
+            }
+
             app.UseStaticFiles();
 
             app.UseAuthentication();
 
             app.UseMvc(routes =>
                 {
+                    routes.MapRoute(
+                        name: "statusPages",
+                        template: "Error/",
+                        defaults: new { controller = "Home", action = "Error" });
+
                     routes.MapRoute(
                         name: "accounts",
                         template: "Accounts/",

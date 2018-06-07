@@ -82,7 +82,6 @@ namespace RCM.Infra.Data.EntityTypeConfig
                     .HasColumnName("DocumentoNacional");
 
                 cfg.Property(en => en.CadastroEstadual)
-                    .IsRequired()
                     .HasMaxLength(14)
                     .HasColumnName("DocumentoEstadual");
             });
