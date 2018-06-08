@@ -189,6 +189,8 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<IRequestHandler<RemoveVendaCommand, CommandResult>, VendaCommandHandler>();
             services.AddScoped<IRequestHandler<AttachVendaProdutoCommand, CommandResult>, VendaCommandHandler>();
             services.AddScoped<IRequestHandler<RemoveVendaProdutoCommand, CommandResult>, VendaCommandHandler>();
+            services.AddScoped<IRequestHandler<AttachVendaServicoCommand, CommandResult>, VendaCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoveVendaServicoCommand, CommandResult>, VendaCommandHandler>();
             services.AddScoped<IRequestHandler<FinalizarVendaCommand, CommandResult>, VendaCommandHandler>();
             services.AddScoped<IRequestHandler<PagarParcelaVendaCommand, CommandResult>, VendaCommandHandler>();
         }
@@ -240,8 +242,10 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<INotificationHandler<AddedVendaEvent>, DomainEventPersistenceHandler>();
             services.AddScoped<INotificationHandler<UpdatedVendaEvent>, DomainEventPersistenceHandler>();
             services.AddScoped<INotificationHandler<RemovedVendaEvent>, DomainEventPersistenceHandler>();
-            services.AddScoped<INotificationHandler<AddedVendaProdutoEvent>, DomainEventPersistenceHandler>();
+            services.AddScoped<INotificationHandler<AttachedVendaProdutoEvent>, DomainEventPersistenceHandler>();
             services.AddScoped<INotificationHandler<RemovedVendaProdutoEvent>, DomainEventPersistenceHandler>();
+            services.AddScoped<INotificationHandler<AttachedVendaServicoEvent>, DomainEventPersistenceHandler>();
+            services.AddScoped<INotificationHandler<RemovedVendaServicoEvent>, DomainEventPersistenceHandler>();
             services.AddScoped<INotificationHandler<CheckedOutVendaEvent>, DomainEventPersistenceHandler>();
             services.AddScoped<INotificationHandler<PaidInstallmentVendaEvent>, DomainEventPersistenceHandler>();
         }
@@ -293,8 +297,10 @@ namespace RCM.CrossCutting.IoC
             services.AddScoped<INotificationHandler<AddedVendaEvent>, VendaEventHandler>();
             services.AddScoped<INotificationHandler<UpdatedVendaEvent>, VendaEventHandler>();
             services.AddScoped<INotificationHandler<RemovedVendaEvent>, VendaEventHandler>();
-            services.AddScoped<INotificationHandler<AddedVendaProdutoEvent>, VendaEventHandler>();
+            services.AddScoped<INotificationHandler<AttachedVendaProdutoEvent>, VendaEventHandler>();
             services.AddScoped<INotificationHandler<RemovedVendaProdutoEvent>, VendaEventHandler>();
+            services.AddScoped<INotificationHandler<AttachedVendaServicoEvent>, DomainEventPersistenceHandler>();
+            services.AddScoped<INotificationHandler<RemovedVendaServicoEvent>, DomainEventPersistenceHandler>();
             services.AddScoped<INotificationHandler<CheckedOutVendaEvent>, VendaEventHandler>();
             services.AddScoped<INotificationHandler<PaidInstallmentVendaEvent>, VendaEventHandler>();
         }

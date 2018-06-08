@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using RCM.Application.ApplicationInterfaces;
+using RCM.Application.ViewModels;
 using RCM.Application.ViewModels.VendaViewModels;
 using RCM.Domain.Commands.VendaCommands;
 using RCM.Domain.Core.Commands;
@@ -40,6 +41,16 @@ namespace RCM.Application.ApplicationServices
         public Task<CommandResult> RemoveProduto(Guid vendaId, Guid produtoId)
         {
             return _mediator.SendCommand(new RemoveVendaProdutoCommand(vendaId, produtoId));
+        }
+
+        public Task<CommandResult> AttachServico(ServicoViewModel viewModel)
+        {
+            return _mediator.SendCommand(new AttachVendaServicoCommand(viewModel.VendaId, viewModel.Detalhes, viewModel.PrecoServico));
+        }
+
+        public Task<CommandResult> RemoveServico(Guid vendaId, Guid servicoId)
+        {
+            return _mediator.SendCommand(new RemoveVendaServicoCommand(vendaId, servicoId));
         }
 
         public Task<CommandResult> FinalizarVenda(Guid vendaId, CondicaoPagamentoViewModel viewModel)

@@ -3,11 +3,11 @@ using RCM.Domain.Models.VendaModels;
 
 namespace RCM.Domain.Events.VendaEvents
 {
-    public class AddedVendaProdutoEvent : VendaEvent
+    public class AttachedVendaProdutoEvent : VendaEvent
     {
         public Produto Produto { get; private set; }
 
-        public AddedVendaProdutoEvent(Venda venda, Produto produto) : base(venda)
+        public AttachedVendaProdutoEvent(Venda venda, Produto produto) : base(venda)
         {
             Produto = produto;
         }

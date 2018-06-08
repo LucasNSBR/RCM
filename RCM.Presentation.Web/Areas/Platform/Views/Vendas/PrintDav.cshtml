@@ -298,10 +298,39 @@
                 }
             </tbody>
         </table>
+
+        <table id="services-table">
+            <thead>
+                <tr>
+                    <th colspan="2">
+                        Serviços
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Venda.Servicos)
+                {
+                    <tr>
+                        <td>
+                            <bold>
+                                @Html.DisplayFor(modelItem => item.Detalhes)
+                            </bold>
+                            <br />
+                            <span class="small text-muted">
+                                Id: @Html.DisplayFor(modelItem => item.Id)
+                            </span>
+                        </td>
+                        <td class="right mx-2 mt-1">
+                            @Html.DisplayFor(modelItem => item.PrecoServico)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
     <div class="row">
         <div class="col s4 offset-s8">
-            <p class="right mb-0 lead">Quantidade de Produtos: @Model.Venda.QuantidadeProdutos</p>
+            <p class="right mb-0 lead">Quantidade de Itens: @Model.Venda.QuantidadeItens</p>
             <p class="right mt-0 lead">Valor Total da Venda: @Model.Venda.TotalVenda.ToString("c")</p>
         </div>
     </div>

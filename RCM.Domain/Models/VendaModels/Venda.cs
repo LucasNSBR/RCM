@@ -2,6 +2,7 @@
 using RCM.Domain.Core.Models;
 using RCM.Domain.Models.ClienteModels;
 using RCM.Domain.Models.ProdutoModels;
+using RCM.Domain.Models.ServicoModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,16 @@ namespace RCM.Domain.Models.VendaModels
             }
         }
 
-        public int QuantidadeProdutos { get; private set; }
+        private List<Servico> _servicos;
+        public virtual IReadOnlyList<Servico> Servicos
+        {
+            get
+            {
+                return _servicos;
+            }
+        }
+
+        public int QuantidadeItens { get; private set; }
         public decimal TotalVenda { get; private set; }
 
         public VendaStatusEnum Status { get; private set; }
@@ -56,6 +66,7 @@ namespace RCM.Domain.Models.VendaModels
 
             Status = VendaStatusEnum.Aberta;
             _produtos = new List<VendaProduto>();
+            _servicos = new List<Servico>();
         }
 
         public Venda(Guid id, DateTime dataVenda, string detalhes, Cliente cliente)
@@ -67,6 +78,7 @@ namespace RCM.Domain.Models.VendaModels
 
             Status = VendaStatusEnum.Aberta;
             _produtos = new List<VendaProduto>();
+            _servicos = new List<Servico>();
         }
 
         public void AdicionarProduto(Produto produto, decimal desconto, decimal acrescimo, int quantidade)
@@ -94,7 +106,7 @@ namespace RCM.Domain.Models.VendaModels
                 }
 
                 _produtos.Add(vendaProduto);
-                QuantidadeProdutos += vendaProduto.Quantidade;
+                QuantidadeItens += vendaProduto.Quantidade;
                 TotalVenda += vendaProduto.PrecoFinal;
             }
             else
@@ -115,12 +127,48 @@ namespace RCM.Domain.Models.VendaModels
             {
                 _produtos.Remove(vendaProduto);
 
-                QuantidadeProdutos -= vendaProduto.Quantidade;
+                QuantidadeItens -= vendaProduto.Quantidade;
                 TotalVenda -= vendaProduto.PrecoFinal;
                 produto.ReporEstoque(vendaProduto.Quantidade);
             }
             else
                 AddDomainError("O produto ainda não foi adicionado à venda.");
+        }
+
+        public void AdicionarServico(Servico servico)
+        {
+            if (Status != VendaStatusEnum.Aberta)
+            {
+                AddDomainError("Não é possível adicionar serviços com a venda já finalizada.");
+                return;
+            }
+
+            if (!_servicos.Contains(servico))
+            {
+                _servicos.Add(servico);
+                QuantidadeItens += 1;
+                TotalVenda += servico.PrecoServico;
+            }
+            else
+                AddDomainError("Um serviço com os mesmos valores já foi adicionado à essa venda.");
+        }
+
+        public void RemoverServico(Servico servico)
+        {
+            if (Status != VendaStatusEnum.Aberta)
+            {
+                AddDomainError("Não é possível remover serviços com a venda já finalizada.");
+                return;
+            }
+
+            if (_servicos.Contains(servico))
+            {
+                _servicos.Remove(servico);
+                QuantidadeItens -= 1;
+                TotalVenda -= servico.PrecoServico;
+            }
+            else
+                AddDomainError("Esse serviço ainda não foi incluído na venda.");
         }
 
         public Venda Finalizar(TipoVenda tipoVenda, int quantidadeParcelas, int intervaloVencimento, decimal valorEntrada)

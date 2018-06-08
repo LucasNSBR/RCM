@@ -82,7 +82,7 @@
                         @Html.DisplayNameFor(model => model.Vendas.List.FirstOrDefault().DataVenda)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Vendas.List.FirstOrDefault().QuantidadeProdutos)
+                        @Html.DisplayNameFor(model => model.Vendas.List.FirstOrDefault().QuantidadeItens)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Vendas.List.FirstOrDefault().TotalVenda)
@@ -112,7 +112,7 @@
                             @Html.DisplayFor(modelItem => item.DataVenda)
                         </td>
                         <td>
-                            @(item.QuantidadeProdutos == 0 ? "Nenhum" : item.QuantidadeProdutos.ToString())
+                            @(item.QuantidadeItens == 0 ? "Nenhum" : item.QuantidadeItens.ToString())
                         </td>
                         <td>
                             @(item.TotalVenda == 0 ? "Rascunho" : item.TotalVenda.ToString())

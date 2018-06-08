@@ -5,9 +5,11 @@ using RCM.Domain.Core.MediatorServices;
 using RCM.Domain.Events.VendaEvents;
 using RCM.Domain.Models.ClienteModels;
 using RCM.Domain.Models.ProdutoModels;
+using RCM.Domain.Models.ServicoModels;
 using RCM.Domain.Models.VendaModels;
 using RCM.Domain.Repositories;
 using RCM.Domain.UnitOfWork;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -19,6 +21,8 @@ namespace RCM.Domain.CommandHandlers.VendaCommandHandlers
                                        IRequestHandler<RemoveVendaCommand, CommandResult>,
                                        IRequestHandler<AttachVendaProdutoCommand, CommandResult>,
                                        IRequestHandler<RemoveVendaProdutoCommand, CommandResult>,
+                                       IRequestHandler<AttachVendaServicoCommand, CommandResult>,
+                                       IRequestHandler<RemoveVendaServicoCommand, CommandResult>,
                                        IRequestHandler<FinalizarVendaCommand, CommandResult>,
                                        IRequestHandler<PagarParcelaVendaCommand, CommandResult>
     {
@@ -112,7 +116,7 @@ namespace RCM.Domain.CommandHandlers.VendaCommandHandlers
                 _vendaRepository.Update(venda);
 
             if (Commit())
-                _mediator.PublishEvent(new AddedVendaProdutoEvent(venda, produto));
+                _mediator.PublishEvent(new AttachedVendaProdutoEvent(venda, produto));
 
             return Response();
         }
@@ -136,6 +140,52 @@ namespace RCM.Domain.CommandHandlers.VendaCommandHandlers
 
             if (Commit())
                 _mediator.PublishEvent(new RemovedVendaProdutoEvent(venda, produto));
+
+            return Response();
+        }
+
+        public Task<CommandResult> Handle(AttachVendaServicoCommand command, CancellationToken cancellationToken)
+        {
+            if(!command.IsValid())
+            {
+                NotifyCommandErrors(command);
+                return Response();
+            }
+
+            Venda venda = _vendaRepository.GetById(command.VendaId);
+            Servico servico = new Servico(venda, command.ServicoDetalhes, command.ServicoPreco);
+            venda.AdicionarServico(servico);
+
+            if (NotifyModelErrors(venda.Errors))
+                return Response();
+            else
+                _vendaRepository.Update(venda);
+
+            if (Commit())
+                _mediator.PublishEvent(new AttachedVendaServicoEvent(venda, servico));
+
+            return Response();
+        }
+
+        public Task<CommandResult> Handle(RemoveVendaServicoCommand command, CancellationToken cancellationToken)
+        {
+            if (!command.IsValid())
+            {
+                NotifyCommandErrors(command);
+                return Response();
+            }
+
+            Venda venda = _vendaRepository.GetById(command.VendaId);
+            Servico servico = venda.Servicos.First(s => s.Id == command.ServicoId);
+            venda.RemoverServico(servico);
+
+            if (NotifyModelErrors(venda.Errors))
+                return Response();
+            else
+                _vendaRepository.Update(venda);
+
+            if (Commit())
+                _mediator.PublishEvent(new RemovedVendaServicoEvent(venda, servico));
 
             return Response();
         }

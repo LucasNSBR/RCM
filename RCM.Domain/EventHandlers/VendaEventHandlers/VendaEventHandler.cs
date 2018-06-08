@@ -9,7 +9,7 @@ namespace RCM.Domain.EventHandlers.VendaEventHandlers
                                      INotificationHandler<AddedVendaEvent>,
                                      INotificationHandler<UpdatedVendaEvent>,
                                      INotificationHandler<RemovedVendaEvent>,
-                                     INotificationHandler<AddedVendaProdutoEvent>,
+                                     INotificationHandler<AttachedVendaProdutoEvent>,
                                      INotificationHandler<RemovedVendaProdutoEvent>,
                                      INotificationHandler<CheckedOutVendaEvent>,
                                      INotificationHandler<PaidInstallmentVendaEvent>
@@ -29,7 +29,7 @@ namespace RCM.Domain.EventHandlers.VendaEventHandlers
             return Response();
         }
 
-        public Task Handle(AddedVendaProdutoEvent notification, CancellationToken cancellationToken)
+        public Task Handle(AttachedVendaProdutoEvent notification, CancellationToken cancellationToken)
         {
             return Response();
         }

@@ -19,7 +19,7 @@ namespace RCM.Domain.Events.VendaEvents
             Args.Add(nameof(Venda.DataVenda), Venda.DataVenda);
             Args.Add(nameof(Venda.ClienteId), Venda.ClienteId);
             Args.Add(nameof(Venda.Detalhes), Venda.Detalhes);
-            Args.Add(nameof(Venda.QuantidadeProdutos), Venda.QuantidadeProdutos);
+            Args.Add(nameof(Venda.QuantidadeItens), Venda.QuantidadeItens);
             Args.Add(nameof(Venda.TotalVenda), Venda.TotalVenda);
         }
     }

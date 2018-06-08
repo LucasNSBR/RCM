@@ -6,7 +6,7 @@
     <div class="col s12">
         <ul class="tabs tabs-fixed-width">
             <li class="tab col s3"><a href="#geral" class="active">Geral</a></li>
-            <li class="tab col s3"><a href="#produtos">Produtos</a></li>
+            <li class="tab col s3"><a href="#itens">Itens</a></li>
             <li class="tab col s3"><a href="#pagamento">Condições de Pagamento</a></li>
             <li class="tab col s3"><a href="#evento">Eventos</a></li>
         </ul>
@@ -52,10 +52,10 @@
             </dd>
         </dl>
     </div>
-    <div id="produtos" class="col s12 m12">
+    <div id="itens" class="col s12 m12">
         <div>
             <p class="px-1 font-bold lead">
-                Informação sobre Produtos
+                Informação sobre Itens
             </p>
             <dl class="detail-list">
                 <dt>
@@ -117,20 +117,64 @@
                     }
                 </dd>
             </dl>
+
+            <dl class="detail-list">
+                <dt>
+                    <label asp-for="@Model.Servicos"></label>
+                </dt>
+                <dd>
+                    @if (Model.Servicos.Any())
+                    {
+                        <ul class="collection z-depth-0">
+                            @foreach (var servico in Model.Servicos)
+                            {
+                                <li class="collection-item">
+                                    <div class="valign-wrapper">
+                                        <div class="col s3">
+                                            <p>@servico.Detalhes</p>
+                                        </div>
+                                        <div class="col s8">
+                                            <p>Valor do Serviço: @servico.PrecoServico.ToString("c")</p>
+                                        </div>
+                                        <div class="col s1">
+                                            @if (Model.Status == VendaStatusEnum.Aberta)
+                                            {
+                                                <a asp-action="RemoveServico" asp-controller="Vendas" asp-route-servicoId="@servico.Id" asp-route-vendaId="@Model.Id">
+                                                    Remover
+                                                </a>
+                                            }
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <span class="font-italic text-warning">
+                            <i class="material-icons left">warning</i>
+                            Essa venda ainda não tem nenhum serviço adicionado.
+                        </span>
+                    }
+                </dd>
+            </dl>
+
             @if (Model.Status == VendaStatusEnum.Aberta)
             {
                 <div class="right-align">
-                    <a asp-action="AttachProduto" asp-route-id="@Model.Id">Adicionar Produto</a>
+                    <a asp-action="AttachProduto" asp-route-vendaid="@Model.Id">Adicionar Produto</a>
+                    <br />
+                    <a asp-action="AttachServico" asp-route-vendaid="@Model.Id">Adicionar Serviço</a>
                 </div>
             }
         </div>
 
-        @if (Model.QuantidadeProdutos > 0 && Model.TotalVenda > 0)
+        @if (Model.QuantidadeItens > 0 && Model.TotalVenda > 0)
         {
-            <div class="mt-3 px-2 row mb-2">
+            <div class="mt-4 px-2 row mb-2">
                 <div class="col s12">
-                    <span class="text-muted">Quantidade de produtos: </span>
-                    @Model.QuantidadeProdutos
+                    <span class="text-muted">Quantidade de Itens: </span>
+                    @Model.QuantidadeItens
                 </div>
                 <div class="col s12">
                     <span class="text-muted">Valor total da Venda: </span>

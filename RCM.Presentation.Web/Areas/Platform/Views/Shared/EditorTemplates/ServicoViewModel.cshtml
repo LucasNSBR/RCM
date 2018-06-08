@@ -1,0 +1,22 @@
+﻿@model RCM.Application.ViewModels.ServicoViewModel
+
+<p class="px-1 font-bold lead">
+    Informação sobre Serviço
+</p>
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="row">
+    <div class="col s12 m6">
+        <label asp-for="Detalhes"></label>
+        <textarea asp-for="Detalhes" class="materialize-textarea" data-length="250"></textarea>
+        <span asp-validation-for="Detalhes" class="text-danger"></span>
+    </div>
+</div>
+<div class="row">
+    <div class="input-field col s12 m6">
+        <input type="hidden" asp-for="VendaId" />
+        <label asp-for="PrecoServico"></label>
+        <input asp-for="PrecoServico" class="input-field" data-length="4" />
+        <span asp-validation-for="PrecoServico" class="text-danger"></span>
+    </div>
+</div>

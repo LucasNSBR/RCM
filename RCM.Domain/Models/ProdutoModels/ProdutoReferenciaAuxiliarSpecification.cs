@@ -16,7 +16,7 @@ namespace RCM.Domain.Models.ProdutoModels
         public override Expression<Func<Produto, bool>> ToExpression()
         {
             if (_referenciaAuxiliar != null)
-                return p => p.ReferenciaAuxiliar.ToLower().Contains(_referenciaAuxiliar.ToLower());
+                return p => p.ReferenciaAuxiliar.ToLower() == _referenciaAuxiliar.ToLower();
 
             return p => true;
         }

@@ -18,6 +18,7 @@ using RCM.Domain.Models.EstadoModels;
 using RCM.Domain.Models.FornecedorModels;
 using RCM.Domain.Models.MarcaModels;
 using RCM.Domain.Models.ProdutoModels;
+using RCM.Domain.Models.ServicoModels;
 using RCM.Domain.Models.ValueObjects;
 using RCM.Domain.Models.VendaModels;
 using System.Collections.Generic;
@@ -46,7 +47,8 @@ namespace RCM.Application.Mappers
             CreateMap<Pagamento, PagamentoViewModel>();
             CreateMap<ProdutoFornecedor, ProdutoFornecedorViewModel>();
             CreateMap<VendaProduto, VendaProdutoViewModel>();
-
+            CreateMap<Servico, ServicoViewModel>();
+            
             CreateMap<Aplicacao, AplicacaoViewModel>()
                .ProjectUsing(a => new AplicacaoViewModel
                {

@@ -25,7 +25,7 @@ namespace RCM.Infra.Data.EntityTypeConfig
                 .WithOne(pv => pv.Venda)
                 .HasForeignKey(pv => pv.VendaId);
 
-            builder.Property(v => v.QuantidadeProdutos)
+            builder.Property(v => v.QuantidadeItens)
                 .IsRequired();
 
             builder.Property(v => v.TotalVenda)

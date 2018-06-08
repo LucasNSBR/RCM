@@ -1,4 +1,6 @@
-﻿body {
+﻿/*CSS WILL BE REWRITEN SOON */
+
+body {
     min-height: 100vh;
     background-color: #f3f3f3;
 }
@@ -603,13 +605,25 @@ dt {
     border: 1px solid #b5b5b5;
 }
 
-#report-table tr {
+#services-table tr {
     text-align: right;
 }
 
-#report-table tr td {
-    border: 1px solid #c8c8c8;
-    padding: 5px 10px 5px 10px;
+#services-table thead {
+    background-color: #3e3e3e;
+    color: white;
+}
+
+#services-table tr {
+    border: 1px solid #b5b5b5;
+}
+
+#services-table tr {
+    text-align: right;
+}
+
+#services-table tr td {
+    padding: 15px 0px 15px 5px;
 }
 
 #report-payment thead {

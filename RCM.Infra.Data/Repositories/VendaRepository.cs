@@ -32,6 +32,7 @@ namespace RCM.Infra.Data.Repositories
                     .Include(pv => pv.Produtos)
                     .ThenInclude((VendaProduto vp) => vp.Produto)
                     .ThenInclude(m => m.Marca)
+                    .Include(s => s.Servicos)
                     .Include(pv => pv.Cliente)
                     .ThenInclude(c => c.Endereco)
                     .ThenInclude(e => e.Cidade)

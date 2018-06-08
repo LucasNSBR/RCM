@@ -34,7 +34,7 @@ namespace RCM.Application.ViewModels
 
         [Display(Name = "Inscrição Estadual")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O {0} é requerido.")]
-        [StringLength(12, MinimumLength = 12, ErrorMessage = "O {0} deve ter {1} caracteres.")]
+        [StringLength(13, MinimumLength = 13, ErrorMessage = "O {0} deve ter {1} caracteres.")]
         public string DocumentoCadastroEstadual { get; set; }
         #endregion
 

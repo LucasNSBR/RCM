@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RCM.Application.ApplicationInterfaces;
+using RCM.Application.ViewModels;
 using RCM.Application.ViewModels.VendaViewModels;
 using RCM.Domain.Core.Extensions;
 using RCM.Domain.DomainNotificationHandlers;
@@ -69,8 +70,8 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             return View(venda);
         }
 
-        [ClaimAuthorization(ClaimName = "ActiveCompany", RedirectActionName = "Unattached", RedirectControllerName = "Empresa", RedirectAreaName = "Platform")]
         [Authorize(Policy = "ActiveUser")]
+        [ClaimAuthorization(ClaimName = "ActiveCompany", RedirectActionName = "Unattached", RedirectControllerName = "Empresa", RedirectAreaName = "Platform")]
         public IActionResult Create()
         {
             return View();
@@ -167,13 +168,13 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             return View(venda);
         }
 
-        [Authorize(Policy = "ActiveCompany")]
         [Authorize(Policy = "ActiveUser")]
-        public IActionResult AttachProduto(Guid id)
+        [ClaimAuthorization(ClaimName = "ActiveCompany", RedirectActionName = "Unattached", RedirectControllerName = "Empresa", RedirectAreaName = "Platform")]
+        public IActionResult AttachProduto(Guid vendaId)
         {
             VendaProdutoViewModel vendaProduto = new VendaProdutoViewModel()
             {
-                VendaId = id
+                VendaId = vendaId
             };
 
             return View(vendaProduto);
@@ -209,6 +210,57 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
         public async Task<IActionResult> RemoveProduto(Guid vendaId, Guid produtoId)
         {
             var commandResult = await _vendaApplicationService.RemoveProduto(vendaId, produtoId);
+
+            if (commandResult.Success)
+                NotifyCommandResultSuccess();
+            else
+                NotifyCommandResultErrors(commandResult.Errors);
+
+            return RedirectToAction(nameof(Details), new { id = vendaId });
+        }
+
+        [Authorize(Policy = "ActiveUser")]
+        [ClaimAuthorization(ClaimName = "ActiveCompany", RedirectActionName = "Unattached", RedirectControllerName = "Empresa", RedirectAreaName = "Platform")]
+        public IActionResult AttachServico(Guid vendaId)
+        {
+            ServicoViewModel viewModel = new ServicoViewModel
+            {
+                VendaId = vendaId
+            };
+
+            return View(viewModel);
+        }
+
+        [Authorize(Policy = "ActiveUser")]
+        [ClaimAuthorization(ClaimName = "ActiveCompany", RedirectActionName = "Unattached", RedirectControllerName = "Empresa", RedirectAreaName = "Platform")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AttachServico(Guid vendaId, ServicoViewModel servico)
+        {
+            if (!ModelState.IsValid)
+            {
+                NotifyModelStateErrors();
+                return View(servico);
+            }
+
+            var commandResult = await _vendaApplicationService.AttachServico(servico);
+
+            if (commandResult.Success)
+            {
+                NotifyCommandResultSuccess();
+                return RedirectToAction(nameof(Details), new { id = servico.VendaId });
+            }
+            else
+                NotifyCommandResultErrors(commandResult.Errors);
+
+            return View(servico);
+        }
+
+        [Authorize(Policy = "ActiveUser")]
+        [ClaimAuthorization(ClaimName = "ActiveCompany", RedirectActionName = "Unattached", RedirectControllerName = "Empresa", RedirectAreaName = "Platform")]
+        public async Task<IActionResult> RemoveServico(Guid vendaId, Guid servicoId)
+        {
+            var commandResult = await _vendaApplicationService.RemoveServico(vendaId, servicoId);
 
             if (commandResult.Success)
                 NotifyCommandResultSuccess();

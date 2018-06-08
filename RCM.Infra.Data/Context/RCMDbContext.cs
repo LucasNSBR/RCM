@@ -10,6 +10,7 @@ using RCM.Domain.Models.EstadoModels;
 using RCM.Domain.Models.FornecedorModels;
 using RCM.Domain.Models.MarcaModels;
 using RCM.Domain.Models.ProdutoModels;
+using RCM.Domain.Models.ServicoModels;
 using RCM.Domain.Models.VendaModels;
 using RCM.Infra.Data.EntityTypeConfig;
 using RCM.Infra.Data.Extensions;
@@ -30,6 +31,7 @@ namespace RCM.Infra.Data.Context
         public DbSet<Fornecedor> Fornecedores { get; set; }
         public DbSet<Marca> Marcas { get; set; }
         public DbSet<Produto> Produtos { get; set; }
+        public DbSet<Servico> Servicos { get; set; }
         public DbSet<Venda> Vendas { get; set; }
 
         public RCMDbContext(DbContextOptions<RCMDbContext> options) : base(options)
@@ -51,6 +53,7 @@ namespace RCM.Infra.Data.Context
             modelBuilder.ApplyConfiguration(new ProdutoAplicacaoEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new ProdutoEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new ProdutoFornecedorEntityTypeConfig());
+            modelBuilder.ApplyConfiguration(new ServicoEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new VendaProdutoEntityTypeConfig());
             modelBuilder.ApplyConfiguration(new VendaEntityTypeConfig());
 

@@ -82,10 +82,10 @@
                 <a asp-action="Details" asp-controller="Clientes" asp-route-id="@Model.Venda.ClienteId">@Model.Venda.Cliente.Nome</a>
             </dd>
             <dt>
-                <label asp-for="@Model.Venda.QuantidadeProdutos"></label>
+                <label asp-for="@Model.Venda.QuantidadeItens"></label>
             </dt>
             <dd>
-                @Model.Venda.QuantidadeProdutos
+                @Model.Venda.QuantidadeItens
             </dd>
             <dt>
                 <label asp-for="@Model.Venda.TotalVenda"></label>
