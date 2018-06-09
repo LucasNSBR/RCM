@@ -185,9 +185,18 @@
                 </dd>
             </dl>
 
-            <p class="px-1 pt-1">
+            <p class="px-1 pt-1 pb-0">
                 <a asp-action="AttachApplication" asp-controller="Produtos" asp-route-id="@Model.Id">Relacionar Aplicação</a>
             </p>
+
+            @if (Model.ReferenciaUrl != null)
+            {
+               <p class="px-1 pt-0">
+                    <a href="@Model.ReferenciaUrl">
+                        <i class="material-icons left">launch</i> Lista completa de aplicações
+                    </a>
+                </p>
+            }
         </div>
     </div>
 

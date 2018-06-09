@@ -138,7 +138,7 @@
                                 @Html.DisplayFor(modelItem => item.Id)
                             </td>
                             <td>
-                                <input type="checkbox" class="input-field checkable" id="@("input-"+item.Id)" />
+                                <input type="checkbox" class="input-field" id="@("input-"+item.Id)" />
                                 <label for="@("input-"+@item.Id)"></label>
                             </td>
                             <td>
@@ -184,10 +184,10 @@
             }
 
             @Html.Partial("_Pagination", new ViewDataDictionary(this.ViewData)
-        {
-            { "listHelper", listHelper },
-            { "queryStringHelper", queryStringHelper }
-        })
+{
+    { "listHelper", listHelper },
+    { "queryStringHelper", queryStringHelper }
+})
         </div>
     }
     else
@@ -215,6 +215,11 @@
 </div>
 
 @section Scripts {
-    <script src="~/js/select-and-sum.min.js"></script>
+    <environment include="Development">
+        <script src="~/js/select-and-sum.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/select-and-sum.min.js"></script>
+    </environment>
 }
 

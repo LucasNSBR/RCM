@@ -16,21 +16,19 @@
         format: 'dd/mm/yyyy'
     });
 
-    $(".table-body").click(function (handler) {
+    $(".highlight tbody tr td").click(function (handler) {
         var itemId = handler.target.parentElement.firstElementChild.innerHTML;
         var url = currentUrl.concat("/Details/", itemId.trim());
 
         if ($(handler.target).is('td')) {
             window.location = url;
         }
-    })
+    });
 
     $('#propertyInput').change(function (handler) {
         var inputName = $('#searchInput')[0];
         var optionValue = $('#propertyInput option:selected')[0];
         inputName.name = optionValue.value;
-
-        console.log(inputName.name);
     });
 
     $('#advancedSearchToggler').click(function () {

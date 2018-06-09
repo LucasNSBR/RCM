@@ -15,7 +15,7 @@
                 <select id="aplicacao-select"></select>
                 <label asp-for="Id"></label>
                 <span asp-validation-for="Id" class="text-danger"></span>
-                <a asp-action="CreateApplication" asp-route-id="@Model.ProdutoId" target="_blank">Adicionar nova aplicação</a>
+                <a asp-action="CreateApplication" asp-route-id="@Model.ProdutoId">Adicionar nova aplicação</a>
             </div>
             <div class="input-field col s12 m3 pt-1">
                 <button class="btn-flat mx-0 small" id="reload-aplicacoes-button" type="button">

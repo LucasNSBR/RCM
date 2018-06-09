@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
     var panel = $('#items-info-panel');
-    var items = $('.checkable');
+    var items = $('td input[type=checkbox]:first-child');
     var totalItemValue = 0;
     var selectedItems = 0;
 
@@ -15,7 +15,7 @@
         selectedValue = normalizeCurrency(selectedValue);
 
         if ($(this).prop('checked')) {
-            addToSum(selectedValue)
+            addToSum(selectedValue);
         } else {
             removeFromSum(selectedValue);
         }
@@ -36,7 +36,7 @@
         selectedItems--;
         totalItemValue -= parseFloat(value);
 
-        if (selectedItems == 0) {
+        if (selectedItems === 0) {
             hidePanel();
         }
 
@@ -75,14 +75,14 @@
             value = normalizeCurrency(value);
 
             addToSum(value);
-        })
+        });
     }
 
     $('#unselect-button').click(function () {
         unselectAll();
-    })
+    });
 
     $('#select-button').click(function () {
         selectAll();
-    })
-})
+    });
+});

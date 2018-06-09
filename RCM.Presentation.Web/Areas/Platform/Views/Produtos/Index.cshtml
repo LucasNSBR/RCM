@@ -107,6 +107,9 @@
                             @Html.DisplayNameFor(model => model.Produtos.List.FirstOrDefault().ReferenciaOriginal)
                         </th>
                         <th>
+                            @Html.DisplayNameFor(model => model.Produtos.List.FirstOrDefault().ReferenciaAuxiliar)
+                        </th>
+                        <th>
                             @Html.DisplayNameFor(model => model.Produtos.List.FirstOrDefault().Estoque)
                         </th>
                         <th>
@@ -148,6 +151,16 @@
                                 }
                             </td>
                             <td>
+                                @if (item.ReferenciaAuxiliar != null)
+                                {
+                                    @item.ReferenciaAuxiliar
+                                }
+                                else
+                                {
+                                    <span class="font-italic">Nulo</span>
+                                }
+                            </td>
+                            <td>
                                 @Html.DisplayFor(modelItem => item.Estoque)
                             </td>
                             <td>
@@ -166,23 +179,23 @@
             <ul class="pagination center pt-2">
                 @{
                     var queryStringHelper = new Dictionary<string, string>
-                                    {
-                                        { "marcaId", Model.MarcaId?.ToString() },
-                                        { "minValor", Model.MinValor?.ToString() },
-                                        { "maxValor", Model.MaxValor?.ToString() },
-                                        { "minEstoque", Model.MinEstoque?.ToString() },
-                                        { "maxEstoque", Model.MaxEstoque?.ToString() },
-                                        { "nome", Model.Nome?.ToString() },
-                                        { "aplicacaoMarca", Model.AplicacaoMarca?.ToString() },
-                                        { "aplicacaoModelo", Model.AplicacaoModelo?.ToString() },
-                                        { "aplicacaoMotor", Model.AplicacaoMotor?.ToString() },
-                                        { "aplicacaoObservacao", Model.AplicacaoObservacao?.ToString() },
-                                        { "referenciaFabricante", Model.ReferenciaFabricante?.ToString() },
-                                        { "referenciaOriginal", Model.ReferenciaOriginal?.ToString() },
-                                        { "referenciaAuxiliar", Model.ReferenciaAuxiliar?.ToString() },
-                                        { "produtoId", Model.ProdutoId?.ToString() },
-                                        { "pageSize", Model.Produtos.PageSize.ToString() },
-                                    };
+                                        {
+                                            { "marcaId", Model.MarcaId?.ToString() },
+                                            { "minValor", Model.MinValor?.ToString() },
+                                            { "maxValor", Model.MaxValor?.ToString() },
+                                            { "minEstoque", Model.MinEstoque?.ToString() },
+                                            { "maxEstoque", Model.MaxEstoque?.ToString() },
+                                            { "nome", Model.Nome?.ToString() },
+                                            { "aplicacaoMarca", Model.AplicacaoMarca?.ToString() },
+                                            { "aplicacaoModelo", Model.AplicacaoModelo?.ToString() },
+                                            { "aplicacaoMotor", Model.AplicacaoMotor?.ToString() },
+                                            { "aplicacaoObservacao", Model.AplicacaoObservacao?.ToString() },
+                                            { "referenciaFabricante", Model.ReferenciaFabricante?.ToString() },
+                                            { "referenciaOriginal", Model.ReferenciaOriginal?.ToString() },
+                                            { "referenciaAuxiliar", Model.ReferenciaAuxiliar?.ToString() },
+                                            { "produtoId", Model.ProdutoId?.ToString() },
+                                            { "pageSize", Model.Produtos.PageSize.ToString() },
+                                        };
 
                     var listHelper = new Dictionary<string, string>().LoadPagination(Model.Produtos);
                 }

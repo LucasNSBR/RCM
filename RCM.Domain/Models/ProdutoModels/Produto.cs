@@ -15,7 +15,8 @@ namespace RCM.Domain.Models.ProdutoModels
         public string ReferenciaFabricante { get; private set; }
         public string ReferenciaOriginal { get; private set; }
         public string ReferenciaAuxiliar { get; private set; }
-        
+        public string ReferenciaUrl { get; private set; }
+
         private List<ProdutoAplicacao> _aplicacoes;
         public virtual IReadOnlyList<ProdutoAplicacao> Aplicacoes
         {
@@ -75,11 +76,12 @@ namespace RCM.Domain.Models.ProdutoModels
             _aplicacoes = new List<ProdutoAplicacao>();
         }
 
-        public void AdicionarReferencias(string referenciaFabricante, string referenciaOriginal, string referenciaAuxiliar)
+        public void AdicionarReferencias(string referenciaFabricante, string referenciaOriginal, string referenciaAuxiliar, string referenciaUrl)
         {
-            ReferenciaAuxiliar = referenciaAuxiliar ?? ReferenciaAuxiliar;
-            ReferenciaFabricante = referenciaFabricante ?? ReferenciaFabricante;
-            ReferenciaOriginal = referenciaOriginal ?? ReferenciaOriginal;
+            ReferenciaAuxiliar = referenciaAuxiliar;
+            ReferenciaFabricante = referenciaFabricante;
+            ReferenciaOriginal = referenciaOriginal;
+            ReferenciaUrl = referenciaUrl;
         }
 
         public void AdicionarFornecedor(Fornecedor fornecedor, string referenciaFornecedor, decimal precoCusto, ProdutoDisponibilidadeEnum disponibilidade)

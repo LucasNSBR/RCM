@@ -136,7 +136,7 @@
                                 @Html.DisplayFor(modelItem => item.Id)
                             </td>
                             <td>
-                                <input type="checkbox" class="input-field checkable" id="@("input-"+item.Id)" />
+                                <input type="checkbox" class="input-field" id="@("input-"+item.Id)" />
                                 <label for="@("input-"+@item.Id)"></label>
                             </td>
                             <td>
@@ -180,17 +180,17 @@
             <ul class="pagination center pt-2">
                 @{
                     var queryStringHelper = new Dictionary<string, string>
-                            {
-                                { "clienteId", Model.ClienteId?.ToString() },
-                                { "minValor", Model.MinValor?.ToString() },
-                                { "maxValor", Model.MaxValor?.ToString() },
-                                { "agencia", Model.Agencia?.ToString() },
-                                { "conta", Model.Conta?.ToString() },
-                                { "numeroCheque", Model.NumeroCheque?.ToString() },
-                                { "dataEmissao", Model.DataEmissao?.ToString() },
-                                { "dataVencimento", Model.DataVencimento?.ToString() },
-                                { "pageSize", Model.Cheques.PageSize.ToString() },
-                            };
+                                {
+                                    { "clienteId", Model.ClienteId?.ToString() },
+                                    { "minValor", Model.MinValor?.ToString() },
+                                    { "maxValor", Model.MaxValor?.ToString() },
+                                    { "agencia", Model.Agencia?.ToString() },
+                                    { "conta", Model.Conta?.ToString() },
+                                    { "numeroCheque", Model.NumeroCheque?.ToString() },
+                                    { "dataEmissao", Model.DataEmissao?.ToString() },
+                                    { "dataVencimento", Model.DataVencimento?.ToString() },
+                                    { "pageSize", Model.Cheques.PageSize.ToString() },
+                                };
 
                     var listHelper = new Dictionary<string, string>().LoadPagination(Model.Cheques);
                 }
@@ -229,5 +229,10 @@
 
 
 @section Scripts {
-    <script src="~/js/select-and-sum.min.js"></script>
+    <environment include="Development">
+        <script src="~/js/select-and-sum.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/select-and-sum.min.js"></script>
+    </environment>
 }

@@ -32,6 +32,11 @@ namespace RCM.Application.ViewModels.ProdutoViewModels
         [StringLength(50, MinimumLength = 0, ErrorMessage = "A {0} deve ter até {1} caracteres.")]
         public string ReferenciaAuxiliar { get; set; }
 
+        [Display(Name = "Url de Referência")]
+        [StringLength(150, MinimumLength = 0, ErrorMessage = "A {0} deve ter até {1} caracteres.")]
+        [Url(ErrorMessage = "A {0} deve estar em um formato válido.")]
+        public string ReferenciaUrl { get; set; }
+
         [Display(Name = "Aplicações")]
         public List<AplicacaoViewModel> Aplicacoes { get; set; }
 

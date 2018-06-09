@@ -12,6 +12,7 @@ namespace RCM.Domain.Commands.ProdutoCommands
         public string ReferenciaFabricante { get; set; }
         public string ReferenciaOriginal { get; set; }
         public string ReferenciaAuxiliar { get; set; }
+        public string ReferenciaUrl { get; set; }
         public int Estoque { get; set; }
         public int EstoqueMinimo { get; set; }
         public int EstoqueIdeal { get; set; }

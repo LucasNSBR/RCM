@@ -27,6 +27,9 @@ namespace RCM.Infra.Data.EntityTypeConfig
             builder.Property(p => p.ReferenciaAuxiliar)
                 .HasMaxLength(50);
 
+            builder.Property(p => p.ReferenciaUrl)
+                .HasMaxLength(150);
+
             builder.Property(p => p.Estoque)
                 .IsRequired()
                 .HasMaxLength(4);
