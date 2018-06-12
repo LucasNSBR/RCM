@@ -17,16 +17,16 @@
     </environment>
 </head>
 <body>
-    <div class="row no-pad-top max-percent-height mb-0">
-        <div class="col s12 m2 hide-on-small-and-down no-margin no-padding max-percent-height">
+    <div class="row no-pad-top h-5 mb-0">
+        <div class="col s12 m2 hide-on-small-and-down p-0 m-0 h-5">
             @Html.Partial("_Sidebar")
         </div>
-        <div class="col s12 m10 no-margin max-percent-height no-padding">
+        <div class="col s12 m10 m-0 h-5 p-0">
             <div>
                 <nav class="z-depth-0">
-                    <div class="nav-wrapper white text-violet px-2">
+                    <div class="nav-wrapper white text-purple px-2">
                         <h6 class="d-inlineblock">@Html.Raw(DateTime.Now.ToLongDateString())</h6>
-                        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                        <a href="#" data-activates="mobile-demo" class="button-collapse text-black"><i class="material-icons">menu</i></a>
 
                         @await Component.InvokeAsync("UserInformation")
                     </div>

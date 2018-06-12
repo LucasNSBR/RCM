@@ -1,14 +1,15 @@
 ﻿@model RCM.CrossCutting.Identity.Models.RCMIdentityUser
+
 <!-- PC Sidebar -->
 <ul id="nav-mobile" class="right hide-on-med-and-down">
     <li>
-        <a class='dropdown-button white-text' href='#' data-activates='user-menu'><i class="material-icons left">keyboard_arrow_down</i>@Model.Email</a>
+        <a class='dropdown-button white-text' href='#' data-activates='user-information'><i class="material-icons left">keyboard_arrow_down</i>@Model.Email</a>
     </li>
     <li>
-        <div id='user-menu' class='dropdown-content'>
-            <div><a asp-area="Platform" asp-controller="Clientes" asp-action="Index" class="font-bold">Acessar Plataforma</a></div>
-            <div><a asp-area="Platform" asp-controller="Settings" asp-action="Index">Ajustes</a></div>
-            <div><a asp-area="Platform" asp-controller="Profile" asp-action="Index">Perfil</a></div>
+        <div id='user-information' class='dropdown-content'>
+            <div><a asp-area="Platform" asp-controller="Clientes" asp-action="Index" class="font-bold white-text">Acessar Plataforma</a></div>
+            <div><a asp-area="Platform" asp-controller="Settings" asp-action="Index" class="white-text">Ajustes</a></div>
+            <div><a asp-area="Platform" asp-controller="Profile" asp-action="Index" class="white-text">Perfil</a></div>
         </div>
     </li>
     <li>
