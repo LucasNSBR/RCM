@@ -7,22 +7,22 @@
 <float-action-button controller="Marcas"></float-action-button>
 
 <div class="form-container col s12 m12">
-    <form>
+    <form class="row">
         <div class="col s12 m12">
             <div class="row my-0 py-0">
-                <div class="input-field col s5 m5">
+                <div class="input-field col s12 m5">
                     <label for="nome">Nome da Marca</label>
                     <input asp-for="Nome" class="input-field" />
                 </div>
-                <div class="input-field col s4 m3">
+                <div class="input-field col s12 m3">
                     <select>
                         <option value="vendaId">Nome da Marca</option>
                     </select>
                 </div>
-                <div class="col s4 m4 pt-2 px-0 mx-0 w-100">
-                    <a class="btn waves-effect purple left no-border col s1 m2" id="advancedSearchToggler">
+                <div class="col s12 m4 pt-2 px-0 mx-0 w-100">
+                    <a class="btn waves-effect purple left no-border col s2 m2" id="advancedSearchToggler">
                         <i class="material-icons center">keyboard_arrow_down</i>
-                    </a><button type="submit" class="btn waves-effect purple no-border col s11 m10">
+                    </a><button type="submit" class="btn waves-effect purple no-border col s10 m10">
                         <i class="material-icons right">search</i>
                         Pesquisar
                     </button>
@@ -44,10 +44,10 @@
     @if (Model.Marcas.List.Any())
     {
         <div class="mx-2">
-            <table class="highlight">
+            <table class="responsive-table highlight">
                 <thead>
                     <tr>
-                        <th class="w-25">
+                        <th class="w-25" id="marca-nome">
                             @Html.DisplayNameFor(model => model.Marcas.List.FirstOrDefault().Nome)
                         </th>
                         <th>

@@ -1,11 +1,13 @@
 ﻿@{ var route = Url.GetControllerName(); }
 
-<div id="sidebar" class="position-fixed col s12 m2">
+<div id="sidebar" class="col s12 m2">
     <div class="z-depth-5" id="homeButton">
         <a asp-action="Index" asp-controller="Home" class="white-text">
             <i class="material-icons left">home</i>Home
         </a>
     </div>
+
+    @* PC *@
     <ul class="collection no-border m-0">
         <li>
             <a asp-action="Index" asp-controller="Duplicatas" class="collection-item @(route == "duplicatas" ? "active" : "")">
@@ -58,4 +60,35 @@
             </a>
         </li>
     </ul>
+
+    @* MOBILE SIDEBAR *@
+    <div class="hide-on-med-and-up">
+        <ul class="collection no-border m-0">
+            <li>
+                <a asp-action="Index" asp-controller="Settings" class="collection-item @(route == "notifications" ? "active" : "")">
+                    <i class="material-icons center px-2">notifications</i>
+                    Configurações
+                </a>
+            </li>
+            <li>
+                <a asp-action="Index" asp-controller="Settings" class="collection-item @(route == "settings" ? "active" : "")">
+                    <i class="material-icons left">settings</i>
+                    Ajustes
+                </a>
+            </li>
+            <li>
+                <a asp-action="Index" asp-controller="Profile" class="collection-item @(route == "profile" ? "active" : "")">
+                    Perfil
+                </a>
+            </li>
+            <li class="pb-1">
+                <a asp-action="Logout" asp-controller="Accounts" asp-area="" class="collection-item">
+                    Logout
+                </a>
+            </li>
+        </ul>
+    </div>
 </div>
+
+
+

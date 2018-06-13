@@ -11,7 +11,7 @@
 <div class="form-container col s12 m12">
     @Html.DisplayForModel()
 
-    <div class="center pt-3">
+    <div class="row center pt-3">
         @if (Model.Status == VendaStatusEnum.Aberta)
         {
             <action-button asp-action="Edit" asp-controller="Vendas" asp-area="Platform" asp-route-id="@Model.Id" icon-name="edit">Editar</action-button>

@@ -15,7 +15,6 @@
     </div>
 
     <form asp-action="Register">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="row">
             <div class="input-field col s12 m6 mt-0">
                 <label asp-for="FirstName"></label>
@@ -29,7 +28,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="input-field col s12 m2 mt-0">
+            <div class="input-field col s12 m3 l2 mt-0">
                 <label asp-for="Age"></label>
                 <input asp-for="Age" class="input-field" />
                 <span asp-validation-for="Age" class="text-danger"></span>

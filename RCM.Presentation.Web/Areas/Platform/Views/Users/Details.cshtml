@@ -24,13 +24,13 @@
         <dd>
             @if (Model.Roles.Any())
             {
-            @foreach (var role in Model.Roles)
-            {
-                <span>
-                    @role
-                </span>
-                <br />
-            }
+                @foreach (var role in Model.Roles)
+                {
+                    <span>
+                        @role
+                    </span>
+                    <br />
+                }
             }
             else
             {
@@ -39,7 +39,7 @@
         </dd>
     </dl>
 
-    <div class="px-1 pt-2 pb-1">
+    <div class="px-1 pt-2 pb-2">
         @if (!Model.Roles.Contains("Admin"))
         {
             <a asp-action="AddToRole" asp-route-role="Admin" asp-route-id="@Model.User.Id">Tornar Administrador</a>

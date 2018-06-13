@@ -7,8 +7,8 @@
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <environment include="Development">
-        <link rel="stylesheet" href="~/lib/materialize/css/materialize.css" />
         <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/lib/materialize/css/materialize.css" />
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="~/lib/materialize/css/materialize.min.css"
@@ -18,21 +18,25 @@
 </head>
 <body>
     <div class="row no-pad-top h-5 mb-0">
-        <div class="col s12 m2 hide-on-small-and-down p-0 m-0 h-5">
+        <div class="col s12 m2 hide-on-small-only p-0 m-0 h-5">
             @Html.Partial("_Sidebar")
         </div>
         <div class="col s12 m10 m-0 h-5 p-0">
             <div>
                 <nav class="z-depth-0">
                     <div class="nav-wrapper white text-purple px-2">
-                        <h6 class="d-inlineblock">@Html.Raw(DateTime.Now.ToLongDateString())</h6>
-                        <a href="#" data-activates="mobile-demo" class="button-collapse text-black"><i class="material-icons">menu</i></a>
+                        <h6 id="menu-top-bar" class="d-inlineblock">@Html.Raw(DateTime.Now.ToLongDateString())</h6>
+                        <a id="menu-collapse" href="#" data-activates="mobile-demo" class="button-collapse text-black hide-on-med-and-up"><i class="material-icons">menu</i></a>
 
                         @await Component.InvokeAsync("UserInformation")
                     </div>
                 </nav>
             </div>
             @await Component.InvokeAsync("NotificationsBar")
+
+            <div class="side-nav" id="mobile-demo">
+                @Html.Partial("_Sidebar")
+            </div>
 
             <div class="platform-content">
                 @RenderBody()

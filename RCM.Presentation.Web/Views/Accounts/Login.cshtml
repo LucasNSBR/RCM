@@ -15,7 +15,6 @@
     </div>
     <div class="row">
         <div class="col s12 m8">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <form asp-action="Login">
                 <div class="row">
                     <div class="input-field col s12 m8">
@@ -40,17 +39,17 @@
                     </div>
                 </div>
 
-                <div class="px-1 pt-2">
-                    <post-button icon-name="launch">Efetuar Login</post-button>
+                <div class="px-1 pt-2 col s12 m12">
+                    <post-button icon-name="launch" button-classes="btn purple col s12 m6 l4">Efetuar Login</post-button>
                 </div>
             </form>
         </div>
-        <div class="col s12 m4">
-            <p class="lead">
+        <div class="col s12 m4" id="external-login">
+            <p class="lead center mb-0">
                 Ou faça login usando um provedor externo
             </p>
-            <div class="row">
-                <a asp-action="ExternalLogin" asp-route-provider="Google" asp-route-returnUrl="@TempData["returnUrl"]" id="google-plus-button" class="btn col s12 m8">
+            <div class="row px-1">
+                <a asp-action="ExternalLogin" asp-route-provider="Google" asp-route-returnUrl="@TempData["returnUrl"]" id="google-plus-button" class="btn col s12 m12">
                     Google+
                 </a>
             </div>

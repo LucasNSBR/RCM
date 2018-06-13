@@ -9,22 +9,22 @@
 <float-action-button controller="Fornecedores"></float-action-button>
 
 <div class="form-container col s12 m12">
-    <form>
+    <form class="row">
         <div class="col s12 m12">
             <div class="row my-0 py-0">
-                <div class="input-field col s5 m5">
+                <div class="input-field col s12 m5">
                     <label for="nome">Nome do Fornecedor</label>
                     <input asp-for="Nome" class="input-field" />
                 </div>
-                <div class="input-field col s4 m3">
+                <div class="input-field col s12 m3">
                     <select>
                         <option value="nome">Nome do Fornecedor</option>
                     </select>
                 </div>
-                <div class="col s4 m4 pt-2 px-0 mx-0 w-100">
-                    <a class="btn waves-effect purple left no-border col s1 m2" id="advancedSearchToggler">
+                <div class="col s12 m4 pt-2 px-0 mx-0 w-100">
+                    <a class="btn waves-effect purple left no-border col s2 m2" id="advancedSearchToggler">
                         <i class="material-icons center">keyboard_arrow_down</i>
-                    </a><button type="submit" class="btn waves-effect purple no-border col s11 m10">
+                    </a><button type="submit" class="btn waves-effect purple no-border col s10 m10">
                         <i class="material-icons right">search</i>
                         Pesquisar
                     </button>
@@ -54,59 +54,61 @@
 
     @if (Model.Fornecedores.List.Any())
     {
-        <table class="highlight">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Fornecedores.List.FirstOrDefault().Nome)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Fornecedores.List.FirstOrDefault().Tipo)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Fornecedores.List.FirstOrDefault().DocumentoCadastroNacional)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Fornecedores.List.FirstOrDefault().DocumentoCadastroEstadual)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Fornecedores.List.FirstOrDefault().ContatoTelefoneComercial)
-                    </th>
-                </tr>
-            </thead>
-            <tbody class="table-body">
-                @foreach (var item in Model.Fornecedores.List)
-                {
+        <div class="mx-2">
+            <table class="responsive-table highlight">
+                <thead>
                     <tr>
-                        <td class="d-hidden">
-                            @Html.DisplayFor(modelItem => item.Id)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Nome)
-                        </td>
-                        <td>
-                            @if (item.Tipo == FornecedorTipoEnum.PessoaFisica)
-                            {
-                                @Html.Raw("Pessoa Física")
-                            }
-                            else
-                            {
-                                @Html.Raw("Pessoa Jurídica")
-                            }
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DocumentoCadastroNacional)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DocumentoCadastroEstadual)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ContatoTelefoneComercial)
-                        </td>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Fornecedores.List.FirstOrDefault().Nome)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Fornecedores.List.FirstOrDefault().Tipo)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Fornecedores.List.FirstOrDefault().DocumentoCadastroNacional)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Fornecedores.List.FirstOrDefault().DocumentoCadastroEstadual)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Fornecedores.List.FirstOrDefault().ContatoTelefoneComercial)
+                        </th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody class="table-body">
+                    @foreach (var item in Model.Fornecedores.List)
+                    {
+                        <tr>
+                            <td class="d-hidden">
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nome)
+                            </td>
+                            <td>
+                                @if (item.Tipo == FornecedorTipoEnum.PessoaFisica)
+                                {
+                                    @Html.Raw("Pessoa Física")
+                                }
+                                else
+                                {
+                                    @Html.Raw("Pessoa Jurídica")
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DocumentoCadastroNacional)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DocumentoCadastroEstadual)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ContatoTelefoneComercial)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
 
         <div class="col s12 m12">
             @{
@@ -128,6 +130,7 @@
                 { "queryStringHelper", queryStringHelper }
             })
         </div>
+
     }
     else
     {

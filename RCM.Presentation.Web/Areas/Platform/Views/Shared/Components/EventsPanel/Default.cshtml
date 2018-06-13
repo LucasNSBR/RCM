@@ -17,13 +17,15 @@
                     {
                         <li>
                             <div class="valign-wrapper collapsible-header collapsible-compact-header">
-                                <div class="col s10">
-                                    <p class="mb-0">Id: @evento.Id</p>
-                                    <p class="mt-0">Id do Objeto Raiz: @evento.AggregateId</p>
-                                    <p class="font-bold black-text">Tipo: @evento.Type</p>
-                                </div>
-                                <div class="col s2">
-                                    <p>Data da criação: @evento.DateCreated</p>
+                                <div class="row col s12 m12">
+                                    <div class="col s12 m10">
+                                        <p class="mb-0">Id: @evento.Id</p>
+                                        <p class="mt-0">Id do Objeto Raiz: @evento.AggregateId</p>
+                                        <p class="font-bold black-text">Tipo: @evento.Type</p>
+                                    </div>
+                                    <div class="col s12 m2">
+                                        <p>Data da criação: @evento.DateCreated</p>
+                                    </div>
                                 </div>
                             </div>
                             <div class="collapsible-body">

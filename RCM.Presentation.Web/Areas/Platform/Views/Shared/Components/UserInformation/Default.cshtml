@@ -26,28 +26,6 @@
     </li>
 </ul>
 
-@* MOBILE TOPBAR *@
-<ul class="side-nav" id="mobile-demo">
-    <li id="notificationsSymbol">
-        <a asp-action="Index" asp-controller="Settings" class="@(route == "notifications" ? "bg-purple white-text" : "")">
-            <i class="material-icons left">notifications</i> Notificações
-        </a>
-    </li>
-    <li>
-        <a asp-action="Index" asp-controller="Profile" class="@(route == "profile" ? "bg-purple white-text" : "")">
-            <i class="material-icons left">account_circle</i> Perfil
-        </a>
-    </li>
-    <li>
-        <a asp-action="Index" asp-controller="Settings" class="@(route == "settings" ? "bg-purple white-text" : "")">
-            <i class="material-icons left">settings</i> Ajustes
-        </a>
-    </li>
-    <li>
-        <a href="#logout-modal" class="modal-trigger">Logout</a>
-    </li>
-</ul>
-
 <div id="logout-modal" class="modal">
     <div class="modal-content">
         <h4>Confirmar logout</h4>

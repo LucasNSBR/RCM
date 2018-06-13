@@ -69,41 +69,41 @@
                             {
                                 <li>
                                     <div class="valign-wrapper collapsible-header collapsible-compact-header">
-                                        <div class="col s3">
-                                            <a asp-action="Details" asp-route-id="@produto.ProdutoId" asp-controller="Produtos">@produto.Produto.Nome</a>
+                                            <div class="col s12 m3">
+                                                <a asp-action="Details" asp-route-id="@produto.ProdutoId" asp-controller="Produtos">@produto.Produto.Nome</a>
+                                            </div>
+                                            <div class="col s12 m2">
+                                                <p>Preço de Venda: @produto.PrecoVenda.ToString("c")</p>
+                                            </div>
+                                            <div class="col s12 m1">
+                                                <p>Quantidade: @produto.Quantidade</p>
+                                            </div>
+                                            <div class="col s12 m1">
+                                                <p>Desconto: @produto.Desconto.ToString("c")</p>
+                                            </div>
+                                            <div class="col s12 m1">
+                                                <p>Acréscimo: @produto.Acrescimo.ToString("c")</p>
+                                            </div>
+                                            <div class="col s12 m2">
+                                                <p>Preço Final: @produto.PrecoFinal.ToString("c")</p>
+                                            </div>
+                                            <div class="col s12 m1">
+                                                @if (Model.Status == VendaStatusEnum.Aberta)
+                                                {
+                                                    <a asp-action="RemoveProduto" asp-controller="Vendas" asp-route-produtoId="@produto.ProdutoId" asp-route-vendaId="@Model.Id">
+                                                        Remover
+                                                    </a>
+                                                }
+                                            </div>
                                         </div>
-                                        <div class="col s2">
-                                            <p>Preço de Venda: @produto.PrecoVenda.ToString("c")</p>
+                                        <div class="collapsible-body">
+                                            <strong>Id: </strong><span>@produto.ProdutoId</span><br />
+                                            <strong>Estoque atual: </strong><span>@produto.Produto.Estoque</span><br />
+                                            <strong>Referência do Fabricante: </strong><span>@(produto.Produto.ReferenciaFabricante ?? "Referência Auxiliar não encontrada.")</span><br />
+                                            <strong>Referência Original: </strong><span>@(produto.Produto.ReferenciaOriginal ?? "Referência original não encontrada.")</span><br />
+                                            <strong>Referência Auxiliar: </strong><span>@produto.Produto.ReferenciaAuxiliar</span><br />
+                                            <strong>Marca: </strong><span>@produto.Produto.Marca.Nome</span>
                                         </div>
-                                        <div class="col s1">
-                                            <p>Quantidade: @produto.Quantidade</p>
-                                        </div>
-                                        <div class="col s1">
-                                            <p>Desconto: @produto.Desconto.ToString("c")</p>
-                                        </div>
-                                        <div class="col s1">
-                                            <p>Acréscimo: @produto.Acrescimo.ToString("c")</p>
-                                        </div>
-                                        <div class="col s2">
-                                            <p>Preço Final: @produto.PrecoFinal.ToString("c")</p>
-                                        </div>
-                                        <div class="col s1">
-                                            @if (Model.Status == VendaStatusEnum.Aberta)
-                                            {
-                                                <a asp-action="RemoveProduto" asp-controller="Vendas" asp-route-produtoId="@produto.ProdutoId" asp-route-vendaId="@Model.Id">
-                                                    Remover
-                                                </a>
-                                            }
-                                        </div>
-                                    </div>
-                                    <div class="collapsible-body">
-                                        <strong>Id: </strong><span>@produto.ProdutoId</span><br />
-                                        <strong>Estoque atual: </strong><span>@produto.Produto.Estoque</span><br />
-                                        <strong>Referência do Fabricante: </strong><span>@(produto.Produto.ReferenciaFabricante ?? "Referência Auxiliar não encontrada.")</span><br />
-                                        <strong>Referência Original: </strong><span>@(produto.Produto.ReferenciaOriginal ?? "Referência original não encontrada.")</span><br />
-                                        <strong>Referência Auxiliar: </strong><span>@produto.Produto.ReferenciaAuxiliar</span><br />
-                                        <strong>Marca: </strong><span>@produto.Produto.Marca.Nome</span>
-                                    </div>
                                 </li>
                             }
                         </ul>
@@ -128,15 +128,15 @@
                         <ul class="collection z-depth-0">
                             @foreach (var servico in Model.Servicos)
                             {
-                                <li class="collection-item">
+                                <li class="collection-item collapsible-compact-header">
                                     <div class="valign-wrapper">
-                                        <div class="col s3">
-                                            <p>@servico.Detalhes</p>
+                                        <div class="col s12 m3 mx-2">
+                                            <span>@servico.Detalhes</span>
                                         </div>
-                                        <div class="col s8">
-                                            <p>Valor do Serviço: @servico.PrecoServico.ToString("c")</p>
+                                        <div class="col s12 m8">
+                                            <span>Valor do Serviço: @servico.PrecoServico.ToString("c")</span>
                                         </div>
-                                        <div class="col s1">
+                                        <div class="col s12 m1">
                                             @if (Model.Status == VendaStatusEnum.Aberta)
                                             {
                                                 <a asp-action="RemoveServico" asp-controller="Vendas" asp-route-servicoId="@servico.Id" asp-route-vendaId="@Model.Id">

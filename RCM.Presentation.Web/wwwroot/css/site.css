@@ -38,36 +38,232 @@ tbody tr {
 
 /*#region Generic*/
 
+/*media queries*/
+@media screen and (max-width: 480px) {
+
+    /*Generic*/
+    .login-container {
+        background-color: white;
+        padding: 15px 10px 15px 10px;
+    }
+
+    .platform-content {
+        width: 100%;
+        min-height: 91vh;
+        color: #3b3b3b;
+        margin-bottom: 25px;
+    }
+
+        .platform-content h5, div a {
+            padding-left: 7.5px;
+        }
+
+    .form-container {
+        padding-top: 5px;
+        padding-bottom: 25px;
+        margin-bottom: 15px;
+        background-color: white;
+        height: 100%;
+    }
+
+    .pagination {
+        margin-bottom: 50px;
+    }
+
+    .back-button {
+        margin: 10px 0 25px 15px;
+    }
+
+    .nav-wrapper {
+        text-align: center;
+    }
+
+    /*Structure*/
+    #sidebar {
+        position: unset;
+    }
+
+        #sidebar .material-icons {
+            display: none;
+        }
+
+    #menu-top-bar {
+        margin: auto;
+    }
+
+    #menu-collapse {
+        margin-left: 0;
+    }
+
+    #external-login {
+        margin-top: 20px;
+    }
+
+    #advancedSearch {
+        margin-top: 15px;
+    }
+
+    /*index items sum bar*/
+    #items-info-panel {
+        position: fixed;
+        bottom: 0;
+        color: whitesmoke;
+        background-color: #1a2228;
+        display: none;
+        z-index: 3;
+        width: 100%;
+    }
+
+        #items-info-panel .row {
+            margin-bottom: 0;
+        }
+    
+    #marca-nome {
+        width: auto;
+    }
+
+    #reload-fornecedores-button, #reload-bancos-button, #reload-clientes-button, #reload-cidades-button, #reload-produtos-button, #reload-marcas-button, #reload-aplicacoes-button {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 481px) {
+
+    .login-container {
+        background-color: white;
+        padding: 15px 25px 25px 25px;
+        margin: 25px 20px 0 20px;
+    }
+
+    .platform-content {
+        padding: 10px 10px 15px 10px;
+        width: 100%;
+        min-height: 91vh;
+        color: #3b3b3b;
+    }
+
+    .form-container {
+        padding-top: 5px;
+        padding-bottom: 25px;
+        margin-bottom: 15px;
+        background-color: white;
+        height: 100%;
+    }
+
+    .back-button {
+        margin-left: 20px;
+        margin-top: 15px;
+        margin-bottom: 25px;
+    }
+
+    .table-container {
+        margin-top: 0;
+    }
+
+    #external-login {
+        margin-top: 10px;
+    }
+
+    #sidebar {
+        position: unset;
+    }
+
+    #sidebar .material-icons {
+        display: none;
+    }
+
+    #advancedSearch {
+        margin-top: 10px;
+    }
+
+    /*index items sum bar*/
+    #items-info-panel {
+        position: fixed;
+        bottom: 0;
+        color: whitesmoke;
+        background-color: #1a2228;
+        display: none;
+        z-index: 3;
+        left: 12.5%;
+        width: 75%;
+    }
+
+        #items-info-panel .row {
+            margin-bottom: 0;
+        }
+
+    #marca-nome {
+        width: auto;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    
+    #sidebar {
+        position: fixed;
+    }
+
+}
+
+@media screen and (min-width: 768px) {
+
+    .login-container {
+        background-color: white;
+        padding: 15px 25px 25px 25px;
+        margin: 25px 50px 0 50px;
+    }
+
+    .back-button {
+        margin-left: 50px;
+        margin-bottom: 25px;
+    }
+
+    .nav-wrapper {
+        text-align: unset;
+    }
+    
+    #sidebar .material-icons {
+        display: none;
+    }
+
+    #items-info-panel .row {
+        margin: 10px 5px 15px 5px;
+    }
+}
+
+@media screen and (min-width: 992px) {
+
+    .back-button {
+        margin-left: 50px;
+        margin-bottom: 40px;
+    }
+
+    #sidebar .material-icons {
+        display: inline;
+    }
+
+    /*index items sum bar*/
+    #items-info-panel {
+        position: fixed;
+        bottom: 0;
+        color: whitesmoke;
+        background-color: #1a2228;
+        left: 65%;
+        width: 50%;
+        padding: 20px 15px 0 15px;
+        transform: translate(-65%, 0);
+        display: none;
+        z-index: 3;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+}
+
+
+
 .body-content {
-    min-height: 91vh;
     color: #3b3b3b;
-}
-
-.login-container {
-    background-color: white;
-    padding: 15px 25px 25px 25px;
-    margin: 25px 50px 25px 50px;
-}
-
-.platform-content {
-    padding: 10px 10px 15px 10px;
-    width: 100%;
-    min-height: 91vh;
-    color: #3b3b3b;
-}
-
-.form-container {
-    padding-top: 5px;
-    padding-bottom: 25px;
-    margin-bottom: 15px;
-    background-color: white;
-    height: 100%;
-}
-
-.back-button {
-    padding-left: 50px;
-    padding-right: 50px;
-    padding-bottom: 40px;
 }
 
 /*Collections*/
@@ -190,6 +386,7 @@ tbody tr {
 }
 
 #google-plus-button {
+    margin-top: 5px;
     background-color: #D34836;
 }
 
@@ -283,20 +480,6 @@ tbody tr {
     right: 5%;
     font-size: 20px;
     cursor: pointer;
-}
-
-/*index items sum bar*/
-#items-info-panel {
-    position: fixed;
-    bottom: 0;
-    color: whitesmoke;
-    background-color: #1a2228;
-    left: 65%;
-    width: 50%;
-    padding: 20px 15px 0 15px;
-    transform: translate(-65%, 0);
-    display: none;
-    z-index: 3;
 }
 
 #unselect-button, #select-button {
@@ -859,7 +1042,7 @@ input::-webkit-inner-spin-button {
 
 /*#region Display*/
 .d-hidden {
-    display: none;
+    display: none !important;
 }
 
 .d-block {
@@ -935,7 +1118,7 @@ input::-webkit-inner-spin-button {
 
 /*Materialize override trick*/
 .btn.purple:hover, .btn-large.purple:hover {
-    background-color: #c63bdd!important;
+    background-color: #c63bdd !important;
 }
 
 .separator {

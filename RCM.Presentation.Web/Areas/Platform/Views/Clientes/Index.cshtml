@@ -8,23 +8,23 @@
 
 <float-action-button controller="Clientes"></float-action-button>
 
-<div class="form-container col s12 m12">
-    <form>
+<div class="form-container col s12 m12 pb-2">
+    <form class="row">
         <div class="col s12 m12">
             <div class="row my-0 py-0">
-                <div class="input-field col s5 m5">
+                <div class="input-field col s12 m5">
                     <label for="nome">Nome do Cliente</label>
                     <input asp-for="Nome" />
                 </div>
-                <div class="input-field col s4 m3">
+                <div class="input-field col s12 m3">
                     <select>
                         <option value="nome">Nome do Cliente</option>
                     </select>
                 </div>
-                <div class="col s4 m4 pt-2 px-0 mx-0 w-100">
-                    <a class="btn waves-effect purple left no-border col s1 m2" id="advancedSearchToggler">
+                <div class="col s12 m4 pt-2 px-0 mx-0 w-100">
+                    <a class="btn waves-effect purple left no-border col s2 m2" id="advancedSearchToggler">
                         <i class="material-icons center">keyboard_arrow_down</i>
-                    </a><button type="submit" class="btn waves-effect purple no-border col s11 m10">
+                    </a><button type="submit" class="btn waves-effect purple no-border col s10 m10">
                         <i class="material-icons right">search</i>
                         Pesquisar
                     </button>
@@ -35,7 +35,7 @@
         <div id="advancedSearch" class="col s12 m12">
             <div class="row">
                 <div class="input-field col s12 m3">
-                    <input asp-for="CadastroNacional" class="input-field"  />
+                    <input asp-for="CadastroNacional" class="input-field" />
                     <label for="minValor">CNPJ/CPF</label>
                 </div>
                 <div class="input-field col s12 m3">
@@ -58,10 +58,10 @@
         </div>
     </form>
 
-    @if (Model.Clientes.List.Any())
-    {
-        <div class="mx-2">
-            <table class="highlight">
+    <div class="mx-2">
+        @if (Model.Clientes.List.Any())
+        {
+            <table class="responsive-table highlight">
                 <thead>
                     <tr>
                         <th>
@@ -148,35 +148,35 @@
                     }
                 </tbody>
             </table>
-        </div>
 
-        <div class="col s12 m12">
-            @{
-                var queryStringHelper = new Dictionary<string, string>
+            <div class="col s12 m12">
+                @{
+                    var queryStringHelper = new Dictionary<string, string>
+                    {
+                        { "nome", Model.Nome },
+                        { "tipo", Model.Tipo?.ToString() },
+                        { "pontuacao", Model.Pontuacao?.ToString() },
+                        { "cadastroNacional", Model.CadastroNacional },
+                        { "cadastroEstadual", Model.CadastroEstadual },
+                        { "pageSize", Model.Clientes.PageSize.ToString() },
+                    };
+
+                    var listHelper = new Dictionary<string, string>().LoadPagination(Model.Clientes);
+                }
+
+                @Html.Partial("_Pagination", new ViewDataDictionary(this.ViewData)
                 {
-                    { "nome", Model.Nome },
-                    { "tipo", Model.Tipo?.ToString() },
-                    { "pontuacao", Model.Pontuacao?.ToString() },
-                    { "cadastroNacional", Model.CadastroNacional },
-                    { "cadastroEstadual", Model.CadastroEstadual },
-                    { "pageSize", Model.Clientes.PageSize.ToString() },
-                };
-
-                var listHelper = new Dictionary<string, string>().LoadPagination(Model.Clientes);
-            }
-
-            @Html.Partial("_Pagination", new ViewDataDictionary(this.ViewData)
-            {
-                { "listHelper", listHelper },
-                { "queryStringHelper", queryStringHelper }
-            })
-        </div>
-    }
-    else
-    {
-        <p class="px-1 col s12 m12">
-            <i class="material-icons left">warning</i>
-            Nenhum cliente encontrado.
-        </p>
-    }
+                    { "listHelper", listHelper },
+                    { "queryStringHelper", queryStringHelper }
+                })
+            </div>
+        }
+        else
+        {
+            <p class="px-1 col s12 m12">
+                <i class="material-icons left">warning</i>
+                Nenhum cliente encontrado.
+            </p>
+        }
+    </div>
 </div>

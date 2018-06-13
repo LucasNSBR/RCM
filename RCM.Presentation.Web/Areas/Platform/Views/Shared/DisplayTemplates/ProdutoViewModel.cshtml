@@ -218,10 +218,10 @@
                             {
                                 <li>
                                     <div class="collapsible-header">
-                                        <div class="col s11">
+                                        <div class="col s9 m10">
                                             <a asp-action="Details" asp-controller="Fornecedores" asp-route-id="@fornecedor.FornecedorId">@fornecedor.Fornecedor.Nome</a>
                                         </div>
-                                        <div class="col s1">
+                                        <div class="col s3 m2 right-align">
                                             <a asp-action="UnattachSupplier" asp-controller="Produtos" asp-route-fornecedorId="@fornecedor.FornecedorId" asp-route-id="@Model.Id">
                                                 Remover
                                             </a>
