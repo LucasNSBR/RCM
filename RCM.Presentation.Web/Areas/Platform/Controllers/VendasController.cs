@@ -130,7 +130,7 @@ namespace RCM.Presentation.Web.Areas.Platform.Controllers
             if (commandResult.Success)
             {
                 NotifyCommandResultSuccess();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details), new { id = venda.Id });
             }
             else
                 NotifyCommandResultErrors(commandResult.Errors);

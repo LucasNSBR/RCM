@@ -44,7 +44,6 @@ namespace RCM.Application.ViewModels
         public string ContatoCelular { get; set; }
 
         [Display(Name = "Email")]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "O {0} é requerido.")]
         [StringLength(100, MinimumLength = 0, ErrorMessage = "O {0} deve ter até {1} caracteres.")]
         public string ContatoEmail { get; set; }
 

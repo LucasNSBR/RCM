@@ -29,6 +29,16 @@ namespace RCM.Domain.Validators.ProdutoCommandValidators
                 .NotEmpty();
         }
 
+        protected void ValidateEstoqueIdeal()
+        {
+            RuleFor(p => p.EstoqueIdeal)
+                .Must((command, property) =>
+                {
+                    return command.EstoqueIdeal > command.EstoqueMinimo;
+                })
+                .WithMessage("O estoque ideal deve ser maior que o estoque mínimo.");
+        }
+
         protected void ValidatePrecoVenda()
         {
             RuleFor(p => p.PrecoVenda)

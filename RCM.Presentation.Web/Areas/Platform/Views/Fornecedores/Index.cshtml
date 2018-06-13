@@ -99,7 +99,14 @@
                                 @Html.DisplayFor(modelItem => item.DocumentoCadastroNacional)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.DocumentoCadastroEstadual)
+                                @if (item.DocumentoCadastroEstadual != null)
+                                {
+                                    @Html.DisplayFor(modelItem => item.DocumentoCadastroEstadual)
+                                }
+                                else
+                                {
+                                    <span class="font-italic">Não cadastrado</span>
+                                }
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.ContatoTelefoneComercial)
@@ -125,10 +132,10 @@
             }
 
             @Html.Partial("_Pagination", new ViewDataDictionary(this.ViewData)
-            {
-                { "listHelper", listHelper },
-                { "queryStringHelper", queryStringHelper }
-            })
+        {
+            { "listHelper", listHelper },
+            { "queryStringHelper", queryStringHelper }
+        })
         </div>
 
     }

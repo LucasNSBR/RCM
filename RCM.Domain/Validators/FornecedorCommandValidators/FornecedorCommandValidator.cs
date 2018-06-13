@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
 using RCM.Domain.Commands.FornecedorCommands;
 using RCM.Domain.Models.FornecedorModels;
-using System.Text.RegularExpressions;
 
 namespace RCM.Domain.Validators.FornecedorCommandValidators
 {
@@ -30,7 +29,6 @@ namespace RCM.Domain.Validators.FornecedorCommandValidators
         protected void ValidateContato()
         {
             RuleFor(c => c.ContatoEmail)
-                .NotEmpty()
                 .EmailAddress()
                 .Length(15, 100);
 
@@ -57,7 +55,7 @@ namespace RCM.Domain.Validators.FornecedorCommandValidators
 
             RuleFor(c => c.EnderecoRua)
                 .NotEmpty()
-                .Length(3, 25);
+                .Length(3, 100);
 
             RuleFor(c => c.EnderecoBairro)
                 .NotEmpty()
