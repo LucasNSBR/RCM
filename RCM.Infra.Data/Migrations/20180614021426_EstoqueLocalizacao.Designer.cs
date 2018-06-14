@@ -16,9 +16,10 @@ using System;
 namespace RCM.Infra.Data.Migrations
 {
     [DbContext(typeof(RCMDbContext))]
-    partial class RCMDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180614021426_EstoqueLocalizacao")]
+    partial class EstoqueLocalizacao
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -259,7 +260,7 @@ namespace RCM.Infra.Data.Migrations
                     b.Property<int>("EstoqueIdeal");
 
                     b.Property<string>("EstoqueLocalizacao")
-                        .HasMaxLength(4);
+                        .IsRequired();
 
                     b.Property<int>("EstoqueMinimo");
 

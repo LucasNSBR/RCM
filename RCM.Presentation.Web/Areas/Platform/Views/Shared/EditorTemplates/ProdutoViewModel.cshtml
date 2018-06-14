@@ -89,6 +89,13 @@
             </div>
             <div class="row">
                 <div class="input-field col s12 m6">
+                    <label asp-for="EstoqueLocalizacao"></label>
+                    <input asp-for="EstoqueLocalizacao" class="input-field" data-length="5" />
+                    <span asp-validation-for="EstoqueLocalizacao" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 m6">
                     <label asp-for="PrecoVenda"></label>
                     <input asp-for="PrecoVenda" class="input-field" id="precoVenda" />
                     <span asp-validation-for="PrecoVenda" class="text-danger"></span>

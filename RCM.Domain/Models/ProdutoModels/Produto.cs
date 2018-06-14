@@ -29,7 +29,7 @@ namespace RCM.Domain.Models.ProdutoModels
         public int Estoque { get; private set; }
         public int EstoqueMinimo { get; private set; }
         public int EstoqueIdeal { get; private set; }
-
+        public string EstoqueLocalizacao { get; private set; }
         public decimal PrecoVenda { get; private set; }
 
         private List<ProdutoFornecedor> _fornecedores;
@@ -47,13 +47,14 @@ namespace RCM.Domain.Models.ProdutoModels
 
         protected Produto() { }
 
-        public Produto(string nome, ProdutoUnidadeEnum unidade, int estoque, int estoqueMinimo, int estoqueIdeal, decimal precoVenda, Marca marca)
+        public Produto(string nome, ProdutoUnidadeEnum unidade, int estoque, int estoqueMinimo, int estoqueIdeal, string estoqueLocalizacao, decimal precoVenda, Marca marca)
         {
             Nome = nome;
             Unidade = unidade;
             Estoque = estoque;
             EstoqueMinimo = estoqueMinimo;
             EstoqueIdeal = estoqueIdeal;
+            EstoqueLocalizacao = estoqueLocalizacao;
             PrecoVenda = precoVenda;
             Marca = marca;
 
@@ -61,7 +62,7 @@ namespace RCM.Domain.Models.ProdutoModels
             _aplicacoes = new List<ProdutoAplicacao>();
         }
 
-        public Produto(Guid id, string nome, ProdutoUnidadeEnum unidade, int estoque, int estoqueMinimo, int estoqueIdeal, decimal precoVenda, Marca marca)
+        public Produto(Guid id, string nome, ProdutoUnidadeEnum unidade, int estoque, int estoqueMinimo, int estoqueIdeal, string estoqueLocalizacao, decimal precoVenda, Marca marca)
         {
             Id = id;
             Nome = nome;
@@ -69,6 +70,7 @@ namespace RCM.Domain.Models.ProdutoModels
             Estoque = estoque;
             EstoqueMinimo = estoqueMinimo;
             EstoqueIdeal = estoqueIdeal;
+            EstoqueLocalizacao = estoqueLocalizacao;
             PrecoVenda = precoVenda;
             Marca = marca;
 

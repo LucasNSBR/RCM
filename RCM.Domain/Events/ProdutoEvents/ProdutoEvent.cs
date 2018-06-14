@@ -23,6 +23,7 @@ namespace RCM.Domain.Events.ProdutoEvents
             Args.Add(nameof(Produto.Estoque), Produto.Estoque);
             Args.Add(nameof(Produto.EstoqueIdeal), Produto.Estoque);
             Args.Add(nameof(Produto.EstoqueMinimo), Produto.EstoqueMinimo);
+            Args.Add(nameof(Produto.EstoqueLocalizacao), Produto.EstoqueLocalizacao);
             Args.Add(nameof(Produto.MarcaId), Produto.MarcaId);
             Args.Add(nameof(Produto.PrecoVenda), Produto.PrecoVenda);
         }

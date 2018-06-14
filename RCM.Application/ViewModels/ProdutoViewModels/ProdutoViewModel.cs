@@ -55,6 +55,10 @@ namespace RCM.Application.ViewModels.ProdutoViewModels
         [Range(0, 9999, ErrorMessage = "O {0} deve estar em um formato válido.")]
         public int EstoqueIdeal { get; set; }
 
+        [Display(Name = "Localização no Estoque")]
+        [StringLength(5, MinimumLength = 0, ErrorMessage = "A {0} deve ter até {1} caracteres.")]
+        public string EstoqueLocalizacao { get; set; }
+
         [Display(Name = "Preço de Venda")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O {0} é requerido.")]
         public decimal PrecoVenda { get; set; }

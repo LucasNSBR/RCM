@@ -19,12 +19,12 @@ namespace RCM.Application.ApplicationServices
 
         public override Task<CommandResult> Add(ProdutoViewModel viewModel)
         {
-            return _mediator.SendCommand(new AddProdutoCommand(viewModel.Nome, viewModel.Unidade, viewModel.Estoque, viewModel.EstoqueMinimo, viewModel.EstoqueIdeal, viewModel.PrecoVenda, viewModel.MarcaId, viewModel.ReferenciaFabricante, viewModel.ReferenciaOriginal, viewModel.ReferenciaAuxiliar, viewModel.ReferenciaUrl));
+            return _mediator.SendCommand(new AddProdutoCommand(viewModel.Nome, viewModel.Unidade, viewModel.Estoque, viewModel.EstoqueMinimo, viewModel.EstoqueIdeal, viewModel.EstoqueLocalizacao, viewModel.PrecoVenda, viewModel.MarcaId, viewModel.ReferenciaFabricante, viewModel.ReferenciaOriginal, viewModel.ReferenciaAuxiliar, viewModel.ReferenciaUrl));
         }
 
         public override Task<CommandResult> Update(ProdutoViewModel viewModel)
         {
-            return _mediator.SendCommand(new UpdateProdutoCommand(viewModel.Id, viewModel.Nome, viewModel.Unidade, viewModel.Estoque, viewModel.EstoqueMinimo, viewModel.EstoqueIdeal, viewModel.PrecoVenda, viewModel.MarcaId, viewModel.ReferenciaFabricante, viewModel.ReferenciaOriginal, viewModel.ReferenciaAuxiliar, viewModel.ReferenciaUrl));
+            return _mediator.SendCommand(new UpdateProdutoCommand(viewModel.Id, viewModel.Nome, viewModel.Unidade, viewModel.Estoque, viewModel.EstoqueMinimo, viewModel.EstoqueIdeal, viewModel.EstoqueLocalizacao, viewModel.PrecoVenda, viewModel.MarcaId, viewModel.ReferenciaFabricante, viewModel.ReferenciaOriginal, viewModel.ReferenciaAuxiliar, viewModel.ReferenciaUrl));
         }
 
         public override Task<CommandResult> Remove(ProdutoViewModel viewModel)

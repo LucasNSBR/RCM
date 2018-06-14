@@ -31,15 +31,18 @@ namespace RCM.Infra.Data.EntityTypeConfig
                 .HasMaxLength(150);
 
             builder.Property(p => p.Estoque)
-                .IsRequired()
-                .HasMaxLength(4);
+                .IsRequired();
 
             builder.Property(p => p.EstoqueMinimo)
-                .IsRequired()
-                .HasMaxLength(4);
+                .IsRequired();
 
             builder.Property(p => p.EstoqueIdeal)
-                .IsRequired()
+                .IsRequired();
+
+            builder.Property(p => p.EstoqueIdeal)
+                .IsRequired();
+
+            builder.Property(p => p.EstoqueLocalizacao)
                 .HasMaxLength(4);
 
             builder.Property(p => p.PrecoVenda)

@@ -39,6 +39,12 @@ namespace RCM.Domain.Validators.ProdutoCommandValidators
                 .WithMessage("O estoque ideal deve ser maior que o estoque mínimo.");
         }
 
+        protected void ValidateEstoqueLocalizacao()
+        {
+            RuleFor(p => p.EstoqueLocalizacao)
+                .Length(0, 5);
+        }
+
         protected void ValidatePrecoVenda()
         {
             RuleFor(p => p.PrecoVenda)

@@ -16,6 +16,7 @@ namespace RCM.Domain.Commands.ProdutoCommands
         public int Estoque { get; set; }
         public int EstoqueMinimo { get; set; }
         public int EstoqueIdeal { get; set; }
+        public string EstoqueLocalizacao { get; set; }
         public decimal PrecoVenda { get; set; }
         public Guid MarcaId { get; set; }
     }

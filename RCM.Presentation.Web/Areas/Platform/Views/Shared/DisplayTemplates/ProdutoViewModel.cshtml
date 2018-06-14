@@ -136,6 +136,22 @@
                 <dd>
                     @Model.EstoqueMinimo
                 </dd>
+                <dt>
+                    <label asp-for="@Model.EstoqueLocalizacao"></label>
+                </dt>
+                <dd>
+                    @if (Model.EstoqueLocalizacao != null)
+                    {
+                        @Model.EstoqueLocalizacao
+                    }
+                    else
+                    {
+                        <span class="font-italic text-warning">
+                            <i class="material-icons left">warning</i>
+                            Localização não especificada.
+                        </span>
+                    }
+                </dd>
             </dl>
         </div>
     </div>
@@ -158,15 +174,17 @@
                                 <li class="collection-item my-0">
                                     @{ var title = $"{aplicacao.CarroMarca} - {aplicacao.CarroModelo} - {aplicacao.CarroMotor ?? "Sem especificação de motor"}"; }
 
-                                    <p class="black-text my-0">
+                                    <span class="black-text my-0">
                                         @title
-                                    </p>
-                                    <p class="my-0">
+                                    </span>
+                                    <br/>
+                                    <span class="my-0">
                                         @(aplicacao.CarroAno?.ToString() ?? "Não se aplica a um ano específico")
-                                    </p>
-                                    <p class="my-0">
+                                    </span>
+                                    <br/>
+                                    <span class="my-0">
                                         @(aplicacao.Observacao ?? "Sem Observações")
-                                    </p>
+                                    </span>
                                     <div class="mt-1">
                                         <a asp-action="RemoveApplication" asp-controller="Produtos" asp-route-aplicacaoId="@aplicacao.Id" asp-route-id="@Model.Id">
                                             Remover
@@ -191,7 +209,7 @@
 
             @if (Model.ReferenciaUrl != null)
             {
-               <p class="px-1 pt-0">
+                <p class="px-1 pt-0">
                     <a href="@Model.ReferenciaUrl">
                         <i class="material-icons left">launch</i> Lista completa de aplicações
                     </a>
