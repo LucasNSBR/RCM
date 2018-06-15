@@ -69,7 +69,7 @@ namespace RCM.Application.ViewModels
 
         [Display(Name = "Número")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O {0} é requerido.")]
-        [Range(0, 9999, ErrorMessage = "O {0} deve estar em um formato válido.")]
+        [Range(0, 99999, ErrorMessage = "O {0} deve estar em um formato válido.")]
         public int EnderecoNumero { get; set; }
 
         [Display(Name = "Bairro")]

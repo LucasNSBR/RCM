@@ -264,6 +264,7 @@ tbody tr {
 
 .body-content {
     color: #3b3b3b;
+    min-height: 91vh;
 }
 
 /*Collections*/

@@ -51,7 +51,7 @@ namespace RCM.Domain.Validators.FornecedorCommandValidators
         protected void ValidateEndereco()
         {
             RuleFor(c => c.EnderecoNumero)
-                .ExclusiveBetween(0, 9999);
+                .ExclusiveBetween(0, 99999);
 
             RuleFor(c => c.EnderecoRua)
                 .NotEmpty()
