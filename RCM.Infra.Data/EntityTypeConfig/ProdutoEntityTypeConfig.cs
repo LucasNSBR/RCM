@@ -51,6 +51,10 @@ namespace RCM.Infra.Data.EntityTypeConfig
             builder.HasOne(p => p.Marca)
                 .WithMany(m => m.Produtos)
                 .HasForeignKey(p => p.MarcaId);
+
+            builder.HasIndex(p => p.ReferenciaFabricante);
+            builder.HasIndex(p => p.ReferenciaOriginal);
+            builder.HasIndex(p => p.ReferenciaAuxiliar);
         }
     }
 }

@@ -44,6 +44,8 @@ namespace RCM.Infra.Data.EntityTypeConfig
 
             builder.Property(c => c.Valor)
                 .IsRequired();
+
+            builder.HasIndex(c => c.NumeroCheque);
         }
     }
 }

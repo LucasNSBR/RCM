@@ -39,6 +39,8 @@ namespace RCM.Infra.Data.EntityTypeConfig
                 cfg.Property(d => d.DataPagamento).HasColumnName("DataPagamento");
                 cfg.Property(d => d.ValorPago).HasColumnName("ValorPago");
             });
+
+            builder.HasIndex(d => d.NumeroDocumento);
         }
     }
 }
