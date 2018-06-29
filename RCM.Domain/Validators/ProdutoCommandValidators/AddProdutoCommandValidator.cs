@@ -8,6 +8,7 @@ namespace RCM.Domain.Validators.ProdutoCommandValidators
         {
             ValidateNome();
             ValidateEstoque();
+            ValidateEstoqueMinimo();
             ValidateEstoqueIdeal();
             ValidateEstoqueLocalizacao();
             ValidatePrecoVenda();

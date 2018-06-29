@@ -26,7 +26,13 @@ namespace RCM.Domain.Validators.ProdutoCommandValidators
         protected void ValidateEstoque()
         {
             RuleFor(p => p.Estoque)
-                .NotEmpty();
+                .GreaterThanOrEqualTo(0);
+        }
+
+        protected void ValidateEstoqueMinimo()
+        {
+            RuleFor(p => p.Estoque)
+                .GreaterThanOrEqualTo(0);
         }
 
         protected void ValidateEstoqueIdeal()
